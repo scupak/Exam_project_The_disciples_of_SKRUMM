@@ -135,3 +135,12 @@ nbdist/
 .history
 
 # End of https://www.gitignore.io/api/java,netbeans,intellij+all,visualstudiocode
+ExamprojectThedisciplesofSKRUMM/build.xml
+ExamprojectThedisciplesofSKRUMM/manifest.mf
+ExamprojectThedisciplesofSKRUMM/nbproject/build-impl.xml
+ExamprojectThedisciplesofSKRUMM/nbproject/configs/Run_as_WebStart.properties
+ExamprojectThedisciplesofSKRUMM/nbproject/configs/Run_in_Browser.properties
+ExamprojectThedisciplesofSKRUMM/nbproject/genfiles.properties
+ExamprojectThedisciplesofSKRUMM/nbproject/jfx-impl.xml
+ExamprojectThedisciplesofSKRUMM/nbproject/project.properties
+ExamprojectThedisciplesofSKRUMM/nbproject/project.xml
