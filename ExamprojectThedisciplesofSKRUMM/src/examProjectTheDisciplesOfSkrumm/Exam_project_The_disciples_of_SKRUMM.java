@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package exam_project_the_disciples_of_skrumm;
+package examProjectTheDisciplesOfSkrumm;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -19,7 +19,7 @@ public class Exam_project_The_disciples_of_SKRUMM extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("GUI/view/FXMLDocument.fxml"));
         
         Scene scene = new Scene(root);
         
