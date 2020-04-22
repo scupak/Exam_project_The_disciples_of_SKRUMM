@@ -1,31 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TreeTableColumn?>
 <?import javafx.scene.control.TreeTableView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="523.0" prefWidth="721.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="examProjectTheDisciplesOfSkrumm.GUI.controller.TimeViewController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="523.0" prefWidth="721.0" styleClass="AnchorPane" stylesheets="@../css/Graphics.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="examProjectTheDisciplesOfSkrumm.GUI.controller.TimeViewController">
    <children>
-      <TreeTableView fx:id="TaskTable" layoutX="61.0" layoutY="129.0" prefHeight="350.0" prefWidth="600.0" AnchorPane.topAnchor="129.0">
+      <TreeTableView fx:id="TaskTable" layoutX="61.0" layoutY="223.0" prefHeight="264.0" prefWidth="600.0" AnchorPane.bottomAnchor="35.0" AnchorPane.leftAnchor="61.0" AnchorPane.rightAnchor="59.0" AnchorPane.topAnchor="223.0">
         <columns>
-          <TreeTableColumn fx:id="TaskColumn" prefWidth="112.0" text="Task" />
-          <TreeTableColumn fx:id="ProjectColumn" prefWidth="118.0" text="Project" />
-            <TreeTableColumn fx:id="TimeColumn" prefWidth="78.0" text="Time" />
-            <TreeTableColumn prefWidth="47.0" />
-            <TreeTableColumn prefWidth="59.0" />
+          <TreeTableColumn fx:id="TaskColumn" prefWidth="149.0" text="Task" />
+          <TreeTableColumn fx:id="ProjectColumn" prefWidth="147.0" text="Project" />
+            <TreeTableColumn fx:id="TimeColumn" prefWidth="153.0" text="Time" />
+            <TreeTableColumn minWidth="0.0" prefWidth="86.0" />
+            <TreeTableColumn minWidth="0.0" prefWidth="64.0" />
         </columns>
       </TreeTableView>
-      <HBox layoutX="88.0" layoutY="79.0" prefHeight="50.0" prefWidth="435.0" AnchorPane.topAnchor="79.0">
+      <HBox alignment="BOTTOM_LEFT" layoutX="125.0" layoutY="181.0" prefHeight="0.0" prefWidth="315.0" AnchorPane.topAnchor="181.0">
          <children>
             <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="45.0">
                <children>
@@ -33,60 +32,45 @@
                   <Label text="0:00" />
                </children>
             </VBox>
-            <VBox alignment="TOP_CENTER" prefHeight="45.0" prefWidth="45.0">
+            <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="45.0">
                <children>
                   <Button mnemonicParsing="false" text="Tu" />
                   <Label text="0:00" />
                </children>
             </VBox>
-            <VBox alignment="TOP_CENTER" prefHeight="45.0" prefWidth="45.0">
+            <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="45.0">
                <children>
                   <Button mnemonicParsing="false" text="W" />
                   <Label text="0:00" />
                </children>
             </VBox>
-            <VBox alignment="TOP_CENTER" prefHeight="45.0" prefWidth="45.0">
+            <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="45.0">
                <children>
                   <Button mnemonicParsing="false" text="Th" />
                   <Label text="0:00" />
                </children>
             </VBox>
-            <VBox alignment="TOP_CENTER" prefHeight="45.0" prefWidth="45.0">
+            <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="45.0">
                <children>
                   <Button mnemonicParsing="false" text="F" />
                   <Label text="0:00" />
                </children>
             </VBox>
-            <VBox alignment="TOP_CENTER" prefHeight="45.0" prefWidth="45.0">
+            <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="45.0">
                <children>
                   <Button mnemonicParsing="false" text="Sa" />
                   <Label text="0:00" />
                </children>
             </VBox>
-            <VBox alignment="TOP_CENTER" prefHeight="45.0" prefWidth="45.0">
+            <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="45.0">
                <children>
                   <Button mnemonicParsing="false" text="Su" />
                   <Label text="0:00" />
                </children>
             </VBox>
-            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0">
-               <graphic>
-                  <ImageView blendMode="SRC_ATOP" fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../Icons/calendarBlack.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-            <VBox alignment="TOP_CENTER" prefHeight="50.0" prefWidth="70.0">
-               <children>
-                  <Label text="Week total:" />
-                  <Label text="0:00" />
-               </children>
-            </VBox>
          </children>
       </HBox>
-      <HBox layoutX="96.0" layoutY="33.0" prefHeight="40.0" prefWidth="63.0" AnchorPane.leftAnchor="96.0" AnchorPane.topAnchor="33.0">
+      <HBox layoutX="61.0" layoutY="182.0" prefHeight="40.0" prefWidth="63.0" AnchorPane.leftAnchor="61.0" AnchorPane.topAnchor="182.0">
          <children>
             <Button mnemonicParsing="false" prefHeight="38.0" prefWidth="32.0">
                <graphic>
@@ -107,36 +91,19 @@
             </Button>
          </children>
       </HBox>
-      <MenuBar prefHeight="25.0" prefWidth="589.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <menus>
-          <Menu mnemonicParsing="false" text="Time" />
-            <Menu mnemonicParsing="false" text="Dashboard" />
-            <Menu mnemonicParsing="false" text="Projec/Client overview" />
-          <Menu mnemonicParsing="false" text="Help" />
-        </menus>
-      </MenuBar>
-      <MenuBar layoutX="584.0" prefHeight="25.0" prefWidth="137.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <menus>
-          <Menu mnemonicParsing="false" text="Logged in as: USER">
-               <items>
-                  <MenuItem mnemonicParsing="false" text="Log out" />
-               </items>
-          </Menu>
-        </menus>
-      </MenuBar>
-      <HBox layoutX="169.0" layoutY="40.0" prefHeight="27.0" prefWidth="524.0" spacing="25.0" AnchorPane.topAnchor="40.0">
+      <HBox layoutX="143.0" layoutY="147.0" prefHeight="27.0" prefWidth="280.0" spacing="25.0" AnchorPane.topAnchor="147.0">
          <children>
-            <Label text="Week number">
+            <Label prefHeight="25.0" prefWidth="114.0" styleClass="Label" text="Week number">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label text="Weekday">
+            <Label styleClass="Label" text="Weekday">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label text="Date">
+            <Label styleClass="Label" text="Date">
                <font>
                   <Font size="18.0" />
                </font>
@@ -149,6 +116,53 @@
             <Label text="0:00" />
          </children>
       </HBox>
-      <Button layoutX="584.0" layoutY="104.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="75.0" text="New Task" />
+      <JFXButton layoutX="520.0" layoutY="192.0" prefHeight="25.0" prefWidth="102.0" text="Create new task" />
+      <VBox alignment="TOP_CENTER" layoutX="515.0" layoutY="149.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="70.0">
+         <children>
+            <Label text="Week total:" />
+            <Label text="0:00" />
+         </children>
+      </VBox>
+      <JFXButton contentDisplay="TOP" layoutX="440.0" layoutY="149.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="68.0" prefWidth="75.0" text="Calendar">
+         <graphic>
+            <ImageView fitHeight="40.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Icons/calendar-3-512.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+      <StackPane layoutX="1.0" prefHeight="82.0" prefWidth="720.0" styleClass="chart-bar" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <VBox alignment="CENTER" prefHeight="82.0" prefWidth="539.0">
+               <children>
+                  <Label contentDisplay="TOP" styleClass="Label" text="Tasks">
+                     <font>
+                        <Font size="36.0" />
+                     </font>
+                  </Label>
+                  <HBox alignment="BOTTOM_CENTER" prefHeight="30.0" prefWidth="518.0" spacing="5.0" styleClass="chart-bar">
+                     <children>
+                        <JFXButton text="Tasks" textFill="WHITE">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </JFXButton>
+                        <JFXButton text="Clients and projects" textFill="WHITE">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </JFXButton>
+                        <JFXButton onAction="#handlecChartView" text="Statistics" textFill="WHITE">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </JFXButton>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </StackPane>
    </children>
 </AnchorPane>
