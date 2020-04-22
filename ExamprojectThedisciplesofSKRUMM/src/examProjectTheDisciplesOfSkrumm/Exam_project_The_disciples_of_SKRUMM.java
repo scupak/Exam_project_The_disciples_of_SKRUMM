@@ -19,12 +19,13 @@ public class Exam_project_The_disciples_of_SKRUMM extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("GUI/view/FXMLDocument.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("GUI/view/MainView.fxml"));
         
         Scene scene = new Scene(root);
         
-        stage.setScene(scene);
+        stage.setScene(scene); 
         stage.show();
+       
     }
 
     /**
