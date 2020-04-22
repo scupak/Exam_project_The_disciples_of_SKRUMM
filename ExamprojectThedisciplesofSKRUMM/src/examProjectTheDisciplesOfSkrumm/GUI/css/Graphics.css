@@ -22,3 +22,9 @@ and open the template in the editor.
     
     
 }
+
+.chart-bar {
+    -fx-bar-fill: #435a9a;
+    
+    
+}

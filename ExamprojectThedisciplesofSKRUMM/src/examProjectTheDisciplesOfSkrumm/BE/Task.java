@@ -11,24 +11,16 @@ package examProjectTheDisciplesOfSkrumm.BE;
  */
 public class Task 
 {
-    private String project;
     private String title;
+    private String projectName;
     private String description;
     private int time;
 
-    public Task(String project, String title, String description, int time) {
-        this.project = project;
+    public Task(String title, String projectName, String description, int time) {
         this.title = title;
+        this.projectName = projectName;
         this.description = description;
         this.time = time;
-    }
-
-    public String getProject() {
-        return project;
-    }
-
-    public void setProject(String project) {
-        this.project = project;
     }
 
     public String getTitle() {
@@ -37,6 +29,14 @@ public class Task
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getProjectName() {
+        return projectName;
+    }
+
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
     }
 
     public String getDescription() {
@@ -54,6 +54,15 @@ public class Task
     public void setTime(int time) {
         this.time = time;
     }
+    
+    
+    
+
+   
+
+  
+
+   
     
     
     

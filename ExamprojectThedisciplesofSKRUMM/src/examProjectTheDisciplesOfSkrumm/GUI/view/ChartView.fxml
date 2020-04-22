@@ -18,7 +18,7 @@
             <Font size="36.0" />
          </font>
       </Label>
-      <BarChart fx:id="hoursChart" layoutX="14.0" layoutY="109.0">
+      <BarChart fx:id="hoursChart" layoutX="14.0" layoutY="109.0" stylesheets="@../css/Graphics.css">
         <xAxis>
           <CategoryAxis label="Day" side="BOTTOM" />
         </xAxis>
@@ -26,8 +26,8 @@
           <NumberAxis label="Hours" side="LEFT" />
         </yAxis>
       </BarChart>
-      <JFXButton fx:id="setBtn" buttonType="RAISED" layoutX="650.0" layoutY="274.0" prefHeight="26.0" prefWidth="50.0" text="Set" />
-      <JFXButton fx:id="backBtn" buttonType="RAISED" layoutX="650.0" layoutY="477.0" onAction="#handleBack" text="Back" />
+      <JFXButton fx:id="setBtn" buttonType="RAISED" layoutX="650.0" layoutY="274.0" prefHeight="26.0" prefWidth="50.0" stylesheets="@../css/Graphics.css" text="Set" />
+      <JFXButton fx:id="backBtn" buttonType="RAISED" layoutX="650.0" layoutY="477.0" onAction="#handleBack" stylesheets="@../css/Graphics.css" text="Back" />
       <JFXDatePicker fx:id="startDate" defaultColor="#435a9a" layoutX="538.0" layoutY="159.0" promptText="Start" />
       <JFXDatePicker fx:id="endDate" defaultColor="#435a9a" layoutX="538.0" layoutY="234.0" promptText="End" />
    </children>

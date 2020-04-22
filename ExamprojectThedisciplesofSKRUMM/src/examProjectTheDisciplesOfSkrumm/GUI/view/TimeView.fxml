@@ -20,7 +20,6 @@
         <columns>
           <TreeTableColumn fx:id="TaskColumn" prefWidth="112.0" text="Task" />
           <TreeTableColumn fx:id="ProjectColumn" prefWidth="118.0" text="Project" />
-            <TreeTableColumn fx:id="ClientColumn" prefWidth="99.0" text="Client" />
             <TreeTableColumn fx:id="TimeColumn" prefWidth="78.0" text="Time" />
             <TreeTableColumn prefWidth="47.0" />
             <TreeTableColumn prefWidth="59.0" />
