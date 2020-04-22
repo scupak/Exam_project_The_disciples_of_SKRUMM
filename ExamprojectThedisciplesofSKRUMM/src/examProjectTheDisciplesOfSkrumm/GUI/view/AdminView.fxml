@@ -2,18 +2,19 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="426.0" prefWidth="804.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="examProjectTheDisciplesOfSkrumm.GUI.controller.AdminViewController">
+<AnchorPane id="AnchorPane" prefHeight="428.0" prefWidth="804.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="examProjectTheDisciplesOfSkrumm.GUI.controller.AdminViewController">
    <children>
       <TableView fx:id="UserInfoAdminPane" layoutX="344.0" layoutY="58.0" prefHeight="310.0" prefWidth="449.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="C1" />
-          <TableColumn prefWidth="75.0" text="C2" />
+          <TableColumn prefWidth="122.39996337890625" text="First Name" />
+          <TableColumn prefWidth="120.80001831054688" text="Last Name" />
+            <TableColumn prefWidth="146.39996337890625" text="User Name" />
+            <TableColumn prefWidth="57.60009765625" text="Is admin" />
         </columns>
       </TableView>
       <JFXButton fx:id="AdminAddUsrBtn" layoutX="344.0" layoutY="368.0" text="Add User" />
@@ -21,7 +22,6 @@
       <JFXButton fx:id="AdminDeleteUsrBtn" layoutX="473.0" layoutY="368.0" text="Delete User" />
       <JFXButton fx:id="AdminMakeAdminBtn" layoutX="612.0" layoutY="368.0" text="Make Admin" />
       <JFXButton fx:id="AdminRemoveAdminBtn" layoutX="696.0" layoutY="368.0" text="Remove Admin" />
-      <JFXButton fx:id="RefreshAdminLogBtn" layoutX="14.0" layoutY="368.0" text="Refresh log" />
       <Label fx:id="AdminLabel" layoutX="315.0" layoutY="14.0" text="Hello, Admin_Name">
          <font>
             <Font size="14.0" />
@@ -32,8 +32,15 @@
             <Font size="11.0" />
          </font>
       </Label>
-      <JFXButton fx:id="ExportLogBtn" layoutX="14.0" layoutY="393.0" text="Export Log as .TXT" />
-      <JFXButton fx:id="ExportTaskTImeBtn" layoutX="128.0" layoutY="393.0" text="Export Task TIme as .CSV" />
-      <ListView fx:id="AdminLog" layoutX="14.0" layoutY="58.0" prefHeight="310.0" prefWidth="322.0" />
+      <JFXButton fx:id="ExportTaskTImeBtn" layoutX="14.0" layoutY="394.0" text="Export Task TIme as .CSV" />
+      <TableView fx:id="ClientList" layoutX="14.0" layoutY="58.0" prefHeight="310.0" prefWidth="321.0">
+        <columns>
+          <TableColumn prefWidth="156.8000431060791" text="Client Name" />
+          <TableColumn prefWidth="163.19998168945312" text="Client Rate" />
+        </columns>
+      </TableView>
+      <JFXButton fx:id="AdminAddClientBtn" layoutX="14.0" layoutY="368.0" text="Add User" />
+      <JFXButton fx:id="AdminEditClientBtn" layoutX="80.0" layoutY="368.0" text="Edit User" />
+      <JFXButton fx:id="AdminDeleteClientBtn" layoutX="143.0" layoutY="368.0" text="Delete User" />
    </children>
 </AnchorPane>

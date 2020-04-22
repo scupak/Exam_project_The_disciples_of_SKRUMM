@@ -11,7 +11,6 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TableView;
 
 /**
@@ -35,15 +34,17 @@ public class AdminViewController implements Initializable
     @FXML
     private JFXButton AdminRemoveAdminBtn;
     @FXML
-    private JFXButton RefreshAdminLogBtn;
-    @FXML
     private Label AdminLabel;
-    @FXML
-    private JFXButton ExportLogBtn;
     @FXML
     private JFXButton ExportTaskTImeBtn;
     @FXML
-    private ListView<?> AdminLog;
+    private TableView<?> ClientList;
+    @FXML
+    private JFXButton AdminAddClientBtn;
+    @FXML
+    private JFXButton AdminEditClientBtn;
+    @FXML
+    private JFXButton AdminDeleteClientBtn;
 
     /**
      * Initializes the controller class.
