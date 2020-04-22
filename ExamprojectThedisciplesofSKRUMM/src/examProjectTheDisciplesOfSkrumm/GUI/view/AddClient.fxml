@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="110.0" prefWidth="166.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="examProjectTheDisciplesOfSkrumm.GUI.controller.AddClientController">
+   <children>
+      <JFXButton fx:id="AddClientOkBtn" layoutX="45.0" layoutY="79.0" onAction="#HandleAddClientOkBtn" prefHeight="26.0" prefWidth="51.0" text="OK" />
+      <JFXButton fx:id="AddClientCancelBtn" layoutX="97.0" layoutY="79.0" onAction="#HandleAddClientCancelBtn" text="Cancel" />
+      <JFXTextField fx:id="ClientNameTextField" layoutX="14.0" layoutY="14.0" promptText="Client's Name Goes Here!" />
+      <JFXTextField fx:id="ClientRateTextField" layoutX="14.0" layoutY="47.0" promptText="Client's Rate Goes Here!" />
+   </children>
+</AnchorPane>
