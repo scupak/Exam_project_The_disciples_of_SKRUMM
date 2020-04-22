@@ -13,7 +13,7 @@
 <AnchorPane id="AnchorPane" fx:id="anchorPane" prefHeight="523.0" prefWidth="721.0" style="-fx-border-color: #435a9a;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="examProjectTheDisciplesOfSkrumm.GUI.controller.ChartViewController">
    <children>
       <StackPane layoutX="4.0" layoutY="5.0" prefHeight="108.0" prefWidth="727.0" style="-fx-background-color: #435a9a;" AnchorPane.bottomAnchor="414.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-      <Label fx:id="nameLabel" layoutX="216.0" layoutY="32.0" text="Username's Hours" textFill="WHITE">
+      <Label fx:id="nameLabel" layoutX="218.0" layoutY="34.0" prefHeight="55.0" prefWidth="327.0" text="Username's Hours" textFill="WHITE" AnchorPane.bottomAnchor="440.0" AnchorPane.leftAnchor="217.0" AnchorPane.rightAnchor="189.0" AnchorPane.topAnchor="33.0">
          <font>
             <Font size="36.0" />
          </font>
