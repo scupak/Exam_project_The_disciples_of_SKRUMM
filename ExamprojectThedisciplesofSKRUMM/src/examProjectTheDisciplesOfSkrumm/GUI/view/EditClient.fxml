@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="83.0" prefWidth="159.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="examProjectTheDisciplesOfSkrumm.GUI.controller.EditClientController">
+   <children>
+      <JFXTextField fx:id="EditClientTextField" layoutX="14.0" layoutY="14.0" promptText="Edit Client Name Here!" />
+      <JFXButton fx:id="EditOkButton" layoutX="45.0" layoutY="48.0" onAction="#HandleEditOkButton" prefHeight="26.0" prefWidth="51.0" text="OK" />
+      <JFXButton fx:id="EditCancelButton" layoutX="97.0" layoutY="49.0" onAction="#HandleEditCancelButton" prefHeight="26.0" prefWidth="51.0" text="Cancel" />
+   </children>
+</AnchorPane>
