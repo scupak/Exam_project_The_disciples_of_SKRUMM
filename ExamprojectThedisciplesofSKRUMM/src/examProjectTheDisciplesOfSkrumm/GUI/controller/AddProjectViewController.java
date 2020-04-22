@@ -14,7 +14,7 @@ import javafx.fxml.Initializable;
  *
  * @author Christina
  */
-public class CreateUserController implements Initializable
+public class AddProjectViewController implements Initializable
 {
 
     /**
