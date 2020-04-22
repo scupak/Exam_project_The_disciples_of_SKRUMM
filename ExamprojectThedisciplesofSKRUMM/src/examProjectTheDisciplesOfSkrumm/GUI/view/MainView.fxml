@@ -18,7 +18,7 @@
          <children>
             <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="82.0" text="Tasks" />
             <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="82.0" text="Dashboard" />
-            <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="82.0" text="Timesheet" />
+            <Button mnemonicParsing="false" onAction="#handlecChartView" prefHeight="26.0" prefWidth="82.0" text="Timesheet" />
             <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="135.0" text="Clients and projects" />
             <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="82.0" text="Charts" />
          </children>

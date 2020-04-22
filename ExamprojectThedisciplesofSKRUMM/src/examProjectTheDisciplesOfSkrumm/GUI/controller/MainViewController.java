@@ -26,8 +26,7 @@ import javafx.stage.Stage;
 public class MainViewController implements Initializable
 {
 
-    @FXML
-    private Button timesheetBtn;
+   
 
     /**
      * Initializes the controller class.
