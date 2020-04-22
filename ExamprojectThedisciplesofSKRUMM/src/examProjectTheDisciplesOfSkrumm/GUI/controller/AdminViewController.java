@@ -5,9 +5,14 @@
  */
 package examProjectTheDisciplesOfSkrumm.GUI.controller;
 
+import com.jfoenix.controls.JFXButton;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TableView;
 
 /**
  * FXML Controller class
@@ -16,6 +21,29 @@ import javafx.fxml.Initializable;
  */
 public class AdminViewController implements Initializable
 {
+
+    @FXML
+    private TableView<?> UserInfoAdminPane;
+    @FXML
+    private JFXButton AdminAddUsrBtn;
+    @FXML
+    private JFXButton AdminEditUsrBtn;
+    @FXML
+    private JFXButton AdminDeleteUsrBtn;
+    @FXML
+    private JFXButton AdminMakeAdminBtn;
+    @FXML
+    private JFXButton AdminRemoveAdminBtn;
+    @FXML
+    private JFXButton RefreshAdminLogBtn;
+    @FXML
+    private Label AdminLabel;
+    @FXML
+    private JFXButton ExportLogBtn;
+    @FXML
+    private JFXButton ExportTaskTImeBtn;
+    @FXML
+    private ListView<?> AdminLog;
 
     /**
      * Initializes the controller class.
