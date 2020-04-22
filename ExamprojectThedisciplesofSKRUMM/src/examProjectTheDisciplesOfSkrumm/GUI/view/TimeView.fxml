@@ -19,9 +19,9 @@
       <TreeTableView layoutX="61.0" layoutY="129.0" prefHeight="350.0" prefWidth="600.0" AnchorPane.topAnchor="129.0">
         <columns>
           <TreeTableColumn prefWidth="112.0" text="Task" />
-          <TreeTableColumn prefWidth="118.0" text="Projekt" />
+          <TreeTableColumn prefWidth="118.0" text="Project" />
             <TreeTableColumn prefWidth="99.0" text="Client" />
-            <TreeTableColumn prefWidth="78.0" text="Tid" />
+            <TreeTableColumn prefWidth="78.0" text="Time" />
             <TreeTableColumn prefWidth="47.0" />
             <TreeTableColumn prefWidth="59.0" />
         </columns>
