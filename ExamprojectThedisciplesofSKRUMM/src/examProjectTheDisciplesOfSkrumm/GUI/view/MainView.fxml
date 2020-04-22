@@ -23,7 +23,7 @@
             <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="82.0" text="Charts" />
          </children>
       </HBox>
-      <Label layoutX="277.0" layoutY="20.0" text="Welcome USERNAME" textFill="WHITE">
+      <Label layoutX="277.0" layoutY="20.0" text="Welcome USERNAME!" textFill="WHITE">
          <font>
             <Font size="18.0" />
          </font>
