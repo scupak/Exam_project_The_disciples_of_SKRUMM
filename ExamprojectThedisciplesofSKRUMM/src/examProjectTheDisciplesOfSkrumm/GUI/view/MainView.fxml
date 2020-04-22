@@ -27,7 +27,7 @@
                   <Font size="13.0" />
                </font>
             </JFXButton>
-            <JFXButton text="Statistics" textFill="WHITE">
+            <JFXButton onAction="#handlecChartView" text="Statistics" textFill="WHITE">
                <font>
                   <Font size="13.0" />
                </font>
