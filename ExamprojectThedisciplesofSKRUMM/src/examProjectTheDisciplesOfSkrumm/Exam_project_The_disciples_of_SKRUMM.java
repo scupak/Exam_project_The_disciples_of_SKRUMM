@@ -23,8 +23,9 @@ public class Exam_project_The_disciples_of_SKRUMM extends Application {
         
         Scene scene = new Scene(root);
         
-        stage.setScene(scene);
+        stage.setScene(scene); 
         stage.show();
+       
     }
 
     /**
