@@ -5,9 +5,18 @@
  */
 package examProjectTheDisciplesOfSkrumm.GUI.controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -17,6 +26,9 @@ import javafx.fxml.Initializable;
 public class MainViewController implements Initializable
 {
 
+    @FXML
+    private Button timesheetBtn;
+
     /**
      * Initializes the controller class.
      */
@@ -24,6 +36,23 @@ public class MainViewController implements Initializable
     public void initialize(URL url, ResourceBundle rb)
     {
         // TODO
-    }    
-    
+    }
+
+    @FXML
+    private void handlecChartView(ActionEvent event) throws IOException
+    {
+        Stage mainView = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/ChartView.fxml"));
+        Parent root = loader.load();
+        ChartViewController Controller = loader.getController();
+        
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.setTitle("TimeTracker");
+        stage.show();
+        mainView.close();
+        
+    }
+
 }
