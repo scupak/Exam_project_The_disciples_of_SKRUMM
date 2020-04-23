@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="525.0" prefWidth="726.0" styleClass="AnchorPane" stylesheets="@../css/Graphics.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="examProjectTheDisciplesOfSkrumm.GUI.controller.TimeViewController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="525.0" prefWidth="726.0" styleClass="AnchorPane" stylesheets="@../css/Graphics.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="examProjectTheDisciplesOfSkrumm.GUI.controller.TaskViewController">
    <children>
       <TreeTableView fx:id="TaskTable" layoutX="61.0" layoutY="223.0" prefHeight="264.0" prefWidth="600.0" AnchorPane.bottomAnchor="35.0" AnchorPane.leftAnchor="61.0" AnchorPane.rightAnchor="59.0" AnchorPane.topAnchor="223.0">
         <columns>
@@ -143,17 +143,17 @@
                   </Label>
                   <HBox alignment="BOTTOM_CENTER" prefHeight="30.0" prefWidth="518.0" spacing="5.0" styleClass="chart-bar">
                      <children>
-                        <JFXButton text="Tasks" textFill="WHITE">
+                        <JFXButton fx:id="homeBtn" onAction="#handleHome" text="Home" textFill="WHITE">
                            <font>
                               <Font size="13.0" />
                            </font>
                         </JFXButton>
-                        <JFXButton text="Clients and projects" textFill="WHITE">
+                        <JFXButton fx:id="clientProjectsBtn" onAction="#handleClientsProject" text="Clients and projects" textFill="WHITE">
                            <font>
                               <Font size="13.0" />
                            </font>
                         </JFXButton>
-                        <JFXButton onAction="#handlecChartView" text="Statistics" textFill="WHITE">
+                        <JFXButton fx:id="statisticsBtn" onAction="#handlecChartView" text="Statistics" textFill="WHITE">
                            <font>
                               <Font size="13.0" />
                            </font>

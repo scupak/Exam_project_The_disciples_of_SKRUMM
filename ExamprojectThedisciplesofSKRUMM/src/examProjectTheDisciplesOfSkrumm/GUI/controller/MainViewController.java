@@ -16,6 +16,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 /**
@@ -28,8 +31,11 @@ public class MainViewController implements Initializable
 
     @FXML
     private JFXButton AdminBtn;
+    private GridPane taskGrid;
+    @FXML
+    private JFXButton taskBtn;
 
-   
+    private boolean adminCheck;
 
     /**
      * Initializes the controller class.
@@ -37,28 +43,86 @@ public class MainViewController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        // TODO
+        /*
+        ColumnConstraints halfConstraint = new ColumnConstraints(50);
+        taskGrid.getColumnConstraints().addAll(halfConstraint,halfConstraint); 
+         */
+
+    }
+
+    public MainViewController()
+    {
+        adminCheck = false;
+    }
+
+    public void setAdminCheck(boolean adminCheck)
+    {
+        this.adminCheck = adminCheck;
     }
 
     @FXML
     private void handlecChartView(ActionEvent event) throws IOException
     {
         Stage mainView = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/ChartView.fxml"));
         Parent root = loader.load();
-        ChartViewController Controller = loader.getController();
-        
+        ChartViewController controller = loader.getController();
+
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
+        stage.setMinHeight(423);
+        stage.setMinWidth(721);
         stage.setTitle("TimeTracker");
         stage.show();
         mainView.close();
-        
+
     }
 
     @FXML
-    private void handlecAdminView(ActionEvent event) {
+    private void handlecAdminView(ActionEvent event) throws IOException
+    {
+        if (adminCheck == true)
+        {
+            Stage mainView = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/AdminView.fxml"));
+            Parent root = loader.load();
+            AdminViewController controller = loader.getController();
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setMinHeight(423);
+            stage.setMinWidth(721);
+            stage.setTitle("TimeTracker");
+            stage.show();
+            mainView.close();
+        } else
+        {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Oops");
+            alert.setHeaderText("You do not have permision");
+            alert.setContentText("It looks like you are not an admin user");
+            alert.showAndWait();
+        }
+    }
+
+    @FXML
+    private void handletaskView(ActionEvent event) throws IOException
+    {
+        Stage mainView = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/TaskView.fxml"));
+        Parent root = loader.load();
+        TaskViewController controller = loader.getController();
+
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.setMinHeight(423);
+        stage.setMinWidth(721);
+        stage.setTitle("TimeTracker");
+        stage.show();
+        mainView.close();
     }
 
 }
