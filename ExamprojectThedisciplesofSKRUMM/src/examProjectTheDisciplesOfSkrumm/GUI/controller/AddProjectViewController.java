@@ -5,8 +5,12 @@
  */
 package examProjectTheDisciplesOfSkrumm.GUI.controller;
 
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
 /**
@@ -17,6 +21,15 @@ import javafx.fxml.Initializable;
 public class AddProjectViewController implements Initializable
 {
 
+    @FXML
+    private JFXButton AddProjectOkBtn;
+    @FXML
+    private JFXButton AddProjectCancelBtn;
+    @FXML
+    private JFXTextField ProjectNameTextField;
+    @FXML
+    private JFXTextField ProjectRateTextField;
+
     /**
      * Initializes the controller class.
      */
@@ -25,5 +38,13 @@ public class AddProjectViewController implements Initializable
     {
         // TODO
     }    
+
+    @FXML
+    private void HandleAddProjectOkBtn(ActionEvent event) {
+    }
+
+    @FXML
+    private void HandleAddProjectCancelBtn(ActionEvent event) {
+    }
     
 }

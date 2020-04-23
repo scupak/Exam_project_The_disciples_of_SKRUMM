@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="243.0" prefWidth="300.0" styleClass="AnchorPane" stylesheets="@../css/Graphics.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="243.0" prefWidth="300.0" styleClass="AnchorPane" stylesheets="@../css/Graphics.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="examProjectTheDisciplesOfSkrumm.GUI.controller.AddProjectViewController">
    <children>
       <StackPane prefHeight="56.0" prefWidth="320.0" styleClass="chart-bar" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -23,12 +23,12 @@
       </StackPane>
       <HBox alignment="BOTTOM_CENTER" layoutX="31.0" layoutY="223.0" prefHeight="30.0" prefWidth="259.0" spacing="5.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="31.0" AnchorPane.rightAnchor="29.0">
          <children>
-            <JFXButton fx:id="AddClientOkBtn" onAction="#HandleAddClientOkBtn" text="Create" textFill="WHITE">
+            <JFXButton fx:id="AddProjectOkBtn" onAction="#HandleAddProjectOkBtn" text="Create" textFill="WHITE">
                <font>
                   <Font size="13.0" />
                </font>
             </JFXButton>
-            <JFXButton fx:id="AddClientCancelBtn" onAction="#HandleAddClientCancelBtn" text="Cancel" textFill="WHITE">
+            <JFXButton fx:id="AddProjectCancelBtn" onAction="#HandleAddProjectCancelBtn" text="Cancel" textFill="WHITE">
                <font>
                   <Font size="13.0" />
                </font>
@@ -57,8 +57,8 @@
       <VBox layoutX="131.0" layoutY="70.0" prefHeight="134.0" prefWidth="147.0" spacing="11.0" AnchorPane.bottomAnchor="83.0" AnchorPane.rightAnchor="22.0" AnchorPane.topAnchor="70.0">
          <children>
             <ComboBox prefWidth="150.0" styleClass="ComboBox" />
-            <JFXTextField fx:id="ClientNameTextField" promptText="Enter project name" />
-            <JFXTextField fx:id="ClientRateTextField" promptText="Enter project rate" />
+            <JFXTextField fx:id="ProjectNameTextField" promptText="Enter project name" />
+            <JFXTextField fx:id="ProjectRateTextField" promptText="Enter project rate" />
          </children>
       </VBox>
    </children>
