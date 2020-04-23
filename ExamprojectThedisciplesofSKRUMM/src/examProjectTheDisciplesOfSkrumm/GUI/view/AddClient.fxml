@@ -4,7 +4,7 @@
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="110.0" prefWidth="166.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="examProjectTheDisciplesOfSkrumm.GUI.controller.AddClientController">
+<AnchorPane id="AnchorPane" prefHeight="114.0" prefWidth="178.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="examProjectTheDisciplesOfSkrumm.GUI.controller.AddClientController">
    <children>
       <JFXButton fx:id="AddClientOkBtn" layoutX="45.0" layoutY="79.0" onAction="#HandleAddClientOkBtn" prefHeight="26.0" prefWidth="51.0" text="OK" AnchorPane.bottomAnchor="4.600000000000001" AnchorPane.leftAnchor="45.0" AnchorPane.rightAnchor="69.8" />
       <JFXButton fx:id="AddClientCancelBtn" layoutX="97.0" layoutY="79.0" onAction="#HandleAddClientCancelBtn" text="Cancel" AnchorPane.bottomAnchor="4.600000000000001" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="15.0" />
