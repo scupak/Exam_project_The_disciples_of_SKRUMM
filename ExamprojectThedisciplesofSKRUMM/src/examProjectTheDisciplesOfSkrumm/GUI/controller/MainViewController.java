@@ -16,6 +16,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 /**
@@ -28,6 +30,8 @@ public class MainViewController implements Initializable
 
     @FXML
     private JFXButton AdminBtn;
+    @FXML
+    private GridPane taskGrid;
 
    
 
@@ -37,7 +41,8 @@ public class MainViewController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        // TODO
+        ColumnConstraints halfConstraint = new ColumnConstraints(50);
+        taskGrid.getColumnConstraints().addAll(halfConstraint,halfConstraint);
     }
 
     @FXML
@@ -60,8 +65,7 @@ public class MainViewController implements Initializable
     }
 
     @FXML
-    private void handlecAdminView(ActionEvent event)
-    {
+    private void handlecAdminView(ActionEvent event) {
     }
 
 }

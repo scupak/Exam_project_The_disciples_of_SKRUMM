@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="261.0" prefWidth="288.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="examProjectTheDisciplesOfSkrumm.GUI.view.CreateUserViewController">
+<AnchorPane id="AnchorPane" prefHeight="261.0" prefWidth="288.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="examProjectTheDisciplesOfSkrumm.GUI.controller.CreateUserViewController">
    <children>
       <Button layoutX="86.0" layoutY="217.0" mnemonicParsing="false" text="Create" />
       <HBox layoutX="86.0" layoutY="66.0" prefHeight="19.0" prefWidth="119.0" spacing="15.0">

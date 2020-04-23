@@ -22,7 +22,8 @@ public class Exam_project_The_disciples_of_SKRUMM extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("GUI/view/MainView.fxml"));
         //Parent root = FXMLLoader.load(getClass().getResource("GUI/view/TimeView.fxml"));
         Scene scene = new Scene(root);
-        
+        stage.setMinHeight(525);
+        stage.setMinWidth(726);
         stage.setScene(scene); 
         stage.show();
        
