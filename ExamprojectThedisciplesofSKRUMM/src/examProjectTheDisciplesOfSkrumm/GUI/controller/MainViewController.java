@@ -5,6 +5,7 @@
  */
 package examProjectTheDisciplesOfSkrumm.GUI.controller;
 
+import com.jfoenix.controls.JFXButton;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -15,6 +16,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 /**
@@ -25,6 +28,11 @@ import javafx.stage.Stage;
 public class MainViewController implements Initializable
 {
 
+    @FXML
+    private JFXButton AdminBtn;
+    @FXML
+    private GridPane taskGrid;
+
    
 
     /**
@@ -33,7 +41,8 @@ public class MainViewController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        // TODO
+        ColumnConstraints halfConstraint = new ColumnConstraints(50);
+        taskGrid.getColumnConstraints().addAll(halfConstraint,halfConstraint);
     }
 
     @FXML
@@ -51,6 +60,10 @@ public class MainViewController implements Initializable
         stage.show();
         mainView.close();
         
+    }
+
+    @FXML
+    private void handlecAdminView(ActionEvent event) {
     }
 
 }
