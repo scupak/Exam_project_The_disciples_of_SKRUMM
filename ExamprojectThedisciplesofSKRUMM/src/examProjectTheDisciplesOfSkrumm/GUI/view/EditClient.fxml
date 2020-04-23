@@ -4,11 +4,11 @@
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="83.0" prefWidth="159.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="examProjectTheDisciplesOfSkrumm.GUI.controller.EditClientController">
+<AnchorPane id="AnchorPane" prefHeight="116.0" prefWidth="159.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="examProjectTheDisciplesOfSkrumm.GUI.controller.EditClientController">
    <children>
-      <JFXTextField fx:id="EditClientTextField" layoutX="14.0" layoutY="14.0" promptText="Edit Client Name Here!" />
-      <JFXButton fx:id="EditOkButton" layoutX="45.0" layoutY="48.0" onAction="#HandleEditOkButton" prefHeight="26.0" prefWidth="51.0" text="OK" />
-      <JFXButton fx:id="EditCancelButton" layoutX="97.0" layoutY="49.0" onAction="#HandleEditCancelButton" prefHeight="26.0" prefWidth="51.0" text="Cancel" />
+      <JFXTextField fx:id="EditClientNameTextField" layoutX="14.0" layoutY="14.0" promptText="Edit Client Name Here!" />
+      <JFXButton fx:id="EditOkButton" layoutX="45.0" layoutY="75.0" onAction="#HandleEditOkButton" prefHeight="26.0" prefWidth="51.0" text="OK" />
+      <JFXButton fx:id="EditCancelButton" layoutX="96.0" layoutY="75.0" onAction="#HandleEditCancelButton" prefHeight="26.0" prefWidth="51.0" text="Cancel" />
+      <JFXTextField fx:id="ClientEditRateTextField" layoutX="12.0" layoutY="45.0" promptText="Client's Rate Goes Here!" />
    </children>
 </AnchorPane>

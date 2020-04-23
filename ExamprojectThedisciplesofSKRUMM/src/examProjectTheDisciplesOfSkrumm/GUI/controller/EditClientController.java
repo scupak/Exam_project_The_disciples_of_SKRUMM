@@ -22,11 +22,13 @@ public class EditClientController implements Initializable
 {
 
     @FXML
-    private JFXTextField EditClientTextField;
-    @FXML
     private JFXButton EditOkButton;
     @FXML
     private JFXButton EditCancelButton;
+    @FXML
+    private JFXTextField EditClientNameTextField;
+    @FXML
+    private JFXTextField ClientEditRateTextField;
 
     /**
      * Initializes the controller class.
