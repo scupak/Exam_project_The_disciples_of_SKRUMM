@@ -11,6 +11,7 @@ import examProjectTheDisciplesOfSkrumm.BE.Task;
 import examProjectTheDisciplesOfSkrumm.BLL.TreeTableUtil;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TreeItem;
@@ -59,5 +60,9 @@ public class TimeViewController implements Initializable {
         
         
     } 
+
+    @FXML
+    private void handlecChartView(ActionEvent event) {
+    }
   
 }

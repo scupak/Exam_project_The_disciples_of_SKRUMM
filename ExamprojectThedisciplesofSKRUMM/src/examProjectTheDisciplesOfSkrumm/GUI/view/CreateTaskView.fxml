@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="415.0" prefWidth="547.0" styleClass="AnchorPane" stylesheets="@../css/Graphics.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="examProjectTheDisciplesOfSkrumm.GUI.controller.CreateTaskController">
+<AnchorPane prefHeight="415.0" prefWidth="547.0" styleClass="AnchorPane" stylesheets="@../css/Graphics.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="examProjectTheDisciplesOfSkrumm.GUI.controller.CreateTaskController">
    <children>
       <StackPane prefHeight="56.0" prefWidth="320.0" styleClass="chart-bar" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -36,7 +36,7 @@
             </JFXButton>
          </children>
       </HBox>
-      <VBox alignment="TOP_CENTER" layoutX="16.0" layoutY="65.0" prefHeight="305.0" prefWidth="253.0" spacing="10.0" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="279.0" AnchorPane.topAnchor="64.0">
+      <VBox alignment="TOP_CENTER" layoutX="16.0" layoutY="65.0" prefHeight="305.0" prefWidth="253.0" spacing="10.0" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="64.0">
          <children>
             <Label styleClass="Label" text="Title:">
                <font>
@@ -60,7 +60,7 @@
             </Label>
          </children>
       </VBox>
-      <VBox alignment="TOP_CENTER" layoutX="267.0" layoutY="65.0" prefHeight="305.0" prefWidth="253.0" spacing="10.0" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="266.0" AnchorPane.rightAnchor="27.0" AnchorPane.topAnchor="65.0">
+      <VBox alignment="TOP_CENTER" layoutX="267.0" layoutY="65.0" prefHeight="305.0" prefWidth="253.0" spacing="10.0" AnchorPane.bottomAnchor="45.0" AnchorPane.rightAnchor="27.0" AnchorPane.topAnchor="65.0">
          <children>
             <JFXTextField promptText="Enter title" />
             <JFXComboBox prefHeight="25.0" prefWidth="258.0" promptText="Select project" />

@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="523.0" prefWidth="721.0" styleClass="AnchorPane" stylesheets="@../css/Graphics.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="examProjectTheDisciplesOfSkrumm.GUI.controller.TimeViewController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="525.0" prefWidth="726.0" styleClass="AnchorPane" stylesheets="@../css/Graphics.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="examProjectTheDisciplesOfSkrumm.GUI.controller.TimeViewController">
    <children>
       <TreeTableView fx:id="TaskTable" layoutX="61.0" layoutY="223.0" prefHeight="264.0" prefWidth="600.0" AnchorPane.bottomAnchor="35.0" AnchorPane.leftAnchor="61.0" AnchorPane.rightAnchor="59.0" AnchorPane.topAnchor="223.0">
         <columns>
@@ -116,14 +116,14 @@
             <Label text="0:00" />
          </children>
       </HBox>
-      <JFXButton layoutX="520.0" layoutY="192.0" prefHeight="25.0" prefWidth="102.0" text="Create new task" />
-      <VBox alignment="TOP_CENTER" layoutX="515.0" layoutY="149.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="70.0">
+      <JFXButton layoutX="520.0" layoutY="192.0" prefHeight="25.0" prefWidth="102.0" text="Create new task" AnchorPane.topAnchor="192.0" />
+      <VBox alignment="TOP_CENTER" layoutX="515.0" layoutY="149.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="70.0" AnchorPane.topAnchor="149.0">
          <children>
             <Label text="Week total:" />
             <Label text="0:00" />
          </children>
       </VBox>
-      <JFXButton contentDisplay="TOP" layoutX="440.0" layoutY="149.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="68.0" prefWidth="75.0" text="Calendar">
+      <JFXButton contentDisplay="TOP" layoutX="440.0" layoutY="149.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="68.0" prefWidth="75.0" text="Calendar" AnchorPane.topAnchor="149.0">
          <graphic>
             <ImageView fitHeight="40.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
                <image>
