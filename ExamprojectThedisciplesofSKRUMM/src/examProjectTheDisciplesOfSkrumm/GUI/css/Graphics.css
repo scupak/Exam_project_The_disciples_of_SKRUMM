@@ -19,14 +19,27 @@ and open the template in the editor.
     -fx-scale-y: 1.1;
 }
 
+
+
+/*.label{
+
+  -fx-border-radius: 20 20 0 0;
+  -fx-background-radius: 20 10 0 0;
+
+   top-left, top-right, bottom-right, and bottom-left corners, in that order. 
+}*/
+
+
 #loginLabelbackground {
     -fx-background-color: #435a9a;
-    
-    
-    
-    
-    
 }
+
+#loginLabel{
+    -fx-background-color: #435a9a;
+
+
+}   
+
 
 .chart-bar {
     -fx-bar-fill: #435a9a;
