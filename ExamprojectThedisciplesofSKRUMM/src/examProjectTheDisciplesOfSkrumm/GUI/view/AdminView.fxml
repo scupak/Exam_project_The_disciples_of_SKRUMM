@@ -44,5 +44,6 @@
       <JFXButton fx:id="AdminEditClientBtn" layoutX="80.0" layoutY="427.0" text="Edit User" />
       <JFXButton fx:id="AdminDeleteClientBtn" layoutX="143.0" layoutY="427.0" text="Delete User" />
       <HBox layoutX="457.0" layoutY="19.0" prefHeight="30.0" prefWidth="322.0" spacing="5.0" />
+      <JFXButton fx:id="homeBtn" layoutX="748.0" layoutY="453.0" onAction="#handleHome" text="Home" />
    </children>
 </AnchorPane>
