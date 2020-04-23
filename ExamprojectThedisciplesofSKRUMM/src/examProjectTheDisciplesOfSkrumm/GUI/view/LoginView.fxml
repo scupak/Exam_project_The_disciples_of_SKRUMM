@@ -19,7 +19,7 @@
             </Label>
             <JFXTextField fx:id="enterEmailTextField" accessibleRole="PARENT" alignment="CENTER" prefHeight="25.0" prefWidth="259.0" promptText="Enter email" />
             <JFXPasswordField fx:id="enterPasswordTextField" accessibleRole="PARENT" alignment="CENTER" prefHeight="25.0" prefWidth="270.0" promptText="Enter password" />
-            <JFXButton fx:id="logInBtn" accessibleRole="PARENT" onAction="#handelLogIn" prefHeight="25.0" prefWidth="151.0" text="Log in" />
+            <JFXButton fx:id="loginButton" accessibleRole="PARENT" onAction="#handleLogin" prefHeight="25.0" prefWidth="151.0" text="Log in" />
          </children>
       </VBox>
    </children>
