@@ -116,7 +116,7 @@
             <Label text="0:00" />
          </children>
       </HBox>
-      <JFXButton layoutX="520.0" layoutY="192.0" prefHeight="25.0" prefWidth="102.0" text="Create new task" AnchorPane.topAnchor="192.0" />
+      <JFXButton fx:id="createTaskBtn" layoutX="520.0" layoutY="192.0" onAction="#createTask" prefHeight="25.0" prefWidth="102.0" text="Create new task" AnchorPane.topAnchor="192.0" />
       <VBox alignment="TOP_CENTER" layoutX="515.0" layoutY="149.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="70.0" AnchorPane.topAnchor="149.0">
          <children>
             <Label text="Week total:" />

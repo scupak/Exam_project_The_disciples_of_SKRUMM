@@ -47,6 +47,8 @@ public class TaskViewController implements Initializable {
     private JFXButton clientProjectsBtn;
     @FXML
     private JFXButton statisticsBtn;
+    @FXML
+    private JFXButton createTaskBtn;
 
     /**
      * Initializes the controller class.
@@ -113,7 +115,7 @@ public class TaskViewController implements Initializable {
     @FXML
     private void handleClientsProject(ActionEvent event) throws IOException
     {
-        Stage chartView = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Stage taskView = (Stage) ((Node) event.getSource()).getScene().getWindow();
         
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/MainView.fxml"));
         Parent root = loader.load();
@@ -123,7 +125,20 @@ public class TaskViewController implements Initializable {
         stage.setScene(new Scene(root));
         stage.setTitle("TimeTracker");
         stage.show();
-        chartView.close();
+        taskView.close();
+    }
+
+    @FXML
+    private void createTask(ActionEvent event) throws IOException
+    {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/CreateTaskView.fxml"));
+        Parent root = loader.load();
+        CreateTaskController controller = loader.getController();
+        
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.setTitle("TimeTracker");
+        stage.show();
     }
   
 }

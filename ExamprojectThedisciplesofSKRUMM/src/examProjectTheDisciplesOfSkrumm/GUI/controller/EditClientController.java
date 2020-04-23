@@ -12,6 +12,8 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -37,16 +39,20 @@ public class EditClientController implements Initializable
     public void initialize(URL url, ResourceBundle rb)
     {
         // TODO
-    }    
+    }
 
     @FXML
     private void HandleEditOkButton(ActionEvent event)
     {
+        Stage editClientView = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        editClientView.close();
     }
 
     @FXML
     private void HandleEditCancelButton(ActionEvent event)
     {
+        Stage editClientView = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        editClientView.close();
     }
-    
+
 }

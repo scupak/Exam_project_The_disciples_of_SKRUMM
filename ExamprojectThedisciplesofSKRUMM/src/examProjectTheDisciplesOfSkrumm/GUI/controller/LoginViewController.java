@@ -32,7 +32,7 @@ public class LoginViewController implements Initializable {
     @FXML
     private JFXPasswordField enterPasswordTextField;
     @FXML
-    private JFXButton logInBtn;
+    private JFXButton loginButton;
 
     /**
      * Initializes the controller class.
@@ -43,7 +43,7 @@ public class LoginViewController implements Initializable {
     }    
 
     @FXML
-    private void handelLogIn(ActionEvent event) throws IOException
+    private void handleLogin(ActionEvent event) throws IOException
     {
         if(enterEmailTextField.getText().isEmpty())
         {

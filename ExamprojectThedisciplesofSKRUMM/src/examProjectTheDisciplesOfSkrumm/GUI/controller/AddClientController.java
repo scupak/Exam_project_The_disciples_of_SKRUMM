@@ -12,6 +12,8 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -37,16 +39,20 @@ public class AddClientController implements Initializable
     public void initialize(URL url, ResourceBundle rb)
     {
         // TODO
-    }    
+    }
 
     @FXML
     private void HandleAddClientOkBtn(ActionEvent event)
     {
+        Stage addClientView = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        addClientView.close();
     }
 
     @FXML
     private void HandleAddClientCancelBtn(ActionEvent event)
     {
+        Stage addClientView = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        addClientView.close();
     }
-    
+
 }

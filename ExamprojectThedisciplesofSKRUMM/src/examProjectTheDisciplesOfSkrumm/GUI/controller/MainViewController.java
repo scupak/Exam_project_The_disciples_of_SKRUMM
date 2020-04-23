@@ -84,8 +84,6 @@ public class MainViewController implements Initializable
     {
         if (adminCheck == true)
         {
-            Stage mainView = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/AdminView.fxml"));
             Parent root = loader.load();
             AdminViewController controller = loader.getController();
@@ -96,7 +94,7 @@ public class MainViewController implements Initializable
             stage.setMinWidth(721);
             stage.setTitle("TimeTracker");
             stage.show();
-            mainView.close();
+            
         } else
         {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);

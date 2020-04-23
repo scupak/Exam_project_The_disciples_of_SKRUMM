@@ -13,7 +13,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="261.0" prefWidth="288.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="examProjectTheDisciplesOfSkrumm.GUI.controller.CreateUserViewController">
    <children>
-      <Button layoutX="86.0" layoutY="217.0" mnemonicParsing="false" text="Create" />
+      <Button fx:id="createUserBtn" layoutX="86.0" layoutY="217.0" mnemonicParsing="false" onAction="#createUser" text="Create" />
       <HBox layoutX="86.0" layoutY="66.0" prefHeight="19.0" prefWidth="119.0" spacing="15.0">
          <children>
             <RadioButton mnemonicParsing="false" text="User" />
@@ -45,6 +45,6 @@
             <Label text="Name:" GridPane.rowIndex="2" />
          </children>
       </GridPane>
-      <Button layoutX="153.0" layoutY="217.0" mnemonicParsing="false" text="Cancel" />
+      <Button fx:id="cancelBtn" layoutX="153.0" layoutY="217.0" mnemonicParsing="false" onAction="#cancel" text="Cancel" />
    </children>
 </AnchorPane>
