@@ -29,6 +29,8 @@ public class AddProjectViewController implements Initializable
     private JFXTextField ProjectNameTextField;
     @FXML
     private JFXTextField ProjectRateTextField;
+    @FXML
+    private JFXButton addClientButton;
 
     /**
      * Initializes the controller class.
@@ -45,6 +47,10 @@ public class AddProjectViewController implements Initializable
 
     @FXML
     private void HandleAddProjectCancelBtn(ActionEvent event) {
+    }
+
+    @FXML
+    private void handleAddClient(ActionEvent event) {
     }
     
 }
