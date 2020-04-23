@@ -24,7 +24,7 @@ import javafx.scene.control.cell.TreeItemPropertyValueFactory;
  *
  * @author kacpe
  */
-public class TimeViewController implements Initializable {
+public class TaskViewController implements Initializable {
 
     @FXML
     private TreeTableView<Task> TaskTable;

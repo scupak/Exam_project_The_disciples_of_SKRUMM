@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="525.0" prefWidth="726.0" styleClass="AnchorPane" stylesheets="@../css/Graphics.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="examProjectTheDisciplesOfSkrumm.GUI.controller.TimeViewController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="525.0" prefWidth="726.0" styleClass="AnchorPane" stylesheets="@../css/Graphics.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="examProjectTheDisciplesOfSkrumm.GUI.controller.TaskViewController">
    <children>
       <TreeTableView fx:id="TaskTable" layoutX="61.0" layoutY="223.0" prefHeight="264.0" prefWidth="600.0" AnchorPane.bottomAnchor="35.0" AnchorPane.leftAnchor="61.0" AnchorPane.rightAnchor="59.0" AnchorPane.topAnchor="223.0">
         <columns>
