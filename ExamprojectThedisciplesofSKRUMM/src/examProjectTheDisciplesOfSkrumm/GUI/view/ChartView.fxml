@@ -12,13 +12,16 @@
 
 <AnchorPane id="AnchorPane" fx:id="anchorPane" prefHeight="523.0" prefWidth="721.0" style="-fx-border-color: #435a9a;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="examProjectTheDisciplesOfSkrumm.GUI.controller.ChartViewController">
    <children>
-      <StackPane layoutX="4.0" layoutY="5.0" prefHeight="108.0" prefWidth="727.0" style="-fx-background-color: #435a9a;" AnchorPane.bottomAnchor="414.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-      <Label fx:id="nameLabel" layoutX="218.0" layoutY="34.0" prefHeight="55.0" prefWidth="327.0" text="Username's Hours" textFill="WHITE" AnchorPane.bottomAnchor="440.0" AnchorPane.leftAnchor="217.0" AnchorPane.rightAnchor="189.0" AnchorPane.topAnchor="33.0">
-         <font>
-            <Font size="36.0" />
-         </font>
-      </Label>
-      <BarChart fx:id="hoursChart" layoutX="14.0" layoutY="109.0" stylesheets="@../css/Graphics.css">
+      <StackPane layoutX="2.0" prefHeight="55.0" prefWidth="721.0" style="-fx-background-color: #435a9a;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label fx:id="nameLabel" prefHeight="55.0" prefWidth="327.0" text="Username's Hours" textFill="WHITE">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Label>
+         </children>
+      </StackPane>
+      <BarChart fx:id="hoursChart" layoutX="20.0" layoutY="74.0" stylesheets="@../css/Graphics.css" AnchorPane.bottomAnchor="51.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="73.0">
         <xAxis>
           <CategoryAxis label="Day" side="BOTTOM" />
         </xAxis>
@@ -26,9 +29,9 @@
           <NumberAxis label="Hours" side="LEFT" />
         </yAxis>
       </BarChart>
-      <JFXButton fx:id="setBtn" buttonType="RAISED" layoutX="650.0" layoutY="274.0" prefHeight="26.0" prefWidth="50.0" stylesheets="@../css/Graphics.css" text="Set" />
-      <JFXButton fx:id="backBtn" buttonType="RAISED" layoutX="650.0" layoutY="477.0" onAction="#handleBack" stylesheets="@../css/Graphics.css" text="Back" />
-      <JFXDatePicker fx:id="startDate" defaultColor="#435a9a" layoutX="538.0" layoutY="159.0" promptText="Start" />
-      <JFXDatePicker fx:id="endDate" defaultColor="#435a9a" layoutX="538.0" layoutY="234.0" promptText="End" />
+      <JFXButton fx:id="setBtn" buttonType="RAISED" layoutX="648.0" layoutY="273.0" prefHeight="26.0" prefWidth="50.0" stylesheets="@../css/Graphics.css" text="Set" AnchorPane.rightAnchor="22.600000000000023" AnchorPane.topAnchor="273.0" />
+      <JFXDatePicker fx:id="startDate" defaultColor="#435a9a" layoutX="538.0" layoutY="159.0" promptText="Start" AnchorPane.rightAnchor="11.800000000000011" AnchorPane.topAnchor="159.0" />
+      <JFXDatePicker fx:id="endDate" defaultColor="#435a9a" layoutX="538.0" layoutY="234.0" promptText="End" AnchorPane.rightAnchor="12.800000000000011" AnchorPane.topAnchor="234.0" />
+      <JFXButton fx:id="backBtn" buttonType="RAISED" layoutX="655.0" layoutY="483.0" onAction="#handleBack" prefHeight="26.0" prefWidth="49.0" stylesheets="@../css/Graphics.css" text="Back" AnchorPane.bottomAnchor="15.600000000000001" AnchorPane.rightAnchor="22.0" />
    </children>
 </AnchorPane>
