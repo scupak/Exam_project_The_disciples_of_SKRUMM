@@ -143,17 +143,17 @@
                   </Label>
                   <HBox alignment="BOTTOM_CENTER" prefHeight="30.0" prefWidth="518.0" spacing="5.0" styleClass="chart-bar">
                      <children>
-                        <JFXButton text="Tasks" textFill="WHITE">
+                        <JFXButton fx:id="homeBtn" onAction="#handleHome" text="Home" textFill="WHITE">
                            <font>
                               <Font size="13.0" />
                            </font>
                         </JFXButton>
-                        <JFXButton text="Clients and projects" textFill="WHITE">
+                        <JFXButton fx:id="clientProjectsBtn" onAction="#handleClientsProject" text="Clients and projects" textFill="WHITE">
                            <font>
                               <Font size="13.0" />
                            </font>
                         </JFXButton>
-                        <JFXButton onAction="#handlecChartView" text="Statistics" textFill="WHITE">
+                        <JFXButton fx:id="statisticsBtn" onAction="#handlecChartView" text="Statistics" textFill="WHITE">
                            <font>
                               <Font size="13.0" />
                            </font>
