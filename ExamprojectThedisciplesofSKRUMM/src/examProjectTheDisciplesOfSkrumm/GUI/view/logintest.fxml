@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="231.0" minWidth="542.0" prefHeight="231.0" prefWidth="542.0" spacing="20.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="231.0" minWidth="542.0" prefHeight="231.0" prefWidth="542.0" spacing="20.0" stylesheets="@../css/Graphics.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label id="loginLabel" accessibleRole="PARENT" alignment="CENTER" prefHeight="239.0" prefWidth="603.0" stylesheets="@../css/Graphics.css" text="Time-Tracker" textAlignment="CENTER">
          <font>
