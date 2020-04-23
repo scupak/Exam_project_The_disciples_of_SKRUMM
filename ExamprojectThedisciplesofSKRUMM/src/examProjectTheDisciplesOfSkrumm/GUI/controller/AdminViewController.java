@@ -8,6 +8,7 @@ package examProjectTheDisciplesOfSkrumm.GUI.controller;
 import com.jfoenix.controls.JFXButton;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -45,6 +46,8 @@ public class AdminViewController implements Initializable
     private JFXButton AdminEditClientBtn;
     @FXML
     private JFXButton AdminDeleteClientBtn;
+    @FXML
+    private JFXButton AdminLogBtn;
 
     /**
      * Initializes the controller class.
@@ -54,5 +57,50 @@ public class AdminViewController implements Initializable
     {
         // TODO
     }    
+
+    @FXML
+    private void HandleAddUser(ActionEvent event)
+    {
+    }
+
+    @FXML
+    private void HandleEditUSer(ActionEvent event)
+    {
+    }
+
+    @FXML
+    private void HandleDeleteUser(ActionEvent event)
+    {
+    }
+
+    @FXML
+    private void HandleMakeAdmin(ActionEvent event)
+    {
+    }
+
+    @FXML
+    private void HandleRemoveAdmin(ActionEvent event)
+    {
+    }
+
+    @FXML
+    private void HandleExportTaskCSV(ActionEvent event)
+    {
+    }
+
+    @FXML
+    private void HandleAddClient(ActionEvent event)
+    {
+    }
+
+    @FXML
+    private void HandleEditClient(ActionEvent event)
+    {
+    }
+
+    @FXML
+    private void HandleOpenLog(ActionEvent event)
+    {
+    }
     
 }

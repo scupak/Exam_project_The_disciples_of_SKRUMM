@@ -6,11 +6,10 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="351.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="examProjectTheDisciplesOfSkrumm.GUI.controller.LogWindowController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="351.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="examProjectTheDisciplesOfSkrumm.GUI.controller.LogWindowController">
    <children>
-      <JFXButton fx:id="RefreshAdminLogBtn" layoutX="14.0" layoutY="364.0" text="Refresh log" />
-      <JFXButton fx:id="ExportLogBtn" layoutX="223.0" layoutY="364.0" text="Export Log as .TXT" />
+      <JFXButton fx:id="RefreshAdminLogBtn" layoutX="14.0" layoutY="364.0" onAction="#HandleLogRefresh" text="Refresh log" />
+      <JFXButton fx:id="ExportLogBtn" layoutX="223.0" layoutY="364.0" onAction="#HandleLogExportTXT" text="Export Log as .TXT" />
       <ListView fx:id="AdminLog" layoutX="14.0" layoutY="54.0" prefHeight="310.0" prefWidth="322.0" />
       <Label layoutX="109.0" layoutY="14.0" text="Admin's Log Window">
          <font>

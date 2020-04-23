@@ -8,6 +8,7 @@ package examProjectTheDisciplesOfSkrumm.GUI.controller;
 import com.jfoenix.controls.JFXButton;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
@@ -35,5 +36,15 @@ public class LogWindowController implements Initializable
     {
         // TODO
     }    
+
+    @FXML
+    private void HandleLogRefresh(ActionEvent event)
+    {
+    }
+
+    @FXML
+    private void HandleLogExportTXT(ActionEvent event)
+    {
+    }
     
 }
