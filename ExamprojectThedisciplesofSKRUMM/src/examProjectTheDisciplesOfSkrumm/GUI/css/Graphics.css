@@ -8,6 +8,11 @@ and open the template in the editor.
     Author     : anton
 */
 
+.button{
+    -fx-background-color: #435a9a;
+    -fx-text-fill: white;
+}
+
 .button:hover{
     -fx-background-color: #435a9a;
     -fx-text-fill: white;
@@ -38,6 +43,22 @@ and open the template in the editor.
 
 .chart-bar {
     -fx-bar-fill: #435a9a;
+    
+}
 
+.AnchorPane
+{
+    -fx-border-color:  #435a9a;
+    
+}
 
+.Label
+{
+    -fx-text-fill: white;
+    -fx-background-color: #435a9a;
+    -fx-border-radius: 5 5 5 5;
+    -fx-background-radius: 5 5 5 5;
+    
+    
+   
 }
