@@ -5,6 +5,7 @@
  */
 package examProjectTheDisciplesOfSkrumm.GUI.controller;
 
+import com.jfoenix.controls.JFXButton;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -24,6 +25,9 @@ import javafx.stage.Stage;
  */
 public class MainViewController implements Initializable
 {
+
+    @FXML
+    private JFXButton AdminBtn;
 
    
 
@@ -51,6 +55,10 @@ public class MainViewController implements Initializable
         stage.show();
         mainView.close();
         
+    }
+
+    @FXML
+    private void handlecAdminView(ActionEvent event) {
     }
 
 }
