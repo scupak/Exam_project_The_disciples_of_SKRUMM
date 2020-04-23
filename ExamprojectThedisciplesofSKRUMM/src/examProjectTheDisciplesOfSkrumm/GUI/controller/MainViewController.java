@@ -30,7 +30,6 @@ public class MainViewController implements Initializable
 
     @FXML
     private JFXButton AdminBtn;
-    @FXML
     private GridPane taskGrid;
 
    
@@ -41,10 +40,13 @@ public class MainViewController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
+        /*
         ColumnConstraints halfConstraint = new ColumnConstraints(50);
-        taskGrid.getColumnConstraints().addAll(halfConstraint,halfConstraint);
-    }
+        taskGrid.getColumnConstraints().addAll(halfConstraint,halfConstraint); 
+        */
 
+    }
+       
     @FXML
     private void handlecChartView(ActionEvent event) throws IOException
     {
