@@ -44,25 +44,5 @@
       <JFXButton fx:id="AdminEditClientBtn" layoutX="80.0" layoutY="427.0" text="Edit User" />
       <JFXButton fx:id="AdminDeleteClientBtn" layoutX="143.0" layoutY="427.0" text="Delete User" />
       <HBox layoutX="457.0" layoutY="19.0" prefHeight="30.0" prefWidth="322.0" spacing="5.0" />
-      <JFXButton layoutX="220.0" layoutY="56.0" text="Tasks" textFill="WHITE">
-         <font>
-            <Font size="13.0" />
-         </font>
-      </JFXButton>
-      <JFXButton layoutX="274.0" layoutY="56.0" text="Clients and projects" textFill="WHITE">
-         <font>
-            <Font size="13.0" />
-         </font>
-      </JFXButton>
-      <JFXButton layoutX="410.0" layoutY="56.0" onAction="#handlecChartView" text="Statistics" textFill="WHITE">
-         <font>
-            <Font size="13.0" />
-         </font>
-      </JFXButton>
-      <JFXButton fx:id="main" layoutX="484.0" layoutY="56.0" onAction="#handlecMainView" text="Admin" textFill="WHITE">
-         <font>
-            <Font size="13.0" />
-         </font>
-      </JFXButton>
    </children>
 </AnchorPane>
