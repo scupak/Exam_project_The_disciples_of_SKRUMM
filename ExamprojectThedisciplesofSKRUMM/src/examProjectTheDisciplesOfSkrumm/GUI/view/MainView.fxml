@@ -12,12 +12,11 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="545.0" prefWidth="646.0" style="-fx-border-color: #435a9a; -fx-border-width: 90 3 3 3;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="examProjectTheDisciplesOfSkrumm.GUI.controller.MainViewController">
    <children>
       <HBox layoutX="204.0" layoutY="47.0" prefHeight="30.0" prefWidth="322.0" spacing="5.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="10.0">
          <children>
-            <JFXButton text="Tasks" textFill="WHITE">
+            <JFXButton fx:id="taskBtn" onAction="#handletaskView" text="Tasks" textFill="WHITE">
                <font>
                   <Font size="13.0" />
                </font>
