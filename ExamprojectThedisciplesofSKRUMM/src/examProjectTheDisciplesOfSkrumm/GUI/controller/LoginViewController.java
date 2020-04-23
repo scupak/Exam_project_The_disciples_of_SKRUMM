@@ -41,7 +41,8 @@ public class LoginViewController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
-
+    
+    @FXML
     private void handelLogIn(ActionEvent event) throws IOException
     {
         if(enterEmailTextField.getText().isEmpty())
@@ -77,9 +78,9 @@ public class LoginViewController implements Initializable {
         mainView.close();   
         }
     }
-
+/*
     @FXML
     private void handleLogin(ActionEvent event) {
     }
-    
+    */
 }
