@@ -5,11 +5,12 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" prefHeight="492.0" prefWidth="804.0" stylesheets="@../css/Graphics.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="examProjectTheDisciplesOfSkrumm.GUI.controller.AdminViewController">
    <children>
+      <Pane id="loginLabelbackground" layoutY="-7.0" prefHeight="87.0" prefWidth="804.0" AnchorPane.bottomAnchor="405.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <TableView fx:id="UserInfoAdminPane" accessibleRole="PARENT" layoutX="349.0" layoutY="117.0" prefHeight="310.0" prefWidth="449.0">
         <columns>
           <TableColumn prefWidth="122.39996337890625" text="First Name" />
@@ -23,12 +24,12 @@
       <JFXButton fx:id="AdminDeleteUsrBtn" layoutX="476.0" layoutY="427.0" text="Delete User" />
       <JFXButton fx:id="AdminMakeAdminBtn" layoutX="615.0" layoutY="427.0" text="Make Admin" />
       <JFXButton fx:id="AdminRemoveAdminBtn" layoutX="699.0" layoutY="427.0" text="Remove Admin" />
-      <Label fx:id="AdminLabel" layoutX="315.0" layoutY="14.0" text="Hello, Admin_Name">
+      <Label fx:id="AdminLabel" alignment="CENTER" layoutX="341.0" layoutY="19.0" text="Hello, Admin_Name" textFill="WHITE" AnchorPane.bottomAnchor="453.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="19.0">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label layoutX="332.0" layoutY="34.0" text="For your eyes only">
+      <Label alignment="CENTER" layoutX="358.0" layoutY="41.0" text="For your eyes only" textFill="WHITE" AnchorPane.bottomAnchor="435.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="41.0">
          <font>
             <Font size="11.0" />
          </font>
@@ -43,6 +44,5 @@
       <JFXButton fx:id="AdminAddClientBtn" layoutX="14.0" layoutY="427.0" text="Add User" />
       <JFXButton fx:id="AdminEditClientBtn" layoutX="80.0" layoutY="427.0" text="Edit User" />
       <JFXButton fx:id="AdminDeleteClientBtn" layoutX="143.0" layoutY="427.0" text="Delete User" />
-      <HBox layoutX="457.0" layoutY="19.0" prefHeight="30.0" prefWidth="322.0" spacing="5.0" />
    </children>
 </AnchorPane>
