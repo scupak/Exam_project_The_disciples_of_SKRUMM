@@ -37,8 +37,8 @@
       </HBox>
       <TableView fx:id="ClientList" accessibleRole="PARENT" layoutY="87.0" prefHeight="341.0" prefWidth="544.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="87.0">
          <columns>
-            <TableColumn prefWidth="279.0" text="Project Name" />
-            <TableColumn prefWidth="264.0" text="Client Name" />
+            <TableColumn fx:id="projectNameColumn" prefWidth="279.0" text="Project Name" />
+            <TableColumn fx:id="clientNameColumn" prefWidth="264.0" text="Client Name" />
          </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

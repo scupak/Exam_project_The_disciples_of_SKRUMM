@@ -6,9 +6,12 @@
 package examProjectTheDisciplesOfSkrumm.GUI.controller;
 
 import com.jfoenix.controls.JFXButton;
+import examProjectTheDisciplesOfSkrumm.BE.Project;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,8 +19,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+
 
 /**
  * FXML Controller class
@@ -31,15 +37,39 @@ public class ClientsAndProjectsController implements Initializable {
     @FXML
     private JFXButton AdminBtn;
     @FXML
-    private TableView<?> ClientList;
+    private TableView<Project> ClientList;
+    @FXML
+    private JFXButton mainBtn;
+    @FXML
+    private TableColumn<Project, String> projectNameColumn;
+    @FXML
+    private TableColumn<Project, String> clientNameColumn;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
+        //set up the columns in the table
+        projectNameColumn.setCellValueFactory(new PropertyValueFactory<Project, String>("projectName"));
+        clientNameColumn.setCellValueFactory(new PropertyValueFactory<Project, String>("clientName"));
+        
+        ObservableList<Project> getData = FXCollections.observableArrayList();
+        
+        
+        Project project1 = new Project("Take over the world", "Doofensmirtz");
+        Project project2 = new Project("do something fun", "Phineas and Ferb");
+        Project project3 = new Project("bust brothers", "Candace");
+        
+        getData.add(project1);
+        getData.add(project2);
+        getData.add(project3);
+        
+        
+       ClientList.setItems(getData);
+    }   
+    
+    
 
     @FXML
     private void handletaskView(ActionEvent event) throws IOException
