@@ -47,11 +47,11 @@ public class AdminViewController implements Initializable
     @FXML
     private TableView<?> ClientList;
     @FXML
-    private JFXButton AdminAddClientBtn;
+    private JFXButton AdminAddProjectBtn;
     @FXML
-    private JFXButton AdminEditClientBtn;
+    private JFXButton AdminEditProjectBtn;
     @FXML
-    private JFXButton AdminDeleteClientBtn;
+    private JFXButton AdminDeleteProjectBtn;
 
     /**
      * Initializes the controller class.
@@ -62,20 +62,73 @@ public class AdminViewController implements Initializable
         // TODO
     }    
 
-    private void handleHome(ActionEvent event) throws IOException
+    @FXML
+    private void addUser(ActionEvent event) throws IOException
     {
-        Stage chartView = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/MainView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/CreateUserView.fxml"));
         Parent root = loader.load();
-        MainViewController controller = loader.getController();
-        controller.setAdminCheck(true);
+        CreateUserViewController controller = loader.getController();
         
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.setTitle("TimeTracker");
         stage.show();
-        chartView.close();
+    }
+
+    @FXML
+    private void editUser(ActionEvent event) throws IOException
+    {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/CreateUserView.fxml"));
+        Parent root = loader.load();
+        CreateUserViewController controller = loader.getController();
+        
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.setTitle("TimeTracker");
+        stage.show();
+    }
+
+
+    @FXML
+    private void exportTaskTime(ActionEvent event)
+    {
+    }
+
+
+    @FXML
+    private void addProject(ActionEvent event) throws IOException
+    {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/AddProjectView.fxml"));
+        Parent root = loader.load();
+        AddProjectViewController controller = loader.getController();
+        
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.setTitle("TimeTracker");
+        stage.show();
+    }
+
+    @FXML
+    private void editProject(ActionEvent event) throws IOException
+    {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/AddProjectView.fxml"));
+        Parent root = loader.load();
+        AddProjectViewController controller = loader.getController();
+        
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.setTitle("TimeTracker");
+        stage.show();
+    }
+
+    @FXML
+    private void deleteProject(ActionEvent event)
+    {
+    }
+
+    @FXML
+    private void deleteUser(ActionEvent event)
+    {
     }
 
     

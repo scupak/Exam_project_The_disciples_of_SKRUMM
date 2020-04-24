@@ -18,7 +18,7 @@
                   <Font size="13.0" />
                </font>
             </JFXButton>
-            <JFXButton text="main" textFill="WHITE">
+            <JFXButton fx:id="mainBtn" onAction="#handleMain" text="main" textFill="WHITE">
                <font>
                   <Font size="13.0" />
                </font>

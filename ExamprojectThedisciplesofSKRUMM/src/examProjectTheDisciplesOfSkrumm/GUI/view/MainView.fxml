@@ -21,7 +21,7 @@
                   <Font size="13.0" />
                </font>
             </JFXButton>
-            <JFXButton text="Clients and projects" textFill="WHITE">
+            <JFXButton fx:id="clientsProjectBtn" onAction="#handleClientProject" text="Clients and projects" textFill="WHITE">
                <font>
                   <Font size="13.0" />
                </font>
