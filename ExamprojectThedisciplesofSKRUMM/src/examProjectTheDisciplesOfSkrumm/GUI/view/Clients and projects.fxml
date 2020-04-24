@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -10,7 +11,14 @@
 
 <AnchorPane id="AnchorPane" prefHeight="355.0" prefWidth="529.0" styleClass="mainFxmlClass" stylesheets="@../css/Graphics.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="examProjectTheDisciplesOfSkrumm.GUI.controller.ClientsAndProjectsController">
    <children>
-      <Pane id="loginLabelbackground" layoutX="107.0" layoutY="48.0" prefHeight="87.0" prefWidth="493.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <Pane id="loginLabelbackground" layoutX="107.0" layoutY="48.0" prefHeight="87.0" prefWidth="493.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label layoutX="155.0" layoutY="26.0" prefHeight="35.0" prefWidth="220.0" text="Clients and projects" textFill="WHITE">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+         </children></Pane>
       <HBox alignment="CENTER" layoutX="210.0" layoutY="57.0" prefHeight="30.0" prefWidth="332.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="57.0">
          <children>
             <JFXButton fx:id="taskBtn" onAction="#handletaskView" text="Tasks" textFill="WHITE">
