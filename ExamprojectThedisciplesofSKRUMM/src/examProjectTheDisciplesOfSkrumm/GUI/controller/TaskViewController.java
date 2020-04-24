@@ -20,11 +20,15 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeTableCell;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.TreeTableView;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 /**
  * FXML Controller class
@@ -49,6 +53,19 @@ public class TaskViewController implements Initializable {
     private JFXButton statisticsBtn;
     @FXML
     private JFXButton createTaskButton;
+    @FXML
+    private TreeTableColumn<Task, String> clientColumn;
+    @FXML
+    private Label weekNumberLabel;
+    @FXML
+    private Label WeekdayLabel;
+    @FXML
+    private Label DateLabel;
+    @FXML
+    private Label CurrentTaskLabel;
+    @FXML
+    private Label timerLabel;
+
 
     /**
      * Initializes the controller class.
@@ -60,6 +77,7 @@ public class TaskViewController implements Initializable {
         TaskColumn.setCellValueFactory(new TreeItemPropertyValueFactory<>("title"));
         ProjectColumn.setCellValueFactory(new TreeItemPropertyValueFactory<>("projectName"));
         TimeColumn.setCellValueFactory(new TreeItemPropertyValueFactory<>("time"));
+        clientColumn.setCellValueFactory(new TreeItemPropertyValueFactory<>("clientName"));
         
         //Creating the rootNodeTask
         TreeItem<Task> rootNodeTask = TreeTableUtil.getModel();
@@ -140,5 +158,27 @@ public class TaskViewController implements Initializable {
         stage.setTitle("TimeTracker");
         stage.show();
     }
+
+
+    private void handleEditTaskAction(ActionEvent event) throws IOException
+    {
+      
+        
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/CreateTaskView.fxml"));
+        Parent root = loader.load();
+        CreateTaskController controller = loader.getController();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.setTitle("TimeTracker");
+        stage.show();
+    }  
+    
+        
+               
+    
+    
   
+    
+    
+   
 }
