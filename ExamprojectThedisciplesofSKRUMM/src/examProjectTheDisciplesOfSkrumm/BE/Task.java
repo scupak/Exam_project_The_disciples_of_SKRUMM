@@ -13,13 +13,13 @@ public class Task
 {
     private String title;
     private String projectName;
-    private String description;
+    private String clientName;
     private int time;
 
-    public Task(String title, String projectName, String description, int time) {
+    public Task(String title, String projectName, String clientName, int time) {
         this.title = title;
         this.projectName = projectName;
-        this.description = description;
+        this.clientName = clientName;
         this.time = time;
     }
 
@@ -39,12 +39,12 @@ public class Task
         this.projectName = projectName;
     }
 
-    public String getDescription() {
-        return description;
+    public String getClientName() {
+        return clientName;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setClientName(String clientName) {
+        this.clientName = clientName;
     }
 
     public int getTime() {

@@ -67,6 +67,8 @@ public class AddProjectViewController implements Initializable
         
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
+        stage.setMinHeight(200);
+        stage.setMinWidth(300);
         stage.setTitle("TimeTracker");
         stage.show();
     }

@@ -2,9 +2,7 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
-<?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
@@ -12,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="420.0" prefWidth="364.0" styleClass="AnchorPane" stylesheets="@../css/Graphics.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="examProjectTheDisciplesOfSkrumm.GUI.controller.CreateTaskController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="364.0" styleClass="AnchorPane" stylesheets="@../css/Graphics.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="examProjectTheDisciplesOfSkrumm.GUI.controller.CreateTaskController">
    <children>
       <StackPane prefHeight="56.0" prefWidth="320.0" styleClass="chart-bar" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -54,26 +52,13 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label styleClass="Label" text="Description:">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
          </children>
       </VBox>
-      <VBox alignment="TOP_RIGHT" layoutX="142.0" layoutY="72.0" prefHeight="295.0" prefWidth="201.0" spacing="10.0" AnchorPane.bottomAnchor="59.0" AnchorPane.rightAnchor="21.0" AnchorPane.topAnchor="72.0">
+      <VBox alignment="TOP_RIGHT" layoutX="142.0" layoutY="74.0" prefHeight="108.0" prefWidth="201.0" spacing="10.0" AnchorPane.bottomAnchor="206.0" AnchorPane.rightAnchor="22.0" AnchorPane.topAnchor="73.0">
          <children>
             <JFXTextField promptText="Enter title" />
             <JFXComboBox prefHeight="25.0" prefWidth="258.0" promptText="Select project" />
             <JFXTextField promptText="Enter time" />
-            <VBox prefHeight="181.0" prefWidth="201.0" spacing="5.0">
-               <children>
-                  <JFXTextArea prefHeight="163.0" prefWidth="201.0" promptText="Enter description" />
-               </children>
-               <padding>
-                  <Insets top="10.0" />
-               </padding>
-            </VBox>
          </children>
       </VBox>
    </children>
