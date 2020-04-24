@@ -15,20 +15,18 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="525.0" prefWidth="726.0" styleClass="AnchorPane" stylesheets="@../css/Graphics.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="examProjectTheDisciplesOfSkrumm.GUI.controller.TaskViewController">
    <children>
-      <TreeTableView fx:id="TaskTable" layoutX="45.0" layoutY="229.0" prefHeight="253.0" prefWidth="633.0" styleClass="table-view" AnchorPane.bottomAnchor="44.0" AnchorPane.leftAnchor="44.0" AnchorPane.rightAnchor="49.0" AnchorPane.topAnchor="228.0">
+      <TreeTableView fx:id="TaskTable" layoutX="42.0" layoutY="186.0" prefHeight="292.0" prefWidth="571.0" styleClass="table-view" AnchorPane.bottomAnchor="49.0" AnchorPane.leftAnchor="42.0" AnchorPane.rightAnchor="115.0" AnchorPane.topAnchor="186.0">
         <columns>
-          <TreeTableColumn fx:id="taskColumn" prefWidth="147.0" sortable="false" text="Task" />
-          <TreeTableColumn fx:id="projectColumn" prefWidth="113.0" sortable="false" text="Project" />
+          <TreeTableColumn fx:id="TaskColumn" prefWidth="147.0" sortable="false" text="Task" />
+          <TreeTableColumn fx:id="ProjectColumn" prefWidth="113.0" sortable="false" text="Project" />
             <TreeTableColumn fx:id="clientColumn" prefWidth="75.0" text="Client" />
             <TreeTableColumn fx:id="TimeColumn" prefWidth="153.0" sortable="false" text="Time" />
-            <TreeTableColumn minWidth="0.0" prefWidth="86.0" sortable="false" />
-            <TreeTableColumn minWidth="0.0" prefWidth="64.0" sortable="false" />
         </columns>
          <columnResizePolicy>
             <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TreeTableView>
-      <HBox alignment="BOTTOM_LEFT" layoutX="125.0" layoutY="181.0" prefHeight="0.0" prefWidth="315.0" AnchorPane.topAnchor="181.0">
+      <HBox alignment="BOTTOM_LEFT" layoutX="168.0" layoutY="139.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="47.0" prefWidth="396.0" translateY="4.0" AnchorPane.topAnchor="138.0">
          <children>
             <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="45.0">
                <children>
@@ -72,64 +70,21 @@
                   <Label text="0:00" />
                </children>
             </VBox>
+            <VBox alignment="CENTER" prefHeight="37.0" prefWidth="81.0">
+               <children>
+                  <Label prefHeight="25.0" prefWidth="69.0" styleClass="Label" text="Week Total:" />
+                  <Label text="0:00" />
+               </children>
+            </VBox>
          </children>
       </HBox>
-      <HBox layoutX="45.0" layoutY="170.0" prefHeight="40.0" prefWidth="63.0" AnchorPane.topAnchor="170.0">
-         <children>
-            <Button mnemonicParsing="false" prefHeight="38.0" prefWidth="32.0">
-               <graphic>
-                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../Icons/leftarrow.png" />
-                     </image>
-                  </ImageView>
-               </graphic></Button>
-            <Button mnemonicParsing="false" prefHeight="38.0" prefWidth="32.0">
-               <graphic>
-                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../Icons/rightarrow.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-         </children>
-      </HBox>
-      <HBox layoutX="143.0" layoutY="147.0" prefHeight="27.0" prefWidth="280.0" spacing="25.0">
-         <children>
-            <Label prefHeight="25.0" prefWidth="114.0" styleClass="Label" text="Week number">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Label styleClass="Label" text="Weekday">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Label styleClass="Label" text="Date">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-         </children>
-      </HBox>
-      <HBox alignment="CENTER" layoutX="577.0" layoutY="485.0" prefHeight="30.0" prefWidth="100.0" spacing="5.0" styleClass="button" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="49.0">
+      <HBox alignment="CENTER" layoutX="534.0" layoutY="472.0" prefHeight="25.0" prefWidth="86.0" spacing="5.0" styleClass="Label" translateX="-9.0" translateY="5.0" AnchorPane.bottomAnchor="28.0" AnchorPane.rightAnchor="106.0">
          <children>
             <Label styleClass="Label" text="Day Total:" />
             <Label styleClass="Label" text="0:00" />
          </children>
       </HBox>
-      <JFXButton fx:id="createTaskButton" layoutX="519.0" layoutY="182.0" onAction="#createTask" prefHeight="25.0" prefWidth="102.0" text="Create new task" AnchorPane.topAnchor="182.0" />
-      <JFXButton contentDisplay="TOP" layoutX="440.0" layoutY="140.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="68.0" prefWidth="75.0" text="Calendar" AnchorPane.topAnchor="140.0">
-         <graphic>
-            <ImageView fitHeight="40.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../Icons/calendar-3-512.png" />
-               </image>
-            </ImageView>
-         </graphic>
-      </JFXButton>
+      <JFXButton fx:id="createTaskButton" layoutX="41.0" layoutY="475.0" onAction="#createTask" prefHeight="17.0" prefWidth="102.0" text="Create new task" translateX="2.0" AnchorPane.topAnchor="475.0" />
       <StackPane layoutX="1.0" prefHeight="82.0" prefWidth="720.0" styleClass="chart-bar" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <VBox alignment="CENTER" prefHeight="82.0" prefWidth="539.0">
@@ -162,11 +117,120 @@
             </VBox>
          </children>
       </StackPane>
-      <HBox alignment="CENTER" layoutX="519.0" layoutY="146.0" prefHeight="30.0" prefWidth="114.0" spacing="5.0" styleClass="button" AnchorPane.topAnchor="146.0">
+      <HBox layoutX="174.0" layoutY="121.0" prefHeight="11.0" prefWidth="350.0" spacing="5.0" translateX="3.0" translateY="-3.0">
          <children>
-            <Label styleClass="Label" text="Week Total:" />
-            <Label styleClass="Label" text="0:00" />
+            <HBox alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="102.0" styleClass="Label">
+               <children>
+                  <Label prefHeight="25.0" prefWidth="92.0" styleClass="Label" text="Week number:">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="weekNumberLabel" styleClass="Label" text="5">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="20.0" prefWidth="113.0" styleClass="Label">
+               <children>
+                  <Label prefHeight="20.0" prefWidth="64.0" styleClass="Label" text="Weekday:">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="WeekdayLabel" prefHeight="20.0" prefWidth="55.0" styleClass="Label" text="monday">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="20.0" prefWidth="113.0" styleClass="Label">
+               <children>
+                  <Label prefHeight="20.0" prefWidth="38.0" styleClass="Label" text="Date:">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="DateLabel" prefHeight="20.0" prefWidth="82.0" styleClass="Label" text="12/05/2020">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
          </children>
       </HBox>
+      <JFXButton layoutX="138.0" layoutY="476.0" prefHeight="11.0" prefWidth="61.0" text="Edit task" />
+      <HBox layoutX="48.0" layoutY="118.0" prefHeight="59.0" prefWidth="92.0" spacing="5.0">
+         <children>
+            <JFXButton contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="59.0" prefWidth="63.0" text="Calendar">
+               <graphic>
+                  <ImageView fitHeight="31.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Icons/calendar-3-512.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <HBox prefHeight="59.0" prefWidth="63.0">
+               <children>
+                  <Button mnemonicParsing="false" prefHeight="59.0" prefWidth="130.0">
+                     <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../Icons/leftarrow.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button mnemonicParsing="false" prefHeight="59.0" prefWidth="44.0">
+                     <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../Icons/rightarrow.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </HBox>
+      <VBox layoutX="610.0" layoutY="226.0" prefHeight="48.0" prefWidth="96.0" spacing="1.0">
+         <children>
+            <HBox alignment="CENTER" prefHeight="26.0" prefWidth="119.0" spacing="5.0" styleClass="Label">
+               <children>
+                  <Label prefHeight="27.0" prefWidth="40.0" styleClass="Label" text="Timer:">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="timerLabel" styleClass="Label" text="0:00">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <JFXButton text="Start timer" />
+         </children>
+      </VBox>
+      <VBox layoutX="610.0" layoutY="187.0" prefHeight="33.0" prefWidth="102.0" spacing="1.0">
+         <children>
+            <Label prefHeight="15.0" prefWidth="106.0" styleClass="Label" text="Currently selected task:">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+            <Label fx:id="CurrentTaskLabel" styleClass="Label" text="Nemesis">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
    </children>
 </AnchorPane>

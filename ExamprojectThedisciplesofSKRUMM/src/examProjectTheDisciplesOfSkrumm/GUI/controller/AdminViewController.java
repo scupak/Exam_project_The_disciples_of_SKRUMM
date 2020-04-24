@@ -6,6 +6,7 @@
 package examProjectTheDisciplesOfSkrumm.GUI.controller;
 
 import com.jfoenix.controls.JFXButton;
+import examProjectTheDisciplesOfSkrumm.BE.Client;
 import examProjectTheDisciplesOfSkrumm.BE.Project;
 import examProjectTheDisciplesOfSkrumm.BE.User;
 import java.io.IOException;
@@ -72,6 +73,8 @@ public class AdminViewController implements Initializable
     private TableColumn<User, String> isAdminColumn;
 
     /**
+     * Phineas and Ferb
+     * Candace
      * Initializes the controller class.
      */
     @Override
@@ -84,9 +87,9 @@ public class AdminViewController implements Initializable
         ObservableList<Project> getData = FXCollections.observableArrayList();
         
         
-        Project project1 = new Project("Take over the world", "Doofensmirtz");
-        Project project2 = new Project("do something fun", "Phineas and Ferb");
-        Project project3 = new Project("bust brothers", "Candace");
+        Project project1 = new Project("Take over the world", new Client("Doofensmirtz"));
+        Project project2 = new Project("do something fun",new Client("Phineas and Ferb"));
+        Project project3 = new Project("bust brothers", new Client("Candace"));
         
         getData.add(project1);
         getData.add(project2);

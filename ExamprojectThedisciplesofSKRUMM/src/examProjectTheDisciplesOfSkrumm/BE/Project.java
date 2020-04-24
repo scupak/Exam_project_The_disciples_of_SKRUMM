@@ -5,31 +5,50 @@
  */
 package examProjectTheDisciplesOfSkrumm.BE;
 
-import javafx.beans.property.SimpleStringProperty;
-
 /**
  *
- * @author lumby
+ * @author kacpe
  */
-public class Project
+public class Project 
 {
-    private SimpleStringProperty projectName;
-    private SimpleStringProperty clientName;
+    private String projectName;
+    private Client client;
+    private String clientName;
+
+    public Project(String projectName, Client client) {
+        this.projectName = projectName;
+        this.client = client;
+        this.clientName = client.getClientName();
+    }
+
+    public String getProjectName() {
+        return projectName;
+    }
+
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+        this.clientName = client.getClientName();
+    }
+
+    public String getClientName() {
+        return clientName;
+    }
+
     
-    public Project(String projectName, String clientName)
-    {
-        this.projectName = new SimpleStringProperty(projectName);
-        this.clientName = new SimpleStringProperty(clientName);
-    }
-
-    public String getProjectName()
-    {
-        return projectName.get();
-    }
-
-    public String getClientName()
-    {
-        return clientName.get();
-    }
+    
+    
+    
+    
+            
+            
+            
     
 }

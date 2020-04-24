@@ -4,6 +4,8 @@ Java Code Geeks.
 Hentet fra javafx-treetableview-example: https://examples.javacodegeeks.com/desktop-java/javafx/javafx-treetableview-example/*/
 package examProjectTheDisciplesOfSkrumm.BLL;
 
+import examProjectTheDisciplesOfSkrumm.BE.Client;
+import examProjectTheDisciplesOfSkrumm.BE.Project;
 import examProjectTheDisciplesOfSkrumm.BE.Task;
 import javafx.scene.control.TreeItem;
 
@@ -19,15 +21,15 @@ public class TreeTableUtil
     
     /* Create all task*/
     // Root node
-    Task rootTask = new Task("Root", "Root", "The root node of the tableview if you can se this then something went wrong", 0);
+    Task rootTask = new Task("Root", new Project("Root", new Client("Root")), 0);
     
     // Main tasks
-    Task createNemesis = new Task("Create Nemesis", "Project X", "Making a buff, binbag wearing, tentacle man", 0);
-    Task takeOverWorldTotal = new Task("Take over world", "Project X", "In the process of taking the world over", 10);
+    Task createNemesis = new Task("Create Nemesis",new Project("Project X", new Client("Umbrella")), 0);
+    Task takeOverWorldTotal = new Task("Take over world",new Project("Project X", new Client("Umbrella")), 10);
     
     //takeOverWorld secondary task
-    Task takeOverWorld1 = new Task("Take over world", "Project X", "In the process of taking the world over", 4);
-    Task takeOverWorld2 = new Task("Take over world", "Project X", "In the process of taking the world over", 6);
+    Task takeOverWorld1 = new Task("Take over world",new Project("Project X", new Client("Umbrella")), 4);
+    Task takeOverWorld2 = new Task("Take over world",new Project("Project X", new Client("Umbrella")), 6);
     
     //Build nodes
     TreeItem<Task> createNemesisNode = new TreeItem<>(createNemesis);

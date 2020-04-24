@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="364.0" styleClass="AnchorPane" stylesheets="@../css/Graphics.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="examProjectTheDisciplesOfSkrumm.GUI.controller.CreateTaskController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="275.0" prefWidth="364.0" styleClass="AnchorPane" stylesheets="@../css/Graphics.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="examProjectTheDisciplesOfSkrumm.GUI.controller.CreateTaskController">
    <children>
       <StackPane prefHeight="56.0" prefWidth="320.0" styleClass="chart-bar" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -35,31 +35,29 @@
             </JFXButton>
          </children>
       </HBox>
-      <VBox alignment="TOP_RIGHT" layoutX="32.0" layoutY="71.0" prefHeight="140.0" prefWidth="95.0" spacing="10.0" AnchorPane.bottomAnchor="213.0" AnchorPane.leftAnchor="32.0" AnchorPane.topAnchor="71.0">
-         <children>
-            <Label styleClass="Label" text="Title:">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Label styleClass="Label" text="Project:">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Label styleClass="Label" text="Time:">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-         </children>
-      </VBox>
+      <VBox alignment="TOP_RIGHT" layoutX="32.0" layoutY="71.0" prefHeight="140.0" prefWidth="95.0" spacing="10.0" AnchorPane.bottomAnchor="213.0" AnchorPane.leftAnchor="32.0" AnchorPane.topAnchor="71.0" />
       <VBox alignment="TOP_RIGHT" layoutX="142.0" layoutY="74.0" prefHeight="108.0" prefWidth="201.0" spacing="10.0" AnchorPane.bottomAnchor="206.0" AnchorPane.rightAnchor="22.0" AnchorPane.topAnchor="73.0">
          <children>
-            <JFXTextField promptText="Enter title" />
-            <JFXComboBox prefHeight="25.0" prefWidth="258.0" promptText="Select project" />
-            <JFXTextField promptText="Enter time" />
+            <JFXTextField fx:id="titleTextField" prefHeight="0.0" prefWidth="201.0" promptText="Enter title" />
          </children>
       </VBox>
+      <Label layoutX="90.0" layoutY="105.0" styleClass="Label" text="Time:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <JFXTextField fx:id="timeTextField" layoutX="140.0" layoutY="106.0" prefHeight="25.0" prefWidth="201.0" promptText="Enter time" />
+      <JFXButton fx:id="createNewProjectButton" layoutX="225.0" layoutY="175.0" onAction="#handleCreateNewProject" text="Create new project" />
+      <Label layoutX="74.0" layoutY="140.0" styleClass="Label" text="Project:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <JFXComboBox fx:id="projectCombobox" layoutX="140.0" layoutY="141.0" prefHeight="25.0" prefWidth="201.0" promptText="Select project" />
+      <Label layoutX="93.0" layoutY="72.0" styleClass="Label" text="Title:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
