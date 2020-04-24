@@ -41,7 +41,7 @@ public class LoginViewController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
-
+    
     @FXML
     private void handleLogin(ActionEvent event) throws IOException
     {
@@ -78,5 +78,9 @@ public class LoginViewController implements Initializable {
         mainView.close();   
         }
     }
-    
+/*
+    @FXML
+    private void handleLogin(ActionEvent event) {
+    }
+    */
 }

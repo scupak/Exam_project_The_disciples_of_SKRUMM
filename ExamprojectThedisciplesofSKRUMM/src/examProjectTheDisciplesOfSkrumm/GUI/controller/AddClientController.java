@@ -29,6 +29,8 @@ public class AddClientController implements Initializable
     private JFXButton AddClientCancelBtn;
     @FXML
     private JFXTextField ClientNameTextField;
+    
+    
     @FXML
     private JFXTextField ClientRateTextField;
 
