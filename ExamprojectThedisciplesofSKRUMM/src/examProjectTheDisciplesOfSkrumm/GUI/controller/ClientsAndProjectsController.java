@@ -32,8 +32,6 @@ public class ClientsAndProjectsController implements Initializable {
     private JFXButton AdminBtn;
     @FXML
     private TableView<?> ClientList;
-    @FXML
-    private JFXButton mainBtn;
 
     /**
      * Initializes the controller class.
@@ -93,8 +91,7 @@ public class ClientsAndProjectsController implements Initializable {
         stage.setTitle("TimeTracker");
         stage.show(); 
     }
-
-    @FXML
+   @FXML
     private void handleMain(ActionEvent event) throws IOException
     {
         Stage clientsAndProjects = (Stage) ((Node) event.getSource()).getScene().getWindow();
