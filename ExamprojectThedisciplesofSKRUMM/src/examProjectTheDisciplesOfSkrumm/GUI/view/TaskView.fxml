@@ -15,7 +15,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="525.0" prefWidth="726.0" styleClass="AnchorPane" stylesheets="@../css/Graphics.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="examProjectTheDisciplesOfSkrumm.GUI.controller.TaskViewController">
    <children>
-      <TreeTableView fx:id="TaskTable" layoutX="45.0" layoutY="229.0" prefHeight="253.0" prefWidth="633.0" AnchorPane.bottomAnchor="44.0" AnchorPane.leftAnchor="44.0" AnchorPane.rightAnchor="49.0" AnchorPane.topAnchor="228.0">
+      <TreeTableView fx:id="TaskTable" layoutX="45.0" layoutY="229.0" prefHeight="253.0" prefWidth="633.0" styleClass="table-view" AnchorPane.bottomAnchor="44.0" AnchorPane.leftAnchor="44.0" AnchorPane.rightAnchor="49.0" AnchorPane.topAnchor="228.0">
         <columns>
           <TreeTableColumn fx:id="TaskColumn" prefWidth="147.0" styleClass="Column" text="Task" />
           <TreeTableColumn fx:id="ProjectColumn" prefWidth="113.0" styleClass="Column" text="Project" />
@@ -73,7 +73,7 @@
             </VBox>
          </children>
       </HBox>
-      <HBox layoutX="61.0" layoutY="182.0" prefHeight="40.0" prefWidth="63.0" AnchorPane.topAnchor="182.0">
+      <HBox layoutX="45.0" layoutY="170.0" prefHeight="40.0" prefWidth="63.0" AnchorPane.topAnchor="170.0">
          <children>
             <Button mnemonicParsing="false" prefHeight="38.0" prefWidth="32.0">
                <graphic>
@@ -119,8 +119,8 @@
             <Label styleClass="Label" text="0:00" />
          </children>
       </HBox>
-      <JFXButton layoutX="520.0" layoutY="192.0" prefHeight="25.0" prefWidth="102.0" text="Create new task" AnchorPane.topAnchor="192.0" />
-      <JFXButton contentDisplay="TOP" layoutX="440.0" layoutY="149.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="68.0" prefWidth="75.0" text="Calendar" AnchorPane.topAnchor="149.0">
+      <JFXButton layoutX="519.0" layoutY="182.0" prefHeight="25.0" prefWidth="102.0" text="Create new task" AnchorPane.topAnchor="182.0" />
+      <JFXButton contentDisplay="TOP" layoutX="440.0" layoutY="140.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="68.0" prefWidth="75.0" text="Calendar" AnchorPane.topAnchor="140.0">
          <graphic>
             <ImageView fitHeight="40.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -161,7 +161,7 @@
             </VBox>
          </children>
       </StackPane>
-      <HBox alignment="CENTER" layoutX="521.0" layoutY="159.0" prefHeight="30.0" prefWidth="114.0" spacing="5.0" styleClass="button" AnchorPane.topAnchor="159.0">
+      <HBox alignment="CENTER" layoutX="519.0" layoutY="146.0" prefHeight="30.0" prefWidth="114.0" spacing="5.0" styleClass="button" AnchorPane.topAnchor="146.0">
          <children>
             <Label styleClass="Label" text="Week Total:" />
             <Label styleClass="Label" text="0:00" />

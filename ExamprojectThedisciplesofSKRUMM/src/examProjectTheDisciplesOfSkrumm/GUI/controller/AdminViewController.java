@@ -52,8 +52,6 @@ public class AdminViewController implements Initializable
     private JFXButton AdminEditClientBtn;
     @FXML
     private JFXButton AdminDeleteClientBtn;
-    @FXML
-    private JFXButton homeBtn;
 
     /**
      * Initializes the controller class.
@@ -64,7 +62,6 @@ public class AdminViewController implements Initializable
         // TODO
     }    
 
-    @FXML
     private void handleHome(ActionEvent event) throws IOException
     {
         Stage chartView = (Stage) ((Node) event.getSource()).getScene().getWindow();

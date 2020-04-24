@@ -5,9 +5,13 @@
  */
 package examProjectTheDisciplesOfSkrumm.GUI.controller;
 
+import com.jfoenix.controls.JFXButton;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.TableView;
 
 /**
  * FXML Controller class
@@ -16,6 +20,13 @@ import javafx.fxml.Initializable;
  */
 public class ClientsAndProjectsController implements Initializable {
 
+    @FXML
+    private JFXButton taskBtn;
+    @FXML
+    private JFXButton AdminBtn;
+    @FXML
+    private TableView<?> ClientList;
+
     /**
      * Initializes the controller class.
      */
@@ -23,5 +34,17 @@ public class ClientsAndProjectsController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
+
+    @FXML
+    private void handletaskView(ActionEvent event) {
+    }
+
+    @FXML
+    private void handlecChartView(ActionEvent event) {
+    }
+
+    @FXML
+    private void handlecAdminView(ActionEvent event) {
+    }
     
 }

@@ -21,15 +21,15 @@
       <JFXButton fx:id="AdminRemoveAdminBtn" layoutX="699.0" layoutY="427.0" prefHeight="25.0" prefWidth="102.0" text="Remove Admin" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="3.0" />
       <Label fx:id="AdminLabel" alignment="TOP_CENTER" layoutX="341.0" layoutY="19.0" text="Hello, Admin_Name" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="19.0">
          <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label alignment="TOP_CENTER" layoutX="-1.0" layoutY="51.0" text="For your eyes only" textFill="WHITE" AnchorPane.bottomAnchor="-10.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="51.0">
+         <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label alignment="TOP_CENTER" layoutX="358.0" layoutY="41.0" text="For your eyes only" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="41.0">
-         <font>
-            <Font size="11.0" />
-         </font>
-      </Label>
-      <JFXButton fx:id="ExportTaskTImeBtn" layoutX="14.0" layoutY="453.0" text="Export Task TIme as .CSV" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="83.0" />
+      <JFXButton fx:id="ExportTaskTImeBtn" layoutX="1.0" layoutY="453.0" prefHeight="25.0" prefWidth="158.0" text="Export Task TIme as .CSV" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="1.0" />
       <JFXButton fx:id="AdminAddClientBtn" layoutX="14.0" layoutY="427.0" text="Add project" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="1.0" />
       <JFXButton fx:id="AdminEditClientBtn" layoutX="80.0" layoutY="427.0" text="Edit project" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="82.0" />
       <JFXButton fx:id="AdminDeleteClientBtn" layoutX="143.0" layoutY="427.0" text="Delete project" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="160.0" />
@@ -47,14 +47,20 @@
                 <TableColumn prefWidth="156.8000431060791" text="Project Name" />
                 <TableColumn prefWidth="244.0" text="Client Name" />
               </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
             </TableView>
-            <TableView fx:id="UserInfoAdminPane" accessibleRole="PARENT" prefHeight="335.0" prefWidth="413.0" GridPane.columnIndex="1">
+            <TableView fx:id="UserInfoAdminPane" accessibleRole="PARENT" prefHeight="336.0" prefWidth="443.0" GridPane.columnIndex="1">
               <columns>
                 <TableColumn prefWidth="122.39996337890625" text="First Name" />
                 <TableColumn prefWidth="120.80001831054688" text="Last Name" />
                   <TableColumn prefWidth="155.0" text="User Name" />
-                  <TableColumn prefWidth="74.0" text="Is admin" />
+                  <TableColumn prefWidth="74.0" styleClass="Column" text="Is admin" />
               </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
             </TableView>
          </children>
       </GridPane>
