@@ -6,6 +6,7 @@
 package examProjectTheDisciplesOfSkrumm.GUI.controller;
 
 import com.jfoenix.controls.JFXButton;
+import examProjectTheDisciplesOfSkrumm.BE.Task;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -17,6 +18,8 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
@@ -39,7 +42,13 @@ public class MainViewController implements Initializable
     @FXML
     private JFXButton clientsProjectBtn;
     @FXML
-    private JFXButton logOutButton;
+    private AnchorPane anchorPane00;
+    
+    private int seconds = 0;
+    private int minutes = 0; 
+    private boolean running = true; 
+    
+    
 
     /**
      * Initializes the controller class.
@@ -51,6 +60,9 @@ public class MainViewController implements Initializable
         ColumnConstraints halfConstraint = new ColumnConstraints(50);
         taskGrid.getColumnConstraints().addAll(halfConstraint,halfConstraint); 
          */
+        
+       // anchorPane00.setUserData(new Task("title", "projectName", "clientName", 0) );
+        
 
     }
 
@@ -63,8 +75,7 @@ public class MainViewController implements Initializable
     {
         this.adminCheck = adminCheck;
     }
-
-    @FXML
+     @FXML
     private void handleChartView(ActionEvent event) throws IOException
     {
         Stage mainView = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -82,8 +93,7 @@ public class MainViewController implements Initializable
         mainView.close();
 
     }
-
-    @FXML
+   @FXML
     private void handleAdminView(ActionEvent event) throws IOException
     {
         if (adminCheck == true)
@@ -144,7 +154,6 @@ public class MainViewController implements Initializable
         stage.show();
         mainView.close();   
     }
-
     @FXML
     private void handleLogOut(ActionEvent event) throws IOException 
     {
@@ -161,6 +170,10 @@ public class MainViewController implements Initializable
         stage.setTitle("TimeTracker");
         stage.show();
         mainView.close();  
+    }
+
+    @FXML
+    private void handleStartTimer(MouseEvent event) {
     }
 
 }
