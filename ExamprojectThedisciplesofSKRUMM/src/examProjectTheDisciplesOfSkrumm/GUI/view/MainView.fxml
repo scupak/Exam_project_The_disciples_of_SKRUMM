@@ -59,20 +59,53 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
          </rowConstraints>
          <children>
-            <AnchorPane prefHeight="136.0" prefWidth="308.0" style="-fx-border-color: #435a9a; -fx-border-width: 2; -fx-border-radius: 11; -fx-background-color: #CFD8DC; -fx-background-radius: 11;">
+            <AnchorPane fx:id="taskOne" prefHeight="136.0" prefWidth="308.0" style="-fx-border-color: #435a9a; -fx-border-width: 2; -fx-border-radius: 11; -fx-background-color: #CFD8DC; -fx-background-radius: 11;">
+               <children>
+                  <Label layoutX="136.0" layoutY="58.0" text="Client">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="132.0" layoutY="32.0" text="TASK">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="timeLabel" layoutX="97.0" layoutY="85.0" text="00:00" />
+                  <Label layoutX="13.0" layoutY="14.0" text="Date" />
+                  <JFXButton fx:id="EditButton" layoutX="7.0" layoutY="81.0" text="Edit" />
+                  <JFXButton layoutX="61.0" layoutY="76.0" prefHeight="35.0" prefWidth="34.0" text=" ">
+                     <graphic>
+                        <ImageView fx:id="playButton" fitHeight="24.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../Icons/Playbutton.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+                  <JFXComboBox fx:id="intervals" layoutX="154.0" layoutY="81.0" promptText="Intervals" />
+                  <JFXButton fx:id="deleteButton" layoutX="243.0" layoutY="81.0" text="Delete" />
+                  <ImageView fitHeight="30.0" fitWidth="26.0" layoutX="272.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Icons/Dollar.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="taskThree" prefHeight="53.0" prefWidth="308.0" style="-fx-border-color: #435a9a; -fx-border-width: 2; -fx-border-radius: 11; -fx-background-color: #CFD8DC; -fx-background-radius: 11;" GridPane.rowIndex="1">
                <children>
                   <Label layoutX="138.0" layoutY="56.0" text="Client">
                      <font>
                         <Font size="13.0" />
                      </font>
                   </Label>
-                  <Label layoutX="126.0" layoutY="23.0" text="TASK">
+                  <Label layoutX="132.0" layoutY="32.0" text="TASK">
                      <font>
-                        <Font size="24.0" />
+                        <Font size="18.0" />
                      </font>
                   </Label>
                   <Label layoutX="97.0" layoutY="85.0" text="00:00" />
-                  <Label layoutX="13.0" layoutY="14.0" text="22/4/2020" />
+                  <Label layoutX="13.0" layoutY="14.0" text="Date" />
                   <JFXButton layoutX="7.0" layoutY="81.0" text="Edit" />
                   <JFXButton layoutX="61.0" layoutY="76.0" prefHeight="35.0" prefWidth="34.0" text=" ">
                      <graphic>
@@ -92,20 +125,20 @@
                   </ImageView>
                </children>
             </AnchorPane>
-            <AnchorPane prefHeight="53.0" prefWidth="308.0" style="-fx-border-color: #435a9a; -fx-border-width: 2; -fx-border-radius: 11; -fx-background-color: #CFD8DC; -fx-background-radius: 11;" GridPane.rowIndex="1">
+            <AnchorPane fx:id="taskFive" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #435a9a; -fx-border-width: 2; -fx-border-radius: 11; -fx-background-color: #CFD8DC; -fx-background-radius: 11;" GridPane.rowIndex="2">
                <children>
                   <Label layoutX="138.0" layoutY="56.0" text="Client">
                      <font>
                         <Font size="13.0" />
                      </font>
                   </Label>
-                  <Label layoutX="126.0" layoutY="23.0" text="TASK">
+                  <Label layoutX="133.0" layoutY="32.0" text="TASK">
                      <font>
-                        <Font size="24.0" />
+                        <Font size="18.0" />
                      </font>
                   </Label>
                   <Label layoutX="97.0" layoutY="85.0" text="00:00" />
-                  <Label layoutX="13.0" layoutY="14.0" text="22/4/2020" />
+                  <Label layoutX="13.0" layoutY="14.0" text="Date" />
                   <JFXButton layoutX="7.0" layoutY="81.0" text="Edit" />
                   <JFXButton layoutX="61.0" layoutY="76.0" prefHeight="35.0" prefWidth="34.0" text=" ">
                      <graphic>
@@ -125,20 +158,20 @@
                   </ImageView>
                </children>
             </AnchorPane>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #435a9a; -fx-border-width: 2; -fx-border-radius: 11; -fx-background-color: #CFD8DC; -fx-background-radius: 11;" GridPane.rowIndex="2">
+            <AnchorPane fx:id="taskFour" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #435a9a; -fx-border-width: 2; -fx-border-radius: 11; -fx-background-color: #CFD8DC; -fx-background-radius: 11;" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
-                  <Label layoutX="138.0" layoutY="56.0" text="Client">
+                  <Label layoutX="136.0" layoutY="58.0" text="Client">
                      <font>
                         <Font size="13.0" />
                      </font>
                   </Label>
-                  <Label layoutX="126.0" layoutY="23.0" text="TASK">
+                  <Label layoutX="132.0" layoutY="32.0" text="TASK">
                      <font>
-                        <Font size="24.0" />
+                        <Font size="18.0" />
                      </font>
                   </Label>
                   <Label layoutX="97.0" layoutY="85.0" text="00:00" />
-                  <Label layoutX="13.0" layoutY="14.0" text="22/4/2020" />
+                  <Label layoutX="13.0" layoutY="14.0" text="Date" />
                   <JFXButton layoutX="7.0" layoutY="81.0" text="Edit" />
                   <JFXButton layoutX="61.0" layoutY="76.0" prefHeight="35.0" prefWidth="34.0" text=" ">
                      <graphic>
@@ -158,20 +191,20 @@
                   </ImageView>
                </children>
             </AnchorPane>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #435a9a; -fx-border-width: 2; -fx-border-radius: 11; -fx-background-color: #CFD8DC; -fx-background-radius: 11;" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <AnchorPane fx:id="taskSix" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #435a9a; -fx-border-width: 2; -fx-border-radius: 11; -fx-background-color: #CFD8DC; -fx-background-radius: 11;" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <children>
                   <Label layoutX="138.0" layoutY="56.0" text="Client">
                      <font>
                         <Font size="13.0" />
                      </font>
                   </Label>
-                  <Label layoutX="126.0" layoutY="23.0" text="TASK">
+                  <Label layoutX="132.0" layoutY="32.0" text="TASK">
                      <font>
-                        <Font size="24.0" />
+                        <Font size="18.0" />
                      </font>
                   </Label>
                   <Label layoutX="97.0" layoutY="85.0" text="00:00" />
-                  <Label layoutX="13.0" layoutY="14.0" text="22/4/2020" />
+                  <Label layoutX="13.0" layoutY="14.0" text="Date" />
                   <JFXButton layoutX="7.0" layoutY="81.0" text="Edit" />
                   <JFXButton layoutX="61.0" layoutY="76.0" prefHeight="35.0" prefWidth="34.0" text=" ">
                      <graphic>
@@ -191,53 +224,20 @@
                   </ImageView>
                </children>
             </AnchorPane>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #435a9a; -fx-border-width: 2; -fx-border-radius: 11; -fx-background-color: #CFD8DC; -fx-background-radius: 11;" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <AnchorPane fx:id="taskTwo" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #435a9a; -fx-border-width: 2; -fx-border-radius: 11; -fx-background-color: #CFD8DC; -fx-background-radius: 11;" GridPane.columnIndex="1">
                <children>
-                  <Label layoutX="138.0" layoutY="56.0" text="Client">
+                  <Label layoutX="136.0" layoutY="58.0" text="Client">
                      <font>
                         <Font size="13.0" />
                      </font>
                   </Label>
-                  <Label layoutX="126.0" layoutY="23.0" text="TASK">
+                  <Label layoutX="132.0" layoutY="32.0" text="TASK">
                      <font>
-                        <Font size="24.0" />
+                        <Font size="18.0" />
                      </font>
                   </Label>
                   <Label layoutX="97.0" layoutY="85.0" text="00:00" />
-                  <Label layoutX="13.0" layoutY="14.0" text="22/4/2020" />
-                  <JFXButton layoutX="7.0" layoutY="81.0" text="Edit" />
-                  <JFXButton layoutX="61.0" layoutY="76.0" prefHeight="35.0" prefWidth="34.0" text=" ">
-                     <graphic>
-                        <ImageView fitHeight="24.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../Icons/Playbutton.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </JFXButton>
-                  <JFXComboBox layoutX="154.0" layoutY="81.0" promptText="Intervals" />
-                  <JFXButton layoutX="243.0" layoutY="81.0" text="Delete" />
-                  <ImageView fitHeight="30.0" fitWidth="26.0" layoutX="272.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../Icons/Dollar.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </AnchorPane>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #435a9a; -fx-border-width: 2; -fx-border-radius: 11; -fx-background-color: #CFD8DC; -fx-background-radius: 11;" GridPane.columnIndex="1">
-               <children>
-                  <Label layoutX="138.0" layoutY="56.0" text="Client">
-                     <font>
-                        <Font size="13.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="126.0" layoutY="23.0" text="TASK">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="97.0" layoutY="85.0" text="00:00" />
-                  <Label layoutX="13.0" layoutY="14.0" text="22/4/2020" />
+                  <Label layoutX="13.0" layoutY="14.0" text="Date" />
                   <JFXButton layoutX="7.0" layoutY="81.0" text="Edit" />
                   <JFXButton layoutX="61.0" layoutY="76.0" prefHeight="35.0" prefWidth="34.0" text=" ">
                      <graphic>
