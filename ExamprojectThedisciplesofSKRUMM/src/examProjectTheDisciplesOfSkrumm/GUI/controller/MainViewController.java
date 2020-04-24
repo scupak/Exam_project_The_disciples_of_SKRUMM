@@ -10,6 +10,7 @@ import examProjectTheDisciplesOfSkrumm.BE.Task;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,6 +19,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.ColumnConstraints;
@@ -29,8 +31,7 @@ import javafx.stage.Stage;
  *
  * @author Christina
  */
-public class MainViewController implements Initializable
-{
+public class MainViewController implements Initializable {
 
     @FXML
     private JFXButton AdminBtn;
@@ -43,41 +44,37 @@ public class MainViewController implements Initializable
     private JFXButton clientsProjectBtn;
     @FXML
     private AnchorPane anchorPane00;
-    
-    private int seconds = 0;
-    private int minutes = 0; 
-    private boolean running = true; 
-    
-    
+
+    private int sec = 0;
+    private int min = 0;
+    private int hour = 0;
+    private boolean running = false;
+    @FXML
+    private Label timeLabe00;
 
     /**
      * Initializes the controller class.
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb)
-    {
+    public void initialize(URL url, ResourceBundle rb) {
         /*
         ColumnConstraints halfConstraint = new ColumnConstraints(50);
         taskGrid.getColumnConstraints().addAll(halfConstraint,halfConstraint); 
          */
-        
-       // anchorPane00.setUserData(new Task("title", "projectName", "clientName", 0) );
-        
 
+        // anchorPane00.setUserData(new Task("title", "projectName", "clientName", 0) );
     }
 
-    public MainViewController()
-    {
+    public MainViewController() {
         adminCheck = false;
     }
 
-    public void setAdminCheck(boolean adminCheck)
-    {
+    public void setAdminCheck(boolean adminCheck) {
         this.adminCheck = adminCheck;
     }
-     @FXML
-    private void handleChartView(ActionEvent event) throws IOException
-    {
+
+    @FXML
+    private void handleChartView(ActionEvent event) throws IOException {
         Stage mainView = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/ChartView.fxml"));
@@ -93,11 +90,10 @@ public class MainViewController implements Initializable
         mainView.close();
 
     }
-   @FXML
-    private void handleAdminView(ActionEvent event) throws IOException
-    {
-        if (adminCheck == true)
-        {
+
+    @FXML
+    private void handleAdminView(ActionEvent event) throws IOException {
+        if (adminCheck == true) {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/AdminView.fxml"));
             Parent root = loader.load();
             AdminViewController controller = loader.getController();
@@ -108,9 +104,8 @@ public class MainViewController implements Initializable
             stage.setMinWidth(721);
             stage.setTitle("TimeTracker");
             stage.show();
-            
-        } else
-        {
+
+        } else {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Oops");
             alert.setHeaderText("You do not have permision");
@@ -120,8 +115,7 @@ public class MainViewController implements Initializable
     }
 
     @FXML
-    private void handletaskView(ActionEvent event) throws IOException
-    {
+    private void handletaskView(ActionEvent event) throws IOException {
         Stage mainView = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/TaskView.fxml"));
@@ -138,9 +132,8 @@ public class MainViewController implements Initializable
     }
 
     @FXML
-    private void handleClientProject(ActionEvent event) throws IOException
-    {
-      Stage mainView = (Stage) ((Node) event.getSource()).getScene().getWindow();
+    private void handleClientProject(ActionEvent event) throws IOException {
+        Stage mainView = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/ClientsAndProjects.fxml"));
         Parent root = loader.load();
@@ -152,12 +145,11 @@ public class MainViewController implements Initializable
         stage.setMinWidth(355);
         stage.setTitle("TimeTracker");
         stage.show();
-        mainView.close();   
+        mainView.close();
     }
-    @FXML
-    private void handleLogOut(ActionEvent event) throws IOException 
-    {
-         Stage mainView = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+    private void handleLogOut(ActionEvent event) throws IOException {
+        Stage mainView = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/LoginView.fxml"));
         Parent root = loader.load();
@@ -169,11 +161,68 @@ public class MainViewController implements Initializable
         stage.setMinWidth(300);
         stage.setTitle("TimeTracker");
         stage.show();
-        mainView.close();  
+        mainView.close();
     }
 
     @FXML
-    private void handleStartTimer(MouseEvent event) {
+    private void handleStartTimer(ActionEvent event) {
+
+        System.out.println(System.getProperty("java.version"));
+        System.out.println(System.getProperty("javafx.runtime.version"));
+        
+        System.out.println("start");
+
+        if (running) {
+
+            running = false;
+
+        } else if (!running) {
+            running = true;
+
+        }
+
+        new Thread(()
+                -> {
+            while (true) {
+
+                if (running) {
+
+                    try {
+                        Thread.sleep(1000);
+
+                        sec++;
+
+                        if (sec >= 60) {
+                            min++;
+                            sec = 0;
+                        }
+
+                        if (min >= 60) {
+                            hour++;
+                            min = 0;
+                        }
+
+                        String time = String.format("%02d", hour) + " : " + String.format("%02d", min) + " : " + String.format("%02d", sec);
+                        System.out.println(time);
+                        Platform.runLater(()
+                                -> {
+                            timeLabe00.setText(String.format("%02d", hour) + " : " + String.format("%02d", min) + " : " + String.format("%02d", sec));
+                        }
+                        );
+
+                    } catch (Exception e) {
+                    }
+
+                } else {
+
+                    break;
+
+                }
+
+            }
+
+        }).start();
+
     }
 
 }

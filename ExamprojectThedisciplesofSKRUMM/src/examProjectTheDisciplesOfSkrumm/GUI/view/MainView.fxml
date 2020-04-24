@@ -71,12 +71,12 @@
                         <Font size="24.0" />
                      </font>
                   </Label>
-                  <Label layoutX="97.0" layoutY="85.0" text="00:00" />
+                  <Label fx:id="timeLabe00" layoutX="97.0" layoutY="85.0" text="00:00" />
                   <Label layoutX="13.0" layoutY="14.0" text="22/4/2020" />
                   <JFXButton layoutX="7.0" layoutY="81.0" text="Edit" />
-                  <JFXButton layoutX="61.0" layoutY="76.0" prefHeight="35.0" prefWidth="34.0" text=" ">
+                  <JFXButton layoutX="61.0" layoutY="76.0" onAction="#handleStartTimer" prefHeight="35.0" prefWidth="34.0">
                      <graphic>
-                        <ImageView fitHeight="24.0" fitWidth="28.0" onMouseClicked="#handleStartTimer" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="24.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../Icons/Playbutton.png" />
                            </image>
