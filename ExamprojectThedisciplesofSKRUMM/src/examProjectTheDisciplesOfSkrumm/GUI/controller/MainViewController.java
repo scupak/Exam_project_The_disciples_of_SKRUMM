@@ -139,7 +139,7 @@ public class MainViewController implements Initializable
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.setMinHeight(423);
-        stage.setMinWidth(721);
+        stage.setMinWidth(355);
         stage.setTitle("TimeTracker");
         stage.show();
         mainView.close();   
