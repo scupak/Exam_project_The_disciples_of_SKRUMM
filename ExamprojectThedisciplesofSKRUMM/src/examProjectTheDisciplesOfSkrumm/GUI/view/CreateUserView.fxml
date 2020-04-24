@@ -65,9 +65,7 @@
             <JFXTextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
          </children>
       </GridPane>
-      <JFXButton fx:id="createBtn" layoutX="102.0" layoutY="217.0" onAction="#handleCreateUser" style="-fx-background-color: #435a9a;" text="Create" textFill="WHITE" />
-      <JFXButton fx:id="cancelBtn" layoutX="159.0" layoutY="217.0" onAction="#handleCancel" style="-fx-background-color: #435a9a;" text="Cancel" textFill="WHITE" />
-      <JFXButton layoutX="115.0" layoutY="243.0" style="-fx-background-color: #435a9a;" text="Create" textFill="WHITE" />
-      <JFXButton layoutX="179.0" layoutY="243.0" style="-fx-background-color: #435a9a;" text="Cancel" textFill="WHITE" />
+      <JFXButton fx:id="createBtn" layoutX="118.0" layoutY="238.0" onAction="#handleCreateUser" style="-fx-background-color: #435a9a;" text="Create" textFill="WHITE" />
+      <JFXButton fx:id="cancelBtn" layoutX="175.0" layoutY="238.0" onAction="#handleCancel" style="-fx-background-color: #435a9a;" text="Cancel" textFill="WHITE" />
    </children>
 </AnchorPane>
