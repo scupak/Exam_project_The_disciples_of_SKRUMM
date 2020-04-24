@@ -108,7 +108,7 @@ public class TaskViewController implements Initializable {
     }
 
     /**
-     * still needs the view
+     * 
      * @param event
      * @throws IOException 
      */
@@ -117,9 +117,9 @@ public class TaskViewController implements Initializable {
     {
         Stage taskView = (Stage) ((Node) event.getSource()).getScene().getWindow();
         
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/MainView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/ClientsAndProjects.fxml"));
         Parent root = loader.load();
-        MainViewController Controller = loader.getController();
+        ClientsAndProjectsController Controller = loader.getController();
         
         Stage stage = new Stage();
         stage.setScene(new Scene(root));

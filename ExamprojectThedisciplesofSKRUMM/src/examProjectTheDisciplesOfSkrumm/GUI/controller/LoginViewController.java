@@ -43,7 +43,7 @@ public class LoginViewController implements Initializable {
     }    
     
     @FXML
-    private void handleLogin(ActionEvent event) throws IOException
+    private void handelLogIn(ActionEvent event) throws IOException
     {
         if(enterEmailTextField.getText().isEmpty())
         {

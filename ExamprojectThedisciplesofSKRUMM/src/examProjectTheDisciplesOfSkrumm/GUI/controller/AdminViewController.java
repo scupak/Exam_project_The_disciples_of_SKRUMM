@@ -47,11 +47,11 @@ public class AdminViewController implements Initializable
     @FXML
     private TableView<?> ClientList;
     @FXML
-    private JFXButton AdminAddClientBtn;
+    private JFXButton AdminAddProjectBtn;
     @FXML
-    private JFXButton AdminEditClientBtn;
+    private JFXButton AdminEditProjectBtn;
     @FXML
-    private JFXButton AdminDeleteClientBtn;
+    private JFXButton AdminDeleteProjectBtn;
 
     /**
      * Initializes the controller class.
@@ -88,27 +88,19 @@ public class AdminViewController implements Initializable
         stage.show();
     }
 
-    @FXML
-    private void deleteUser(ActionEvent event)
-    {
-    }
-
-    @FXML
-    private void adminAccess(ActionEvent event)
-    {
-    }
 
     @FXML
     private void exportTaskTime(ActionEvent event)
     {
     }
 
+
     @FXML
-    private void addClient(ActionEvent event) throws IOException
+    private void addProject(ActionEvent event) throws IOException
     {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/AddClient.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/AddProjectView.fxml"));
         Parent root = loader.load();
-        AddClientController controller = loader.getController();
+        AddProjectViewController controller = loader.getController();
         
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
@@ -117,11 +109,11 @@ public class AdminViewController implements Initializable
     }
 
     @FXML
-    private void editClient(ActionEvent event) throws IOException
+    private void editProject(ActionEvent event) throws IOException
     {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/EditClient.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/AddProjectView.fxml"));
         Parent root = loader.load();
-        EditClientController controller = loader.getController();
+        AddProjectViewController controller = loader.getController();
         
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
@@ -130,7 +122,12 @@ public class AdminViewController implements Initializable
     }
 
     @FXML
-    private void deleteClient(ActionEvent event)
+    private void deleteProject(ActionEvent event)
+    {
+    }
+
+    @FXML
+    private void deleteUser(ActionEvent event)
     {
     }
 

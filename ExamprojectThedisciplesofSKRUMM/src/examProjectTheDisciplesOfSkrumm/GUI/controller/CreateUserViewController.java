@@ -5,6 +5,7 @@
  */
 package examProjectTheDisciplesOfSkrumm.GUI.controller;
 
+import com.jfoenix.controls.JFXButton;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -23,9 +24,10 @@ public class CreateUserViewController implements Initializable
 {
 
     @FXML
-    private Button createUserBtn;
+    private JFXButton createBtn;
     @FXML
-    private Button cancelBtn;
+    private JFXButton cancelBtn;
+
 
     /**
      * Initializes the controller class.
@@ -37,14 +39,14 @@ public class CreateUserViewController implements Initializable
     }    
 
     @FXML
-    private void createUser(ActionEvent event)
+    private void handleCreateUser(ActionEvent event)
     {
-         Stage createUserView = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Stage createUserView = (Stage) ((Node) event.getSource()).getScene().getWindow();
          createUserView.close();
     }
 
     @FXML
-    private void cancel(ActionEvent event)
+    private void handleCancel(ActionEvent event)
     {
         Stage createUserView = (Stage) ((Node) event.getSource()).getScene().getWindow();
          createUserView.close();
