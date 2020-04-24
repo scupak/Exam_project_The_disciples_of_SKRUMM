@@ -63,7 +63,7 @@ public class MainViewController implements Initializable
     }
 
     @FXML
-    private void handlecChartView(ActionEvent event) throws IOException
+    private void handleChartView(ActionEvent event) throws IOException
     {
         Stage mainView = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
@@ -82,7 +82,7 @@ public class MainViewController implements Initializable
     }
 
     @FXML
-    private void handlecAdminView(ActionEvent event) throws IOException
+    private void handleAdminView(ActionEvent event) throws IOException
     {
         if (adminCheck == true)
         {

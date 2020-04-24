@@ -26,12 +26,12 @@
                   <Font size="13.0" />
                </font>
             </JFXButton>
-            <JFXButton onAction="#handlecChartView" text="Statistics" textFill="WHITE">
+            <JFXButton onAction="#handleChartView" text="Statistics" textFill="WHITE">
                <font>
                   <Font size="13.0" />
                </font>
             </JFXButton>
-            <JFXButton fx:id="AdminBtn" onAction="#handlecAdminView" text="Admin" textFill="WHITE">
+            <JFXButton fx:id="AdminBtn" onAction="#handleAdminView" text="Admin" textFill="WHITE">
                <font>
                   <Font size="13.0" />
                </font>
