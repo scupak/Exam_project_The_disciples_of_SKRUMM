@@ -39,7 +39,9 @@ public class ClientsAndProjectsController implements Initializable {
     private JFXButton AdminBtn;
     @FXML
     private TableView<Project> ClientList;
+    @FXML
     private TableColumn<Project, String> projectNameColumn;
+    @FXML
     private TableColumn<Project, String> clientNameColumn;
 
     /**
