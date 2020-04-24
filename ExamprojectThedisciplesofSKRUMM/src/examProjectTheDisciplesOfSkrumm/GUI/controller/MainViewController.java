@@ -7,6 +7,8 @@ package examProjectTheDisciplesOfSkrumm.GUI.controller;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
+import examProjectTheDisciplesOfSkrumm.BE.Client;
+import examProjectTheDisciplesOfSkrumm.BE.Project;
 import examProjectTheDisciplesOfSkrumm.BE.Task;
 import java.io.IOException;
 import java.net.URL;
@@ -63,8 +65,6 @@ public class MainViewController implements Initializable
     private Label timeLabel;
     @FXML
     private JFXButton EditButton;
-    @FXML
-    private ImageView playButton;
     @FXML
     private JFXComboBox<?> intervals;
     @FXML
@@ -196,9 +196,9 @@ public class MainViewController implements Initializable
         panes.add(taskFive);
         panes.add(taskSix);
         
-        Task task1 = new Task("Add information to TableView", "Time Taker", "Grumsen Development", 0);
-        Task task2 = new Task("Drink Pepsi Max", "Time Taker", "Grumsen Development", 0);
-        Task task3 = new Task("Write in report", "Time Taker", "Grumsen Development", 0);
+        Task task1 = new Task("Add information to TableView", new Project("Time Taker", new Client("Grumsen Development")),0);
+        Task task2 = new Task("Drink Pepsi Max", new Project("Time Taker", new Client("Grumsen Development")), 0);
+        Task task3 = new Task("Write in report", new Project("Time Taker", new Client("Grumsen Development")), 0);
         
         tasks.add(task1);
         tasks.add(task2);
@@ -283,8 +283,11 @@ public class MainViewController implements Initializable
         mainView.close();  
     }
 
+    
+
+}
+
     @FXML
     private void handleStartTimer(MouseEvent event) {
     }
-
 }
