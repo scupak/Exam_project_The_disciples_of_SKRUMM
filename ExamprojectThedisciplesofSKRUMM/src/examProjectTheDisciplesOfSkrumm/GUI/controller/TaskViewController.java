@@ -48,7 +48,7 @@ public class TaskViewController implements Initializable {
     @FXML
     private JFXButton statisticsBtn;
     @FXML
-    private JFXButton createTaskBtn;
+    private JFXButton createTaskButton;
 
     /**
      * Initializes the controller class.
