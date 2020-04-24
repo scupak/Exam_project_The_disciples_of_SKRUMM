@@ -24,6 +24,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -68,6 +69,13 @@ public class MainViewController implements Initializable
     private JFXComboBox<?> intervals;
     @FXML
     private JFXButton deleteButton;
+    private AnchorPane anchorPane00;
+    
+    private int seconds = 0;
+    private int minutes = 0; 
+    private boolean running = true; 
+    
+    
 
     /**
      * Initializes the controller class.
@@ -81,6 +89,8 @@ public class MainViewController implements Initializable
          */
         
         fillGrid();
+       // anchorPane00.setUserData(new Task("title", "projectName", "clientName", 0) );
+        
 
     }
 
@@ -93,9 +103,8 @@ public class MainViewController implements Initializable
     {
         this.adminCheck = adminCheck;
     }
-
-    @FXML
-    private void handlecChartView(ActionEvent event) throws IOException
+     @FXML
+    private void handleChartView(ActionEvent event) throws IOException
     {
         Stage mainView = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
@@ -112,9 +121,8 @@ public class MainViewController implements Initializable
         mainView.close();
 
     }
-
-    @FXML
-    private void handlecAdminView(ActionEvent event) throws IOException
+   @FXML
+    private void handleAdminView(ActionEvent event) throws IOException
     {
         if (adminCheck == true)
         {
@@ -257,6 +265,26 @@ public class MainViewController implements Initializable
         }
         
         
+    @FXML
+    private void handleLogOut(ActionEvent event) throws IOException 
+    {
+         Stage mainView = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/LoginView.fxml"));
+        Parent root = loader.load();
+        LoginViewController controller = loader.getController();
+
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.setMinHeight(200);
+        stage.setMinWidth(300);
+        stage.setTitle("TimeTracker");
+        stage.show();
+        mainView.close();  
+    }
+
+    @FXML
+    private void handleStartTimer(MouseEvent event) {
     }
 
 }

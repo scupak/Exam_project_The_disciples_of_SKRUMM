@@ -55,8 +55,8 @@ public class LoginViewController implements Initializable {
         
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
-        stage.setMinHeight(423);
-        stage.setMinWidth(721);
+        stage.setMinHeight(525);
+        stage.setMinWidth(726);
         stage.setTitle("TimeTracker");
         stage.show();
         mainView.close();
@@ -71,8 +71,8 @@ public class LoginViewController implements Initializable {
         
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
-        stage.setMinHeight(423);
-        stage.setMinWidth(721);
+        stage.setMinHeight(525);
+        stage.setMinWidth(726);
         stage.setTitle("TimeTracker");
         stage.show();
         mainView.close();   

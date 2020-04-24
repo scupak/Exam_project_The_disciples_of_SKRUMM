@@ -36,10 +36,6 @@ public class TaskViewController implements Initializable {
     @FXML
     private TreeTableView<Task> TaskTable;
     @FXML
-    private TreeTableColumn<Task, String> TaskColumn;
-    @FXML
-    private TreeTableColumn<Task, String> ProjectColumn;
-    @FXML
     private TreeTableColumn<Task, Integer> TimeColumn;
     @FXML
     private JFXButton homeBtn;
@@ -48,7 +44,13 @@ public class TaskViewController implements Initializable {
     @FXML
     private JFXButton statisticsBtn;
     @FXML
-    private JFXButton createTaskBtn;
+    private JFXButton createTaskButton;
+    @FXML
+    private TreeTableColumn<?, ?> taskColumn;
+    @FXML
+    private TreeTableColumn<?, ?> projectColumn;
+    @FXML
+    private TreeTableColumn<?, ?> clientColumn;
 
     /**
      * Initializes the controller class.
@@ -57,8 +59,8 @@ public class TaskViewController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) 
     {
         //Setting cellValue Factories for TreeTableView 
-        TaskColumn.setCellValueFactory(new TreeItemPropertyValueFactory<>("title"));
-        ProjectColumn.setCellValueFactory(new TreeItemPropertyValueFactory<>("projectName"));
+        taskColumn.setCellValueFactory(new TreeItemPropertyValueFactory<>("title"));
+        projectColumn.setCellValueFactory(new TreeItemPropertyValueFactory<>("projectName"));
         TimeColumn.setCellValueFactory(new TreeItemPropertyValueFactory<>("time"));
         
         //Creating the rootNodeTask
