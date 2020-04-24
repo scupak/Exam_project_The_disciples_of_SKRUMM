@@ -38,6 +38,8 @@ public class MainViewController implements Initializable
     private boolean adminCheck;
     @FXML
     private JFXButton clientsProjectBtn;
+    @FXML
+    private JFXButton logOutButton;
 
     /**
      * Initializes the controller class.
@@ -141,6 +143,24 @@ public class MainViewController implements Initializable
         stage.setTitle("TimeTracker");
         stage.show();
         mainView.close();   
+    }
+
+    @FXML
+    private void handleLogOut(ActionEvent event) throws IOException 
+    {
+         Stage mainView = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/LoginView.fxml"));
+        Parent root = loader.load();
+        LoginViewController controller = loader.getController();
+
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.setMinHeight(200);
+        stage.setMinWidth(300);
+        stage.setTitle("TimeTracker");
+        stage.show();
+        mainView.close();  
     }
 
 }
