@@ -13,7 +13,7 @@
 
 <AnchorPane id="AnchorPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="288.0" prefWidth="346.0" style="-fx-border-color: #435a9a; -fx-border-width: 60 2 2 2;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="examProjectTheDisciplesOfSkrumm.GUI.controller.CreateUserViewController">
    <children>
-      <HBox layoutX="100.0" layoutY="62.0" prefHeight="27.0" prefWidth="145.0" spacing="15.0">
+      <HBox layoutX="100.0" layoutY="68.0" prefHeight="27.0" prefWidth="145.0" spacing="15.0">
          <children>
             <RadioButton mnemonicParsing="false" text="User">
                <font>
