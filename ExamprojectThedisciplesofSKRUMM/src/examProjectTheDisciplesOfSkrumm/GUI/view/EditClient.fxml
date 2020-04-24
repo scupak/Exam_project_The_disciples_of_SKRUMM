@@ -2,13 +2,61 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="116.0" prefWidth="159.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="examProjectTheDisciplesOfSkrumm.GUI.controller.EditClientController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="300.0" styleClass="AnchorPane" stylesheets="@../css/Graphics.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="examProjectTheDisciplesOfSkrumm.GUI.controller.EditClientController">
    <children>
-      <JFXTextField fx:id="EditClientNameTextField" layoutX="14.0" layoutY="14.0" promptText="Edit Client Name Here!" />
-      <JFXButton fx:id="EditOkButton" layoutX="45.0" layoutY="75.0" onAction="#HandleEditOkButton" prefHeight="26.0" prefWidth="51.0" text="OK" />
-      <JFXButton fx:id="EditCancelButton" layoutX="96.0" layoutY="75.0" onAction="#HandleEditCancelButton" prefHeight="26.0" prefWidth="51.0" text="Cancel" />
-      <JFXTextField fx:id="ClientEditRateTextField" layoutX="12.0" layoutY="45.0" promptText="Client's Rate Goes Here!" />
+      <StackPane prefHeight="56.0" prefWidth="320.0" styleClass="chart-bar" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label styleClass="Label" text="Edit client">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </StackPane>
+      <HBox alignment="BOTTOM_CENTER" layoutX="1.0" layoutY="223.0" prefHeight="30.0" prefWidth="300.0" spacing="5.0" AnchorPane.bottomAnchor="22.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <children>
+            <JFXButton fx:id="EditOkButton" onAction="#HandleEditOkButton" text="Confirm" textFill="WHITE">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="EditCancelButton" onAction="#HandleEditCancelButton" text="Cancel" textFill="WHITE">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </JFXButton>
+         </children>
+      </HBox>
+      <HBox layoutX="-6.0" layoutY="63.0" prefHeight="75.0" prefWidth="276.0" spacing="5.0" AnchorPane.leftAnchor="-6.0" AnchorPane.rightAnchor="40.0">
+         <children>
+            <VBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="154.0" spacing="10.0">
+               <children>
+                  <Label styleClass="Label" text="Client name:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label styleClass="Label" text="Client rate:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+            <VBox prefHeight="75.0" prefWidth="105.0" spacing="12.0">
+               <children>
+                  <JFXTextField fx:id="EditClientNameTextField" promptText="Enter client's name" />
+                  <JFXTextField fx:id="ClientEditRateTextField" prefHeight="25.0" prefWidth="120.0" promptText="Enter clients's rate" />
+               </children>
+            </VBox>
+         </children>
+      </HBox>
    </children>
 </AnchorPane>

@@ -63,7 +63,7 @@ and open the template in the editor.
 
 .Column
 {
-    -fx-text-fill: white;
+    -fx-text-fill:  #435a9a;
     -fx-background-color: #435a9a, -fx-control-inner-background;
     -fx-background-insets: 0, 1;
     -fx-padding: 1;
@@ -75,3 +75,10 @@ and open the template in the editor.
     -fx-text-fill: white;
     -fx-background-color: #435a9a;
 }
+
+ .table-view .column-header .label {
+    -fx-background-color: #435a9a;
+     -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
