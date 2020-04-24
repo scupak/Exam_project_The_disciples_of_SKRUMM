@@ -40,10 +40,6 @@ public class TaskViewController implements Initializable {
     @FXML
     private TreeTableView<Task> TaskTable;
     @FXML
-    private TreeTableColumn<Task, String> TaskColumn;
-    @FXML
-    private TreeTableColumn<Task, String> ProjectColumn;
-    @FXML
     private TreeTableColumn<Task, Integer> TimeColumn;
     @FXML
     private JFXButton homeBtn;
@@ -65,6 +61,10 @@ public class TaskViewController implements Initializable {
     private Label CurrentTaskLabel;
     @FXML
     private Label timerLabel;
+    @FXML
+    private TreeTableColumn<Task, String> TaskColumn;
+    @FXML
+    private TreeTableColumn<Task, String> ProjectColumn;
 
 
     /**

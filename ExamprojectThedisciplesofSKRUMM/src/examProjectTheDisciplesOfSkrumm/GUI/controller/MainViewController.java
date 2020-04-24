@@ -6,17 +6,26 @@
 package examProjectTheDisciplesOfSkrumm.GUI.controller;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
+import examProjectTheDisciplesOfSkrumm.BE.Task;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
@@ -39,7 +48,34 @@ public class MainViewController implements Initializable
     @FXML
     private JFXButton clientsProjectBtn;
     @FXML
-    private JFXButton logOutButton;
+    private AnchorPane taskOne;
+    @FXML
+    private AnchorPane taskThree;
+    @FXML
+    private AnchorPane taskFive;
+    @FXML
+    private AnchorPane taskFour;
+    @FXML
+    private AnchorPane taskSix;
+    @FXML
+    private AnchorPane taskTwo;
+    @FXML
+    private Label timeLabel;
+    @FXML
+    private JFXButton EditButton;
+    @FXML
+    private ImageView playButton;
+    @FXML
+    private JFXComboBox<?> intervals;
+    @FXML
+    private JFXButton deleteButton;
+    private AnchorPane anchorPane00;
+    
+    private int seconds = 0;
+    private int minutes = 0; 
+    private boolean running = true; 
+    
+    
 
     /**
      * Initializes the controller class.
@@ -51,6 +87,10 @@ public class MainViewController implements Initializable
         ColumnConstraints halfConstraint = new ColumnConstraints(50);
         taskGrid.getColumnConstraints().addAll(halfConstraint,halfConstraint); 
          */
+        
+        fillGrid();
+       // anchorPane00.setUserData(new Task("title", "projectName", "clientName", 0) );
+        
 
     }
 
@@ -63,9 +103,8 @@ public class MainViewController implements Initializable
     {
         this.adminCheck = adminCheck;
     }
-
-    @FXML
-    private void handlecChartView(ActionEvent event) throws IOException
+     @FXML
+    private void handleChartView(ActionEvent event) throws IOException
     {
         Stage mainView = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
@@ -82,9 +121,8 @@ public class MainViewController implements Initializable
         mainView.close();
 
     }
-
-    @FXML
-    private void handlecAdminView(ActionEvent event) throws IOException
+   @FXML
+    private void handleAdminView(ActionEvent event) throws IOException
     {
         if (adminCheck == true)
         {
@@ -144,7 +182,89 @@ public class MainViewController implements Initializable
         stage.show();
         mainView.close();   
     }
-
+    
+    private void fillGrid()
+    {
+        int anchorPaneNumber = 0;
+        ArrayList<Task> tasks = new ArrayList<>();
+        ArrayList<AnchorPane> panes = new ArrayList<>();
+        
+        panes.add(taskOne);
+        panes.add(taskTwo);
+        panes.add(taskThree);
+        panes.add(taskFour);
+        panes.add(taskFive);
+        panes.add(taskSix);
+        
+        Task task1 = new Task("Add information to TableView", "Time Taker", "Grumsen Development", 0);
+        Task task2 = new Task("Drink Pepsi Max", "Time Taker", "Grumsen Development", 0);
+        Task task3 = new Task("Write in report", "Time Taker", "Grumsen Development", 0);
+        
+        tasks.add(task1);
+        tasks.add(task2);
+        tasks.add(task3);
+        
+        for (Task task : tasks)
+        {
+            fillGrid2(task.getTitle(), task.getClientName(), "24/04/2020", panes.get(anchorPaneNumber));
+            anchorPaneNumber++;
+        }
+        
+        int tasksSize = tasks.size();
+        int i = 0;
+       
+        for (int end = 6-tasksSize; end > 0; end--)
+        {
+            panes.get(tasksSize + i).getChildren().clear();
+            i++;
+        }
+        
+        i = 0;
+        anchorPaneNumber = 0;
+    }
+    
+    private void fillGrid2(String task, String client, String date, AnchorPane pane)
+    {
+        List children = pane.getChildren();
+        List<Label> labels = new ArrayList();
+        
+        for (Object child : children)
+        {
+            if(child instanceof Label)
+            {
+                Label label = (Label) child;
+                
+                labels.add(label);
+            }
+        }
+        
+        for (Label label : labels)
+        {
+            if(label.getText().equals("TASK"))
+            {
+                label.setText(task);
+                label.setMaxWidth(Double.MAX_VALUE);
+                pane.setLeftAnchor(label, 0.0);
+                pane.setRightAnchor(label, 0.0);
+                label.setAlignment(Pos.CENTER);
+            }
+            
+            if(label.getText().equals("Client"))
+            {
+                label.setText(client);
+                label.setMaxWidth(Double.MAX_VALUE);
+                pane.setLeftAnchor(label, 0.0);
+                pane.setRightAnchor(label, 0.0);
+                label.setAlignment(Pos.CENTER);
+            }
+            
+            if(label.getText().equals("Date"))
+            {
+                label.setText(date);
+            }
+        }
+        
+        
     @FXML
     private void handleLogOut(ActionEvent event) throws IOException 
     {
@@ -161,6 +281,10 @@ public class MainViewController implements Initializable
         stage.setTitle("TimeTracker");
         stage.show();
         mainView.close();  
+    }
+
+    @FXML
+    private void handleStartTimer(MouseEvent event) {
     }
 
 }
