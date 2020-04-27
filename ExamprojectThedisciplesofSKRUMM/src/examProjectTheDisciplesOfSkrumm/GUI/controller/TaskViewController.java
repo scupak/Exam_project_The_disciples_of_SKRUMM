@@ -13,6 +13,7 @@ import examProjectTheDisciplesOfSkrumm.BLL.TreeTableUtil;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -60,12 +61,16 @@ public class TaskViewController implements Initializable {
     @FXML
     private Label CurrentTaskLabel;
     @FXML
-    private Label timerLabel;
-    @FXML
     private TreeTableColumn<Task, String> TaskColumn;
     @FXML
     private TreeTableColumn<Task, String> ProjectColumn;
+    @FXML
+    private Label timeLabel;
 
+    private int sec = 0;
+    private int min = 0;
+    private int hour = 0;
+    private boolean running = false;
 
     /**
      * Initializes the controller class.
@@ -171,7 +176,68 @@ public class TaskViewController implements Initializable {
         stage.setScene(new Scene(root));
         stage.setTitle("TimeTracker");
         stage.show();
-    }  
+    } 
+    
+    @FXML
+    private void handleStartTimer(ActionEvent event) {
+
+        System.out.println(System.getProperty("java.version"));
+        System.out.println(System.getProperty("javafx.runtime.version"));
+        
+        System.out.println("start");
+
+        if (running) {
+
+            running = false;
+
+        } else if (!running) {
+            running = true;
+
+        }
+
+        new Thread(()
+                -> {
+            while (true) {
+
+                if (running) {
+
+                    try {
+                        Thread.sleep(1000);
+
+                        sec++;
+
+                        if (sec >= 60) {
+                            min++;
+                            sec = 0;
+                        }
+
+                        if (min >= 60) {
+                            hour++;
+                            min = 0;
+                        }
+
+                        String time = String.format("%02d", hour) + " : " + String.format("%02d", min) + " : " + String.format("%02d", sec);
+                        System.out.println(time);
+                        Platform.runLater(()
+                                -> {
+                            timeLabel.setText(String.format("%02d", hour) + " : " + String.format("%02d", min) + " : " + String.format("%02d", sec));
+                        }
+                        );
+
+                    } catch (Exception e) {
+                    }
+
+                } else {
+
+                    break;
+
+                }
+
+            }
+
+        }).start();
+
+    }
     
         
                
