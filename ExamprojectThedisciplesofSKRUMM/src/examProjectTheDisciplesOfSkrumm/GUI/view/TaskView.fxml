@@ -125,14 +125,14 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="timerLabel" styleClass="Label" text="0:00">
+                        <Label fx:id="timeLabel" styleClass="Label" text="00:00:00">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
                      </children>
                   </HBox>
-                  <JFXButton prefHeight="25.0" prefWidth="217.0" text="Start timer" />
+                  <JFXButton onAction="#handleStartTimer" prefHeight="25.0" prefWidth="217.0" text="Start timer" />
                </children>
             </VBox>
          </children>
