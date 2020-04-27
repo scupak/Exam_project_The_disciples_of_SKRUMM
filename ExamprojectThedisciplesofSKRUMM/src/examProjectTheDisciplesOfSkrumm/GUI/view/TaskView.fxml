@@ -84,7 +84,7 @@
             <Label styleClass="Label" text="0:00" />
          </children>
       </HBox>
-      <JFXButton fx:id="createTaskButton" layoutX="41.0" layoutY="475.0" onAction="#createTask" prefHeight="17.0" prefWidth="102.0" text="Create new task" translateX="2.0" AnchorPane.topAnchor="475.0" />
+      <JFXButton fx:id="createTaskButton" layoutX="41.0" layoutY="475.0" onAction="#createTask" prefHeight="17.0" prefWidth="102.0" text="Create new task" translateX="2.0" AnchorPane.bottomAnchor="24.0" AnchorPane.leftAnchor="41.0" />
       <StackPane layoutX="1.0" prefHeight="82.0" prefWidth="720.0" styleClass="chart-bar" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <VBox alignment="CENTER" prefHeight="82.0" prefWidth="539.0">
@@ -163,7 +163,7 @@
             </HBox>
          </children>
       </HBox>
-      <JFXButton layoutX="138.0" layoutY="476.0" prefHeight="11.0" prefWidth="61.0" text="Edit task" />
+      <JFXButton layoutX="138.0" layoutY="476.0" prefHeight="11.0" prefWidth="61.0" text="Edit task" AnchorPane.bottomAnchor="23.0" AnchorPane.leftAnchor="144.0" />
       <HBox layoutX="48.0" layoutY="118.0" prefHeight="59.0" prefWidth="92.0" spacing="5.0">
          <children>
             <JFXButton contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="59.0" prefWidth="63.0" text="Calendar">
@@ -199,7 +199,7 @@
             </HBox>
          </children>
       </HBox>
-      <VBox layoutX="610.0" layoutY="226.0" prefHeight="48.0" prefWidth="96.0" spacing="1.0">
+      <VBox layoutX="610.0" layoutY="226.0" prefHeight="48.0" prefWidth="96.0" spacing="1.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="222.0">
          <children>
             <HBox alignment="CENTER" prefHeight="26.0" prefWidth="119.0" spacing="5.0" styleClass="Label">
                <children>
@@ -218,7 +218,7 @@
             <JFXButton text="Start timer" />
          </children>
       </VBox>
-      <VBox layoutX="610.0" layoutY="187.0" prefHeight="33.0" prefWidth="102.0" spacing="1.0">
+      <VBox layoutX="610.0" layoutY="187.0" prefHeight="33.0" prefWidth="102.0" spacing="1.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="185.0">
          <children>
             <Label prefHeight="15.0" prefWidth="106.0" styleClass="Label" text="Currently selected task:">
                <font>
