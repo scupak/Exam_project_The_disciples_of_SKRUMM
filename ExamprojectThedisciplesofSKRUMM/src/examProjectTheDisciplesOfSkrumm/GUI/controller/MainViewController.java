@@ -76,6 +76,7 @@ public class MainViewController implements Initializable {
     private int hour = 0;
     private boolean running = false;
     private Label timeLabe00;
+    private int totalsec = 0;
 
     /**
      * Initializes the controller class.
@@ -292,6 +293,7 @@ public class MainViewController implements Initializable {
                         Thread.sleep(1000);
 
                         sec++;
+                        totalsec++;
 
                         if (sec >= 60) {
                             min++;
@@ -303,11 +305,12 @@ public class MainViewController implements Initializable {
                             min = 0;
                         }
 
-                        String time = String.format("%02d", hour) + " : " + String.format("%02d", min) + " : " + String.format("%02d", sec);
+                        String time = String.format("%02d", hour) + ":" + String.format("%02d", min) + ":" + String.format("%02d", sec);
                         System.out.println(time);
+                        System.out.println(totalsec);
                         Platform.runLater(()
                                 -> {
-                            timeLabel.setText(String.format("%02d", hour) + " : " + String.format("%02d", min) + " : " + String.format("%02d", sec));
+                            timeLabel.setText(String.format("%02d", hour) + ":" + String.format("%02d", min) + ":" + String.format("%02d", sec));
                         }
                         );
 
