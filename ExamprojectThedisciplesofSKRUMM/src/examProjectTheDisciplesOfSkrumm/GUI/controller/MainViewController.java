@@ -192,13 +192,13 @@ public class MainViewController implements Initializable {
         panes.add(taskFive);
         panes.add(taskSix);
         
-        Task task1 = new Task("Add information to TableView", new Project("Time Taker", new Client("Grumsen Development")), 0, 0);
-        Task task2 = new Task("Drink Pepsi Max", new Project("Time Taker", new Client("Grumsen Development")), 0, 1);
-        Task task3 = new Task("Write in report", new Project("Time Taker", new Client("Grumsen Development")), 0, 0);
+       // Task task1 = new Task("Add information to TableView", new Project("Time Taker", new Client("Grumsen Development")), 0, 0);
+        //Task task2 = new Task("Drink Pepsi Max", new Project("Time Taker", new Client("Grumsen Development")), 0, 1);
+        //Task task3 = new Task("Write in report", new Project("Time Taker", new Client("Grumsen Development")), 0, 0);
         
-        tasks.add(task1);
-        tasks.add(task2);
-        tasks.add(task3);
+       //tasks.add(task1);
+        //tasks.add(task2);
+        //tasks.add(task3);
         
         for (Task task : tasks)
         {
