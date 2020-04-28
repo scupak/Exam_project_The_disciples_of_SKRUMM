@@ -17,6 +17,7 @@ public class Task
     private String projectName;
     private String clientName;
     private int isPaid;
+    private String lastUsed;
 
     public Task(String title, Project project, int time) {
         this.title = title;
@@ -26,7 +27,7 @@ public class Task
         this.clientName = project.getClient().getClientName();
     }
     
-    public Task(String title, Project project, int time, int isPaid) 
+    public Task(String title, Project project, int time, int isPaid, String lastUsed) 
     {
         this.title = title;
         this.project = project;
@@ -34,6 +35,17 @@ public class Task
         this.projectName = project.getProjectName();
         this.clientName = project.getClient().getClientName();
         this.isPaid = isPaid;
+        this.lastUsed = lastUsed;
+    }
+
+    public String getLastUsed()
+    {
+        return lastUsed;
+    }
+
+    public void setLastUsed(String lastUsed)
+    {
+        this.lastUsed = lastUsed;
     }
 
     public int getIsPaid()
