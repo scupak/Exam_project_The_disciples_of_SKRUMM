@@ -11,6 +11,6 @@ package examProjectTheDisciplesOfSkrumm.BLL;
  */
 public class Usermanager
 {
-    private final 
+    //private final 
     
 }
