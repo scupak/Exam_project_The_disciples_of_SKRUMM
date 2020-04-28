@@ -26,6 +26,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -191,9 +192,9 @@ public class MainViewController implements Initializable {
         panes.add(taskFive);
         panes.add(taskSix);
         
-        Task task1 = new Task("Add information to TableView", new Project("Time Taker", new Client("Grumsen Development")),0);
-        Task task2 = new Task("Drink Pepsi Max", new Project("Time Taker", new Client("Grumsen Development")), 0);
-        Task task3 = new Task("Write in report", new Project("Time Taker", new Client("Grumsen Development")), 0);
+        Task task1 = new Task("Add information to TableView", new Project("Time Taker", new Client("Grumsen Development")), 0, 0);
+        Task task2 = new Task("Drink Pepsi Max", new Project("Time Taker", new Client("Grumsen Development")), 0, 1);
+        Task task3 = new Task("Write in report", new Project("Time Taker", new Client("Grumsen Development")), 0, 0);
         
         tasks.add(task1);
         tasks.add(task2);
@@ -201,7 +202,7 @@ public class MainViewController implements Initializable {
         
         for (Task task : tasks)
         {
-            fillGrid2(task.getTitle(), task.getClientName(), "24/04/2020", panes.get(anchorPaneNumber));
+            fillGrid2(task.getTitle(), task.getClientName(), "24/04/2020", panes.get(anchorPaneNumber), task.getIsPaid());
             anchorPaneNumber++;
         }
         
@@ -218,10 +219,14 @@ public class MainViewController implements Initializable {
         anchorPaneNumber = 0;
     }
     
-    private void fillGrid2(String task, String client, String date, AnchorPane pane)
+    private void fillGrid2(String task, String client, String date, AnchorPane pane, int isPaid)
     {
         List children = pane.getChildren();
         List<Label> labels = new ArrayList();
+        
+        Image Paid = new Image("/examProjectTheDisciplesOfSkrumm/GUI/Icons/Paid.png");
+        Image NotPaid = new Image("/examProjectTheDisciplesOfSkrumm/GUI/Icons/NotPaid.png"); 
+        ImageView imgView;
         
         for (Object child : children)
         {
@@ -231,6 +236,19 @@ public class MainViewController implements Initializable {
                 
                 labels.add(label);
             }
+            if(child instanceof ImageView)
+            {
+                imgView = (ImageView) child;
+                
+                if(isPaid == 1)
+                {
+                    imgView.setImage(Paid);
+                }
+                else if(isPaid == 0)
+                {
+                    imgView.setImage(NotPaid);
+                }
+            }  
         }
         
         for (Label label : labels)
@@ -266,7 +284,6 @@ public class MainViewController implements Initializable {
 
 }
 
-    @FXML
     private void handleStartTimer(ActionEvent event) {
 
         System.out.println(System.getProperty("java.version"));
@@ -329,7 +346,6 @@ public class MainViewController implements Initializable {
 
     }
 
-    @FXML
     private void handleLogOut(ActionEvent event) throws IOException 
     {
          Stage mainView = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -345,5 +361,10 @@ public class MainViewController implements Initializable {
         stage.setTitle("TimeTracker");
         stage.show();
         mainView.close();
+    }
+
+    @FXML
+    private void handleStartTimer(MouseEvent event)
+    {
     }
 }

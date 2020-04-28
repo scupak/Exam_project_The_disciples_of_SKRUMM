@@ -16,6 +16,7 @@ public class Task
     private int time;
     private String projectName;
     private String clientName;
+    private int isPaid;
 
     public Task(String title, Project project, int time) {
         this.title = title;
@@ -23,6 +24,21 @@ public class Task
         this.time = time;
         this.projectName = project.getProjectName();
         this.clientName = project.getClient().getClientName();
+    }
+    
+    public Task(String title, Project project, int time, int isPaid) 
+    {
+        this.title = title;
+        this.project = project;
+        this.time = time;
+        this.projectName = project.getProjectName();
+        this.clientName = project.getClient().getClientName();
+        this.isPaid = isPaid;
+    }
+
+    public int getIsPaid()
+    {
+        return isPaid;
     }
 
     public String getTitle() {
