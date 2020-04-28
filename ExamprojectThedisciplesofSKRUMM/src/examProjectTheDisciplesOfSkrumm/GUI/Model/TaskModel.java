@@ -5,20 +5,35 @@
  */
 package examProjectTheDisciplesOfSkrumm.GUI.Model;
 
+import examProjectTheDisciplesOfSkrumm.BE.Client;
+import examProjectTheDisciplesOfSkrumm.BE.Project;
+import examProjectTheDisciplesOfSkrumm.BE.Task;
 import examProjectTheDisciplesOfSkrumm.BLL.BLLFacade;
 import examProjectTheDisciplesOfSkrumm.BLL.Interface.BLLFacadeInterface;
+import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.TaskModelInterface;
+import javafx.scene.control.TreeItem;
 
 /**
  *
  * @author kacpe
  */
-public class TaskModel 
+public class TaskModel implements TaskModelInterface
 {
     private BLLFacadeInterface bllfacade;
 
-    private TaskModel()
+    TaskModel()
     {
         bllfacade = new BLLFacade();
+    }
+
+    @Override
+    public TreeItem<Task> getMockModel() {
+        return bllfacade.getMockModel();
+    }
+
+    @Override
+    public TreeItem<Task> getModel(String title, Project project, Client client, int time) {
+        return bllfacade.getModel(title, project, client, time);
     }
     
     
