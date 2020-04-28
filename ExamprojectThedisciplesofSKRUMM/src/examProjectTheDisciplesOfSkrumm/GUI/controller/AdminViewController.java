@@ -107,10 +107,10 @@ public class AdminViewController implements Initializable
        
        ObservableList<User> getData2 = FXCollections.observableArrayList();
        
-       User user1 = new User("Mads", "Jensen", "mads@jensen.dk", "yes");
-       User user2 = new User("Lars", "Larsen", "lars@larsen.dk", "no");
-       User user3 = new User("Lea", "Evergarden", "lea@evergarden.dk", "yes");
-       User user4 = new User("Tim", "Mcilrath", "tim@mcilrath.dk", "no");
+       User user1 = new User("mads@jensen.dk", "Mads", "Jensen","123" , true);
+       User user2 = new User("lars@larsen.dk", "Lars", "Larsen","123" , false);
+       User user3 = new User("lea@evergarden.dk", "Lea", "Evergarden","123" , true);
+       User user4 = new User("tim@mcilrath.dk", "Tim", "Mcilrath","123" , false);
        
        getData2.add(user1);
        getData2.add(user2);
