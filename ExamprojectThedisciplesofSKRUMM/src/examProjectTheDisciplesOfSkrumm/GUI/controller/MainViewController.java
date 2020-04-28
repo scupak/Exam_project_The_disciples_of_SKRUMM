@@ -242,9 +242,9 @@ public class MainViewController implements Initializable {
         Task task2 = new Task("Drink Pepsi Max", new Project("Time Taker", new Client("Grumsen Development")), 0, 1, "28/04/2020");
         Task task3 = new Task("Write in report", new Project("Time Taker", new Client("Grumsen Development")), 0, 0, "28/04/2020");
         
-        tasks.add(task1);
-        tasks.add(task2);
-        tasks.add(task3);
+       //tasks.add(task1);
+        //tasks.add(task2);
+        //tasks.add(task3);
         
         for (Task task : tasks)
         {
