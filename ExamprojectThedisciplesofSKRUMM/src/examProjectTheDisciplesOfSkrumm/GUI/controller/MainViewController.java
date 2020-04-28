@@ -240,11 +240,11 @@ public class MainViewController implements Initializable {
             {
                 imgView = (ImageView) child;
                 
-                if(isPaid == 0)
+                if(isPaid == 1)
                 {
                     imgView.setImage(Paid);
                 }
-                else if(isPaid == 1)
+                else if(isPaid == 0)
                 {
                     imgView.setImage(NotPaid);
                 }
