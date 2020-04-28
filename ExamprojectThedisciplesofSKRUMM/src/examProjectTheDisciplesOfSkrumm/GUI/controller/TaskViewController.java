@@ -10,9 +10,13 @@ package examProjectTheDisciplesOfSkrumm.GUI.controller;
 import com.jfoenix.controls.JFXButton;
 import examProjectTheDisciplesOfSkrumm.BE.Task;
 import examProjectTheDisciplesOfSkrumm.BLL.Util.TreeTableUtil;
+import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.ModelFacadeInterface;
+import examProjectTheDisciplesOfSkrumm.GUI.Model.ModelFacade;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -36,8 +40,9 @@ import javafx.util.Callback;
  *
  * @author kacpe
  */
-public class TaskViewController implements Initializable {
-
+public class TaskViewController implements Initializable 
+{
+    ModelFacadeInterface modelfacade;
     @FXML
     private TreeTableView<Task> TaskTable;
     @FXML
@@ -78,6 +83,13 @@ public class TaskViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) 
     {
+        try {
+            //Getting the model
+            modelfacade = ModelFacade.getInstance();
+        } catch (Exception ex) {
+            Logger.getLogger(TaskViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         //Setting cellValue Factories for TreeTableView 
         TaskColumn.setCellValueFactory(new TreeItemPropertyValueFactory<>("title"));
         ProjectColumn.setCellValueFactory(new TreeItemPropertyValueFactory<>("projectName"));
@@ -85,11 +97,11 @@ public class TaskViewController implements Initializable {
         clientColumn.setCellValueFactory(new TreeItemPropertyValueFactory<>("clientName"));
         
         //Creating the rootNodeTask
-        //TreeItem<Task> rootNodeTask = TreeTableUtil.getMockModel();
-        //rootNodeTask.setExpanded(true);
+        TreeItem<Task> rootNodeTask = modelfacade.getMockModel();
+        rootNodeTask.setExpanded(true);
         
         //Set the model for the TreeTableView
-        //TaskTable.setRoot(rootNodeTask);
+        TaskTable.setRoot(rootNodeTask);
         
         // Make the root node invisible
         TaskTable.setShowRoot(false);
