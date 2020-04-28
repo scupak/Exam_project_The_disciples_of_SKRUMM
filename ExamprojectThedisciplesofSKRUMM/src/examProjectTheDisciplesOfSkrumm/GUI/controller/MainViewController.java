@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -25,6 +26,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -63,11 +65,7 @@ public class MainViewController implements Initializable {
     @FXML
     private AnchorPane taskTwo;
     @FXML
-    private Label timeLabel;
-    @FXML
     private JFXButton EditButton;
-    @FXML
-    private JFXComboBox<?> intervals;
     @FXML
     private JFXButton deleteButton;
     private AnchorPane anchorPane00;
@@ -78,6 +76,54 @@ public class MainViewController implements Initializable {
     private boolean running = false;
     private Label timeLabe00;
     private int totalsec = 0;
+    
+    
+    @FXML
+    private Label timeLabel = new Label();
+    @FXML
+    private Label timeLabel1;
+    @FXML
+    private Label timeLabel2;
+    @FXML
+    private JFXButton EditButton1;
+    @FXML
+    private JFXButton deleteButton1;
+    @FXML
+    private Label timeLabel11;
+    @FXML
+    private Label timeLabel21;
+    @FXML
+    private JFXButton EditButton2;
+    @FXML
+    private JFXButton deleteButton2;
+    @FXML
+    private Label timeLabel12;
+    @FXML
+    private Label timeLabel22;
+    @FXML
+    private JFXButton EditButton3;
+    @FXML
+    private JFXButton deleteButton3;
+    @FXML
+    private Label timeLabel13;
+    @FXML
+    private Label timeLabel23;
+    @FXML
+    private JFXButton EditButton4;
+    @FXML
+    private JFXButton deleteButton4;
+    @FXML
+    private Label timeLabel14;
+    @FXML
+    private Label timeLabel24;
+    @FXML
+    private JFXButton EditButton5;
+    @FXML
+    private JFXButton deleteButton5;
+    @FXML
+    private Label timeLabel15;
+    @FXML
+    private Label timeLabel25;
 
     /**
      * Initializes the controller class.
@@ -224,7 +270,10 @@ public class MainViewController implements Initializable {
     {
         List children = pane.getChildren();
         List<Label> labels = new ArrayList();
+        List<JFXButton> buttons = new ArrayList();
+        JFXButton playButton = new JFXButton();
         
+        Image Play = new Image("/examProjectTheDisciplesOfSkrumm/GUI/Icons/Playbutton.png");
         Image Paid = new Image("/examProjectTheDisciplesOfSkrumm/GUI/Icons/Paid.png");
         Image NotPaid = new Image("/examProjectTheDisciplesOfSkrumm/GUI/Icons/NotPaid.png"); 
         ImageView imgView;
@@ -237,6 +286,7 @@ public class MainViewController implements Initializable {
                 
                 labels.add(label);
             }
+            
             if(child instanceof ImageView)
             {
                 imgView = (ImageView) child;
@@ -250,6 +300,12 @@ public class MainViewController implements Initializable {
                     imgView.setImage(NotPaid);
                 }
             }  
+            
+            if(child instanceof JFXButton)
+            {
+                JFXButton button = (JFXButton) child;
+                buttons.add(button);
+            }
         }
         
         System.out.println(children);
@@ -278,7 +334,29 @@ public class MainViewController implements Initializable {
             {
                 label.setText(date);
             }
+            
+            if(label.getText().equals("00:00:00"))
+            {
+                timeLabel = label;
+            }
         }
+        
+        for (JFXButton button : buttons)
+        {
+            if(button.getText().equals("Play"))
+            {
+                playButton = button;
+            }
+        }
+        
+        EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() { 
+            public void handle(ActionEvent e) 
+            { 
+                handleStart(timeLabel); 
+            } 
+        }; 
+        
+        playButton.setOnAction(event);
     }
 
     private void handleStart(Label label) {
