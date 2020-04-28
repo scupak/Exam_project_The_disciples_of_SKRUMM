@@ -34,9 +34,9 @@ public class User
         return firstName.get();
     }
 
-    public void setFirstName(SimpleStringProperty firstName)
+    public void setFirstName(String firstName)
     {
-        this.firstName = firstName;
+        this.firstName = new SimpleStringProperty(firstName);
     }
 
     public String getLastName()
@@ -44,9 +44,9 @@ public class User
         return lastName.get();
     }
 
-    public void setLastName(SimpleStringProperty lastName)
+    public void setLastName(String lastName)
     {
-        this.lastName = lastName;
+        this.lastName = new SimpleStringProperty(lastName);
     }
 
     public String getEmail()
@@ -54,9 +54,9 @@ public class User
         return email.get();
     }
 
-    public void setEmail(SimpleStringProperty email)
+    public void setEmail(String email)
     {
-        this.email = email;
+        this.email = new SimpleStringProperty(email);
     }
 
     public Boolean getIsAdmin()
@@ -74,9 +74,9 @@ public class User
         return password.get();
     }
 
-    public void setPassword(SimpleStringProperty password)
+    public void setPassword(String password)
     {
-        this.password = password;
+        this.password = new SimpleStringProperty(password);
     }
 
     @Override

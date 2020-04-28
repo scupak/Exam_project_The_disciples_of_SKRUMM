@@ -14,7 +14,7 @@ import java.util.List;
  *
  * @author lumby
  */
-public interface UserDBDAInterface
+public interface UserDBDAOInterface
 {
     public List<User> getAllUsers() throws SQLServerException, SQLException;
     

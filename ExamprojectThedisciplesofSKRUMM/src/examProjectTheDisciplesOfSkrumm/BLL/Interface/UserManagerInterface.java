@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package examProjectTheDisciplesOfSkrumm.DAL.Interface;
+package examProjectTheDisciplesOfSkrumm.BLL.Interface;
 
 /**
  *
  * @author lumby
  */
-public interface DALFacadeInterface extends UserDBDAOInterface
+public interface UserManagerInterface
 {
     
 }

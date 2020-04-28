@@ -9,7 +9,7 @@ package examProjectTheDisciplesOfSkrumm.BLL.Interface;
  *
  * @author kacpe
  */
-public interface BLLFacadeInterface extends TreeTableUtilInterface
+public interface BLLFacadeInterface extends TreeTableUtilInterface, SecurityManagerInterface
 {
     
 }

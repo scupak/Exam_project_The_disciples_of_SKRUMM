@@ -7,7 +7,6 @@ package examProjectTheDisciplesOfSkrumm.DAL;
 
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import examProjectTheDisciplesOfSkrumm.BE.User;
-import examProjectTheDisciplesOfSkrumm.DAL.Interface.UserDBDAInterface;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,12 +15,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import examProjectTheDisciplesOfSkrumm.DAL.Interface.UserDBDAOInterface;
 
 /**
  *
  * @author lumby
  */
-public class UserDBDAO implements UserDBDAInterface
+public class UserDBDAO implements UserDBDAOInterface
 {
 
     private final DatabaseConnector dbCon;
@@ -56,12 +56,12 @@ public class UserDBDAO implements UserDBDAInterface
                 String password = rs.getString("password");
                 int admin = rs.getByte("isAdmin");
                 boolean isAdmin;
-                if (admin != 1)
-                {
-                    isAdmin = false;
-                } else
+                if (admin == 1)
                 {
                     isAdmin = true;
+                } else
+                {
+                    isAdmin = false;
                 }
                 users.add(new User(email, firstName, lastName, password, isAdmin));
             }
