@@ -85,11 +85,11 @@ public class TaskViewController implements Initializable {
         clientColumn.setCellValueFactory(new TreeItemPropertyValueFactory<>("clientName"));
         
         //Creating the rootNodeTask
-        TreeItem<Task> rootNodeTask = TreeTableUtil.getMockModel();
-        rootNodeTask.setExpanded(true);
+        //TreeItem<Task> rootNodeTask = TreeTableUtil.getMockModel();
+        //rootNodeTask.setExpanded(true);
         
         //Set the model for the TreeTableView
-        TaskTable.setRoot(rootNodeTask);
+        //TaskTable.setRoot(rootNodeTask);
         
         // Make the root node invisible
         TaskTable.setShowRoot(false);
