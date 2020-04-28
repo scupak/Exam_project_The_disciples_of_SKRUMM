@@ -8,6 +8,7 @@ package examProjectTheDisciplesOfSkrumm.GUI.Model.Interface;
 import examProjectTheDisciplesOfSkrumm.BE.Client;
 import examProjectTheDisciplesOfSkrumm.BE.Project;
 import examProjectTheDisciplesOfSkrumm.BE.Task;
+import javafx.collections.ObservableList;
 import javafx.scene.control.TreeItem;
 
 /**
@@ -18,6 +19,12 @@ public interface TaskModelInterface
 {
     public TreeItem<Task> getMockModel();
     
-    public TreeItem<Task> getModel(String title, Project project, Client client, int time);
+    public TreeItem<Task> getModel();
+    
+    public void createTask(Task task);
+    
+    public ObservableList<Task> getTasks();
+    
+    public void setTasks(ObservableList<Task> tasks);
     
 }

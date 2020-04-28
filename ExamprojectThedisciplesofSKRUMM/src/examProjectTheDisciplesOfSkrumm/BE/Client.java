@@ -5,24 +5,26 @@
  */
 package examProjectTheDisciplesOfSkrumm.BE;
 
+import javafx.beans.property.SimpleStringProperty;
+
 /**
  *
  * @author kacpe
  */
 public class Client 
 {
-    private String ClientName;
+    private SimpleStringProperty ClientName;
 
     public Client(String ClientName) {
-        this.ClientName = ClientName;
+        this.ClientName = new SimpleStringProperty(ClientName);
     }
 
     public String getClientName() {
-        return ClientName;
+        return ClientName.get();
     }
 
     public void setClientName(String ClientName) {
-        this.ClientName = ClientName;
+        this.ClientName.set(ClientName);
     }
     
     

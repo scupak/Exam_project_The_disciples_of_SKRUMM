@@ -17,6 +17,6 @@ public interface SecurityManagerInterface {
      * @return hexString
      * @throws attendance.automation.BLL.Security.SecurityException 
      */
-    public String hashPassword(String password) throws attendance.automation.BLL.Security.SecurityException;
+    public String hashPassword(String password) throws SecurityException;
     
 }

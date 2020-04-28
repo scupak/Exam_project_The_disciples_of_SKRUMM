@@ -10,12 +10,17 @@ import com.jfoenix.controls.JFXComboBox;
 import examProjectTheDisciplesOfSkrumm.BE.Client;
 import examProjectTheDisciplesOfSkrumm.BE.Project;
 import examProjectTheDisciplesOfSkrumm.BE.Task;
+import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.ModelFacadeInterface;
+import examProjectTheDisciplesOfSkrumm.GUI.Model.ModelFacade;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -43,6 +48,7 @@ import javafx.stage.Stage;
  */
 public class MainViewController implements Initializable {
 
+    ModelFacadeInterface modelfacade;
     @FXML
     private JFXButton AdminBtn;
     private GridPane taskGrid;
@@ -130,11 +136,15 @@ public class MainViewController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        /*
-        ColumnConstraints halfConstraint = new ColumnConstraints(50);
-        taskGrid.getColumnConstraints().addAll(halfConstraint,halfConstraint); 
-         */
-        
+        try {
+            /*
+            ColumnConstraints halfConstraint = new ColumnConstraints(50);
+            taskGrid.getColumnConstraints().addAll(halfConstraint,halfConstraint);
+            */
+            modelfacade = ModelFacade.getInstance();
+        } catch (Exception ex) {
+            Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         fillGrid();
        // anchorPane00.setUserData(new Task("title", "projectName", "clientName", 0) );
         
@@ -228,7 +238,7 @@ public class MainViewController implements Initializable {
     private void fillGrid()
     {
         int anchorPaneNumber = 0;
-        ArrayList<Task> tasks = new ArrayList<>();
+        ObservableList<Task> tasks = modelfacade.getTasks();
         ArrayList<AnchorPane> panes = new ArrayList<>();
         
         panes.add(taskOne);
@@ -238,9 +248,9 @@ public class MainViewController implements Initializable {
         panes.add(taskFive);
         panes.add(taskSix);
         
-        Task task1 = new Task("Add information to TableView", new Project("Time Taker", new Client("Grumsen Development")), 0, 0, "28/04/2020");
-        Task task2 = new Task("Drink Pepsi Max", new Project("Time Taker", new Client("Grumsen Development")), 0, 1, "28/04/2020");
-        Task task3 = new Task("Write in report", new Project("Time Taker", new Client("Grumsen Development")), 0, 0, "28/04/2020");
+        //Task task1 = new Task("Add information to TableView", new Project("Time Taker", new Client("Grumsen Development")), 0, 0, "28/04/2020");
+        //Task task2 = new Task("Drink Pepsi Max", new Project("Time Taker", new Client("Grumsen Development")), 0, 1, "28/04/2020");
+        //Task task3 = new Task("Write in report", new Project("Time Taker", new Client("Grumsen Development")), 0, 0, "28/04/2020");
         
        //tasks.add(task1);
         //tasks.add(task2);

@@ -9,7 +9,7 @@ package examProjectTheDisciplesOfSkrumm.GUI.Model.Interface;
  *
  * @author kacpe
  */
-public interface ModelFacadeInterface extends TaskModelInterface
+public interface ModelFacadeInterface extends TaskModelInterface, ProjectModelInterface, ClientModelInterface
 {
     
 }
