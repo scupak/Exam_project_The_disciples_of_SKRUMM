@@ -7,6 +7,7 @@ package examProjectTheDisciplesOfSkrumm.DAL;
 
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import examProjectTheDisciplesOfSkrumm.BE.User;
+import examProjectTheDisciplesOfSkrumm.DAL.Interface.UserDBDAInterface;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +21,7 @@ import java.sql.Statement;
  *
  * @author lumby
  */
-public class UserDBDAO
+public class UserDBDAO implements UserDBDAInterface
 {
 
     private final DatabaseConnector dbCon;
@@ -37,6 +38,7 @@ public class UserDBDAO
      * @throws SQLServerException
      * @throws SQLException
      */
+    @Override
     public List<User> getAllUsers() throws SQLServerException, SQLException
     {
         ArrayList<User> users = new ArrayList<>();
@@ -54,12 +56,12 @@ public class UserDBDAO
                 String password = rs.getString("password");
                 int admin = rs.getByte("isAdmin");
                 boolean isAdmin;
-                if (admin == 1)
-                {
-                    isAdmin = true;
-                } else
+                if (admin != 1)
                 {
                     isAdmin = false;
+                } else
+                {
+                    isAdmin = true;
                 }
                 users.add(new User(email, firstName, lastName, password, isAdmin));
             }
@@ -74,6 +76,7 @@ public class UserDBDAO
      * @return boolean
      * @throws SQLException
      */
+    @Override
     public boolean userExist(User user) throws SQLException
     {
         try (Connection con = dbCon.getConnection())
@@ -94,10 +97,12 @@ public class UserDBDAO
 
     /**
      * creates a user in the dataabase
+     *
      * @param user
      * @return user
-     * @throws SQLException 
+     * @throws SQLException
      */
+    @Override
     public User createUser(User user) throws SQLException
     {
         if (userExist(user))
@@ -130,23 +135,31 @@ public class UserDBDAO
             return user;
         }
     }
-    
+
+    /**
+     * gets a specific user from the database
+     *
+     * @param user
+     * @return returnStudent
+     * @throws SQLException
+     */
+    @Override
     public User getUser(User user) throws SQLException
     {
-        if(!userExist(user))
+        if (!userExist(user))
         {
             return null;
         }
-        
+
         User returnUser;
-        try(Connection con = dbCon.getConnection())
+        try (Connection con = dbCon.getConnection())
         {
             PreparedStatement ps = con.prepareStatement("SELECT * FROM [user] WHERE email = ?");
-            
+
             ps.setString(1, user.getEmail());
             ResultSet rs = ps.executeQuery();
-            
-            if(rs.next())
+
+            if (rs.next())
             {
                 String email = rs.getString("email");
                 String firstName = rs.getString("firstName");
@@ -162,39 +175,53 @@ public class UserDBDAO
                     isAdmin = false;
                 }
                 returnUser = new User(email, firstName, lastName, password, isAdmin);
-            }else{
+            } else
+            {
                 return null;
             }
             return returnUser;
         }
     }
-    
+
+    /**
+     * updates a users password
+     *
+     * @param user
+     * @return boolean
+     * @throws SQLServerException
+     * @throws SQLException
+     */
+    @Override
     public boolean updateUserPassword(User user) throws SQLServerException, SQLException
     {
-        if(!userExist(user))
+        if (!userExist(user))
         {
             return false;
         }
-        
-        try(Connection con = dbCon.getConnection()){
-            
+
+        try (Connection con = dbCon.getConnection())
+        {
+
             PreparedStatement ps = con.prepareStatement("UPDATE [user] SET password = ? WHERE email = ?");
-            
+
             ps.setString(1, user.getPassword());
             ps.setString(2, user.getEmail());
             int updatedRows = ps.executeUpdate();
-            
+
             return updatedRows > 0;
-            
+
         }
     }
 
     public static void main(String[] args) throws IOException, SQLException
     {
         UserDBDAO userDb = new UserDBDAO();
-        User test = new User("hello@friend.dk", "tdgj", "ssgdhs", "159", false);
+        User test1 = new User("standard@user.now", "Mads", "Jensen", "nemt", false);
+        User test2 = new User("admin@user.now", "Jakob", "Grumsen", "nemt", true);
+        userDb.createUser(test1);
+        userDb.createUser(test2);
         //userDb.updateUserPassword(test);
-        System.out.println(userDb.getUser(test));
+       
 
     }
 }
