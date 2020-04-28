@@ -42,7 +42,7 @@ public class Exam_project_The_disciples_of_SKRUMM extends Application
         ArrayList<Task> intervals = new ArrayList<Task>();
         intervals.add(interval1);
         Task task1 = new Task("Making candy", project1, 0, 1, LocalDateTime.now(), LocalDate.now(), LocalTime.MIN, LocalTime.MIN, new ArrayList());
-        Task task2 = new Task("Developing apps", project3, 0, 632240, LocalDateTime.now(), LocalDate.now(), LocalTime.MIN, LocalTime.MIN, intervals);
+        Task task2 = new Task("Developing apps", project3, 532240, 1, LocalDateTime.now(), LocalDate.now(), LocalTime.MIN, LocalTime.MIN, intervals);
         
         modelfacade.createTask(task1);
         modelfacade.createTask(task2);
