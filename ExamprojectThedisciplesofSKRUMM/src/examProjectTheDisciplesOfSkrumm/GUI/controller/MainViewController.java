@@ -192,9 +192,9 @@ public class MainViewController implements Initializable {
         panes.add(taskFive);
         panes.add(taskSix);
         
-       // Task task1 = new Task("Add information to TableView", new Project("Time Taker", new Client("Grumsen Development")), 0, 0);
-        //Task task2 = new Task("Drink Pepsi Max", new Project("Time Taker", new Client("Grumsen Development")), 0, 1);
-        //Task task3 = new Task("Write in report", new Project("Time Taker", new Client("Grumsen Development")), 0, 0);
+        Task task1 = new Task("Add information to TableView", new Project("Time Taker", new Client("Grumsen Development")), 0, 0, "28/04/2020");
+        Task task2 = new Task("Drink Pepsi Max", new Project("Time Taker", new Client("Grumsen Development")), 0, 1, "28/04/2020");
+        Task task3 = new Task("Write in report", new Project("Time Taker", new Client("Grumsen Development")), 0, 0, "28/04/2020");
         
        //tasks.add(task1);
         //tasks.add(task2);
@@ -202,14 +202,15 @@ public class MainViewController implements Initializable {
         
         for (Task task : tasks)
         {
-            fillGrid2(task.getTitle(), task.getClientName(), "24/04/2020", panes.get(anchorPaneNumber), task.getIsPaid());
+            overwriteTasks(task.getTitle(), task.getClientName(), "24/04/2020", panes.get(anchorPaneNumber), task.getIsPaid());
             anchorPaneNumber++;
         }
         
         int tasksSize = tasks.size();
         int i = 0;
-       
-        for (int end = 6-tasksSize; end > 0; end--)
+        int maxAmountOfTasks = 6;
+        
+        for (int amountLeft = maxAmountOfTasks-tasksSize; amountLeft > 0; amountLeft--)
         {
             panes.get(tasksSize + i).getChildren().clear();
             i++;
@@ -219,7 +220,7 @@ public class MainViewController implements Initializable {
         anchorPaneNumber = 0;
     }
     
-    private void fillGrid2(String task, String client, String date, AnchorPane pane, int isPaid)
+    private void overwriteTasks(String task, String client, String date, AnchorPane pane, int isPaid)
     {
         List children = pane.getChildren();
         List<Label> labels = new ArrayList();
@@ -251,6 +252,8 @@ public class MainViewController implements Initializable {
             }  
         }
         
+        System.out.println(children);
+        
         for (Label label : labels)
         {
             if(label.getText().equals("TASK"))
@@ -276,15 +279,9 @@ public class MainViewController implements Initializable {
                 label.setText(date);
             }
         }
-        
-        
-    
+    }
 
-    
-
-}
-
-    private void handleStartTimer(ActionEvent event) {
+    private void handleStart(Label label) {
 
         System.out.println(System.getProperty("java.version"));
         System.out.println(System.getProperty("javafx.runtime.version"));
@@ -327,7 +324,7 @@ public class MainViewController implements Initializable {
                         System.out.println(totalsec);
                         Platform.runLater(()
                                 -> {
-                            timeLabel.setText(String.format("%02d", hour) + ":" + String.format("%02d", min) + ":" + String.format("%02d", sec));
+                            label.setText(String.format("%02d", hour) + ":" + String.format("%02d", min) + ":" + String.format("%02d", sec));
                         }
                         );
 
@@ -364,7 +361,8 @@ public class MainViewController implements Initializable {
     }
 
     @FXML
-    private void handleStartTimer(MouseEvent event)
+    private void handlePlay(ActionEvent event)
     {
+        handleStart(timeLabel);
     }
 }
