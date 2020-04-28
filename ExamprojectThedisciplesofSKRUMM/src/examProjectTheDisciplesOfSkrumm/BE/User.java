@@ -16,15 +16,17 @@ public class User
     private SimpleStringProperty firstName;
     private SimpleStringProperty lastName;
     private SimpleStringProperty email;
-    private SimpleStringProperty isAdmin;
+    private SimpleStringProperty password;
+    private Boolean isAdmin;
 
 
-    public User(String firstName, String lastName, String email, String isAdmin)
+    public User(String email, String firstName, String lastName, String password, boolean isAdmin)
     {
+        this.email = new SimpleStringProperty(email);
         this.firstName = new SimpleStringProperty(firstName);
         this.lastName = new SimpleStringProperty(lastName);
-        this.email = new SimpleStringProperty(email);
-        this.isAdmin = new SimpleStringProperty(isAdmin);
+        this.password = new SimpleStringProperty(password);
+        this.isAdmin = isAdmin;
     }
 
     public String getFirstName()
@@ -32,9 +34,19 @@ public class User
         return firstName.get();
     }
 
+    public void setFirstName(SimpleStringProperty firstName)
+    {
+        this.firstName = firstName;
+    }
+
     public String getLastName()
     {
         return lastName.get();
+    }
+
+    public void setLastName(SimpleStringProperty lastName)
+    {
+        this.lastName = lastName;
     }
 
     public String getEmail()
@@ -42,11 +54,29 @@ public class User
         return email.get();
     }
 
-    public String getIsAdmin()
+    public void setEmail(SimpleStringProperty email)
     {
-        return isAdmin.get();
+        this.email = email;
     }
-    
-    
-    
+
+    public Boolean getIsAdmin()
+    {
+        return isAdmin;
+    }
+
+    public void setIsAdmin(Boolean isAdmin)
+    {
+        this.isAdmin = isAdmin;
+    }
+
+    public String getPassword()
+    {
+        return password.get();
+    }
+
+    public void setPassword(SimpleStringProperty password)
+    {
+        this.password = password;
+    }
+   
 }
