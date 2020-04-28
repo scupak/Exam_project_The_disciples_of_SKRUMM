@@ -5,28 +5,31 @@
  */
 package examProjectTheDisciplesOfSkrumm.BE;
 
+import javafx.beans.property.SimpleStringProperty;
+
 /**
  *
  * @author kacpe
  */
 public class Project 
 {
-    private String projectName;
+    private SimpleStringProperty projectName;
     private Client client;
-    private String clientName;
+    private SimpleStringProperty clientName;
 
-    public Project(String projectName, Client client) {
-        this.projectName = projectName;
+    public Project(String projectName, Client client) 
+    {
+        this.projectName = new SimpleStringProperty(projectName);
         this.client = client;
-        this.clientName = client.getClientName();
+        this.clientName = new SimpleStringProperty(client.getClientName());
     }
 
     public String getProjectName() {
-        return projectName;
+        return projectName.get();
     }
 
     public void setProjectName(String projectName) {
-        this.projectName = projectName;
+        this.projectName.set(projectName);
     }
 
     public Client getClient() {
@@ -35,12 +38,19 @@ public class Project
 
     public void setClient(Client client) {
         this.client = client;
-        this.clientName = client.getClientName();
+        this.clientName = new SimpleStringProperty(client.getClientName());
     }
 
     public String getClientName() {
-        return clientName;
+        return clientName.get();
     }
+
+    @Override
+    public String toString() {
+        return "" + projectName.get();
+    }
+    
+    
 
     
     

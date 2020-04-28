@@ -5,11 +5,14 @@
  */
 package examProjectTheDisciplesOfSkrumm.BLL.Interface;
 
+import examProjectTheDisciplesOfSkrumm.BE.Client;
+import examProjectTheDisciplesOfSkrumm.BE.Project;
+
 /**
  *
  * @author kacpe
  */
-public interface BLLFacadeInterface extends TreeTableUtilInterface, TaskManagerInterface, SecurityManagerInterface
+public interface TaskManagerInterface 
 {
-    
+     
 }
