@@ -8,11 +8,14 @@ package examProjectTheDisciplesOfSkrumm.GUI.Model;
 import examProjectTheDisciplesOfSkrumm.BE.Client;
 import examProjectTheDisciplesOfSkrumm.BE.Project;
 import examProjectTheDisciplesOfSkrumm.BE.Task;
+import examProjectTheDisciplesOfSkrumm.BE.User;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.ClientModelInterface;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.ModelFacadeInterface;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.ProjectModelInterface;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.TaskModelInterface;
+import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.UserModelInterface;
 import java.io.IOException;
+import java.sql.SQLException;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TreeItem;
 
@@ -26,12 +29,15 @@ public class ModelFacade implements ModelFacadeInterface
     private TaskModelInterface taskmodel;
     private ProjectModelInterface projectmodel;
     private ClientModelInterface clientmodel;
+    private UserModelInterface userModel;
     
-    private ModelFacade() 
+    private ModelFacade() throws IOException 
     {
         taskmodel = new TaskModel();
         projectmodel = new ProjectModel();
         clientmodel = new ClientModel();
+        userModel = new UserModel();
+        
     }
     
     /**
@@ -109,6 +115,24 @@ public class ModelFacade implements ModelFacadeInterface
     @Override
     public void setTasks(ObservableList<Task> tasks) {
         taskmodel.setTasks(tasks);
+    }
+
+    /**
+     * checks the if a give user maches with a user in the database
+     * @param user
+     * @return
+     * @throws SQLException 
+     */
+    @Override
+    public boolean checkUser(User user) throws SQLException
+    {
+        return userModel.checkUser(user);
+    }
+
+    @Override
+    public String hashPassword(String password)
+    {
+        return userModel.hashPassword(password);
     }
     
 }

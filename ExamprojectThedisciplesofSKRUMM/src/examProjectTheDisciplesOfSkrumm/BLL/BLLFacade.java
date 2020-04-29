@@ -9,11 +9,15 @@ package examProjectTheDisciplesOfSkrumm.BLL;
 import examProjectTheDisciplesOfSkrumm.BE.Client;
 import examProjectTheDisciplesOfSkrumm.BE.Project;
 import examProjectTheDisciplesOfSkrumm.BE.Task;
+import examProjectTheDisciplesOfSkrumm.BE.User;
 import examProjectTheDisciplesOfSkrumm.BLL.Interface.BLLFacadeInterface;
 import examProjectTheDisciplesOfSkrumm.BLL.Interface.SecurityManagerInterface;
 import examProjectTheDisciplesOfSkrumm.BLL.Interface.TaskManagerInterface;
 import examProjectTheDisciplesOfSkrumm.BLL.Interface.TreeTableUtilInterface;
+import examProjectTheDisciplesOfSkrumm.BLL.Interface.UserManagerInterface;
 import examProjectTheDisciplesOfSkrumm.BLL.Util.TreeTableUtil;
+import java.io.IOException;
+import java.sql.SQLException;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TreeItem;
 
@@ -26,12 +30,14 @@ public class BLLFacade implements BLLFacadeInterface
     private TreeTableUtilInterface treeTableUtil;
     private TaskManagerInterface taskmanager;
     private SecurityManagerInterface securityManager;
+    private UserManagerInterface userManager;
 
-    public BLLFacade() 
+    public BLLFacade() throws IOException 
     {
         treeTableUtil = new TreeTableUtil();
         taskmanager = new TaskManager();
         securityManager = new examProjectTheDisciplesOfSkrumm.BLL.Security.SecurityManager();
+        userManager = new UserManager();
     }
     
 
@@ -51,6 +57,24 @@ public class BLLFacade implements BLLFacadeInterface
     public String hashPassword(String password) throws SecurityException 
     {
         return securityManager.hashPassword(password);
+    }
+
+    @Override
+    public Boolean checkUser(User user) throws SQLException
+    {
+        return userManager.checkUser(user);
+    }
+
+    @Override
+    public void passwordHash(User user) throws SQLException
+    {
+        userManager.passwordHash(user);
+    }
+
+    @Override
+    public User getUser(User user) throws SQLException
+    {
+        return userManager.getUser(user);
     }
     
 }

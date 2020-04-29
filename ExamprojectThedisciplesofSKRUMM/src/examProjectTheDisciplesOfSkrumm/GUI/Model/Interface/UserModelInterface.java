@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package examProjectTheDisciplesOfSkrumm.BLL.Interface;
+package examProjectTheDisciplesOfSkrumm.GUI.Model.Interface;
 
 import examProjectTheDisciplesOfSkrumm.BE.User;
 import java.sql.SQLException;
@@ -12,11 +12,9 @@ import java.sql.SQLException;
  *
  * @author lumby
  */
-public interface UserManagerInterface
+public interface UserModelInterface
 {
-    public Boolean checkUser(User user) throws SQLException;
-    
-    public void passwordHash(User user) throws SQLException;
-    
-    public User getUser(User user) throws SQLException;
+     public boolean checkUser(User user) throws SQLException;
+     
+     public String hashPassword(String password);
 }

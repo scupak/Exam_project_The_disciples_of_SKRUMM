@@ -11,26 +11,32 @@ import examProjectTheDisciplesOfSkrumm.BLL.Interface.UserManagerInterface;
 import examProjectTheDisciplesOfSkrumm.DAL.DALFacade;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.List;
 
 /**
  *
  * @author lumby
  */
-public class Usermanager implements UserManagerInterface
+public class UserManager implements UserManagerInterface
 {
     private final DALFacade dal;
     private final SecurityManagerInterface sm;
     
-    public Usermanager() throws IOException
+    public UserManager() throws IOException
     {
         dal = new DALFacade();
         sm = new examProjectTheDisciplesOfSkrumm.BLL.Security.SecurityManager();
     }
-    
+    /**
+     * checcks the a given users email and password,
+     * to see if they match with a user in the database
+     * @param user
+     * @return boolean
+     * @throws SQLException 
+     */
+    @Override
     public Boolean checkUser(User user) throws SQLException
     {
-        User CheckedUser = dal.getUser(user);
+        User CheckedUser = getUser(user);
         if(CheckedUser == null)
         {
             return false;
@@ -47,7 +53,17 @@ public class Usermanager implements UserManagerInterface
         return false;
     }
     
-    public void hashPassword(User user) throws SQLException
+    public User getUser(User user) throws SQLException
+    {
+        return dal.getUser(user);
+    }
+    /**
+     * hashes a users password
+     * @param user
+     * @throws SQLException 
+     */
+    @Override
+    public void passwordHash(User user) throws SQLException
     {
         
         String pass = sm.hashPassword(user.getPassword());
@@ -57,9 +73,8 @@ public class Usermanager implements UserManagerInterface
     
     public static void main(String[] args) throws SQLException, IOException
     {
-        Usermanager um = new Usermanager();
+        UserManager um = new UserManager();
         User test = new User("standard@user.now", "Mads", "Jensesn", "nemt", false);
-        um.hashPassword(test);
         System.out.println(um.dal.getUser(test));
         
     }

@@ -28,10 +28,10 @@ import javafx.scene.control.TreeItem;
  */
 public class TaskModel implements TaskModelInterface
 {
-    private BLLFacadeInterface bllfacade;
+    private final BLLFacadeInterface bllfacade;
     private ObservableList<Task> tasks;
 
-    TaskModel()
+    TaskModel() throws IOException
     {
         bllfacade = new BLLFacade();
         tasks = FXCollections.observableArrayList();
