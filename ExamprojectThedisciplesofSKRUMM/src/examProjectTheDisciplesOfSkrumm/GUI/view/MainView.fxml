@@ -73,7 +73,7 @@
                   <Label fx:id="timeLabelOne" layoutX="76.0" layoutY="85.0" text="00:00:00" />
                   <Label layoutX="13.0" layoutY="14.0" text="Date" />
                   <JFXButton layoutX="7.0" layoutY="81.0" text="Edit" />
-                  <JFXButton layoutX="44.0" layoutY="82.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#handlePlay" prefHeight="24.0" prefWidth="28.0" text="Play">
+                  <JFXButton layoutX="44.0" layoutY="82.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#handlePlay" prefHeight="24.0" prefWidth="28.0" text=" ">
                      <graphic>
                         <ImageView fitHeight="24.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -107,7 +107,7 @@
                   <Label fx:id="timeLabelThree" layoutX="76.0" layoutY="85.0" text="00:00:00" />
                   <Label layoutX="13.0" layoutY="14.0" text="Date" />
                   <JFXButton layoutX="7.0" layoutY="81.0" text="Edit" />
-                  <JFXButton layoutX="44.0" layoutY="82.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#handlePlay" prefHeight="24.0" prefWidth="28.0" text="Play">
+                  <JFXButton layoutX="44.0" layoutY="82.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#handlePlay" prefHeight="24.0" prefWidth="28.0" text=" ">
                      <graphic>
                         <ImageView fitHeight="24.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -141,7 +141,7 @@
                   <Label fx:id="timeLabelTwo" layoutX="76.0" layoutY="85.0" text="00:00:00" />
                   <Label layoutX="13.0" layoutY="14.0" text="Date" />
                   <JFXButton layoutX="7.0" layoutY="81.0" text="Edit" />
-                  <JFXButton layoutX="44.0" layoutY="82.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#handlePlay" prefHeight="24.0" prefWidth="28.0" text="Play">
+                  <JFXButton layoutX="44.0" layoutY="82.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#handlePlay" prefHeight="24.0" prefWidth="28.0" text=" ">
                      <graphic>
                         <ImageView fitHeight="24.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -175,7 +175,7 @@
                   <Label fx:id="timeLabelFour" layoutX="76.0" layoutY="85.0" text="00:00:00" />
                   <Label layoutX="13.0" layoutY="14.0" text="Date" />
                   <JFXButton layoutX="7.0" layoutY="81.0" text="Edit" />
-                  <JFXButton layoutX="44.0" layoutY="82.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#handlePlay" prefHeight="24.0" prefWidth="28.0" text="Play">
+                  <JFXButton layoutX="44.0" layoutY="82.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#handlePlay" prefHeight="24.0" prefWidth="28.0" text=" ">
                      <graphic>
                         <ImageView fitHeight="24.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -209,7 +209,7 @@
                   <Label fx:id="timeLabelFive" layoutX="76.0" layoutY="85.0" text="00:00:00" />
                   <Label layoutX="13.0" layoutY="14.0" text="Date" />
                   <JFXButton layoutX="7.0" layoutY="81.0" text="Edit" />
-                  <JFXButton layoutX="44.0" layoutY="82.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#handlePlay" prefHeight="24.0" prefWidth="28.0" text="Play">
+                  <JFXButton layoutX="44.0" layoutY="82.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#handlePlay" prefHeight="24.0" prefWidth="28.0" text=" ">
                      <graphic>
                         <ImageView fitHeight="24.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -243,7 +243,7 @@
                   <Label fx:id="timeLabelSix" layoutX="76.0" layoutY="85.0" text="00:00:00" />
                   <Label layoutX="13.0" layoutY="14.0" text="Date" />
                   <JFXButton layoutX="7.0" layoutY="81.0" text="Edit" />
-                  <JFXButton layoutX="44.0" layoutY="82.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#handlePlay" prefHeight="24.0" prefWidth="28.0" text="Play">
+                  <JFXButton layoutX="44.0" layoutY="82.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#handlePlay" prefHeight="24.0" prefWidth="28.0" text=" ">
                      <graphic>
                         <ImageView fitHeight="24.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
                            <image>

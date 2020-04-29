@@ -5,7 +5,6 @@
  */
 package examProjectTheDisciplesOfSkrumm.BLL.Util;
 
-import com.sun.javafx.tools.packager.Main;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import javafx.application.Platform;
@@ -21,11 +20,11 @@ public class TimerUtil implements Runnable
     private int min = 0;
     private int hour = 0;
     private String time;
-    private boolean isRunning = true;
+    private boolean isCounting = false;
     private Label timeLabel;
     private int totalSec = 0;
 
-    public TimerUtil(Label timeLabel, int totalSec) {
+    public TimerUtil(Label timeLabel, int totalSec) { // Converting Total seconds to the correct time signature
         while(totalSec >= 3600){
         totalSec  = totalSec - 3600;
         hour++;
@@ -47,6 +46,7 @@ public class TimerUtil implements Runnable
         //while totalSec is over 3600, totalSec minus 3600, and add 1 to hour until it isnt anymore
         //when done, while totalSec is over 60, totalSec minus 60 and add 1 to min until it isnt anymore
         //add rest of seconds to sec
+        
         this.timeLabel = timeLabel;
     }
     
@@ -63,13 +63,13 @@ public class TimerUtil implements Runnable
     public void run()
     {
         while (true) {
-                if (isRunning) {
+                if (isCounting) {
 
                     try {
                         Thread.sleep(1000);
 
                         sec++;
-                        totalSec++;
+                        totalSec++; // This value needs to be exported and saved somewhere safe. Linked to the task and the username of the one on the task in the DB or something
 
                         if (sec >= 60) {
                             min++;
@@ -109,7 +109,7 @@ public class TimerUtil implements Runnable
     public static void main(String[] args){
         int totSec = 123456;
         
-        //giving label null, as it works with null
+        //giving label null, as it works with null, this makes it yell at me
         TimerUtil tu = new TimerUtil(null, totSec);
         
         ExecutorService executorService = 
