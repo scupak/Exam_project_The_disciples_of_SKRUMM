@@ -67,59 +67,22 @@ public class MainViewController implements Initializable
     private AnchorPane taskSix;
     @FXML
     private AnchorPane taskTwo;
-    @FXML
-    private JFXButton EditButton;
-    @FXML
-    private JFXButton deleteButton;
-    private AnchorPane anchorPane00;
 
     private int sec = 0;
     private int min = 0;
     private int hour = 0;
     private boolean running = false;
-    private Label timeLabe00;
     private int totalsec = 0;
 
     private Label ultimateLabel;
 
-    @FXML
-    private Label timeLabel1;
-    @FXML
-    private JFXButton EditButton1;
-    @FXML
-    private JFXButton deleteButton1;
-    @FXML
-    private Label timeLabel11;
-    @FXML
-    private JFXButton EditButton2;
-    @FXML
-    private JFXButton deleteButton2;
-    @FXML
-    private Label timeLabel12;
-    @FXML
-    private JFXButton EditButton3;
-    @FXML
-    private JFXButton deleteButton3;
-    @FXML
-    private Label timeLabel13;
-    @FXML
-    private JFXButton EditButton4;
-    @FXML
-    private JFXButton deleteButton4;
-    @FXML
-    private Label timeLabel14;
-    @FXML
-    private JFXButton EditButton5;
-    @FXML
-    private JFXButton deleteButton5;
-    @FXML
-    private Label timeLabel15;
 
     private TimerUtil timer;
     private List<JFXButton> buttons = new ArrayList();
     private List<AnchorPane> panes = new ArrayList<>();
     private List<Label> timeLabels = new ArrayList<>();
     private List<Label> totalTimeLabels = new ArrayList<>();
+    
     @FXML
     private Label timeLabelOne;
     @FXML
