@@ -15,6 +15,8 @@ import examProjectTheDisciplesOfSkrumm.GUI.Model.ModelFacade;
 import examProjectTheDisciplesOfSkrumm.BLL.Util.TimerUtil;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -235,7 +237,6 @@ public class MainViewController implements Initializable
     {
         int anchorPaneNumber = 0;
         ObservableList<Task> tasks = modelfacade.getTasks();
-        ArrayList<AnchorPane> panes = new ArrayList<>();
         
         panes.add(taskOne);
         panes.add(taskTwo);
@@ -243,15 +244,7 @@ public class MainViewController implements Initializable
         panes.add(taskFour);
         panes.add(taskFive);
         panes.add(taskSix);
-        
-        //Task task1 = new Task("Add information to TableView", new Project("Time Taker", new Client("Grumsen Development")), 0, 0, "28/04/2020");
-        //Task task2 = new Task("Drink Pepsi Max", new Project("Time Taker", new Client("Grumsen Development")), 0, 1, "28/04/2020");
-        //Task task3 = new Task("Write in report", new Project("Time Taker", new Client("Grumsen Development")), 0, 0, "28/04/2020");
-        
-       //tasks.add(task1);
-        //tasks.add(task2);
-        //tasks.add(task3);
-
+       
         timeLabels.add(timeLabelOne);
         timeLabels.add(timeLabelTwo);
         timeLabels.add(timeLabelThree);
