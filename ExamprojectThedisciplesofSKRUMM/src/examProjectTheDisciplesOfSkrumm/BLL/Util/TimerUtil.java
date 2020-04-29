@@ -26,6 +26,7 @@ public class TimerUtil implements Runnable
     private int totalSec = 0;
 
     public TimerUtil(Label timeLabel, int totalSec) {
+        this.totalSec = totalSec;
         while(totalSec >= 3600){
         totalSec  = totalSec - 3600;
         hour++;
