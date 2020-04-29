@@ -29,15 +29,15 @@ public class TreeTableUtil implements TreeTableUtilInterface
     
     /* Create all task*/
     // Root node
-    Task rootTask = new Task("Root", new Project("Root", new Client("Root")), 0);
+    Task rootTask = new Task("Root", new Project("Root", new Client("Root", 0), 0), 0);
     
     // Main tasks
-    Task createNemesis = new Task("Create Nemesis",new Project("Project X", new Client("Umbrella")), 0);
-    Task takeOverWorldTotal = new Task("Take over world",new Project("Project X", new Client("Umbrella")), 10);
+    Task createNemesis = new Task("Create Nemesis",new Project("Project X", new Client("Umbrella",10), 10), 0);
+    Task takeOverWorldTotal = new Task("Take over world",new Project("Project X", new Client("Umbrella",10), 10), 10);
     
     //takeOverWorld secondary task
-    Task takeOverWorld1 = new Task("Take over world",new Project("Project X", new Client("Umbrella")), 4);
-    Task takeOverWorld2 = new Task("Take over world",new Project("Project X", new Client("Umbrella")), 6);
+    Task takeOverWorld1 = new Task("Take over world",new Project("Project X", new Client("Umbrella",10), 10), 4);
+    Task takeOverWorld2 = new Task("Take over world",new Project("Project X", new Client("Umbrella",10), 10), 6);
     
     //Build nodes
     TreeItem<Task> createNemesisNode = new TreeItem<>(createNemesis);
@@ -57,7 +57,7 @@ public class TreeTableUtil implements TreeTableUtilInterface
     
     /* Create all task*/
     // Root node
-    Task rootTask = new Task("Root", new Project("Root", new Client("Root")), 0);
+    Task rootTask = new Task("Root", new Project("Root", new Client("Root",0), 0), 0);
         ArrayList<TreeItem<Task>> treeItems = new ArrayList();
         
     

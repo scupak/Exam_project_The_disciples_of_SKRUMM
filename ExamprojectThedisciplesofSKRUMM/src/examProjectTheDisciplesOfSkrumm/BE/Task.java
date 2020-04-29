@@ -162,6 +162,13 @@ public class Task
     public void setIntervals(ArrayList<Task> intervals) {
         this.intervals = intervals;
     }
+
+    @Override
+    public String toString() {
+        return "Task{" + "title=" + title + ", project=" + project + ", duration=" + duration + ", projectName=" + projectName + ", clientName=" + clientName + ", isPaid=" + isPaid + ", lastUsed=" + lastUsed + ", creationDate=" + creationDate + ", startTime=" + startTime + ", stopTime=" + stopTime + ", intervals=" + intervals + '}';
+    }
+    
+    
     
     
     

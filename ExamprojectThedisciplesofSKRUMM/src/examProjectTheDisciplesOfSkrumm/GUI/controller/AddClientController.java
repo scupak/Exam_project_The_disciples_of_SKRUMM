@@ -7,8 +7,13 @@ package examProjectTheDisciplesOfSkrumm.GUI.controller;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
+import examProjectTheDisciplesOfSkrumm.BE.Client;
+import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.ModelFacadeInterface;
+import examProjectTheDisciplesOfSkrumm.GUI.Model.ModelFacade;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -23,6 +28,10 @@ import javafx.stage.Stage;
 public class AddClientController implements Initializable
 {
 
+    private ModelFacadeInterface modelfacade;
+    
+    private AddProjectViewController addprojectviewcontroller;
+    
     @FXML
     private JFXButton AddClientOkBtn;
     @FXML
@@ -40,12 +49,22 @@ public class AddClientController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        // TODO
+        try {
+            modelfacade = ModelFacade.getInstance();
+        } catch (Exception ex) {
+            Logger.getLogger(CreateTaskController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML
     private void HandleAddClientOkBtn(ActionEvent event)
     {
+        String ClientName = ClientNameTextField.getText();
+        int ClientRate = Integer.parseInt(ClientRateTextField.getText());
+        
+        Client client = new Client(ClientName, ClientRate);
+        modelfacade.createClient(client);
+        addprojectviewcontroller.refreshClientComboBox();
         Stage addClientView = (Stage) ((Node) event.getSource()).getScene().getWindow();
         addClientView.close();
     }
@@ -55,6 +74,11 @@ public class AddClientController implements Initializable
     {
         Stage addClientView = (Stage) ((Node) event.getSource()).getScene().getWindow();
         addClientView.close();
+    }
+    
+    void setAddProjectController( AddProjectViewController addprojectviewcontroller)
+    {
+        this.addprojectviewcontroller = addprojectviewcontroller;
     }
 
 }

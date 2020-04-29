@@ -42,7 +42,7 @@ import javafx.util.converter.LocalTimeStringConverter;
 public class CreateTaskController implements Initializable 
 {
     
-    ModelFacadeInterface modelfacade;
+    private ModelFacadeInterface modelfacade;
     @FXML
     private JFXButton createTaskBtn;
     @FXML
