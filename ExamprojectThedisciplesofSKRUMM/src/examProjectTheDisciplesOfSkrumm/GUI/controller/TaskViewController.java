@@ -90,14 +90,16 @@ public class TaskViewController implements Initializable
             Logger.getLogger(TaskViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+        //Making some mock tasks
+        
         //Setting cellValue Factories for TreeTableView 
         TaskColumn.setCellValueFactory(new TreeItemPropertyValueFactory<>("title"));
         ProjectColumn.setCellValueFactory(new TreeItemPropertyValueFactory<>("projectName"));
-        TimeColumn.setCellValueFactory(new TreeItemPropertyValueFactory<>("time"));
+        TimeColumn.setCellValueFactory(new TreeItemPropertyValueFactory<>("duration"));
         clientColumn.setCellValueFactory(new TreeItemPropertyValueFactory<>("clientName"));
         
         //Creating the rootNodeTask
-        TreeItem<Task> rootNodeTask = modelfacade.getMockModel();
+        TreeItem<Task> rootNodeTask = modelfacade.getModel();
         rootNodeTask.setExpanded(true);
         
         //Set the model for the TreeTableView
@@ -169,6 +171,8 @@ public class TaskViewController implements Initializable
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/CreateTaskView.fxml"));
         Parent root = loader.load();
         CreateTaskController controller = loader.getController();
+        
+        controller.settaskViewController(this);
         
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
@@ -249,6 +253,22 @@ public class TaskViewController implements Initializable
 
         }).start();
 
+    }
+
+    /**
+     * Refreshes the tableview
+     */
+    public void RefreshTreeView() 
+    {
+        //Creating the rootNodeTask
+        TreeItem<Task> rootNodeTask = modelfacade.getModel();
+        rootNodeTask.setExpanded(true);
+        
+        //Set the model for the TreeTableView
+        TaskTable.setRoot(rootNodeTask);
+        
+        // Make the root node invisible
+        TaskTable.setShowRoot(false);
     }
     
         

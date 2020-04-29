@@ -5,12 +5,16 @@
  */
 package examProjectTheDisciplesOfSkrumm.BLL;
 
+import examProjectTheDisciplesOfSkrumm.BE.Client;
+import examProjectTheDisciplesOfSkrumm.BLL.Interface.ProjectManagerInterface;
+
 /**
  *
- * @author lumby
+ * @author kacpe
  */
-public class Usermanager
+public class ProjectManager implements ProjectManagerInterface
 {
-   
+
+    
     
 }

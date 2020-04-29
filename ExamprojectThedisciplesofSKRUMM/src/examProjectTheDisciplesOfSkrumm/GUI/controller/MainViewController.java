@@ -10,14 +10,20 @@ import com.jfoenix.controls.JFXComboBox;
 import examProjectTheDisciplesOfSkrumm.BE.Client;
 import examProjectTheDisciplesOfSkrumm.BE.Project;
 import examProjectTheDisciplesOfSkrumm.BE.Task;
+import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.ModelFacadeInterface;
+import examProjectTheDisciplesOfSkrumm.GUI.Model.ModelFacade;
 import examProjectTheDisciplesOfSkrumm.BLL.Util.TimerUtil;
 import java.io.IOException;
 import java.net.URL;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -45,7 +51,11 @@ import javafx.stage.Stage;
  */
 public class MainViewController implements Initializable
 {
+    
 
+    ModelFacadeInterface modelfacade;
+    
+    DateTimeFormatter formatter;
     @FXML
     private JFXButton AdminBtn;
     private GridPane taskGrid;
@@ -112,16 +122,22 @@ public class MainViewController implements Initializable
      * Initializes the controller class.
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb)
-    {
-        /*
-        ColumnConstraints halfConstraint = new ColumnConstraints(50);
-        taskGrid.getColumnConstraints().addAll(halfConstraint,halfConstraint); 
-         */
+    public void initialize(URL url, ResourceBundle rb) {
+        try {
+            /*
+            ColumnConstraints halfConstraint = new ColumnConstraints(50);
+            taskGrid.getColumnConstraints().addAll(halfConstraint,halfConstraint);
+            */
+            modelfacade = ModelFacade.getInstance();
+        } catch (Exception ex) {
+            Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         fillGrid();
         // anchorPane00.setUserData(new Task("title", "projectName", "clientName", 0) );
 
         // anchorPane00.setUserData(new Task("title", "projectName", "clientName", 0) );
+        formatter = DateTimeFormatter.ofPattern("dd/MM/YYYY");
+        
     }
 
     public MainViewController()
@@ -218,8 +234,9 @@ public class MainViewController implements Initializable
     private void fillGrid()
     {
         int anchorPaneNumber = 0;
-        ArrayList<Task> tasks = new ArrayList<>();
-
+        ObservableList<Task> tasks = modelfacade.getTasks();
+        ArrayList<AnchorPane> panes = new ArrayList<>();
+        
         panes.add(taskOne);
         panes.add(taskTwo);
         panes.add(taskThree);
@@ -227,6 +244,14 @@ public class MainViewController implements Initializable
         panes.add(taskFive);
         panes.add(taskSix);
         
+        //Task task1 = new Task("Add information to TableView", new Project("Time Taker", new Client("Grumsen Development")), 0, 0, "28/04/2020");
+        //Task task2 = new Task("Drink Pepsi Max", new Project("Time Taker", new Client("Grumsen Development")), 0, 1, "28/04/2020");
+        //Task task3 = new Task("Write in report", new Project("Time Taker", new Client("Grumsen Development")), 0, 0, "28/04/2020");
+        
+       //tasks.add(task1);
+        //tasks.add(task2);
+        //tasks.add(task3);
+
         timeLabels.add(timeLabelOne);
         timeLabels.add(timeLabelTwo);
         timeLabels.add(timeLabelThree);
@@ -240,19 +265,12 @@ public class MainViewController implements Initializable
         totalTimeLabels.add(totalTimeFour);
         totalTimeLabels.add(totalTimeFive);
         totalTimeLabels.add(totalTimeSix);
-
-        Task task1 = new Task("Add information to TableView", new Project("Time Taker", new Client("Grumsen Development")), 0, 0, "28/04/2020");
-        Task task2 = new Task("Drink Pepsi Max", new Project("Time Taker", new Client("Grumsen Development")), 0, 1, "28/04/2020");
-        Task task3 = new Task("Write in report", new Project("Time Taker", new Client("Grumsen Development")), 0, 0, "28/04/2020");
-
-        tasks.add(task1);
-        tasks.add(task2);
-        tasks.add(task3);
         
         for (Task task : tasks)
         {
-            overwriteTasks(task.getTitle(), task.getClientName(), task.getLastUsed(), panes.get(anchorPaneNumber), task.getIsPaid());
+            overwriteTasks(task.getTitle(), task.getClientName(), task.getLastUsed().toString().substring(0, 10), panes.get(anchorPaneNumber), task.getIsPaid());
             anchorPaneNumber++;
+            
         }
 
         int tasksSize = tasks.size();
@@ -264,6 +282,7 @@ public class MainViewController implements Initializable
             panes.get(tasksSize + i).getChildren().clear();
             i++;
         }
+       
 
         i = 0;
         anchorPaneNumber = 0;

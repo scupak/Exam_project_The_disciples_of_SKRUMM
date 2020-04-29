@@ -5,12 +5,16 @@
  */
 package examProjectTheDisciplesOfSkrumm.BLL;
 
+
 import examProjectTheDisciplesOfSkrumm.BE.Client;
 import examProjectTheDisciplesOfSkrumm.BE.Project;
 import examProjectTheDisciplesOfSkrumm.BE.Task;
 import examProjectTheDisciplesOfSkrumm.BLL.Interface.BLLFacadeInterface;
+import examProjectTheDisciplesOfSkrumm.BLL.Interface.SecurityManagerInterface;
+import examProjectTheDisciplesOfSkrumm.BLL.Interface.TaskManagerInterface;
 import examProjectTheDisciplesOfSkrumm.BLL.Interface.TreeTableUtilInterface;
 import examProjectTheDisciplesOfSkrumm.BLL.Util.TreeTableUtil;
+import javafx.collections.ObservableList;
 import javafx.scene.control.TreeItem;
 
 /**
@@ -20,10 +24,14 @@ import javafx.scene.control.TreeItem;
 public class BLLFacade implements BLLFacadeInterface
 {
     private TreeTableUtilInterface treeTableUtil;
+    private TaskManagerInterface taskmanager;
+    private SecurityManagerInterface securityManager;
 
     public BLLFacade() 
     {
         treeTableUtil = new TreeTableUtil();
+        taskmanager = new TaskManager();
+        securityManager = new examProjectTheDisciplesOfSkrumm.BLL.Security.SecurityManager();
     }
     
 
@@ -33,8 +41,16 @@ public class BLLFacade implements BLLFacadeInterface
     }
 
     @Override
-    public TreeItem<Task> getModel(String title, Project project, Client client, int time) {
-        return treeTableUtil.getModel(title, project, client, time);
+    public TreeItem<Task> getModel(ObservableList<Task> tasks) {
+        return treeTableUtil.getModel(tasks);
+    }
+
+   
+
+    @Override
+    public String hashPassword(String password) throws SecurityException 
+    {
+        return securityManager.hashPassword(password);
     }
     
 }

@@ -5,12 +5,17 @@
  */
 package examProjectTheDisciplesOfSkrumm.BLL;
 
+import examProjectTheDisciplesOfSkrumm.BE.Client;
+import examProjectTheDisciplesOfSkrumm.BE.Project;
+import examProjectTheDisciplesOfSkrumm.BLL.Interface.TaskManagerInterface;
+
 /**
  *
- * @author lumby
+ * @author kacpe
  */
-public class Usermanager
+public class TaskManager implements TaskManagerInterface
 {
+
    
     
 }
