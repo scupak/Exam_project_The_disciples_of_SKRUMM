@@ -397,6 +397,15 @@ public class MainViewController implements Initializable
         
         if (!running)
         {
+            if(previousbutton != null && !button.equals(previousbutton)){
+                System.out.println("difrent button");
+                ImageView view = ((ImageView)previousbutton.getChildrenUnmodifiable().get(1));
+                view.setImage(new Image("/examProjectTheDisciplesOfSkrumm/GUI/Icons/Playbutton.png"));
+                
+            
+            
+            }
+            
             totalTimeLabels.get(index).setText(ultimateLabel.getText());
             button.setGraphic(Play);
             button.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
@@ -409,6 +418,7 @@ public class MainViewController implements Initializable
             button.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
             button.setContentDisplay(ContentDisplay.CENTER);
         }
+        previousbutton = button;
 
         
     }
