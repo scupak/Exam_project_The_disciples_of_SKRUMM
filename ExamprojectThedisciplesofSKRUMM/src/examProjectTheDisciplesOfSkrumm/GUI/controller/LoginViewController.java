@@ -23,6 +23,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 /**
@@ -41,6 +42,10 @@ public class LoginViewController implements Initializable {
     
     ModelFacadeInterface model;
     
+   
+    
+   
+    
     public LoginViewController() throws Exception
     {
         model = ModelFacade.getInstance();
@@ -50,7 +55,7 @@ public class LoginViewController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        
     }    
     
     @FXML
@@ -90,5 +95,13 @@ public class LoginViewController implements Initializable {
             alert.showAndWait();
         }
     }
+    
+    
+
+    
+    
+   
+
+    
 
 }

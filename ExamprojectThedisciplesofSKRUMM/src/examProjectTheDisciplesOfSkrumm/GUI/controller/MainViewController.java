@@ -294,7 +294,10 @@ public class MainViewController implements Initializable
         List<JFXButton> buttonChildren = new ArrayList();
         JFXButton playButton = new JFXButton();
 
-        Image Play = new Image("/examProjectTheDisciplesOfSkrumm/GUI/Icons/Playbutton.png");
+        ImageView Play = new ImageView("/examProjectTheDisciplesOfSkrumm/GUI/Icons/Playbutton.png");
+        Play.setFitHeight(24);
+        Play.setFitWidth(28);
+        
         Image Paid = new Image("/examProjectTheDisciplesOfSkrumm/GUI/Icons/Paid.png");
         Image NotPaid = new Image("/examProjectTheDisciplesOfSkrumm/GUI/Icons/NotPaid.png");
         ImageView imgView;
@@ -325,6 +328,13 @@ public class MainViewController implements Initializable
             {
                 JFXButton button = (JFXButton) child;
                 buttons.add(button);
+                
+                if(button.getText().equals("Play"))
+                {
+                    button.setGraphic(Play);
+                    button.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+                    button.setContentDisplay(ContentDisplay.CENTER);
+                }
             }
         }
 
@@ -384,6 +394,7 @@ public class MainViewController implements Initializable
         
     }
 
+    @FXML
     private void handleLogOut(ActionEvent event) throws IOException
     {
         Stage mainView = (Stage) ((Node) event.getSource()).getScene().getWindow();

@@ -84,9 +84,11 @@ and open the template in the editor.
 
 .ComboBox
 {
+   
     -fx-text-fill: white;
     -fx-background-color: #435a9a;
 }
+
 
  .table-view .column-header .label {
     -fx-background-color: #435a9a;

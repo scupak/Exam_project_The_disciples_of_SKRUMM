@@ -5,6 +5,7 @@
  */
 package examProjectTheDisciplesOfSkrumm.BE;
 
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 /**
@@ -16,12 +17,14 @@ public class Project
     private SimpleStringProperty projectName;
     private Client client;
     private SimpleStringProperty clientName;
+    private SimpleIntegerProperty ProjectRate;
 
-    public Project(String projectName, Client client) 
+    public Project(String projectName, Client client, int projectrate) 
     {
         this.projectName = new SimpleStringProperty(projectName);
         this.client = client;
         this.clientName = new SimpleStringProperty(client.getClientName());
+        this.ProjectRate = new SimpleIntegerProperty(projectrate);
     }
 
     public String getProjectName() {
@@ -49,6 +52,16 @@ public class Project
     public String toString() {
         return "" + projectName.get();
     }
+
+    public int getProjectRate() {
+        return ProjectRate.get();
+    }
+
+    public void setProjectRate(int ProjectRate) {
+        this.ProjectRate.set(ProjectRate);
+    }
+    
+    
     
     
 
