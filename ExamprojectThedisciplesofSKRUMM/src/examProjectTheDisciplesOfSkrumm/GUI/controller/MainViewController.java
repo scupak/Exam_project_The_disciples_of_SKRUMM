@@ -125,6 +125,7 @@ public class MainViewController implements Initializable
     private Label totalTimeSix;
     ExecutorService executorService;
     TimerUtil timerutil;
+    JFXButton previousbutton = null;
 
     /**
      * Initializes the controller class.
