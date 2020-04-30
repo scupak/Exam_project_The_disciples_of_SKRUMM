@@ -77,6 +77,8 @@ public class AdminViewController implements Initializable
     private TableColumn<User, String> emailColumn;
     @FXML
     private TableColumn<User, String> isAdminColumn;
+    @FXML
+    private TableColumn<Project, Integer> projectRateColumn;
 
     /**
      * Phineas and Ferb
@@ -94,6 +96,7 @@ public class AdminViewController implements Initializable
         //set up the columns in the table
         projectNameColumn.setCellValueFactory(new PropertyValueFactory<Project, String>("projectName"));
         clientNameColumn.setCellValueFactory(new PropertyValueFactory<Project, String>("clientName"));
+        projectRateColumn.setCellValueFactory(new PropertyValueFactory<Project, Integer>("ProjectRate"));
         
        /** ObservableList<Project> getData = FXCollections.observableArrayList();
         

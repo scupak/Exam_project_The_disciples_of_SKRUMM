@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="254.0" prefWidth="300.0" styleClass="AnchorPane" stylesheets="@../css/Graphics.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="examProjectTheDisciplesOfSkrumm.GUI.controller.AddProjectViewController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="264.0" prefWidth="300.0" styleClass="AnchorPane" stylesheets="@../css/Graphics.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="examProjectTheDisciplesOfSkrumm.GUI.controller.AddProjectViewController">
    <children>
       <StackPane prefHeight="56.0" prefWidth="320.0" styleClass="chart-bar" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -35,7 +35,7 @@
             </JFXButton>
          </children>
       </HBox>
-      <VBox alignment="TOP_CENTER" layoutX="34.0" layoutY="66.0" prefHeight="134.0" prefWidth="277.0" AnchorPane.leftAnchor="32.0" AnchorPane.rightAnchor="-31.0" AnchorPane.topAnchor="67.0">
+      <VBox alignment="TOP_CENTER" layoutX="32.0" layoutY="75.0" prefHeight="157.0" prefWidth="300.0" AnchorPane.leftAnchor="32.0" AnchorPane.rightAnchor="-30.0" AnchorPane.topAnchor="75.0">
          <children>
             <HBox prefHeight="74.0" prefWidth="264.0" spacing="5.0">
                <children>
@@ -61,7 +61,7 @@
                   </VBox>
                </children>
             </HBox>
-            <HBox alignment="TOP_CENTER" prefHeight="56.0" prefWidth="271.0" spacing="5.0">
+            <HBox alignment="TOP_CENTER" prefHeight="56.0" prefWidth="270.0" spacing="5.0">
                <children>
                   <Label styleClass="Label" text="Client:">
                      <font>
@@ -70,7 +70,7 @@
                   </Label>
                   <VBox alignment="TOP_RIGHT" prefHeight="56.0" prefWidth="121.0" spacing="5.0">
                      <children>
-                        <ComboBox fx:id="clientComboBox" prefWidth="150.0" styleClass="ComboBox" />
+                        <ComboBox fx:id="clientComboBox" onAction="#handleCombobox" prefWidth="150.0" styleClass="ComboBox" />
                         <JFXButton fx:id="addClientButton" onAction="#handleAddClient" text="Add Client" />
                      </children>
                   </VBox>

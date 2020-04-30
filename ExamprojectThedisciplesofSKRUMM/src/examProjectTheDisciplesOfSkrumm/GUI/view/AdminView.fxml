@@ -41,6 +41,7 @@
               <columns>
                 <TableColumn fx:id="projectNameColumn" prefWidth="156.8000431060791" text="Project Name" />
                 <TableColumn fx:id="clientNameColumn" prefWidth="244.0" text="Client Name" />
+                  <TableColumn fx:id="projectRateColumn" prefWidth="75.0" text="Project Rate" />
               </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

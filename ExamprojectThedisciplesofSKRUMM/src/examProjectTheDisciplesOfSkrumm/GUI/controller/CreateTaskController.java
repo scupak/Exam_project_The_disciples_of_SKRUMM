@@ -30,7 +30,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TreeTableView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.util.converter.LocalDateTimeStringConverter;
 import javafx.util.converter.LocalTimeStringConverter;
@@ -52,11 +56,10 @@ public class CreateTaskController implements Initializable
     @FXML
     private JFXTextField timeTextField;
     @FXML
-    private JFXButton createNewProjectButton;
-    @FXML
     private JFXComboBox<Project> projectCombobox;
     
     private  TaskViewController taskViewController; 
+   
     
     
     
@@ -70,7 +73,6 @@ public class CreateTaskController implements Initializable
         } catch (Exception ex) {
             Logger.getLogger(CreateTaskController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
         projectCombobox.getItems().addAll(modelfacade.getProjects());
       
     }    
@@ -78,22 +80,46 @@ public class CreateTaskController implements Initializable
     @FXML
     private void createTask(ActionEvent event) throws IOException
     {
-        String title = titleTextField.getText();
-        Project project = projectCombobox.getValue();
-        int duration = Integer.parseInt(timeTextField.getText());
-        int isPaid = 1;
-        LocalDateTime lastUsed = LocalDateTime.now();
-        LocalDate creationDate = LocalDate.now();
-        LocalTime startTime = LocalTime.MIN;
-        LocalTime stopTime = LocalTime.MIN;
-        ArrayList<Task> intervals = new ArrayList<Task>(); 
+        if(!titleTextField.getText().isEmpty() && !(projectCombobox.getValue() == null) && !timeTextField.getText().isEmpty())
+        {
+            try
+            {
+                String title = titleTextField.getText();
+                Project project = projectCombobox.getValue();
+                int duration = Integer.parseInt(timeTextField.getText());
+                int isPaid = project.getIsPaid();
+                LocalDateTime lastUsed = LocalDateTime.now();
+                LocalDate creationDate = LocalDate.now();
+                LocalTime startTime = LocalTime.MIN;
+                LocalTime stopTime = LocalTime.MIN;
+                ArrayList<Task> intervals = new ArrayList<Task>(); 
        
         
-        Task newtask = new Task(title, project, duration, isPaid, lastUsed, creationDate, startTime, stopTime, intervals);
-        modelfacade.createTask(newtask);
-        taskViewController.RefreshTreeView();
-        Stage createTaskView = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        createTaskView.close();
+                Task newtask = new Task(title, project, duration, isPaid, lastUsed, creationDate, startTime, stopTime, intervals);
+                modelfacade.createTask(newtask);
+                taskViewController.RefreshTreeView();
+                Stage createTaskView = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                createTaskView.close();
+            }
+            catch (NumberFormatException ex)
+            {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Oops");
+                alert.setHeaderText("Incorrect input");
+                alert.setContentText("You wrote a letter in duration, it needs a number.");
+                alert.showAndWait();
+            }
+            
+        }
+        else 
+        {
+              Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Oops");
+                alert.setHeaderText("Incorrect input");
+                alert.setContentText("You forgot some input.");
+                alert.showAndWait();
+        }
+       
     }
 
     @FXML
@@ -103,7 +129,6 @@ public class CreateTaskController implements Initializable
         createTaskView.close();
     }
 
-    @FXML
     private void handleCreateNewProject(ActionEvent event) throws IOException 
     {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/AddProjectView.fxml"));
@@ -122,6 +147,9 @@ public class CreateTaskController implements Initializable
         //System.out.println(taskViewController);
     }
 
+    
+
+    
     
     
     
