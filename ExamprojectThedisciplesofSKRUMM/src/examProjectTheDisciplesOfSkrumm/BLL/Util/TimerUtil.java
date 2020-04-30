@@ -20,11 +20,14 @@ public class TimerUtil implements Runnable
     private int min = 0;
     private int hour = 0;
     private String time;
-    private boolean isCounting = false;
+    private boolean isCounting = true;
     private Label timeLabel;
     private int totalSec = 0;
 
     public TimerUtil(Label timeLabel, int totalSec) { // Converting Total seconds to the correct time signature
+         this.timeLabel = timeLabel;
+         this.totalSec = totalSec;
+         
         while(totalSec >= 3600){
         totalSec  = totalSec - 3600;
         hour++;
@@ -47,7 +50,7 @@ public class TimerUtil implements Runnable
         //when done, while totalSec is over 60, totalSec minus 60 and add 1 to min until it isnt anymore
         //add rest of seconds to sec
         
-        this.timeLabel = timeLabel;
+       
     }
     
     

@@ -399,11 +399,17 @@ public class MainViewController implements Initializable
 
     private void handleStart(Label label, int totalsec, JFXButton button)
     {
+        System.out.println(label);
+        
+        if(label != null){
         TimerUtil tu = new TimerUtil(label, totalsec);
                
-        executorService.submit(tu);
+      
         
         System.out.println("start");
+        
+        
+        
         
         Image play = new Image("/examProjectTheDisciplesOfSkrumm/GUI/Icons/Playbutton.png");
         Image pause = new Image("/examProjectTheDisciplesOfSkrumm/GUI/Icons/PauseBtn.png");
@@ -422,6 +428,7 @@ public class MainViewController implements Initializable
         } 
         else if (!countRun){
             countRun = true;
+            executorService.submit(tu);
             button.setGraphic(imgplay);
             button.setContentDisplay(ContentDisplay.CENTER);
         }
@@ -429,6 +436,7 @@ public class MainViewController implements Initializable
         if(executorService.isTerminated() == true){
            System.out.println(tu.getTotalsec());  // get the total seconds after the timer has completely seized function
         }
+    }
     }
     
 }
