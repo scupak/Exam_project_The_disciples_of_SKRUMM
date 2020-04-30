@@ -370,6 +370,14 @@ public class MainViewController implements Initializable
     @FXML
     private void handlePlay(ActionEvent event)
     {
+        ImageView Play = new ImageView("/examProjectTheDisciplesOfSkrumm/GUI/Icons/Playbutton.png");
+        ImageView Pause = new ImageView("/examProjectTheDisciplesOfSkrumm/GUI/Icons/PauseBtn.png");
+        
+        Play.setScaleX(0.3);
+        Play.setScaleY(0.3);
+        Pause.setScaleX(0.3);
+        Pause.setScaleY(0.3);
+        
         int index = 0;
         
         JFXButton button = (JFXButton) event.getSource();
@@ -389,6 +397,16 @@ public class MainViewController implements Initializable
         if (!running)
         {
             totalTimeLabels.get(index).setText(ultimateLabel.getText());
+            button.setGraphic(Play);
+            button.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+            button.setContentDisplay(ContentDisplay.CENTER);
+            
+        }
+        else
+        {
+            button.setGraphic(Pause);
+            button.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+            button.setContentDisplay(ContentDisplay.CENTER);
         }
 
         
@@ -422,33 +440,19 @@ public class MainViewController implements Initializable
         System.out.println(System.getProperty("javafx.runtime.version"));*/
 
         //System.out.println("start");
-        Image play = new Image("/examProjectTheDisciplesOfSkrumm/GUI/Icons/Playbutton.png");
-        Image pause = new Image("/examProjectTheDisciplesOfSkrumm/GUI/Icons/PauseBtn.png");
-        ImageView imgpause  = new ImageView(pause);
-        ImageView imgplay  = new ImageView(play);
-        imgpause.setScaleX(0.3);
-        imgpause.setScaleY(0.3);        
-        imgplay.setScaleX(0.3);
-        imgplay.setScaleY(0.3);
 
         if (running)
         {
             running = false;
             timerutil.setIsRunning(false);
             executorService.shutdownNow();
-            button.setGraphic(imgplay);
-            button.setContentDisplay(ContentDisplay.CENTER);
             System.err.println("stopped");
-            
-            
-            
-
-        } else if (!running)
+        } 
+        
+        else if (!running)
         {
             System.out.println("not running");
             running = true;
-            button.setGraphic(imgpause);
-            button.setContentDisplay(ContentDisplay.CENTER);
             timerutil = new TimerUtil(label,totalsec);
             executorService = Executors.newFixedThreadPool(1);
             executorService.submit(timerutil);
