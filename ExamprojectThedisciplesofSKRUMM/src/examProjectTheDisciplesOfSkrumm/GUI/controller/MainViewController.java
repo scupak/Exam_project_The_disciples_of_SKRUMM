@@ -37,6 +37,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -288,7 +289,10 @@ public class MainViewController implements Initializable
         List<JFXButton> buttonChildren = new ArrayList();
         JFXButton playButton = new JFXButton();
 
-        Image Play = new Image("/examProjectTheDisciplesOfSkrumm/GUI/Icons/Playbutton.png");
+        ImageView Play = new ImageView("/examProjectTheDisciplesOfSkrumm/GUI/Icons/Playbutton.png");
+        Play.setFitHeight(24);
+        Play.setFitWidth(28);
+        
         Image Paid = new Image("/examProjectTheDisciplesOfSkrumm/GUI/Icons/Paid.png");
         Image NotPaid = new Image("/examProjectTheDisciplesOfSkrumm/GUI/Icons/NotPaid.png");
         ImageView imgView;
@@ -319,6 +323,13 @@ public class MainViewController implements Initializable
             {
                 JFXButton button = (JFXButton) child;
                 buttons.add(button);
+                
+                if(button.getText().equals("Play"))
+                {
+                    button.setGraphic(Play);
+                    button.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+                    button.setContentDisplay(ContentDisplay.CENTER);
+                }
             }
         }
 
@@ -354,6 +365,14 @@ public class MainViewController implements Initializable
     @FXML
     private void handlePlay(ActionEvent event)
     {
+        ImageView Play = new ImageView("/examProjectTheDisciplesOfSkrumm/GUI/Icons/Playbutton.png");
+        ImageView Pause = new ImageView("/examProjectTheDisciplesOfSkrumm/GUI/Icons/PauseBtn.png");
+        
+        Play.setFitHeight(24);
+        Play.setFitWidth(28);
+        Pause.setFitHeight(24);
+        Pause.setFitWidth(28);
+        
         int index = 0;
         
         JFXButton button = (JFXButton) event.getSource();
@@ -373,9 +392,17 @@ public class MainViewController implements Initializable
         if (!running)
         {
             totalTimeLabels.get(index).setText(ultimateLabel.getText());
+            button.setGraphic(Play);
+            button.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+            button.setContentDisplay(ContentDisplay.CENTER);
+            
         }
-
-        
+        else
+        {
+            button.setGraphic(Pause);
+            button.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+            button.setContentDisplay(ContentDisplay.CENTER);
+        }
     }
 
     private void handleLogOut(ActionEvent event) throws IOException
