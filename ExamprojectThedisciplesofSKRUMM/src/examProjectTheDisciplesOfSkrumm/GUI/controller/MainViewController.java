@@ -125,6 +125,8 @@ public class MainViewController implements Initializable
     private Label totalTimeSix;
     ExecutorService executorService;
     TimerUtil timerutil;
+    JFXButton previousbutton;
+    
 
     /**
      * Initializes the controller class.
@@ -403,7 +405,7 @@ public class MainViewController implements Initializable
 
     private synchronized void handleStart(Label label, JFXButton button, int totalSec)
     {
-        
+      
         //timerutil = new TimerUtil(label,0);
         //System.out.println(timerutil.getTimeLabel() +"timerlaber +++++++++++++++++");
 /*
@@ -422,6 +424,19 @@ public class MainViewController implements Initializable
 
         if (running)
         {
+            if(previousbutton != null && !button.equals(previousbutton)){
+                System.out.println("difrent label");
+                
+                ImageView view = ((ImageView)previousbutton.getChildrenUnmodifiable().get(1));
+                view.setImage(new Image("/examProjectTheDisciplesOfSkrumm/GUI/Icons/Playbutton.png"));
+                
+                /*
+                previousbutton.setGraphic(imgplay);
+                previousbutton.setContentDisplay(ContentDisplay.CENTER);*/
+            
+            
+            }
+            
             running = false;
             timerutil.setIsRunning(false);
             executorService.shutdownNow();
@@ -443,6 +458,8 @@ public class MainViewController implements Initializable
             executorService.submit(timerutil);
             
         }
+        
+        previousbutton = button;
 /*
         new Thread(()
                 ->
