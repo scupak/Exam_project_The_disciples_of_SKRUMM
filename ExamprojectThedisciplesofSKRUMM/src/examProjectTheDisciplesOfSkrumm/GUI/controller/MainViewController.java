@@ -40,6 +40,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -373,7 +374,7 @@ public class MainViewController implements Initializable
             }
         }
         
-        handleStart(ultimateLabel);
+        handleStart(ultimateLabel, button);
         
         if (!running)
         {
@@ -400,7 +401,7 @@ public class MainViewController implements Initializable
         mainView.close();
     }
 
-    private synchronized void handleStart(Label label)
+    private synchronized void handleStart(Label label, JFXButton button)
     {
         
         //timerutil = new TimerUtil(label,0);
@@ -410,12 +411,22 @@ public class MainViewController implements Initializable
         System.out.println(System.getProperty("javafx.runtime.version"));*/
 
         //System.out.println("start");
+        Image play = new Image("/examProjectTheDisciplesOfSkrumm/GUI/Icons/Playbutton.png");
+        Image pause = new Image("/examProjectTheDisciplesOfSkrumm/GUI/Icons/PauseBtn.png");
+        ImageView imgpause  = new ImageView(pause);
+        ImageView imgplay  = new ImageView(play);
+        imgpause.setScaleX(0.3);
+        imgpause.setScaleY(0.3);        
+        imgplay.setScaleX(0.3);
+        imgplay.setScaleY(0.3);
 
         if (running)
         {
             running = false;
             timerutil.setIsRunning(false);
             executorService.shutdownNow();
+            button.setGraphic(imgplay);
+            button.setContentDisplay(ContentDisplay.CENTER);
             System.err.println("stopped");
             
             
@@ -425,6 +436,8 @@ public class MainViewController implements Initializable
         {
             System.out.println("not running");
             running = true;
+            button.setGraphic(imgpause);
+            button.setContentDisplay(ContentDisplay.CENTER);
             timerutil = new TimerUtil(label,0);
             executorService = Executors.newFixedThreadPool(1);
             executorService.submit(timerutil);
