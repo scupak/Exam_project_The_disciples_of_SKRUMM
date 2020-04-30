@@ -365,14 +365,6 @@ public class MainViewController implements Initializable
     @FXML
     private void handlePlay(ActionEvent event)
     {
-        ImageView Play = new ImageView("/examProjectTheDisciplesOfSkrumm/GUI/Icons/Playbutton.png");
-        ImageView Pause = new ImageView("/examProjectTheDisciplesOfSkrumm/GUI/Icons/PauseBtn.png");
-        
-        Play.setFitHeight(24);
-        Play.setFitWidth(28);
-        Pause.setFitHeight(24);
-        Pause.setFitWidth(28);
-        
         int index = 0;
         
         JFXButton button = (JFXButton) event.getSource();
@@ -388,21 +380,6 @@ public class MainViewController implements Initializable
         }
         
         handleStart(ultimateLabel);
-        
-        if (!running)
-        {
-            totalTimeLabels.get(index).setText(ultimateLabel.getText());
-            button.setGraphic(Play);
-            button.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
-            button.setContentDisplay(ContentDisplay.CENTER);
-            
-        }
-        else
-        {
-            button.setGraphic(Pause);
-            button.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
-            button.setContentDisplay(ContentDisplay.CENTER);
-        }
     }
 
     @FXML
