@@ -6,22 +6,31 @@
 package examProjectTheDisciplesOfSkrumm.GUI.controller;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
+import examProjectTheDisciplesOfSkrumm.BE.Client;
+import examProjectTheDisciplesOfSkrumm.BE.Project;
 import examProjectTheDisciplesOfSkrumm.BE.Task;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.ModelFacadeInterface;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.ModelFacade;
 import examProjectTheDisciplesOfSkrumm.BLL.Util.TimerUtil;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -30,11 +39,14 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
@@ -75,9 +87,8 @@ public class MainViewController implements Initializable
     private int sec = 0;
     private int min = 0;
     private int hour = 0;
-    private boolean countRun = false;
+    private boolean running = false;
     private int totalsec = 0;
-    private ExecutorService executorService = Executors.newFixedThreadPool(1);
 
     private Label ultimateLabel;
 
@@ -112,6 +123,8 @@ public class MainViewController implements Initializable
     private Label totalTimeFive;
     @FXML
     private Label totalTimeSix;
+    ExecutorService executorService;
+    TimerUtil timerutil;
 
     /**
      * Initializes the controller class.
@@ -230,7 +243,6 @@ public class MainViewController implements Initializable
     {
         int anchorPaneNumber = 0;
         ObservableList<Task> tasks = modelfacade.getTasks();
-        ArrayList<AnchorPane> panes = new ArrayList<>();
         
         panes.add(taskOne);
         panes.add(taskTwo);
@@ -238,15 +250,7 @@ public class MainViewController implements Initializable
         panes.add(taskFour);
         panes.add(taskFive);
         panes.add(taskSix);
-        
-        //Task task1 = new Task("Add information to TableView", new Project("Time Taker", new Client("Grumsen Development")), 0, 0, "28/04/2020");
-        //Task task2 = new Task("Drink Pepsi Max", new Project("Time Taker", new Client("Grumsen Development")), 0, 1, "28/04/2020");
-        //Task task3 = new Task("Write in report", new Project("Time Taker", new Client("Grumsen Development")), 0, 0, "28/04/2020");
-        
-       //tasks.add(task1);
-        //tasks.add(task2);
-        //tasks.add(task3);
-
+       
         timeLabels.add(timeLabelOne);
         timeLabels.add(timeLabelTwo);
         timeLabels.add(timeLabelThree);
@@ -370,9 +374,9 @@ public class MainViewController implements Initializable
             }
         }
         
-        handleStart(ultimateLabel, 0, button);
+        handleStart(ultimateLabel, button, 0);
         
-        if (!countRun)
+        if (!running)
         {
             totalTimeLabels.get(index).setText(ultimateLabel.getText());
         }
@@ -397,20 +401,16 @@ public class MainViewController implements Initializable
         mainView.close();
     }
 
-    private void handleStart(Label label, int totalsec, JFXButton button)
+    private synchronized void handleStart(Label label, JFXButton button, int totalSec)
     {
-        System.out.println(label);
         
-        if(label != null){
-        TimerUtil tu = new TimerUtil(label, totalsec);
-               
-      
-        
-        System.out.println("start");
-        
-        
-        
-        
+        //timerutil = new TimerUtil(label,0);
+        //System.out.println(timerutil.getTimeLabel() +"timerlaber +++++++++++++++++");
+/*
+        System.out.println(System.getProperty("java.version"));
+        System.out.println(System.getProperty("javafx.runtime.version"));*/
+
+        //System.out.println("start");
         Image play = new Image("/examProjectTheDisciplesOfSkrumm/GUI/Icons/Playbutton.png");
         Image pause = new Image("/examProjectTheDisciplesOfSkrumm/GUI/Icons/PauseBtn.png");
         ImageView imgpause  = new ImageView(pause);
@@ -420,23 +420,82 @@ public class MainViewController implements Initializable
         imgplay.setScaleX(0.3);
         imgplay.setScaleY(0.3);
 
-        if (countRun){
-            countRun = false;
-            button.setGraphic(imgpause);
-            button.setContentDisplay(ContentDisplay.CENTER);
-            
-        } 
-        else if (!countRun){
-            countRun = true;
-            executorService.submit(tu);
+        if (running)
+        {
+            running = false;
+            timerutil.setIsRunning(false);
+            executorService.shutdownNow();
             button.setGraphic(imgplay);
             button.setContentDisplay(ContentDisplay.CENTER);
+            System.err.println("stopped");
+            
+            
+            
+
+        } else if (!running)
+        {
+            System.out.println("not running");
+            running = true;
+            button.setGraphic(imgpause);
+            button.setContentDisplay(ContentDisplay.CENTER);
+            timerutil = new TimerUtil(label,totalSec);
+            executorService = Executors.newFixedThreadPool(1);
+            executorService.submit(timerutil);
+            
         }
-        
-        if(executorService.isTerminated() == true){
-           System.out.println(tu.getTotalsec());  // get the total seconds after the timer has completely seized function
-        }
+/*
+        new Thread(()
+                ->
+        {
+            while (true)
+            {
+
+                if (running)
+                {
+
+                    try
+                    {
+                        Thread.sleep(1000);
+
+                        sec++;
+                        totalsec++;
+
+                        if (sec >= 60)
+                        {
+                            min++;
+                            sec = 0;
+                        }
+
+                        if (min >= 60)
+                        {
+                            hour++;
+                            min = 0;
+                        }
+
+                        String time = String.format("%02d", hour) + ":" + String.format("%02d", min) + ":" + String.format("%02d", sec);
+                        System.out.println(time);
+                        System.out.println(totalsec);
+                        Platform.runLater(()
+                                ->
+                        {
+                            label.setText(String.format("%02d", hour) + ":" + String.format("%02d", min) + ":" + String.format("%02d", sec));
+                        }
+                        );
+
+                    } catch (Exception e)
+                    {
+                    }
+
+                } else
+                {
+
+                    break;
+
+                }
+
+            }
+
+        }).start();
+        */
     }
-    }
-    
 }

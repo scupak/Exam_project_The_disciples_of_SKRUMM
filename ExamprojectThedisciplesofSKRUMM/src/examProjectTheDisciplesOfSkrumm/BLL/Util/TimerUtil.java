@@ -5,6 +5,7 @@
  */
 package examProjectTheDisciplesOfSkrumm.BLL.Util;
 
+import com.sun.javafx.tools.packager.Main;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import javafx.application.Platform;
@@ -20,14 +21,12 @@ public class TimerUtil implements Runnable
     private int min = 0;
     private int hour = 0;
     private String time;
-    private boolean isCounting = true;
+    private boolean isRunning = true;
     private Label timeLabel;
     private int totalSec = 0;
 
-    public TimerUtil(Label timeLabel, int totalSec) { // Converting Total seconds to the correct time signature
-         this.timeLabel = timeLabel;
-         this.totalSec = totalSec;
-         
+    public TimerUtil(Label timeLabel, int totalSec) {
+        this.totalSec = totalSec;
         while(totalSec >= 3600){
         totalSec  = totalSec - 3600;
         hour++;
@@ -49,8 +48,7 @@ public class TimerUtil implements Runnable
         //while totalSec is over 3600, totalSec minus 3600, and add 1 to hour until it isnt anymore
         //when done, while totalSec is over 60, totalSec minus 60 and add 1 to min until it isnt anymore
         //add rest of seconds to sec
-        
-       
+        this.timeLabel = timeLabel;
     }
     
     
@@ -65,14 +63,14 @@ public class TimerUtil implements Runnable
     @Override
     public void run()
     {
-        while (true) {
-                if (isCounting) {
+        while (!Thread.interrupted()) {
+                if (isRunning) {
 
                     try {
                         Thread.sleep(1000);
 
                         sec++;
-                        totalSec++; // This value needs to be exported and saved somewhere safe. Linked to the task and the username of the one on the task in the DB or something
+                        totalSec++;
 
                         if (sec >= 60) {
                             min++;
@@ -98,7 +96,7 @@ public class TimerUtil implements Runnable
                             System.out.println("Nonexistant label is nonexistant, putting relevant data into time String. This is a Null Pointer");
                             }  
                     }
-                    catch (Exception e){
+                    catch (InterruptedException e){
                     }
 
                 }
@@ -107,18 +105,43 @@ public class TimerUtil implements Runnable
                 }
 
             }
+        
+        System.err.println("Interrupted" + Thread.currentThread().getName());
+    }
+
+    public Label getTimeLabel() {
+        return timeLabel;
+    }
+
+    public void setTimeLabel(Label timeLabel) {
+        this.timeLabel = timeLabel;
+    }
+
+    public boolean isIsRunning() {
+        return isRunning;
+    }
+
+    public void setIsRunning(boolean isRunning) {
+        this.isRunning = isRunning;
     }
     
+    
+    
+                
     public static void main(String[] args){
         int totSec = 123456;
         
-        //giving label null, as it works with null, this makes it yell at me
+        //giving label null, as it works with null
         TimerUtil tu = new TimerUtil(null, totSec);
         
         ExecutorService executorService = 
             Executors.newFixedThreadPool(1);
         
         executorService.submit(tu);
+        
+        
+        
+        executorService.shutdownNow();
     }
     
 }
