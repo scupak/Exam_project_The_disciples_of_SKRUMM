@@ -22,6 +22,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
@@ -119,6 +122,8 @@ public class MainViewController implements Initializable
     private Label totalTimeFive;
     @FXML
     private Label totalTimeSix;
+    ExecutorService executorService;
+    TimerUtil timerutil;
 
     /**
      * Initializes the controller class.
@@ -395,25 +400,37 @@ public class MainViewController implements Initializable
         mainView.close();
     }
 
-    private void handleStart(Label label)
+    private synchronized void handleStart(Label label)
     {
-
+        
+        //timerutil = new TimerUtil(label,0);
+        //System.out.println(timerutil.getTimeLabel() +"timerlaber +++++++++++++++++");
+/*
         System.out.println(System.getProperty("java.version"));
-        System.out.println(System.getProperty("javafx.runtime.version"));
+        System.out.println(System.getProperty("javafx.runtime.version"));*/
 
-        System.out.println("start");
+        //System.out.println("start");
 
         if (running)
         {
-
             running = false;
+            timerutil.setIsRunning(false);
+            executorService.shutdownNow();
+            System.err.println("stopped");
+            
+            
+            
 
         } else if (!running)
         {
+            System.out.println("not running");
             running = true;
-
+            timerutil = new TimerUtil(label,0);
+            executorService = Executors.newFixedThreadPool(1);
+            executorService.submit(timerutil);
+            
         }
-
+/*
         new Thread(()
                 ->
         {
@@ -466,5 +483,6 @@ public class MainViewController implements Initializable
             }
 
         }).start();
+        */
     }
 }

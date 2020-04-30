@@ -63,7 +63,7 @@ public class TimerUtil implements Runnable
     @Override
     public void run()
     {
-        while (true) {
+        while (!Thread.interrupted()) {
                 if (isRunning) {
 
                     try {
@@ -96,7 +96,7 @@ public class TimerUtil implements Runnable
                             System.out.println("Nonexistant label is nonexistant, putting relevant data into time String. This is a Null Pointer");
                             }  
                     }
-                    catch (Exception e){
+                    catch (InterruptedException e){
                     }
 
                 }
@@ -105,8 +105,29 @@ public class TimerUtil implements Runnable
                 }
 
             }
+        
+        System.err.println("Interrupted" + Thread.currentThread().getName());
+    }
+
+    public Label getTimeLabel() {
+        return timeLabel;
+    }
+
+    public void setTimeLabel(Label timeLabel) {
+        this.timeLabel = timeLabel;
+    }
+
+    public boolean isIsRunning() {
+        return isRunning;
+    }
+
+    public void setIsRunning(boolean isRunning) {
+        this.isRunning = isRunning;
     }
     
+    
+    
+                
     public static void main(String[] args){
         int totSec = 123456;
         
@@ -117,6 +138,10 @@ public class TimerUtil implements Runnable
             Executors.newFixedThreadPool(1);
         
         executorService.submit(tu);
+        
+        
+        
+        executorService.shutdownNow();
     }
     
 }
