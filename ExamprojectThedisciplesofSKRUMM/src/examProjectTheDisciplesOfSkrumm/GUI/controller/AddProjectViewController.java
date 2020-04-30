@@ -7,9 +7,15 @@ package examProjectTheDisciplesOfSkrumm.GUI.controller;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
+import examProjectTheDisciplesOfSkrumm.BE.Client;
+import examProjectTheDisciplesOfSkrumm.BE.Project;
+import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.ModelFacadeInterface;
+import examProjectTheDisciplesOfSkrumm.GUI.Model.ModelFacade;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,6 +23,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ComboBox;
 import javafx.stage.Stage;
 
 /**
@@ -27,6 +35,8 @@ import javafx.stage.Stage;
 public class AddProjectViewController implements Initializable
 {
 
+    private ModelFacadeInterface modelfacade;
+    
     @FXML
     private JFXButton AddProjectOkBtn;
     @FXML
@@ -37,6 +47,11 @@ public class AddProjectViewController implements Initializable
     private JFXTextField ProjectRateTextField;
     @FXML
     private JFXButton addClientButton;
+    
+    private AdminViewController adminviewcontroller;
+    @FXML
+    private ComboBox<Client> clientComboBox;
+    
 
     /**
      * Initializes the controller class.
@@ -44,13 +59,37 @@ public class AddProjectViewController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        // TODO
+        try {
+            modelfacade = ModelFacade.getInstance();
+        } catch (Exception ex) {
+            Logger.getLogger(CreateTaskController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        clientComboBox.getItems().addAll(modelfacade.getClients());
+        
     }    
 
     @FXML
-    private void HandleAddProjectOkBtn(ActionEvent event) {
-        Stage createUserView = (Stage) ((Node) event.getSource()).getScene().getWindow();
-         createUserView.close();
+    private void HandleAddProjectOkBtn(ActionEvent event) 
+    {
+       if(ProjectNameTextField.getText().isEmpty() || clientComboBox.getValue() == null || ProjectRateTextField.getText().isEmpty())
+       {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Oops");
+            alert.setHeaderText("Incorrect input");
+            alert.setContentText("You didnt write a correct project name or didnt select a client");
+            alert.showAndWait();
+       }
+       else
+       {
+            String projectName = ProjectNameTextField.getText();
+            Client client = clientComboBox.getValue();
+            int projectRate = Integer.parseInt(ProjectRateTextField.getText());
+            Project newproject = new Project(projectName, client, projectRate);
+            modelfacade.CreateProject(newproject);
+            adminviewcontroller.RefreshTableView();
+            Stage createUserView = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            createUserView.close();
+       }
     }
 
     @FXML
@@ -64,7 +103,7 @@ public class AddProjectViewController implements Initializable
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/AddClient.fxml"));
         Parent root = loader.load();
         AddClientController controller = loader.getController();
-        
+        controller.setAddProjectController(this);
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.setMinHeight(200);
@@ -73,4 +112,13 @@ public class AddProjectViewController implements Initializable
         stage.show();
     }
     
+    void setAdminViewController(AdminViewController adminviewcontroller)
+    {
+        this.adminviewcontroller = adminviewcontroller;
+    }
+    
+    public void refreshClientComboBox()
+    {
+        clientComboBox.getItems().addAll(modelfacade.getClients());
+    }
 }

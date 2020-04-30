@@ -8,9 +8,13 @@ package examProjectTheDisciplesOfSkrumm.GUI.controller;
 import com.jfoenix.controls.JFXButton;
 import examProjectTheDisciplesOfSkrumm.BE.Client;
 import examProjectTheDisciplesOfSkrumm.BE.Project;
+import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.ModelFacadeInterface;
+import examProjectTheDisciplesOfSkrumm.GUI.Model.ModelFacade;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -33,6 +37,7 @@ import javafx.stage.Stage;
  */
 public class ClientsAndProjectsController implements Initializable {
 
+    ModelFacadeInterface modelfacade;
     @FXML
     private JFXButton taskBtn;
     @FXML
@@ -48,12 +53,18 @@ public class ClientsAndProjectsController implements Initializable {
      * Initializes the controller class.
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    public void initialize(URL url, ResourceBundle rb)
+    {
+        try {
+            modelfacade = ModelFacade.getInstance();
+        } catch (Exception ex) {
+            Logger.getLogger(CreateTaskController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         //set up the columns in the table
         projectNameColumn.setCellValueFactory(new PropertyValueFactory<Project, String>("projectName"));
         clientNameColumn.setCellValueFactory(new PropertyValueFactory<Project, String>("clientName"));
         
-        ObservableList<Project> getData = FXCollections.observableArrayList();
+        /**ObservableList<Project> getData = FXCollections.observableArrayList();
         
         
        Project project1 = new Project("Take over the world", new Client("Doofensmirtz"));
@@ -63,9 +74,9 @@ public class ClientsAndProjectsController implements Initializable {
         getData.add(project1);
         getData.add(project2);
         getData.add(project3);
+        */
         
-        
-       ClientList.setItems(getData);
+       ClientList.setItems(modelfacade.getProjects());
     }   
     
     

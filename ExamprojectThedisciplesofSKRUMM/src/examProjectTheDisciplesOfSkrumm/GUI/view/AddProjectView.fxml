@@ -70,7 +70,7 @@
                   </Label>
                   <VBox alignment="TOP_RIGHT" prefHeight="56.0" prefWidth="121.0" spacing="5.0">
                      <children>
-                        <ComboBox prefWidth="150.0" styleClass="ComboBox" />
+                        <ComboBox fx:id="clientComboBox" prefWidth="150.0" styleClass="ComboBox" />
                         <JFXButton fx:id="addClientButton" onAction="#handleAddClient" text="Add Client" />
                      </children>
                   </VBox>

@@ -405,6 +405,7 @@ public class MainViewController implements Initializable
         }
     }
 
+    @FXML
     private void handleLogOut(ActionEvent event) throws IOException
     {
         Stage mainView = (Stage) ((Node) event.getSource()).getScene().getWindow();
