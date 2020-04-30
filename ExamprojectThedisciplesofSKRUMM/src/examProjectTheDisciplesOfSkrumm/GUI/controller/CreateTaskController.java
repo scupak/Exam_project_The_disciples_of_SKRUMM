@@ -89,7 +89,7 @@ public class CreateTaskController implements Initializable
         ArrayList<Task> intervals = new ArrayList<Task>(); 
        
         
-        Task newtask = new Task(title, project, duration, isPaid, lastUsed, creationDate, startTime, stopTime, intervals);
+        Task newtask = new Task(1, title, project, duration, isPaid, lastUsed, creationDate, startTime, stopTime, intervals);
         modelfacade.createTask(newtask);
         taskViewController.RefreshTreeView();
         Stage createTaskView = (Stage) ((Node) event.getSource()).getScene().getWindow();

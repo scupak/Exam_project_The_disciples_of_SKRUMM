@@ -39,11 +39,11 @@ public class Exam_project_The_disciples_of_SKRUMM extends Application
         modelfacade.CreateProject(project1);
         modelfacade.CreateProject(project2);
         modelfacade.CreateProject(project3);
-        Task interval1 = new Task("Developing apps", project3, 432240, 0, LocalDateTime.now(), LocalDate.now(), LocalTime.of(1, 20, 50), LocalTime.of(3, 24, 50), new ArrayList());
+        Task interval1 = new Task(1, "Developing apps", project3, 432240, 0, LocalDateTime.now(), LocalDate.now(), LocalTime.of(1, 20, 50), LocalTime.of(3, 24, 50), new ArrayList());
         ArrayList<Task> intervals = new ArrayList<Task>();
         intervals.add(interval1);
-        Task task1 = new Task("Making candy", project1, 0, 1, LocalDateTime.now(), LocalDate.now(), LocalTime.MIN, LocalTime.MIN, new ArrayList());
-        Task task2 = new Task("Developing apps", project3, 532240, 1, LocalDateTime.now(), LocalDate.now(), LocalTime.MIN, LocalTime.MIN, intervals);
+        Task task1 = new Task(2, "Making candy", project1, 0, 1, LocalDateTime.now(), LocalDate.now(), LocalTime.MIN, LocalTime.MIN, new ArrayList());
+        Task task2 = new Task(3, "Developing apps", project3, 532240, 1, LocalDateTime.now(), LocalDate.now(), LocalTime.MIN, LocalTime.MIN, intervals);
         
         modelfacade.createTask(task1);
         modelfacade.createTask(task2);

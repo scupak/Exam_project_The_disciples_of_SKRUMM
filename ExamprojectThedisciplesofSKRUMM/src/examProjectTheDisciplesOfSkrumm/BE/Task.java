@@ -21,6 +21,7 @@ import javafx.collections.ObservableList;
  */
 public class Task 
 {
+    private IntegerProperty id;
     private StringProperty title;
     private Project project;
     private IntegerProperty duration;
@@ -66,8 +67,9 @@ public class Task
         
     }
     
-    public Task(String title, Project project, int duration, int isPaid, LocalDateTime lastUsed, LocalDate creationDate, LocalTime startTime, LocalTime stopTime, ArrayList<Task> intervals) 
+    public Task(int id, String title, Project project, int duration, int isPaid, LocalDateTime lastUsed, LocalDate creationDate, LocalTime startTime, LocalTime stopTime, ArrayList<Task> intervals) 
     {
+        this.id = new SimpleIntegerProperty(id);
         this.title = new SimpleStringProperty(title);
         this.project = project;
         this.duration = new SimpleIntegerProperty(duration);
