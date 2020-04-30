@@ -384,7 +384,7 @@ public class MainViewController implements Initializable
             }
         }
         
-        handleStart(ultimateLabel, button);
+        handleStart(ultimateLabel, button,0);
         
         if (!running)
         {
@@ -412,7 +412,7 @@ public class MainViewController implements Initializable
         mainView.close();
     }
 
-    private synchronized void handleStart(Label label, JFXButton button)
+    private synchronized void handleStart(Label label, JFXButton button, int totalsec)
     {
         
         //timerutil = new TimerUtil(label,0);
@@ -449,7 +449,7 @@ public class MainViewController implements Initializable
             running = true;
             button.setGraphic(imgpause);
             button.setContentDisplay(ContentDisplay.CENTER);
-            timerutil = new TimerUtil(label,0);
+            timerutil = new TimerUtil(label,totalsec);
             executorService = Executors.newFixedThreadPool(1);
             executorService.submit(timerutil);
             
