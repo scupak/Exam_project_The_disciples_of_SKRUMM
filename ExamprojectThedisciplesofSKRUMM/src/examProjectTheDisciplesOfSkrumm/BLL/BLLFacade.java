@@ -41,10 +41,7 @@ public class BLLFacade implements BLLFacadeInterface
     }
     
 
-    @Override
-    public TreeItem<Task> getMockModel() {
-        return treeTableUtil.getMockModel();
-    }
+   
 
     @Override
     public TreeItem<Task> getModel(ObservableList<Task> tasks) {

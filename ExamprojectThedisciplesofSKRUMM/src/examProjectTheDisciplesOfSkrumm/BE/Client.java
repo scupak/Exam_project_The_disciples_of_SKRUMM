@@ -15,7 +15,7 @@ import javafx.beans.property.SimpleStringProperty;
  */
 public class Client 
 {
-    private IntegerProperty id;
+    private SimpleIntegerProperty id;
     private SimpleStringProperty ClientName;
     private SimpleIntegerProperty ClientRate;
     private IntegerProperty isPaid;
@@ -29,7 +29,7 @@ public class Client
         
     }
 
-    public int getId()
+     public int getId()
     {
         return id.get();
     }
@@ -38,7 +38,6 @@ public class Client
     {
         this.id.set(id);
     }
-
     
     public String getClientName() {
         return ClientName.get();

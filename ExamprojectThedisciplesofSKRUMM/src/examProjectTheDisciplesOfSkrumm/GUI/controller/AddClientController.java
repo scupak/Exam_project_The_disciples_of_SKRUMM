@@ -71,11 +71,12 @@ public class AddClientController implements Initializable
         {
             try
             {
+                int id = 1;
                 String ClientName = ClientNameTextField.getText();
                 int ClientRate = Integer.parseInt(ClientRateTextField.getText());
                  int isPaid = isPaidNum;
         
-                Client client = new Client(1, ClientName, ClientRate, isPaid);
+                Client client = new Client(id, ClientName, ClientRate, isPaid);
                 modelfacade.createClient(client);
                 addprojectviewcontroller.refreshClientComboBox();
                 Stage addClientView = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -94,11 +95,12 @@ public class AddClientController implements Initializable
         {
             try
             {
+                int id = 1;
                 String ClientName = ClientNameTextField.getText();
                 int ClientRate = 0;
                 int isPaid = isPaidNum;
         
-                Client client = new Client(1, ClientName, ClientRate, isPaid);
+                Client client = new Client(id, ClientName, ClientRate, isPaid);
                 modelfacade.createClient(client);
                 addprojectviewcontroller.refreshClientComboBox();
                 Stage addClientView = (Stage) ((Node) event.getSource()).getScene().getWindow();

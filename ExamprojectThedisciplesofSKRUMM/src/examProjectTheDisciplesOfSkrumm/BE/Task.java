@@ -35,16 +35,9 @@ public class Task
     private ArrayList<Task> intervals;
             
 
-    public Task( int id, String title, Project project, int duration) {
-        this.id = new SimpleIntegerProperty(id);
-        this.title = new SimpleStringProperty(title);
-        this.project = project;
-        this.duration = new SimpleIntegerProperty(duration);
-        this.projectName = new SimpleStringProperty(project.getProjectName());
-        this.clientName = new SimpleStringProperty(project.getClient().getClientName());
-    }
+   
     
-    public Task(int id, String title, Project project, int duration, int isPaid, LocalDateTime lastUsed) 
+    public Task(int id, String title, Project project, int duration, LocalDateTime lastUsed, LocalDate creationDate, LocalTime startTime, LocalTime stopTime, ArrayList<Task> intervals) 
     {
         this.id = new SimpleIntegerProperty(id);
         this.title = new SimpleStringProperty(title);
@@ -52,33 +45,7 @@ public class Task
         this.duration = new SimpleIntegerProperty(duration);
         this.projectName = new SimpleStringProperty(project.getProjectName());
         this.clientName = new SimpleStringProperty(project.getClient().getClientName());
-        this.isPaid =  new SimpleIntegerProperty(isPaid);
-        this.lastUsed = lastUsed;
-    }
-    public Task(int id, String title, Project project, int duration, int isPaid, LocalDateTime lastUsed, LocalDate creationDate, LocalTime startTime) 
-    {
-        this.id = new SimpleIntegerProperty(id);
-        this.title = new SimpleStringProperty(title);
-        this.project = project;
-        this.duration = new SimpleIntegerProperty(duration);
-        this.projectName = new SimpleStringProperty(project.getProjectName());
-        this.clientName = new SimpleStringProperty(project.getClient().getClientName());
-        this.isPaid =  new SimpleIntegerProperty(isPaid);
-        this.lastUsed = lastUsed;
-        this.creationDate = creationDate;
-        this.startTime = startTime;
-        
-    }
-    
-    public Task(int id, String title, Project project, int duration, int isPaid, LocalDateTime lastUsed, LocalDate creationDate, LocalTime startTime, LocalTime stopTime, ArrayList<Task> intervals) 
-    {
-        this.id = new SimpleIntegerProperty(id);
-        this.title = new SimpleStringProperty(title);
-        this.project = project;
-        this.duration = new SimpleIntegerProperty(duration);
-        this.projectName = new SimpleStringProperty(project.getProjectName());
-        this.clientName = new SimpleStringProperty(project.getClient().getClientName());
-        this.isPaid =  new SimpleIntegerProperty(isPaid);
+        this.isPaid =  new SimpleIntegerProperty(project.getIsPaid());
         this.lastUsed = lastUsed;
         this.creationDate = creationDate;
         this.startTime = startTime;

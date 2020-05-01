@@ -37,11 +37,7 @@ public class TaskModel implements TaskModelInterface
         tasks = FXCollections.observableArrayList();
     }
 
-    @Override
-    public TreeItem<Task> getMockModel() 
-    {
-        return bllfacade.getMockModel();
-    }
+    
 
     @Override
     public TreeItem<Task> getModel() 

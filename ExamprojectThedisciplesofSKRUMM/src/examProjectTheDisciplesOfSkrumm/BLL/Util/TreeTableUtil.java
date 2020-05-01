@@ -8,6 +8,9 @@ import examProjectTheDisciplesOfSkrumm.BE.Client;
 import examProjectTheDisciplesOfSkrumm.BE.Project;
 import examProjectTheDisciplesOfSkrumm.BE.Task;
 import examProjectTheDisciplesOfSkrumm.BLL.Interface.TreeTableUtilInterface;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TreeItem;
@@ -23,33 +26,7 @@ public class TreeTableUtil implements TreeTableUtilInterface
     {
     }
     
-    @SuppressWarnings("unchecked")
-    public TreeItem<Task> getMockModel()
-    {
     
-    /* Create all task*/
-    // Root node
-    Task rootTask = new Task(1, "Root", new Project(1, "Root", new Client(1, "Root", 0, 1), 0, 1), 0);
-    
-    // Main tasks
-    Task createNemesis = new Task(2, "Create Nemesis",new Project(2, "Project X", new Client(1, "Umbrella",10, 1), 10, 0), 0);
-    Task takeOverWorldTotal = new Task(3, "Take over world",new Project(3, "Project X", new Client(1, "Umbrella",10, 1), 10, 0), 10);
-    
-    //takeOverWorld secondary task
-    Task takeOverWorld1 = new Task(4, "Take over world",new Project(4, "Project X", new Client(1, "Umbrella",10, 0), 10, 0), 4);
-    Task takeOverWorld2 = new Task(5, "Take over world",new Project(5, "Project X", new Client(1, "Umbrella",10, 0), 10, 0), 6);
-    
-    //Build nodes
-    TreeItem<Task> createNemesisNode = new TreeItem<>(createNemesis);
-    
-    TreeItem<Task> takeOverWorldTotalNode = new TreeItem<>(takeOverWorldTotal);
-    takeOverWorldTotalNode.getChildren().addAll(new TreeItem<>(takeOverWorld1), new TreeItem<>(takeOverWorld2));
-    
-    //Create the root node and add children
-    TreeItem<Task> rootTaskNode = new TreeItem<>(rootTask);
-    rootTaskNode.getChildren().addAll(createNemesisNode,takeOverWorldTotalNode );
-    return rootTaskNode;
-    }
     
     @SuppressWarnings("unchecked")
     public TreeItem<Task> getModel(ObservableList<Task> tasks)
@@ -57,7 +34,7 @@ public class TreeTableUtil implements TreeTableUtilInterface
     
     /* Create all task*/
     // Root node
-    Task rootTask = new Task(6, "Root", new Project(6, "Root", new Client(1, "Root",0, 0), 0, 1), 0);
+    Task rootTask = new Task(1, "Root", new Project(1, "Root", new Client(1, "Root", 0, 0), 0), 0, LocalDateTime.MIN, LocalDate.MIN, LocalTime.MIN, LocalTime.MIN, new ArrayList<>());
         ArrayList<TreeItem<Task>> treeItems = new ArrayList();
         
     
@@ -83,6 +60,8 @@ public class TreeTableUtil implements TreeTableUtilInterface
     rootTaskNode.getChildren().addAll(treeItems);
     return rootTaskNode;
     }
+
+   
     
     
     

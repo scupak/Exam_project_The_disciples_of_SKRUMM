@@ -57,11 +57,7 @@ public class ModelFacade implements ModelFacadeInterface
     }
     
 
-    @Override
-    public TreeItem<Task> getMockModel() 
-    {
-        return taskmodel.getMockModel();
-    }
+   
 
     @Override
     public TreeItem<Task> getModel() {

@@ -17,7 +17,6 @@ import javafx.scene.control.TreeItem;
  */
 public interface TaskModelInterface 
 {
-    public TreeItem<Task> getMockModel();
     
     public TreeItem<Task> getModel();
     
