@@ -181,7 +181,7 @@ public class MainViewController implements Initializable
     @FXML
     private void handleAdminView(ActionEvent event) throws IOException
     {
-        if (adminCheck == true)
+        if (modelfacade.getCurrentuser().getIsAdmin() == true)
         {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/AdminView.fxml"));
             Parent root = loader.load();

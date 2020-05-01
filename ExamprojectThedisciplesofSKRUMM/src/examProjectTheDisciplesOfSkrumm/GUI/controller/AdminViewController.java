@@ -13,6 +13,7 @@ import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.ModelFacadeInterface;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.ModelFacade;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -119,19 +120,13 @@ public class AdminViewController implements Initializable
        emailColumn.setCellValueFactory(new PropertyValueFactory<User, String>("email"));
        isAdminColumn.setCellValueFactory(new PropertyValueFactory<User, String>("isAdmin"));
        
-       ObservableList<User> getData2 = FXCollections.observableArrayList();
        
-       User user1 = new User("mads@jensen.dk", "Mads", "Jensen","123" , true);
-       User user2 = new User("lars@larsen.dk", "Lars", "Larsen","123" , false);
-       User user3 = new User("lea@evergarden.dk", "Lea", "Evergarden","123" , true);
-       User user4 = new User("tim@mcilrath.dk", "Tim", "Mcilrath","123" , false);
        
-       getData2.add(user1);
-       getData2.add(user2);
-       getData2.add(user3);
-       getData2.add(user4);
-       
-       UserInfoAdminPane.setItems(getData2);
+        try {
+            UserInfoAdminPane.setItems(modelfacade.getAllUsers());
+        } catch (SQLException ex) {
+            Logger.getLogger(AdminViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
        
        
        
@@ -143,7 +138,7 @@ public class AdminViewController implements Initializable
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/CreateUserView.fxml"));
         Parent root = loader.load();
         CreateUserViewController controller = loader.getController();
-        
+        controller.setAdminViewController(this);
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.setTitle("TimeTracker");
@@ -209,6 +204,12 @@ public class AdminViewController implements Initializable
     public void RefreshTableView()
     {
         ClientList.setItems(modelfacade.getProjects());
+        
+        try {
+            UserInfoAdminPane.setItems(modelfacade.getAllUsers());
+        } catch (SQLException ex) {
+            Logger.getLogger(AdminViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     

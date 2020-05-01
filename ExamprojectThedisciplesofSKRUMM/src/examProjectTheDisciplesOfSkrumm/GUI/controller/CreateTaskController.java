@@ -110,6 +110,36 @@ public class CreateTaskController implements Initializable
             }
             
         }
+        if(!titleTextField.getText().isEmpty() && !(projectCombobox.getValue() == null) && timeTextField.getText().isEmpty())
+        {
+            try
+            {
+                String title = titleTextField.getText();
+                Project project = projectCombobox.getValue();
+                int duration = 0;
+                LocalDateTime lastUsed = LocalDateTime.now();
+                LocalDate creationDate = LocalDate.now();
+                LocalTime startTime = LocalTime.MIN;
+                LocalTime stopTime = LocalTime.MIN;
+                ArrayList<Task> intervals = new ArrayList<Task>(); 
+       
+        
+                Task newtask = new Task(1, title, project, duration, lastUsed, creationDate, startTime, stopTime, intervals);
+                modelfacade.createTask(newtask);
+                taskViewController.RefreshTreeView();
+                Stage createTaskView = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                createTaskView.close();
+            }
+            catch (NumberFormatException ex)
+            {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Oops");
+                alert.setHeaderText("Incorrect input");
+                alert.setContentText("You wrote a letter in duration, it needs a number.");
+                alert.showAndWait();
+            }
+            
+        }
         else 
         {
               Alert alert = new Alert(Alert.AlertType.INFORMATION);

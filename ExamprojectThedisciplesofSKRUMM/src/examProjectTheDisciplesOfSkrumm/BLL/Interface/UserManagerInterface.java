@@ -5,8 +5,10 @@
  */
 package examProjectTheDisciplesOfSkrumm.BLL.Interface;
 
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 import examProjectTheDisciplesOfSkrumm.BE.User;
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  *
@@ -19,4 +21,12 @@ public interface UserManagerInterface
     public void passwordHash(User user) throws SQLException;
     
     public User getUser(User user) throws SQLException;
+    
+     public List<User> getAllUsers() throws SQLServerException, SQLException;
+    
+    public boolean userExist(User user) throws SQLException;
+    
+    public User createUser(User user) throws SQLException;
+    
+    
 }

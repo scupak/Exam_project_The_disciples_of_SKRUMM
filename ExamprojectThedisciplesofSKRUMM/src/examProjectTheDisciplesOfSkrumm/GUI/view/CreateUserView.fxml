@@ -13,16 +13,13 @@
 
 <AnchorPane id="AnchorPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="288.0" prefWidth="346.0" style="-fx-border-color: #435a9a; -fx-border-width: 60 2 2 2;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="examProjectTheDisciplesOfSkrumm.GUI.controller.CreateUserViewController">
    <children>
-      <HBox layoutX="100.0" layoutY="68.0" prefHeight="27.0" prefWidth="145.0" spacing="15.0">
+      <HBox layoutX="142.0" layoutY="68.0" prefHeight="20.0" prefWidth="66.0" spacing="15.0">
          <children>
-            <RadioButton mnemonicParsing="false" text="User">
+            <RadioButton fx:id="adminRadioButton" mnemonicParsing="false" text="Admin">
                <font>
                   <Font size="14.0" />
-               </font></RadioButton>
-            <RadioButton mnemonicParsing="false" text="Admin">
-               <font>
-                  <Font size="14.0" />
-               </font></RadioButton>
+               </font>
+            </RadioButton>
          </children>
       </HBox>
       <Label layoutX="88.0" layoutY="14.0" text="Create new user" textFill="WHITE">
@@ -54,15 +51,15 @@
                <font>
                   <Font size="18.0" />
                </font></Label>
-            <JFXTextField GridPane.columnIndex="1" />
-            <JFXTextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <JFXTextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <JFXTextField fx:id="emailTextField" GridPane.columnIndex="1" />
+            <JFXTextField fx:id="passwordTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <JFXTextField fx:id="firstNameTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Label alignment="TOP_LEFT" prefHeight="27.0" prefWidth="97.0" style="-fx-background-color: #435a9a; -fx-background-radius: 3 3 3 3; -fx-text-fill: white;" text="Last name:" GridPane.rowIndex="3">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <JFXTextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <JFXTextField fx:id="lastNameTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
          </children>
       </GridPane>
       <JFXButton fx:id="createBtn" layoutX="118.0" layoutY="238.0" onAction="#handleCreateUser" style="-fx-background-color: #435a9a;" text="Create" textFill="WHITE" />

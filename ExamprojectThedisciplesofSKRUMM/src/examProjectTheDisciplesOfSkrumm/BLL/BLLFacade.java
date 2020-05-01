@@ -6,6 +6,7 @@
 package examProjectTheDisciplesOfSkrumm.BLL;
 
 
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 import examProjectTheDisciplesOfSkrumm.BE.Client;
 import examProjectTheDisciplesOfSkrumm.BE.Project;
 import examProjectTheDisciplesOfSkrumm.BE.Task;
@@ -18,6 +19,7 @@ import examProjectTheDisciplesOfSkrumm.BLL.Interface.UserManagerInterface;
 import examProjectTheDisciplesOfSkrumm.BLL.Util.TreeTableUtil;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TreeItem;
 
@@ -72,6 +74,21 @@ public class BLLFacade implements BLLFacadeInterface
     public User getUser(User user) throws SQLException
     {
         return userManager.getUser(user);
+    }
+
+    @Override
+    public List<User> getAllUsers() throws SQLServerException, SQLException {
+        return userManager.getAllUsers();
+    }
+
+    @Override
+    public boolean userExist(User user) throws SQLException {
+        return userManager.userExist(user);
+    }
+
+    @Override
+    public User createUser(User user) throws SQLException {
+        return userManager.createUser(user);
     }
     
 }
