@@ -75,7 +75,7 @@ public class AddClientController implements Initializable
                 int ClientRate = Integer.parseInt(ClientRateTextField.getText());
                  int isPaid = isPaidNum;
         
-                Client client = new Client(ClientName, ClientRate, isPaid);
+                Client client = new Client(1, ClientName, ClientRate, isPaid);
                 modelfacade.createClient(client);
                 addprojectviewcontroller.refreshClientComboBox();
                 Stage addClientView = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -98,7 +98,7 @@ public class AddClientController implements Initializable
                 int ClientRate = 0;
                 int isPaid = isPaidNum;
         
-                Client client = new Client(ClientName, ClientRate, isPaid);
+                Client client = new Client(1, ClientName, ClientRate, isPaid);
                 modelfacade.createClient(client);
                 addprojectviewcontroller.refreshClientComboBox();
                 Stage addClientView = (Stage) ((Node) event.getSource()).getScene().getWindow();
