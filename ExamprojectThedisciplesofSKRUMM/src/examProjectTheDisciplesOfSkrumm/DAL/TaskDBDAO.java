@@ -103,7 +103,7 @@ public class TaskDBDAO
 
             ps.setString(1, task.getTitle());
             ps.setInt(2, task.getProject().getId());
-            ps.setDate(3, java.sql.Date.valueOf(task.getLastUsed().toLocalDate()));
+            ps.setTimestamp(3, java.sql.Timestamp.valueOf(task.getLastUsed()));
             ps.setDate(4, java.sql.Date.valueOf(task.getCreationDate()));
             ps.setTime(5, java.sql.Time.valueOf(task.getStartTime()));
             ps.setTime(6, java.sql.Time.valueOf(task.getStopTime()));
@@ -131,8 +131,8 @@ public class TaskDBDAO
         Client client = new Client(0, "why", 0, 0);
         Project project = new Project(0, "reeeeeeee", client, 0);
         ArrayList<Task> intervals = new ArrayList<>();
-        Task task = new Task(1, "pølse", project, 50, LocalDateTime.now(), LocalDate.now(), LocalTime.now(), LocalTime.now(), intervals);
+        Task task = new Task(0, "red", project, 50, LocalDateTime.now(), LocalDate.now(), LocalTime.now(), LocalTime.now(), intervals);
         taskDBDAO.createTask(task);
-        System.out.println(taskDBDAO.createTask(task));
+        System.out.println(task.toString());
     }
 }
