@@ -441,8 +441,9 @@ public class MainViewController implements Initializable
         mainView.close();
     }
 
-    private synchronized void handleStart(Label label, JFXButton button, int totalsec)
+    private synchronized void handleStart(Label label, JFXButton button, int totalsecfortask)
     {
+       
         
         //timerutil = new TimerUtil(label,0);
         //System.out.println(timerutil.getTimeLabel() +"timerlaber +++++++++++++++++");
@@ -464,7 +465,7 @@ public class MainViewController implements Initializable
         {
             System.out.println("not running");
             running = true;
-            timerutil = new TimerUtil(label,totalsec);
+            timerutil = new TimerUtil(label,totalsecfortask);
             executorService = Executors.newFixedThreadPool(1);
             executorService.submit(timerutil);
             
