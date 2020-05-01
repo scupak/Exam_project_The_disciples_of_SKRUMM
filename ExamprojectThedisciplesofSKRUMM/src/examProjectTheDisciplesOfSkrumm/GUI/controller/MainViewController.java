@@ -90,8 +90,8 @@ public class MainViewController implements Initializable
     private boolean running = false;
     private int totalsec = 0;
 
-    private Label ultimateLabel;
-
+    private Label intervalLabel;
+    private Label totaltimelabel;
 
     private TimerUtil timer;
     private List<JFXButton> buttons = new ArrayList();
@@ -126,6 +126,7 @@ public class MainViewController implements Initializable
     ExecutorService executorService;
     TimerUtil timerutil;
     JFXButton previousbutton = null;
+    
 
     /**
      * Initializes the controller class.
@@ -389,11 +390,12 @@ public class MainViewController implements Initializable
             if (button.getParent().getId() == pane.getId())
             {
                 index = panes.indexOf(pane);
-                ultimateLabel = timeLabels.get(index);
+                intervalLabel = timeLabels.get(index);
+                totaltimelabel = totalTimeLabels.get(index);
             }
         }
         
-        handleStart(ultimateLabel, button,0);
+        handleStart(intervalLabel,totaltimelabel, button,60);
         
         if (!running)
         {
@@ -406,7 +408,7 @@ public class MainViewController implements Initializable
             
             }
             
-            totalTimeLabels.get(index).setText(ultimateLabel.getText());
+            //totalTimeLabels.get(index).setText(ultimateLabel.getText());
             button.setGraphic(Play);
             button.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
             button.setContentDisplay(ContentDisplay.CENTER);
@@ -441,7 +443,7 @@ public class MainViewController implements Initializable
         mainView.close();
     }
 
-    private synchronized void handleStart(Label label, JFXButton button, int totalsecfortask)
+    private synchronized void handleStart(Label intervalLabel, Label totaltimelabel, JFXButton button, int totalsecfortask)
     {
        
         
@@ -465,7 +467,7 @@ public class MainViewController implements Initializable
         {
             System.out.println("not running");
             running = true;
-            timerutil = new TimerUtil(label,totalsecfortask);
+            timerutil = new TimerUtil(intervalLabel,totaltimelabel,totalsecfortask);
             executorService = Executors.newFixedThreadPool(1);
             executorService.submit(timerutil);
             

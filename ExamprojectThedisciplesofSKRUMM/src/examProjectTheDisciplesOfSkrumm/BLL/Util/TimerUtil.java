@@ -20,12 +20,18 @@ public class TimerUtil implements Runnable
     private int sec = 0;
     private int min = 0;
     private int hour = 0;
-    private String time;
+    private int intervalsec = 0;
+    private int intervalmin = 0; 
+    private int intervalhour = 0; 
+    private String totalTimeString;
+    private String intervalTimeString;
     private boolean isRunning = true;
-    private Label timeLabel;
+    private Label totaltimeLabel;
+    private Label intervalLabel;
     private int totalSec = 0;
+    private int totalIntervalsec = 0;
 
-    public TimerUtil(Label timeLabel, int totalSec) {
+    public TimerUtil(Label intervalLabel,Label totaltimeLabel, int totalSec) {
         this.totalSec = totalSec;
         while(totalSec >= 3600){
         totalSec  = totalSec - 3600;
@@ -42,23 +48,15 @@ public class TimerUtil implements Runnable
         sec = totalSec;
         System.out.println("added rest of seconds to sec...");
         
-        time = String.format("%02d", hour) + ":" + String.format("%02d", min) + ":" + String.format("%02d", sec);
-        System.out.println(time);
+        totalTimeString = String.format("%02d", hour) + ":" + String.format("%02d", min) + ":" + String.format("%02d", sec);
+        System.out.println(totalTimeString);
         
         //while totalSec is over 3600, totalSec minus 3600, and add 1 to hour until it isnt anymore
         //when done, while totalSec is over 60, totalSec minus 60 and add 1 to min until it isnt anymore
         //add rest of seconds to sec
-        this.timeLabel = timeLabel;
+        this.totaltimeLabel = totaltimeLabel;
     }
     
-    
-    public String getTime(){
-    return time;
-    }
-            
-    public int getTotalsec(){
-    return totalSec;
-    }
 
     @Override
     public void run()
@@ -70,30 +68,38 @@ public class TimerUtil implements Runnable
                         Thread.sleep(1000);
 
                         sec++;
+                        intervalsec++;
                         totalSec++;
 
                         if (sec >= 60) {
                             min++;
+                            intervalmin++;
+                            intervalsec = 0;
                             sec = 0;
                         }
 
                         if (min >= 60) {
                             hour++;
+                            intervalhour++;
                             min = 0;
+                            intervalmin = 0;
                         }
 
-                        time = String.format("%02d", hour) + ":" + String.format("%02d", min) + ":" + String.format("%02d", sec);
-                        System.out.println(time);
-                        System.out.println(totalSec);
+                        totalTimeString = String.format("%02d", hour) + ":" + String.format("%02d", min) + ":" + String.format("%02d", sec);
+                        intervalTimeString = String.format("%02d", intervalhour) + ":" + String.format("%02d", intervalmin) + ":" + String.format("%02d", intervalsec);
+                        System.out.println("totalTimeString" + "    " +totalTimeString);
+                        System.out.println("intervalTimeString" + "    " +intervalTimeString);
+                        System.out.println("totalSec" + "    " + totalSec);
+                        System.out.println("intervalsec" + "    " + intervalsec);
                         
-                            if(timeLabel != null){
+                            if(totaltimeLabel != null){
                             Platform.runLater (() -> 
                             {   
-                             timeLabel.setText(String.format("%02d", hour) + ":" + String.format("%02d", min) + ":" + String.format("%02d", sec));
+                             totaltimeLabel.setText(String.format("%02d", hour) + ":" + String.format("%02d", min) + ":" + String.format("%02d", sec));
                             });
                         }
-                            if(timeLabel == null){
-                            System.out.println("Nonexistant label is nonexistant, putting relevant data into time String. This is a Null Pointer");
+                            if(totaltimeLabel == null){
+                            System.out.println("Nonexistant totaltimeLabel is nonexistant, putting relevant data into time String. This is a Null Pointer");
                             }  
                     }
                     catch (InterruptedException e){
@@ -108,13 +114,28 @@ public class TimerUtil implements Runnable
         
         System.err.println("Interrupted" + Thread.currentThread().getName());
     }
-
-    public Label getTimeLabel() {
-        return timeLabel;
+    
+     public String getTotalTimestring(){
+    return  totalTimeString;
+    }
+     
+     public String getintervalTimeString(){
+     
+         return intervalTimeString;
+     
+     
+     }
+            
+    public int getTotalsec(){
+    return totalSec;
     }
 
-    public void setTimeLabel(Label timeLabel) {
-        this.timeLabel = timeLabel;
+    public Label getTotalTimeLabel() {
+        return totaltimeLabel;
+    }
+
+    public void setTotalTimeLabel(Label timeLabel) {
+        this.totaltimeLabel = timeLabel;
     }
 
     public boolean isIsRunning() {
@@ -125,19 +146,7 @@ public class TimerUtil implements Runnable
         this.isRunning = isRunning;
     }
     
-    public void setLabel(Label label){
     
-        this.timeLabel = label;
-    
-    
-    }
-    
-    public Label getlabel(){
-    
-        return timeLabel;
-    
-    
-    }
     
     
                 
@@ -145,7 +154,7 @@ public class TimerUtil implements Runnable
         int totSec = 123456;
         
         //giving label null, as it works with null
-        TimerUtil tu = new TimerUtil(null, totSec);
+        TimerUtil tu = new TimerUtil(null,null, totSec);
         
         ExecutorService executorService = 
             Executors.newFixedThreadPool(1);
@@ -154,7 +163,7 @@ public class TimerUtil implements Runnable
         
         
         
-        executorService.shutdownNow();
+        //executorService.shutdownNow();
     }
     
 }
