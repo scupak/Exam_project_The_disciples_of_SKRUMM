@@ -37,8 +37,9 @@ public class TaskDBDAO
         
         try(Connection con = dbCon.getConnection())
         {
-            PreparedStatment ps = con.prepareStatement("SELECT * FROM [task]");
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM [task]");
             
         }
+        return null;
     }
 }

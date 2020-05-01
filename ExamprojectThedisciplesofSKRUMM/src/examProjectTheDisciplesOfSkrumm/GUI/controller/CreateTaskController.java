@@ -87,7 +87,6 @@ public class CreateTaskController implements Initializable
                 String title = titleTextField.getText();
                 Project project = projectCombobox.getValue();
                 int duration = Integer.parseInt(timeTextField.getText());
-                int isPaid = project.getIsPaid();
                 LocalDateTime lastUsed = LocalDateTime.now();
                 LocalDate creationDate = LocalDate.now();
                 LocalTime startTime = LocalTime.MIN;
@@ -95,7 +94,7 @@ public class CreateTaskController implements Initializable
                 ArrayList<Task> intervals = new ArrayList<Task>(); 
        
         
-                Task newtask = new Task(1, title, project, duration, isPaid, lastUsed, creationDate, startTime, stopTime, intervals);
+                Task newtask = new Task(1, title, project, duration, lastUsed, creationDate, startTime, stopTime, intervals);
                 modelfacade.createTask(newtask);
                 taskViewController.RefreshTreeView();
                 Stage createTaskView = (Stage) ((Node) event.getSource()).getScene().getWindow();

@@ -76,11 +76,11 @@ public class AddProjectViewController implements Initializable
        {
             try
             {
+            int id = 1;
             String projectName = ProjectNameTextField.getText();
             Client client = clientComboBox.getValue();
             int projectRate = Integer.parseInt(ProjectRateTextField.getText());
-            int isPaid = client.getIsPaid();
-            Project newproject = new Project(projectName, client, projectRate,isPaid);
+            Project newproject = new Project(id, projectName, client, projectRate);
             modelfacade.CreateProject(newproject);
             adminviewcontroller.RefreshTableView();
             Stage createUserView = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -98,11 +98,11 @@ public class AddProjectViewController implements Initializable
        {
            try
            {
+            int id = 1;
             String projectName = ProjectNameTextField.getText();
             Client client = clientComboBox.getValue();
             int projectRate = clientComboBox.getValue().getClientRate();
-            int isPaid = client.getIsPaid();
-            Project newproject = new Project(projectName, client, projectRate, isPaid);
+            Project newproject = new Project(id, projectName, client, projectRate);
             modelfacade.CreateProject(newproject);
             adminviewcontroller.RefreshTableView();
             Stage createUserView = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -120,11 +120,11 @@ public class AddProjectViewController implements Initializable
        {
            try
            {
+            int id = 1;
             String projectName = ProjectNameTextField.getText();
             Client client = clientComboBox.getValue();
             int projectRate = 0;
-            int isPaid = client.getIsPaid();
-            Project newproject = new Project(projectName, client, projectRate, isPaid);
+            Project newproject = new Project(id, projectName, client, projectRate);
             modelfacade.CreateProject(newproject);
             adminviewcontroller.RefreshTableView();
             Stage createUserView = (Stage) ((Node) event.getSource()).getScene().getWindow();

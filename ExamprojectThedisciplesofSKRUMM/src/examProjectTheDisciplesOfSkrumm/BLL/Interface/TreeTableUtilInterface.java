@@ -17,7 +17,7 @@ import javafx.scene.control.TreeItem;
  */
 public interface TreeTableUtilInterface 
 {
-    public TreeItem<Task> getMockModel();
+  
     
     public TreeItem<Task> getModel(ObservableList<Task> tasks);
     

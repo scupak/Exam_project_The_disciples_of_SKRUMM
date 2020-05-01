@@ -15,18 +15,30 @@ import javafx.beans.property.SimpleStringProperty;
  */
 public class Client 
 {
+    private SimpleIntegerProperty id;
     private SimpleStringProperty ClientName;
     private SimpleIntegerProperty ClientRate;
     private IntegerProperty isPaid;
 
-    public Client(String ClientName, int ClientRate, int isPaid) 
+    public Client(int id, String ClientName, int ClientRate, int isPaid) 
     {
+        this.id = new SimpleIntegerProperty(id);
         this.ClientName = new SimpleStringProperty(ClientName);
         this.ClientRate = new SimpleIntegerProperty(ClientRate);
         this.isPaid =  new SimpleIntegerProperty(isPaid);
         
     }
 
+     public int getId()
+    {
+        return id.get();
+    }
+
+    public void setId(int id)
+    {
+        this.id.set(id);
+    }
+    
     public String getClientName() {
         return ClientName.get();
     }

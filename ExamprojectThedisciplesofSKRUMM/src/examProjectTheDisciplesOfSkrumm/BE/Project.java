@@ -20,7 +20,7 @@ public class Project
     private Client client;
     private SimpleStringProperty clientName;
     private SimpleIntegerProperty ProjectRate;
-    private IntegerProperty isPaid;
+    private SimpleIntegerProperty isPaid;
 
     public Project(int id, String projectName, Client client, int projectrate) 
     {
@@ -29,7 +29,7 @@ public class Project
         this.client = client;
         this.clientName = new SimpleStringProperty(client.getClientName());
         this.ProjectRate = new SimpleIntegerProperty(projectrate);
-        this.isPaid =  new SimpleIntegerProperty(isPaid);
+        this.isPaid = new SimpleIntegerProperty(client.getIsPaid());
         
     }
 
@@ -82,10 +82,7 @@ public class Project
         return isPaid.get();
     }
 
-    public void setIsPaid(int isPaid) {
-        this.isPaid.set(isPaid);
-    }
-    
+   
     
     
     
