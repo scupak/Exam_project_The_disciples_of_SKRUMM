@@ -110,7 +110,7 @@ public class CreateTaskController implements Initializable
             }
             
         }
-        if(!titleTextField.getText().isEmpty() && !(projectCombobox.getValue() == null) && timeTextField.getText().isEmpty())
+        else if(!titleTextField.getText().isEmpty() && !(projectCombobox.getValue() == null) && timeTextField.getText().isEmpty())
         {
             try
             {

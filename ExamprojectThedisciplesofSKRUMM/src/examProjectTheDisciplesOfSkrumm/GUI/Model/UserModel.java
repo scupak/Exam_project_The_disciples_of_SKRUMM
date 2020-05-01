@@ -53,6 +53,7 @@ public class UserModel implements UserModelInterface
 
     @Override
     public ObservableList<User> getAllUsers() throws SQLServerException, SQLException {
+        users.clear();
         users.addAll(bllFacade.getAllUsers());
         return users;
     }
