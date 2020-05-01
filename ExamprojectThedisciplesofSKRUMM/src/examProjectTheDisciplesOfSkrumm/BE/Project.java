@@ -22,7 +22,7 @@ public class Project
     private SimpleIntegerProperty ProjectRate;
     private SimpleIntegerProperty isPaid;
 
-    public Project(int id, String projectName, Client client, int projectrate, int isPaid) 
+    public Project(int id, String projectName, Client client, int projectrate) 
     {
         this.id = new SimpleIntegerProperty(id);
         this.projectName = new SimpleStringProperty(projectName);

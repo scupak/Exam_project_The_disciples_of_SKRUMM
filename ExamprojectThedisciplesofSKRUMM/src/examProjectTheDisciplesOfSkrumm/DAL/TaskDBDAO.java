@@ -49,22 +49,19 @@ public class TaskDBDAO
             {
                 int id = rs.getInt("id");
                 String title = rs.getString("title");
-                Project project = new Project(1, "need project table", new Client(1, "need client table", 5, 1), 755, 5);
+                Project project = new Project(1, "need project table", new Client(1, "need client table", 5, 1), 755);
                 int duration = rs.getInt("duration");
                 String projectName = project.getProjectName();
                 String clientName = project.getClientName();
                 LocalDateTime lastUsed = rs.getTimestamp("lastUsed").toLocalDateTime();
-                int isPaid;
+                LocalDate creationDate = rs.getDate("creationDate").toLocalDate();
+                LocalTime startTime = rs.getTime("startTime").toLocalTime();
+                LocalTime stopTime = rs.getTime("stopTime").toLocalTime();
+                
+                
 
-                if (project.getProjectRate() > 0)
-                {
-                    isPaid = project.getProjectRate();
-                } else
-                {
-                    isPaid = project.getClient().getClientRate();
-                }
 
-                tasks.add(new Task(id, title, project, duration, isPaid, lastUsed));
+                tasks.add(new Task(id, title, project, duration, lastUsed, LocalDate.MIN, LocalTime.MIN, LocalTime.MIN, tasks));
 
             }
 
@@ -132,9 +129,9 @@ public class TaskDBDAO
     {
         TaskDBDAO taskDBDAO = new TaskDBDAO();
         Client client = new Client(0, "why", 0, 0);
-        Project project = new Project(0, "reeeeeeee", client, 0, 0);
+        Project project = new Project(0, "reeeeeeee", client, 0);
         ArrayList<Task> intervals = new ArrayList<>();
-        Task task = new Task(1, "pølse", project, 50, 1, LocalDateTime.now(), LocalDate.now(), LocalTime.now(), LocalTime.now(), intervals);
+        Task task = new Task(1, "pølse", project, 50, LocalDateTime.now(), LocalDate.now(), LocalTime.now(), LocalTime.now(), intervals);
         taskDBDAO.createTask(task);
         System.out.println(taskDBDAO.createTask(task));
     }
