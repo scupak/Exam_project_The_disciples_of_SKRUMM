@@ -31,11 +31,11 @@ public class Exam_project_The_disciples_of_SKRUMM extends Application
     @Override
     public void start(Stage stage) throws Exception {
         modelfacade = ModelFacade.getInstance();
-        Client client = new Client("THEM", 10);
+        Client client = new Client("THEM", 666, 1);
         modelfacade.createClient(client);
-        Project project1 = new Project("Project X", client, 10);
-        Project project2 = new Project("Operation operation", client, 10);
-        Project project3 = new Project("THE BIG ONE", client, 10);
+        Project project1 = new Project("Project X", client, 2, 1);
+        Project project2 = new Project("Operation operation", client, 4, 1);
+        Project project3 = new Project("THE BIG ONE", client, 8, 1);
         modelfacade.CreateProject(project1);
         modelfacade.CreateProject(project2);
         modelfacade.CreateProject(project3);

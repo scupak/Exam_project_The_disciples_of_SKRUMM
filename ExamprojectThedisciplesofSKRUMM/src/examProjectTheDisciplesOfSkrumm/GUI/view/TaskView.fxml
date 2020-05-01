@@ -18,10 +18,13 @@
    <children>
       <TreeTableView fx:id="TaskTable" layoutX="23.0" layoutY="198.0" prefHeight="274.0" prefWidth="682.0" styleClass="table-view" AnchorPane.bottomAnchor="54.0" AnchorPane.leftAnchor="22.0" AnchorPane.rightAnchor="22.0" AnchorPane.topAnchor="197.0">
         <columns>
-          <TreeTableColumn fx:id="TaskColumn" prefWidth="147.0" text="Task" />
-          <TreeTableColumn fx:id="ProjectColumn" prefWidth="113.0" text="Project" />
-            <TreeTableColumn fx:id="clientColumn" prefWidth="75.0" text="Client" />
-            <TreeTableColumn fx:id="TimeColumn" prefWidth="153.0" text="Time" />
+          <TreeTableColumn fx:id="TaskColumn" prefWidth="200.0" text="Task" />
+          <TreeTableColumn fx:id="ProjectColumn" prefWidth="100.0" text="Project" />
+            <TreeTableColumn fx:id="clientColumn" prefWidth="92.0" text="Client" />
+            <TreeTableColumn fx:id="TimeColumn" prefWidth="81.0" text="Duration" />
+            <TreeTableColumn fx:id="startTimeColumn" prefWidth="83.0" text="StartTime" />
+            <TreeTableColumn fx:id="stopTimeColumn" prefWidth="75.0" text="StopTime" />
+            <TreeTableColumn fx:id="IsPaidColumn" prefWidth="48.0" text="IsPaid" />
         </columns>
          <columnResizePolicy>
             <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

@@ -14,6 +14,7 @@ import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.ModelFacadeInterface;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.ModelFacade;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalTime;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -76,6 +77,12 @@ public class TaskViewController implements Initializable
     private int min = 0;
     private int hour = 0;
     private boolean running = false;
+    @FXML
+    private TreeTableColumn<Task, LocalTime> startTimeColumn;
+    @FXML
+    private TreeTableColumn<Task, Integer> IsPaidColumn;
+    @FXML
+    private TreeTableColumn<Task, LocalTime> stopTimeColumn;
 
     /**
      * Initializes the controller class.
@@ -97,6 +104,9 @@ public class TaskViewController implements Initializable
         ProjectColumn.setCellValueFactory(new TreeItemPropertyValueFactory<>("projectName"));
         TimeColumn.setCellValueFactory(new TreeItemPropertyValueFactory<>("duration"));
         clientColumn.setCellValueFactory(new TreeItemPropertyValueFactory<>("clientName"));
+        startTimeColumn.setCellValueFactory(new TreeItemPropertyValueFactory<>("startTime"));
+        stopTimeColumn.setCellValueFactory(new TreeItemPropertyValueFactory<>("stopTime"));
+        IsPaidColumn.setCellValueFactory(new TreeItemPropertyValueFactory<>("isPaid"));
         
         //Creating the rootNodeTask
         TreeItem<Task> rootNodeTask = modelfacade.getModel();

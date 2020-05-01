@@ -5,6 +5,7 @@
  */
 package examProjectTheDisciplesOfSkrumm.BE;
 
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
@@ -16,11 +17,14 @@ public class Client
 {
     private SimpleStringProperty ClientName;
     private SimpleIntegerProperty ClientRate;
+    private IntegerProperty isPaid;
 
-    public Client(String ClientName, int ClientRate) 
+    public Client(String ClientName, int ClientRate, int isPaid) 
     {
         this.ClientName = new SimpleStringProperty(ClientName);
         this.ClientRate = new SimpleIntegerProperty(ClientRate);
+        this.isPaid =  new SimpleIntegerProperty(isPaid);
+        
     }
 
     public String getClientName() {
@@ -39,6 +43,13 @@ public class Client
         this.ClientRate.set(ClientRate);
     }
     
+    public int getIsPaid() {
+        return isPaid.get();
+    }
+
+    public void setIsPaid(int isPaid) {
+        this.isPaid.set(isPaid);
+    }
     
 
     @Override

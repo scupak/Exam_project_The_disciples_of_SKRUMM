@@ -125,6 +125,19 @@ public class TimerUtil implements Runnable
         this.isRunning = isRunning;
     }
     
+    public void setLabel(Label label){
+    
+        this.timeLabel = label;
+    
+    
+    }
+    
+    public Label getlabel(){
+    
+        return timeLabel;
+    
+    
+    }
     
     
                 

@@ -125,6 +125,7 @@ public class MainViewController implements Initializable
     private Label totalTimeSix;
     ExecutorService executorService;
     TimerUtil timerutil;
+    JFXButton previousbutton = null;
 
     /**
      * Initializes the controller class.
@@ -396,6 +397,15 @@ public class MainViewController implements Initializable
         
         if (!running)
         {
+            if(previousbutton != null && !button.equals(previousbutton)){
+                System.out.println("difrent button");
+                ImageView view = ((ImageView)previousbutton.getChildrenUnmodifiable().get(1));
+                view.setImage(new Image("/examProjectTheDisciplesOfSkrumm/GUI/Icons/Playbutton.png"));
+                
+            
+            
+            }
+            
             totalTimeLabels.get(index).setText(ultimateLabel.getText());
             button.setGraphic(Play);
             button.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
@@ -408,6 +418,7 @@ public class MainViewController implements Initializable
             button.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
             button.setContentDisplay(ContentDisplay.CENTER);
         }
+        previousbutton = button;
 
         
     }
@@ -430,8 +441,9 @@ public class MainViewController implements Initializable
         mainView.close();
     }
 
-    private synchronized void handleStart(Label label, JFXButton button, int totalsec)
+    private synchronized void handleStart(Label label, JFXButton button, int totalsecfortask)
     {
+       
         
         //timerutil = new TimerUtil(label,0);
         //System.out.println(timerutil.getTimeLabel() +"timerlaber +++++++++++++++++");
@@ -453,7 +465,7 @@ public class MainViewController implements Initializable
         {
             System.out.println("not running");
             running = true;
-            timerutil = new TimerUtil(label,totalsec);
+            timerutil = new TimerUtil(label,totalsecfortask);
             executorService = Executors.newFixedThreadPool(1);
             executorService.submit(timerutil);
             

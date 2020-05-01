@@ -47,7 +47,7 @@ public class ModelFacade implements ModelFacadeInterface
      * @return modelfacade
      * @throws java.io.IOException
      */
-    public static ModelFacadeInterface getInstance() throws IOException, Exception
+  synchronized public static ModelFacadeInterface getInstance() throws IOException, Exception
     {
         if (modelfacade == null)
         {

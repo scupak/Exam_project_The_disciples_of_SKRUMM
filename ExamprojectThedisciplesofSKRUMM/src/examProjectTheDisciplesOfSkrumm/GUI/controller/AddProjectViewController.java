@@ -65,30 +65,86 @@ public class AddProjectViewController implements Initializable
             Logger.getLogger(CreateTaskController.class.getName()).log(Level.SEVERE, null, ex);
         }
         clientComboBox.getItems().addAll(modelfacade.getClients());
-        
     }    
 
     @FXML
     private void HandleAddProjectOkBtn(ActionEvent event) 
     {
-       if(ProjectNameTextField.getText().isEmpty() || clientComboBox.getValue() == null || ProjectRateTextField.getText().isEmpty())
+       
+       
+       if(!ProjectNameTextField.getText().isEmpty() && !ProjectRateTextField.getText().isEmpty() && !(clientComboBox.getValue() == null) && clientComboBox.getValue().getIsPaid() == 1 )
+       {
+            try
+            {
+            String projectName = ProjectNameTextField.getText();
+            Client client = clientComboBox.getValue();
+            int projectRate = Integer.parseInt(ProjectRateTextField.getText());
+            int isPaid = client.getIsPaid();
+            Project newproject = new Project(projectName, client, projectRate,isPaid);
+            modelfacade.CreateProject(newproject);
+            adminviewcontroller.RefreshTableView();
+            Stage createUserView = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            createUserView.close();
+            }catch(NumberFormatException ex)
+            {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Oops");
+                alert.setHeaderText("Incorrect input");
+                alert.setContentText("You wrote a letter in project rate, it needs a number.");
+                alert.showAndWait();
+            }
+       }
+       else if(!ProjectNameTextField.getText().isEmpty() && ProjectRateTextField.getText().isEmpty() && !(clientComboBox.getValue() == null) && clientComboBox.getValue().getIsPaid() == 1)
+       {
+           try
+           {
+            String projectName = ProjectNameTextField.getText();
+            Client client = clientComboBox.getValue();
+            int projectRate = clientComboBox.getValue().getClientRate();
+            int isPaid = client.getIsPaid();
+            Project newproject = new Project(projectName, client, projectRate, isPaid);
+            modelfacade.CreateProject(newproject);
+            adminviewcontroller.RefreshTableView();
+            Stage createUserView = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            createUserView.close();
+           }catch(NumberFormatException ex)
+           {
+               Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Oops");
+                alert.setHeaderText("Incorrect input");
+                alert.setContentText("You wrote a letter in project rate, it needs a number.");
+                alert.showAndWait();
+           }
+       }
+       else if(!ProjectNameTextField.getText().isEmpty() && !(clientComboBox.getValue() == null) && clientComboBox.getValue().getIsPaid() == 0)
+       {
+           try
+           {
+            String projectName = ProjectNameTextField.getText();
+            Client client = clientComboBox.getValue();
+            int projectRate = 0;
+            int isPaid = client.getIsPaid();
+            Project newproject = new Project(projectName, client, projectRate, isPaid);
+            modelfacade.CreateProject(newproject);
+            adminviewcontroller.RefreshTableView();
+            Stage createUserView = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            createUserView.close();
+           }catch(NumberFormatException ex)
+           {
+               Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Oops");
+                alert.setHeaderText("Incorrect input");
+                alert.setContentText("You wrote a letter in project rate, it needs a number.");
+                alert.showAndWait();
+           }
+       }
+       else
        {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Oops");
             alert.setHeaderText("Incorrect input");
             alert.setContentText("You didnt write a correct project name or didnt select a client");
             alert.showAndWait();
-       }
-       else
-       {
-            String projectName = ProjectNameTextField.getText();
-            Client client = clientComboBox.getValue();
-            int projectRate = Integer.parseInt(ProjectRateTextField.getText());
-            Project newproject = new Project(projectName, client, projectRate);
-            modelfacade.CreateProject(newproject);
-            adminviewcontroller.RefreshTableView();
-            Stage createUserView = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            createUserView.close();
        }
     }
 
@@ -121,4 +177,19 @@ public class AddProjectViewController implements Initializable
     {
         clientComboBox.getItems().addAll(modelfacade.getClients());
     }
+
+    @FXML
+    private void handleCombobox(ActionEvent event) 
+    {
+        if(clientComboBox.getValue().getIsPaid() == 0)
+        {
+            ProjectRateTextField.setDisable(true);
+        }
+        else if(clientComboBox.getValue().getIsPaid() == 1)
+        {
+             ProjectRateTextField.setDisable(false);
+        }
+    }
+
+    
 }
