@@ -14,18 +14,31 @@ import javafx.beans.property.SimpleStringProperty;
  */
 public class Project 
 {
+    private SimpleIntegerProperty id;
     private SimpleStringProperty projectName;
     private Client client;
     private SimpleStringProperty clientName;
     private SimpleIntegerProperty ProjectRate;
 
-    public Project(String projectName, Client client, int projectrate) 
+    public Project(int id, String projectName, Client client, int projectrate) 
     {
+        this.id = new SimpleIntegerProperty(id);
         this.projectName = new SimpleStringProperty(projectName);
         this.client = client;
         this.clientName = new SimpleStringProperty(client.getClientName());
         this.ProjectRate = new SimpleIntegerProperty(projectrate);
     }
+
+    public int getId()
+    {
+        return id.get();
+    }
+
+    public void setId(int id)
+    {
+        this.id.set(id);
+    }
+    
 
     public String getProjectName() {
         return projectName.get();

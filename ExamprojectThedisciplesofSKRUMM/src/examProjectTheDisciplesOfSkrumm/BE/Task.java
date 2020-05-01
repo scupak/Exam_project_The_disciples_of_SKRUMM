@@ -35,7 +35,8 @@ public class Task
     private ArrayList<Task> intervals;
             
 
-    public Task(String title, Project project, int duration) {
+    public Task( int id, String title, Project project, int duration) {
+        this.id = new SimpleIntegerProperty(id);
         this.title = new SimpleStringProperty(title);
         this.project = project;
         this.duration = new SimpleIntegerProperty(duration);
@@ -43,8 +44,9 @@ public class Task
         this.clientName = new SimpleStringProperty(project.getClient().getClientName());
     }
     
-    public Task(String title, Project project, int duration, int isPaid, LocalDateTime lastUsed) 
+    public Task(int id, String title, Project project, int duration, int isPaid, LocalDateTime lastUsed) 
     {
+        this.id = new SimpleIntegerProperty(id);
         this.title = new SimpleStringProperty(title);
         this.project = project;
         this.duration = new SimpleIntegerProperty(duration);
@@ -53,8 +55,9 @@ public class Task
         this.isPaid =  new SimpleIntegerProperty(isPaid);
         this.lastUsed = lastUsed;
     }
-    public Task(String title, Project project, int duration, int isPaid, LocalDateTime lastUsed, LocalDate creationDate, LocalTime startTime) 
+    public Task(int id, String title, Project project, int duration, int isPaid, LocalDateTime lastUsed, LocalDate creationDate, LocalTime startTime) 
     {
+        this.id = new SimpleIntegerProperty(id);
         this.title = new SimpleStringProperty(title);
         this.project = project;
         this.duration = new SimpleIntegerProperty(duration);
@@ -82,8 +85,17 @@ public class Task
         this.stopTime = stopTime;
         this.intervals = intervals;
     }
-    
 
+    public int getId()
+    {
+        return id.get();
+    }
+
+    public void setId(int id)
+    {
+        this.id.set(id);
+    }
+    
     public LocalDateTime getLastUsed()
     {
         return lastUsed;

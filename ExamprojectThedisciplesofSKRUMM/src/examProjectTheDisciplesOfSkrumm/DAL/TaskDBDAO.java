@@ -5,7 +5,16 @@
  */
 package examProjectTheDisciplesOfSkrumm.DAL;
 
+import com.microsoft.sqlserver.jdbc.SQLServerException;
+import examProjectTheDisciplesOfSkrumm.BE.Task;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 /**
  *
@@ -19,5 +28,17 @@ public class TaskDBDAO
     public TaskDBDAO() throws IOException
     {
         dbCon = new DatabaseConnector();
+    }
+    
+    
+    public List<Task> getAllTasks() throws SQLServerException, SQLException
+    {
+        ArrayList<Task> taks = new ArrayList<>();
+        
+        try(Connection con = dbCon.getConnection())
+        {
+            PreparedStatment ps = con.prepareStatement("SELECT * FROM [task]");
+            
+        }
     }
 }
