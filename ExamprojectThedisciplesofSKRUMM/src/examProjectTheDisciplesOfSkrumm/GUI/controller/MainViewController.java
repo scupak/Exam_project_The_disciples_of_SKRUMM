@@ -125,8 +125,7 @@ public class MainViewController implements Initializable
     private Label totalTimeSix;
     ExecutorService executorService;
     TimerUtil timerutil;
-    JFXButton previousbutton;
-    
+    JFXButton previousbutton = null;
 
     /**
      * Initializes the controller class.
@@ -296,7 +295,10 @@ public class MainViewController implements Initializable
         List<JFXButton> buttonChildren = new ArrayList();
         JFXButton playButton = new JFXButton();
 
-        Image Play = new Image("/examProjectTheDisciplesOfSkrumm/GUI/Icons/Playbutton.png");
+        ImageView Play = new ImageView("/examProjectTheDisciplesOfSkrumm/GUI/Icons/Playbutton.png");
+        Play.setFitHeight(24);
+        Play.setFitWidth(28);
+        
         Image Paid = new Image("/examProjectTheDisciplesOfSkrumm/GUI/Icons/Paid.png");
         Image NotPaid = new Image("/examProjectTheDisciplesOfSkrumm/GUI/Icons/NotPaid.png");
         ImageView imgView;
@@ -327,6 +329,13 @@ public class MainViewController implements Initializable
             {
                 JFXButton button = (JFXButton) child;
                 buttons.add(button);
+                
+                if(button.getText().equals("Play"))
+                {
+                    button.setGraphic(Play);
+                    button.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+                    button.setContentDisplay(ContentDisplay.CENTER);
+                }
             }
         }
 
@@ -362,6 +371,14 @@ public class MainViewController implements Initializable
     @FXML
     private void handlePlay(ActionEvent event)
     {
+        ImageView Play = new ImageView("/examProjectTheDisciplesOfSkrumm/GUI/Icons/Playbutton.png");
+        ImageView Pause = new ImageView("/examProjectTheDisciplesOfSkrumm/GUI/Icons/PauseBtn.png");
+        
+        Play.setScaleX(0.3);
+        Play.setScaleY(0.3);
+        Pause.setScaleX(0.3);
+        Pause.setScaleY(0.3);
+        
         int index = 0;
         
         JFXButton button = (JFXButton) event.getSource();
@@ -376,16 +393,37 @@ public class MainViewController implements Initializable
             }
         }
         
-        handleStart(ultimateLabel, button, 0);
+        handleStart(ultimateLabel, button,0);
         
         if (!running)
         {
+            if(previousbutton != null && !button.equals(previousbutton)){
+                System.out.println("difrent button");
+                ImageView view = ((ImageView)previousbutton.getChildrenUnmodifiable().get(1));
+                view.setImage(new Image("/examProjectTheDisciplesOfSkrumm/GUI/Icons/Playbutton.png"));
+                
+            
+            
+            }
+            
             totalTimeLabels.get(index).setText(ultimateLabel.getText());
+            button.setGraphic(Play);
+            button.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+            button.setContentDisplay(ContentDisplay.CENTER);
+            
         }
+        else
+        {
+            button.setGraphic(Pause);
+            button.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+            button.setContentDisplay(ContentDisplay.CENTER);
+        }
+        previousbutton = button;
 
         
     }
 
+    @FXML
     private void handleLogOut(ActionEvent event) throws IOException
     {
         Stage mainView = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -403,9 +441,10 @@ public class MainViewController implements Initializable
         mainView.close();
     }
 
-    private synchronized void handleStart(Label label, JFXButton button, int totalSec)
+    private synchronized void handleStart(Label label, JFXButton button, int totalsecfortask)
     {
-      
+       
+        
         //timerutil = new TimerUtil(label,0);
         //System.out.println(timerutil.getTimeLabel() +"timerlaber +++++++++++++++++");
 /*
@@ -413,53 +452,24 @@ public class MainViewController implements Initializable
         System.out.println(System.getProperty("javafx.runtime.version"));*/
 
         //System.out.println("start");
-        Image play = new Image("/examProjectTheDisciplesOfSkrumm/GUI/Icons/Playbutton.png");
-        Image pause = new Image("/examProjectTheDisciplesOfSkrumm/GUI/Icons/PauseBtn.png");
-        ImageView imgpause  = new ImageView(pause);
-        ImageView imgplay  = new ImageView(play);
-        imgpause.setScaleX(0.3);
-        imgpause.setScaleY(0.3);        
-        imgplay.setScaleX(0.3);
-        imgplay.setScaleY(0.3);
 
         if (running)
         {
-            if(previousbutton != null && !button.equals(previousbutton)){
-                System.out.println("difrent label");
-                
-                ImageView view = ((ImageView)previousbutton.getChildrenUnmodifiable().get(1));
-                view.setImage(new Image("/examProjectTheDisciplesOfSkrumm/GUI/Icons/Playbutton.png"));
-                
-                /*
-                previousbutton.setGraphic(imgplay);
-                previousbutton.setContentDisplay(ContentDisplay.CENTER);*/
-            
-            
-            }
-            
             running = false;
             timerutil.setIsRunning(false);
             executorService.shutdownNow();
-            button.setGraphic(imgplay);
-            button.setContentDisplay(ContentDisplay.CENTER);
             System.err.println("stopped");
-            
-            
-            
-
-        } else if (!running)
+        } 
+        
+        else if (!running)
         {
             System.out.println("not running");
             running = true;
-            button.setGraphic(imgpause);
-            button.setContentDisplay(ContentDisplay.CENTER);
-            timerutil = new TimerUtil(label,totalSec);
+            timerutil = new TimerUtil(label,totalsecfortask);
             executorService = Executors.newFixedThreadPool(1);
             executorService.submit(timerutil);
             
         }
-        
-        previousbutton = button;
 /*
         new Thread(()
                 ->
