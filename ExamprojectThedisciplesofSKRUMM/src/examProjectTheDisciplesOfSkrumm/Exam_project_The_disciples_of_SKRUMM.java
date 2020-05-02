@@ -8,6 +8,7 @@ package examProjectTheDisciplesOfSkrumm;
 import examProjectTheDisciplesOfSkrumm.BE.Client;
 import examProjectTheDisciplesOfSkrumm.BE.Project;
 import examProjectTheDisciplesOfSkrumm.BE.Task;
+import examProjectTheDisciplesOfSkrumm.BE.User;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.ModelFacadeInterface;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.ModelFacade;
 import java.time.LocalDate;
@@ -39,11 +40,17 @@ public class Exam_project_The_disciples_of_SKRUMM extends Application
         modelfacade.CreateProject(project1);
         modelfacade.CreateProject(project2);
         modelfacade.CreateProject(project3);
-        Task interval1 = new Task(1, "Developing apps", project3, 432240, LocalDateTime.now(), LocalDate.now(), LocalTime.of(1, 20, 50), LocalTime.of(3, 24, 50), new ArrayList());
+        Task interval1 = new Task(1, "Developing apps", project3, 432240, LocalDateTime.now(),
+                LocalDate.now(), LocalTime.of(1, 20, 50), LocalTime.of(3, 24, 50),
+                new User("standard@user.now", "h", "l", "nemt", false), new ArrayList());
         ArrayList<Task> intervals = new ArrayList<Task>();
         intervals.add(interval1);
-        Task task1 = new Task(1, "Making candy", project1, 0, LocalDateTime.now(), LocalDate.now(), LocalTime.MIN, LocalTime.MIN, new ArrayList());
-        Task task2 = new Task(1, "Developing apps", project3, 532240, LocalDateTime.now(), LocalDate.now(), LocalTime.MIN, LocalTime.MIN, intervals);
+        Task task1 = new Task(1, "Making candy", project1, 0, LocalDateTime.now(),
+                LocalDate.now(), LocalTime.MIN, LocalTime.MIN,
+                new User("standard@user.now", "h", "l", "nemt", false), new ArrayList());
+        Task task2 = new Task(1, "Developing apps", project3, 532240, LocalDateTime.now(),
+                LocalDate.now(), LocalTime.MIN, LocalTime.MIN,
+                new User("standard@user.now", "h", "l", "nemt", false), intervals);
         
         modelfacade.createTask(task1);
         modelfacade.createTask(task2);

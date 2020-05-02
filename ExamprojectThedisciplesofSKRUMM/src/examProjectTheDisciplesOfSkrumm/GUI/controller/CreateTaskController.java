@@ -11,6 +11,7 @@ import com.jfoenix.controls.JFXTextField;
 import examProjectTheDisciplesOfSkrumm.BE.Client;
 import examProjectTheDisciplesOfSkrumm.BE.Project;
 import examProjectTheDisciplesOfSkrumm.BE.Task;
+import examProjectTheDisciplesOfSkrumm.BE.User;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.ModelFacadeInterface;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.ModelFacade;
 import java.io.IOException;
@@ -91,10 +92,11 @@ public class CreateTaskController implements Initializable
                 LocalDate creationDate = LocalDate.now();
                 LocalTime startTime = LocalTime.MIN;
                 LocalTime stopTime = LocalTime.MIN;
-                ArrayList<Task> intervals = new ArrayList<Task>(); 
+                ArrayList<Task> intervals = new ArrayList<Task>();
+                User user = null;
        
         
-                Task newtask = new Task(1, title, project, duration, lastUsed, creationDate, startTime, stopTime, intervals);
+                Task newtask = new Task(1, title, project, duration, lastUsed, creationDate, startTime, stopTime, user, intervals);
                 modelfacade.createTask(newtask);
                 taskViewController.RefreshTreeView();
                 Stage createTaskView = (Stage) ((Node) event.getSource()).getScene().getWindow();

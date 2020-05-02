@@ -32,12 +32,15 @@ public class Task
     private LocalDate creationDate;
     private LocalTime startTime;
     private LocalTime stopTime;
+    private User user;
     private ArrayList<Task> intervals;
             
 
    
     
-    public Task(int id, String title, Project project, int duration, LocalDateTime lastUsed, LocalDate creationDate, LocalTime startTime, LocalTime stopTime, ArrayList<Task> intervals) 
+    public Task(int id, String title, Project project, int duration, LocalDateTime lastUsed,
+            LocalDate creationDate, LocalTime startTime, LocalTime stopTime, User user,
+            ArrayList<Task> intervals) 
     {
         this.id = new SimpleIntegerProperty(id);
         this.title = new SimpleStringProperty(title);
@@ -50,6 +53,7 @@ public class Task
         this.creationDate = creationDate;
         this.startTime = startTime;
         this.stopTime = stopTime;
+        this.user = user;
         this.intervals = intervals;
     }
 
@@ -136,6 +140,16 @@ public class Task
         this.stopTime = stopTime;
     }
 
+    public String getUserEmail()
+    {
+        return user.getEmail();
+    }
+
+    public void setUserEmail(String userEmail)
+    {
+        this.user.setEmail(userEmail);
+    }
+   
     public ArrayList<Task> getIntervals() {
         return intervals;
     }
@@ -147,8 +161,10 @@ public class Task
     @Override
     public String toString()
     {
-        return "Task{" + "id=" + id + ", title=" + title + ", project=" + project + ", duration=" + duration + ", projectName=" + projectName + ", clientName=" + clientName + ", isPaid=" + isPaid + ", lastUsed=" + lastUsed + ", creationDate=" + creationDate + ", startTime=" + startTime + ", stopTime=" + stopTime + ", intervals=" + intervals + '}';
+        return "Task{" + "id=" + id + ", title=" + title + ", project=" + project + ", duration=" + duration + ", projectName=" + projectName + ", clientName=" + clientName + ", isPaid=" + isPaid + ", lastUsed=" + lastUsed + ", creationDate=" + creationDate + ", startTime=" + startTime + ", stopTime=" + stopTime + ", user=" + user + ", intervals=" + intervals + '}';
     }
+
+   
 
    
     
