@@ -101,6 +101,17 @@ public class TimerUtil implements Runnable
                             if(totaltimeLabel == null){
                             System.out.println("Nonexistant totaltimeLabel is nonexistant, putting relevant data into time String. This is a Null Pointer");
                             }  
+                            System.err.println(intervalLabel);
+                            
+                            if(intervalLabel != null){
+                            Platform.runLater (() -> 
+                            {   
+                             intervalLabel.setText(String.format("%02d", intervalhour) + ":" + String.format("%02d", intervalmin) + ":" + String.format("%02d", intervalsec));
+                            });
+                        }
+                            if( intervalLabel == null){
+                            System.out.println("Nonexistant intervalLabel is nonexistant, putting relevant data into time String. This is a Null Pointer");
+                            } 
                     }
                     catch (InterruptedException e){
                     }
