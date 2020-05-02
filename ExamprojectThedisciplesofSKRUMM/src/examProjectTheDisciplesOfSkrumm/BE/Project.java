@@ -65,10 +65,7 @@ public class Project
         return clientName.get();
     }
 
-    @Override
-    public String toString() {
-        return "" + projectName.get();
-    }
+    
 
     public int getProjectRate() {
         return ProjectRate.get();
@@ -81,6 +78,14 @@ public class Project
     public int getIsPaid() {
         return isPaid.get();
     }
+
+    @Override
+    public String toString() {
+        return  id.get() + "  " + projectName.get() + "  " + clientName.get() + "  " + ProjectRate.get() + "  " + isPaid.get();
+    }
+    
+    
+    
 
    
     

@@ -136,7 +136,10 @@ public class TaskDBDAO
     
      public Boolean updateTask(Task task) throws SQLException
         {
-            if(taskExist(task)) return null;
+            if (!taskExist(task))
+            {
+            return null;
+            }
             
             try(Connection con = dbCon.getConnection())
             {
@@ -164,7 +167,10 @@ public class TaskDBDAO
      
      public Task getTask(Task task) throws SQLException
      {
-         if(taskExist(task)) return null;
+         if (!taskExist(task))
+        {
+            return null;
+        }
          
          Task returnTask = null;
          ArrayList<Task> intervals = new ArrayList<>();
@@ -177,7 +183,7 @@ public class TaskDBDAO
              
              if(rs.next())
              {
-                 String title = rs.getString(task.getTitle());
+                 String title = rs.getString("title");
                  Project project = new Project(0, "reeeeeeee", new Client(0, "why", 0, 0), 0); //getProject
                  int duration = rs.getInt("duration");
                 String projectName = project.getProjectName();
@@ -203,9 +209,10 @@ public class TaskDBDAO
         TaskDBDAO taskDBDAO = new TaskDBDAO();
         Client client = new Client(0, "why", 0, 0);
         Project project = new Project(0, "reeeeeeee", client, 0);
+        User user = new User("Kof", "kof", "kof", "fok", true);
         ArrayList<Task> intervals = new ArrayList<>();
-        //Task task = new Task(0, "red", project, 50, LocalDateTime.now(), LocalDate.now(), LocalTime.now(), LocalTime.now(), "standard@user.now", intervals);
-        //taskDBDAO.createTask(task);
-        //System.out.println(task.toString());
+        Task task = new Task(5, "rjo", project, 50, LocalDateTime.now(), LocalDate.now(), LocalTime.now(), LocalTime.now(), user, intervals);
+       
+        System.out.println(taskDBDAO.getTask(task));
     }
 }

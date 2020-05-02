@@ -66,7 +66,7 @@ public class Client
 
     @Override
     public String toString() {
-        return  "" + ClientName.get();
+        return  ""+ id.get() + "  " + "" + ClientName.get() + "   " + "" + ClientRate.get() + "   " + "" + isPaid.get() ;
     }
     
     

@@ -7,9 +7,11 @@ package examProjectTheDisciplesOfSkrumm.DAL;
 
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import examProjectTheDisciplesOfSkrumm.BE.Client;
+import examProjectTheDisciplesOfSkrumm.BE.Project;
 import examProjectTheDisciplesOfSkrumm.BE.User;
 import examProjectTheDisciplesOfSkrumm.DAL.Interface.ClientDBDAOInterface;
 import examProjectTheDisciplesOfSkrumm.DAL.Interface.DALFacadeInterface;
+import examProjectTheDisciplesOfSkrumm.DAL.Interface.ProjectDBDAOInterface;
 import examProjectTheDisciplesOfSkrumm.DAL.Interface.UserDBDAOInterface;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -23,12 +25,14 @@ public class DALFacade implements DALFacadeInterface
 {
     private UserDBDAOInterface userDBDAO;
     private ClientDBDAOInterface clientDBDAO;
+    private ProjectDBDAOInterface projecDBDAO;
 
 
     public DALFacade() throws IOException
     {
         userDBDAO = new UserDBDAO();
         clientDBDAO = new ClientDBDAO();
+        projecDBDAO = new ProjectDBDAO();
     }
     
     @Override
@@ -83,6 +87,27 @@ public class DALFacade implements DALFacadeInterface
     public Client createClient(Client client) throws SQLException
     {
         return clientDBDAO.createClient(client);
+    }
+
+    @Override
+    public List<Project> getAllProjects() throws SQLServerException, SQLException 
+    {
+       return projecDBDAO.getAllProjects();
+    }
+
+    @Override
+    public boolean projectExist(Project project) throws SQLException {
+        return projecDBDAO.projectExist(project);
+    }
+
+    @Override
+    public Project createProject(Project project) throws SQLException {
+        return projecDBDAO.createProject(project);
+    }
+
+    @Override
+    public Project getProject(Project project) throws SQLException {
+        return projecDBDAO.getProject(project);
     }
     
 }

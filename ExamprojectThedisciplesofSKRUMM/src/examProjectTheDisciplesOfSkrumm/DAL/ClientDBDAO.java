@@ -7,6 +7,7 @@ package examProjectTheDisciplesOfSkrumm.DAL;
 
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import examProjectTheDisciplesOfSkrumm.BE.Client;
+import examProjectTheDisciplesOfSkrumm.BE.User;
 import examProjectTheDisciplesOfSkrumm.DAL.Interface.ClientDBDAOInterface;
 import java.io.IOException;
 import java.sql.Connection;
@@ -42,9 +43,9 @@ public class ClientDBDAO implements ClientDBDAOInterface
         Client returnClient;
         try (Connection con = dbCon.getConnection())
         {
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM [client] WHERE name = ?");
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM [client] WHERE id = ?");
 
-            ps.setString(1, client.getClientName());
+            ps.setInt(1, client.getId());
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
@@ -89,8 +90,8 @@ public class ClientDBDAO implements ClientDBDAOInterface
     {
         try (Connection con = dbCon.getConnection())
         {
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM [client] WHERE name = ?");
-            ps.setString(1, client.getClientName());
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM [client] WHERE id = ?");
+            ps.setInt(1, client.getId());
 
             ResultSet rs = ps.executeQuery();
 
@@ -122,9 +123,49 @@ public class ClientDBDAO implements ClientDBDAOInterface
             
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
+            
 
+            if (rs.next()) {
+                client.setId((int) rs.getLong(1));
+            } else {
+                return null;
+            }
             return client;
         }
+        
+        
+    }
+    
+    public static void main(String[] args) throws IOException, SQLException
+    {
+        ClientDBDAO clientDb = new ClientDBDAO();
+        ArrayList<Client> clients = new ArrayList<>();
+        clients.addAll(clientDb.getAllClients());
+        
+//        for (Client client : clients)
+//        {
+//          System.out.println(client);
+//        }
+        
+        Client steve = new Client(3, "Steve", 0, 0);
+        System.out.println(clientDb.clientExist(steve));
+//       System.out.println(clientDb.getClient(steve));
+//        clientDb.createClient(steve);
+//        
+//        clients.addAll(clientDb.getAllClients());
+//        
+//        for (Client client : clients)
+//        {
+//          System.out.println(client);
+//        }
+        
+        
+        
+        
+        
+        
+       
+
     }
     
 }
