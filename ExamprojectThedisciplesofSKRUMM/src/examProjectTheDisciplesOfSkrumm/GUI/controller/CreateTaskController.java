@@ -93,7 +93,7 @@ public class CreateTaskController implements Initializable
                 LocalTime startTime = LocalTime.MIN;
                 LocalTime stopTime = LocalTime.MIN;
                 ArrayList<Task> intervals = new ArrayList<Task>();
-                User user = null;
+                User user = modelfacade.getCurrentuser();
        
         
                 Task newtask = new Task(1, title, project, duration, lastUsed, creationDate, startTime, stopTime, user, intervals);
@@ -123,10 +123,11 @@ public class CreateTaskController implements Initializable
                 LocalDate creationDate = LocalDate.now();
                 LocalTime startTime = LocalTime.MIN;
                 LocalTime stopTime = LocalTime.MIN;
-                ArrayList<Task> intervals = new ArrayList<Task>(); 
+                ArrayList<Task> intervals = new ArrayList<Task>();
+                User user = modelfacade.getCurrentuser();
        
         
-                Task newtask = new Task(1, title, project, duration, lastUsed, creationDate, startTime, stopTime, intervals);
+                Task newtask = new Task(1, title, project, duration, lastUsed, creationDate, startTime, stopTime, user, intervals);
                 modelfacade.createTask(newtask);
                 taskViewController.RefreshTreeView();
                 Stage createTaskView = (Stage) ((Node) event.getSource()).getScene().getWindow();
