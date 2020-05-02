@@ -7,7 +7,7 @@ package examProjectTheDisciplesOfSkrumm.DAL;
 
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import examProjectTheDisciplesOfSkrumm.BE.Client;
-import examProjectTheDisciplesOfSkrumm.BLL.Interface.ClientManagerInterface;
+import examProjectTheDisciplesOfSkrumm.DAL.Interface.ClientDBDAOInterface;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -21,7 +21,7 @@ import java.util.List;
  *
  * @author Zanaxdk <https://github.com/zanaxdk>
  */
-public class ClientDBDAO implements ClientManagerInterface
+public class ClientDBDAO implements ClientDBDAOInterface
 {
 
     private final DatabaseConnector dbCon;

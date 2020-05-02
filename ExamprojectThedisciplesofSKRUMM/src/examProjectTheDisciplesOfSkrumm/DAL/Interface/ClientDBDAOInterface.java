@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package examProjectTheDisciplesOfSkrumm.BLL.Interface;
+package examProjectTheDisciplesOfSkrumm.DAL.Interface;
 
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import examProjectTheDisciplesOfSkrumm.BE.Client;
@@ -12,9 +12,9 @@ import java.util.List;
 
 /**
  *
- * @author lumby
+ * @author Zanaxdk <https://github.com/zanaxdk>
  */
-public interface ClientManagerInterface
+public interface ClientDBDAOInterface
 {
      public Client getClient(Client client) throws SQLException;
     
@@ -23,5 +23,4 @@ public interface ClientManagerInterface
      public boolean clientExist(Client client) throws SQLException;
     
      public Client createClient(Client client) throws SQLException;
-     
 }
