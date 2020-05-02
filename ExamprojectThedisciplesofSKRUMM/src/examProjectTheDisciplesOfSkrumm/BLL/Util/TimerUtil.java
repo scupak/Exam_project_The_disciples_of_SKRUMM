@@ -55,6 +55,7 @@ public class TimerUtil implements Runnable
         //when done, while totalSec is over 60, totalSec minus 60 and add 1 to min until it isnt anymore
         //add rest of seconds to sec
         this.totaltimeLabel = totaltimeLabel;
+        this.intervalLabel = intervalLabel;
     }
     
 
