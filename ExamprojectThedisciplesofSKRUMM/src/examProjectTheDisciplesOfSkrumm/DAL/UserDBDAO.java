@@ -130,7 +130,7 @@ public class UserDBDAO implements UserDBDAOInterface
             }
             ps.setByte(5, isAdmin);
             ps.executeUpdate();
-            ResultSet rs = ps.getGeneratedKeys();
+            
 
             return user;
         }
