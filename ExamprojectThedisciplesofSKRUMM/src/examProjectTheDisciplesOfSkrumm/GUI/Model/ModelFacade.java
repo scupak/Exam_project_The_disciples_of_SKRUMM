@@ -5,6 +5,7 @@
  */
 package examProjectTheDisciplesOfSkrumm.GUI.Model;
 
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 import examProjectTheDisciplesOfSkrumm.BE.Client;
 import examProjectTheDisciplesOfSkrumm.BE.Project;
 import examProjectTheDisciplesOfSkrumm.BE.Task;
@@ -16,6 +17,7 @@ import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.TaskModelInterface;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.UserModelInterface;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TreeItem;
 
@@ -31,7 +33,7 @@ public class ModelFacade implements ModelFacadeInterface
     private ClientModelInterface clientmodel;
     private UserModelInterface userModel;
     
-    private ModelFacade() throws IOException 
+    private ModelFacade() throws IOException, SQLException 
     {
         taskmodel = new TaskModel();
         projectmodel = new ProjectModel();
@@ -129,6 +131,36 @@ public class ModelFacade implements ModelFacadeInterface
     public String hashPassword(String password)
     {
         return userModel.hashPassword(password);
+    }
+
+    @Override
+    public User getUser(User user) throws SQLException {
+        return userModel.getUser(user);
+    }
+
+    @Override
+    public ObservableList<User> getAllUsers() throws SQLServerException, SQLException {
+        return userModel.getAllUsers();
+    }
+
+    @Override
+    public boolean userExist(User user) throws SQLException {
+        return userModel.userExist(user);
+    }
+
+    @Override
+    public User createUser(User user) throws SQLException {
+       return userModel.createUser(user);
+    }
+
+    @Override
+    public User getCurrentuser() {
+        return userModel.getCurrentuser();
+    }
+
+    @Override
+    public void setCurrentuser(User currentuser) {
+        userModel.setCurrentuser(currentuser);
     }
     
 }

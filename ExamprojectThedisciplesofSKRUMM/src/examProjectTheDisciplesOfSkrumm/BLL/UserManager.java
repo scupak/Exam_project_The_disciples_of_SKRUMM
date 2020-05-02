@@ -5,12 +5,14 @@
  */
 package examProjectTheDisciplesOfSkrumm.BLL;
 
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 import examProjectTheDisciplesOfSkrumm.BE.User;
 import examProjectTheDisciplesOfSkrumm.BLL.Interface.SecurityManagerInterface;
 import examProjectTheDisciplesOfSkrumm.BLL.Interface.UserManagerInterface;
 import examProjectTheDisciplesOfSkrumm.DAL.DALFacade;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  *
@@ -53,6 +55,7 @@ public class UserManager implements UserManagerInterface
         return false;
     }
     
+    @Override
     public User getUser(User user) throws SQLException
     {
         return dal.getUser(user);
@@ -77,6 +80,21 @@ public class UserManager implements UserManagerInterface
         User test = new User("standard@user.now", "Mads", "Jensesn", "nemt", false);
         System.out.println(um.dal.getUser(test));
         
+    }
+
+    @Override
+    public List<User> getAllUsers() throws SQLServerException, SQLException {
+        return dal.getAllUsers();
+    }
+
+    @Override
+    public boolean userExist(User user) throws SQLException {
+        return dal.userExist(user);
+    }
+
+    @Override
+    public User createUser(User user) throws SQLException {
+        return dal.createUser(user);
     }
     
 }

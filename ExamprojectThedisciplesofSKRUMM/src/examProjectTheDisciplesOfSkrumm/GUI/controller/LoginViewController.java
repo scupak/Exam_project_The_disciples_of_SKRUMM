@@ -40,7 +40,7 @@ public class LoginViewController implements Initializable {
     @FXML
     private JFXButton loginButton;
     
-    ModelFacadeInterface model;
+    private ModelFacadeInterface model;
     
    
     
@@ -68,6 +68,7 @@ public class LoginViewController implements Initializable {
         
         if(model.checkUser(user) == true)
         {
+         model.setCurrentuser(model.getUser(user));
         Stage mainView = (Stage) ((Node) event.getSource()).getScene().getWindow();
         
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/MainView.fxml"));
@@ -77,6 +78,7 @@ public class LoginViewController implements Initializable {
         if(user.getIsAdmin() == true)
         {
             controller.setAdminCheck(true);
+            
         }
         
         Stage stage = new Stage();
