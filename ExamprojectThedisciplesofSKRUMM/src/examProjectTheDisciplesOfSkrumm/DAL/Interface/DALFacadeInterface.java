@@ -5,11 +5,15 @@
  */
 package examProjectTheDisciplesOfSkrumm.DAL.Interface;
 
+import com.microsoft.sqlserver.jdbc.SQLServerException;
+import examProjectTheDisciplesOfSkrumm.BE.Interval;
+import java.sql.SQLException;
+
 /**
  *
  * @author lumby
  */
 public interface DALFacadeInterface extends UserDBDAOInterface, ClientDBDAOInterface, ProjectDBDAOInterface, TaskDBDAOInterface 
 {
-    
+    public void newInterval(Interval interval) throws SQLServerException, SQLException;
 }

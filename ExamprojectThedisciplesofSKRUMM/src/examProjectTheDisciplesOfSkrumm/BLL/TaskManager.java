@@ -9,6 +9,7 @@ import examProjectTheDisciplesOfSkrumm.BE.Client;
 import examProjectTheDisciplesOfSkrumm.BE.Interval;
 import examProjectTheDisciplesOfSkrumm.BE.Project;
 import examProjectTheDisciplesOfSkrumm.BLL.Interface.TaskManagerInterface;
+import examProjectTheDisciplesOfSkrumm.DAL.DALFacade;
 import examProjectTheDisciplesOfSkrumm.DAL.TaskDBDAO;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -20,14 +21,14 @@ import java.util.logging.Logger;
  */
 public class TaskManager implements TaskManagerInterface
 {
-    private TaskDBDAO taskDB;
+    private DALFacade dal;
     
     
     public void newInterval(Interval interval)
     {
         try
         {
-            taskDB.newInterval(interval);
+            dal.newInterval(interval);
         } catch (SQLException ex)
         {
             Logger.getLogger(TaskManager.class.getName()).log(Level.SEVERE, null, ex);
