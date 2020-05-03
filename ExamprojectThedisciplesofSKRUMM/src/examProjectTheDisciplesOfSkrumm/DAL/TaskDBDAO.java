@@ -224,27 +224,26 @@ public class TaskDBDAO implements TaskDBDAOInterface
         
         try(Connection con = dbCon.getConnection())
         {
-            String sql = "INSERT INTO [interval] VALUES (?,?,?,?)";
+            String sql = "INSERT INTO [interval] VALUES (?,?,?,?,?)";
             PreparedStatement ps = con.prepareStatement(sql);
             
-            ps.setTimestamp(1, java.sql.Timestamp.valueOf(interval.getStartTime()));
-            ps.setTimestamp(2, java.sql.Timestamp.valueOf(interval.getStopTime()));
-            ps.setInt(3, interval.getIntervalTime());
-            ps.setInt(4, interval.getTask().getId());
+            ps.setDate(1, java.sql.Date.valueOf(LocalDate.now()));
+            ps.setTime(2, java.sql.Time.valueOf(interval.getStartTime()));
+            ps.setTime(3, java.sql.Time.valueOf(interval.getStopTime()));
+            ps.setInt(4, interval.getIntervalTime());
+            ps.setInt(5, interval.getTask().getId());
             
-            ps.execute();
-            
-            interval.getTask().getId();
+            ps.executeQuery();
             
             
             String updateLastUsed = "UPDATE [task] SET lastUsed = ?, duration = ? WHERE id = ?";
             PreparedStatement ps2 = con.prepareStatement(updateLastUsed);
             
-            ps.setTimestamp(1, java.sql.Timestamp.valueOf(interval.getStopTime()));
-            ps.setInt(2, interval.getTask().getDuration() + interval.getIntervalTime());
-            ps.setInt(3, interval.getTask().getId());
+            ps2.setTimestamp(1, java.sql.Timestamp.valueOf(LocalDateTime.now()));
+            ps2.setInt(2, interval.getTask().getDuration() + interval.getIntervalTime());
+            ps2.setInt(3, interval.getTask().getId());
             
-            ps.execute();
+            ps.executeUpdate();
         }
     }
 }

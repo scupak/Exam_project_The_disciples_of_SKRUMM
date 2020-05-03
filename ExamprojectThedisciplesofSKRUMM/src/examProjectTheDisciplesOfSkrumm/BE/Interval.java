@@ -6,6 +6,7 @@
 package examProjectTheDisciplesOfSkrumm.BE;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 /**
  *
@@ -13,18 +14,24 @@ import java.time.LocalDateTime;
  */
 public class Interval
 {
-    private LocalDateTime startTime;
-    private LocalDateTime stopTime;
+    private LocalTime startTime;
+    private LocalTime stopTime;
     private int totalTime;
     private int intervalTime;
     private Task task;
     
-    public Interval(LocalDateTime startTime, LocalDateTime stopTime, int intervalTime, Task task)
+    public Interval(LocalTime startTime, LocalTime stopTime, int intervalTime, int totalTime, Task task)
     {
         this.startTime = startTime;
         this.stopTime = stopTime;
         this.intervalTime = intervalTime;
+        this.totalTime = totalTime;
         this.task = task;
+    }
+
+    public int getTotalTime()
+    {
+        return totalTime;
     }
 
     public Task getTask()
@@ -32,12 +39,12 @@ public class Interval
         return task;
     }
 
-    public LocalDateTime getStartTime()
+    public LocalTime getStartTime()
     {
         return startTime;
     }
 
-    public LocalDateTime getStopTime()
+    public LocalTime getStopTime()
     {
         return stopTime;
     }
