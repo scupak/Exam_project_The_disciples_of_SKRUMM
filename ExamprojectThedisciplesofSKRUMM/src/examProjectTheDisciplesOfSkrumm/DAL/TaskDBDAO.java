@@ -233,7 +233,7 @@ public class TaskDBDAO implements TaskDBDAOInterface
                 LocalTime stopTime = rs.getTime("stopTime").toLocalTime();
                 ArrayList<Interval> intervals = new ArrayList<Interval>();
                 String userEmail = rs.getString("userEmail");
-                User user1 = userDBDAO.getUser(new User(userEmail, clientName, clientName, title, false));                
+                User user1 = userDBDAO.getUser(new User(userEmail, "22", "22", title, false));                
                 tasks.add(new Task(id, title, project, duration, lastUsed, creationDate, startTime, stopTime, user1, intervals));
 
             }
