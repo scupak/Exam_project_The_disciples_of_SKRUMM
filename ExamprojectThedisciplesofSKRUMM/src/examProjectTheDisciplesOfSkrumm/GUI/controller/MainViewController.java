@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -129,8 +130,8 @@ public class MainViewController implements Initializable
     TimerUtil timerutil;
     JFXButton previousbutton = null;
     
-    LocalDateTime startTime;
-    LocalDateTime stopTime;
+    LocalTime startTime;
+    LocalTime stopTime;
     int interval;
     int totalTime;
     
@@ -419,7 +420,7 @@ public class MainViewController implements Initializable
             button.setGraphic(Play);
             button.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
             button.setContentDisplay(ContentDisplay.CENTER);
-            startTime = LocalDateTime.now();
+            startTime = LocalTime.now();
             
         }
         
@@ -428,9 +429,9 @@ public class MainViewController implements Initializable
             button.setGraphic(Pause);
             button.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
             button.setContentDisplay(ContentDisplay.CENTER);
-            stopTime = LocalDateTime.now();
+            stopTime = LocalTime.now();
             currentTask = tasks.get(index);
-            Interval interval = new Interval(startTime, stopTime, timerutil.getTotalsec(), currentTask);
+            Interval interval = new Interval(startTime, stopTime, timerutil.getTotalIntervalSec(), timerutil.getTotalSec(), currentTask);
             modelfacade.newInterval(interval);
             
         }
