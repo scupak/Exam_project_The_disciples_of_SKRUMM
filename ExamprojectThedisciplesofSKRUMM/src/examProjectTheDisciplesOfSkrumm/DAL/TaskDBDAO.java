@@ -43,6 +43,7 @@ public class TaskDBDAO implements TaskDBDAOInterface
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     public List<Task> getAllTasks() throws SQLException {
 =======
     public List<Task> getAllTasks() throws SQLException
@@ -52,6 +53,11 @@ public class TaskDBDAO implements TaskDBDAOInterface
     public List<Task> getAllTasks() throws SQLException
     {
 >>>>>>> parent of 61096ed... Merge branch 'master' of https://github.com/scupak/Exam_project_The_disciples_of_SKRUMM
+=======
+    @Override
+    public List<Task> getAllTasks() throws SQLException
+    {
+>>>>>>> parent of c554e4f... Merge branch 'master' of https://github.com/scupak/Exam_project_The_disciples_of_SKRUMM
         ArrayList<Task> tasks = new ArrayList<>();
 
         try (Connection con = dbCon.getConnection())
@@ -89,19 +95,26 @@ public class TaskDBDAO implements TaskDBDAOInterface
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     public boolean taskExist(Task task) throws SQLException {
         try (Connection con = dbCon.getConnection()) {
 =======
 =======
 >>>>>>> parent of 61096ed... Merge branch 'master' of https://github.com/scupak/Exam_project_The_disciples_of_SKRUMM
+=======
+    @Override
+>>>>>>> parent of c554e4f... Merge branch 'master' of https://github.com/scupak/Exam_project_The_disciples_of_SKRUMM
     public boolean taskExist(Task task) throws SQLException
     {
         try (Connection con = dbCon.getConnection())
         {
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> parent of 52a1e7c... getTaskworks
 =======
 >>>>>>> parent of 61096ed... Merge branch 'master' of https://github.com/scupak/Exam_project_The_disciples_of_SKRUMM
+=======
+>>>>>>> parent of c554e4f... Merge branch 'master' of https://github.com/scupak/Exam_project_The_disciples_of_SKRUMM
             PreparedStatement ps = con.prepareStatement("SELECT * FROM [task] WHERE id = ?");
             ps.setInt(1, task.getId());
 
@@ -118,19 +131,26 @@ public class TaskDBDAO implements TaskDBDAOInterface
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     public Task createTask(Task task) throws SQLException {
         if (taskExist(task)) {
 =======
 =======
 >>>>>>> parent of 61096ed... Merge branch 'master' of https://github.com/scupak/Exam_project_The_disciples_of_SKRUMM
+=======
+    @Override
+>>>>>>> parent of c554e4f... Merge branch 'master' of https://github.com/scupak/Exam_project_The_disciples_of_SKRUMM
     public Task createTask(Task task) throws SQLException
     {
         if (taskExist(task))
         {
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> parent of 52a1e7c... getTaskworks
 =======
 >>>>>>> parent of 61096ed... Merge branch 'master' of https://github.com/scupak/Exam_project_The_disciples_of_SKRUMM
+=======
+>>>>>>> parent of c554e4f... Merge branch 'master' of https://github.com/scupak/Exam_project_The_disciples_of_SKRUMM
             return null;
         }
 
@@ -168,6 +188,7 @@ public class TaskDBDAO implements TaskDBDAOInterface
     }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
     public Boolean updateTask(Task task) throws SQLException {
         if (!taskExist(task)) {
@@ -175,14 +196,21 @@ public class TaskDBDAO implements TaskDBDAOInterface
 =======
 >>>>>>> parent of 61096ed... Merge branch 'master' of https://github.com/scupak/Exam_project_The_disciples_of_SKRUMM
     
+=======
+    
+    @Override
+>>>>>>> parent of c554e4f... Merge branch 'master' of https://github.com/scupak/Exam_project_The_disciples_of_SKRUMM
      public Boolean updateTask(Task task) throws SQLException
         {
             if (!taskExist(task))
             {
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> parent of 52a1e7c... getTaskworks
 =======
 >>>>>>> parent of 61096ed... Merge branch 'master' of https://github.com/scupak/Exam_project_The_disciples_of_SKRUMM
+=======
+>>>>>>> parent of c554e4f... Merge branch 'master' of https://github.com/scupak/Exam_project_The_disciples_of_SKRUMM
             return null;
             }
             
@@ -251,6 +279,7 @@ public class TaskDBDAO implements TaskDBDAOInterface
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
     @Override
      public void newInterval(Interval interval) throws SQLServerException, SQLException {
@@ -275,6 +304,24 @@ public class TaskDBDAO implements TaskDBDAOInterface
 >>>>>>> parent of 52a1e7c... getTaskworks
 =======
 >>>>>>> parent of 61096ed... Merge branch 'master' of https://github.com/scupak/Exam_project_The_disciples_of_SKRUMM
+=======
+    public static void main(String[] args) throws IOException, SQLException
+    {
+        TaskDBDAO taskDBDAO = new TaskDBDAO();
+        Client client = new Client(0, "why", 0, 0);
+        Project project = new Project(0, "reeeeeeee", client, 0);
+        User user = new User("Kof", "kof", "kof", "fok", true);
+        ArrayList<Task> intervals = new ArrayList<>();
+        Task task = new Task(5, "rjo", project, 50, LocalDateTime.now(), LocalDate.now(), LocalTime.now(), LocalTime.now(), user, intervals);
+       Task task2 = taskDBDAO.getTask(task);
+       
+        System.out.println(task2);
+    }
+
+    @Override
+    public void newInterval(Interval interval) throws SQLServerException, SQLException
+    {
+>>>>>>> parent of c554e4f... Merge branch 'master' of https://github.com/scupak/Exam_project_The_disciples_of_SKRUMM
         //set last used in the task
         
         try(Connection con = dbCon.getConnection())
@@ -288,7 +335,7 @@ public class TaskDBDAO implements TaskDBDAOInterface
             ps.setInt(4, interval.getIntervalTime());
             ps.setInt(5, interval.getTask().getId());
             
-            ps.executeUpdate();
+            ps.executeQuery();
             
             
             String updateLastUsed = "UPDATE [task] SET lastUsed = ?, duration = ? WHERE id = ?";
@@ -301,6 +348,7 @@ public class TaskDBDAO implements TaskDBDAOInterface
             ps.executeUpdate();
         }
     }
+<<<<<<< HEAD
 <<<<<<< HEAD
 
     public static void main(String[] args) throws IOException, SQLException {
@@ -324,4 +372,6 @@ public class TaskDBDAO implements TaskDBDAOInterface
     }
 =======
 >>>>>>> parent of 61096ed... Merge branch 'master' of https://github.com/scupak/Exam_project_The_disciples_of_SKRUMM
+=======
+>>>>>>> parent of c554e4f... Merge branch 'master' of https://github.com/scupak/Exam_project_The_disciples_of_SKRUMM
 }

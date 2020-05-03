@@ -15,5 +15,7 @@ import java.time.LocalDateTime;
 
 public interface BLLFacadeInterface extends TreeTableUtilInterface, TaskManagerInterface, SecurityManagerInterface, UserManagerInterface
 {
+
+    public void newInterval(Interval interval);
     
 }

@@ -424,16 +424,15 @@ public class MainViewController implements Initializable
             
         }
         
-        if (running)
+        else
         {
             button.setGraphic(Pause);
             button.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
             button.setContentDisplay(ContentDisplay.CENTER);
             stopTime = LocalTime.now();
             currentTask = tasks.get(index);
-            Interval taskInterval = new Interval(startTime, stopTime, timerutil.getTotalIntervalSec(), timerutil.getTotalSec(), currentTask);
-            
-            modelfacade.newInterval(taskInterval);
+            Interval interval = new Interval(startTime, stopTime, timerutil.getTotalIntervalSec(), timerutil.getTotalSec(), currentTask);
+            modelfacade.newInterval(interval);
             
         }
         previousbutton = button;
