@@ -430,7 +430,7 @@ public class MainViewController implements Initializable
             modelfacade.newInterval(taskInterval);
         }
         
-        if (running)
+        else
         {
             button.setGraphic(Pause);
             button.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);

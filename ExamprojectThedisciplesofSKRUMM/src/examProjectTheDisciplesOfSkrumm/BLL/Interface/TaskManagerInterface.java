@@ -5,8 +5,6 @@
  */
 package examProjectTheDisciplesOfSkrumm.BLL.Interface;
 
-import com.microsoft.sqlserver.jdbc.SQLServerException;
-import java.sql.SQLException;
 import examProjectTheDisciplesOfSkrumm.BE.Client;
 import examProjectTheDisciplesOfSkrumm.BE.Interval;
 import examProjectTheDisciplesOfSkrumm.BE.Project;
@@ -17,6 +15,6 @@ import examProjectTheDisciplesOfSkrumm.BE.Project;
  */
 public interface TaskManagerInterface 
 {
-    public void newInterval(Interval interval) throws SQLServerException, SQLException;
+    public void newInterval(Interval interval);
     
 }
