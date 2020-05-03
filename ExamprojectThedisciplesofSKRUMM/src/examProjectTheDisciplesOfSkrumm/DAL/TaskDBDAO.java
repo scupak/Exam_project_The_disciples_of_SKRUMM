@@ -34,11 +34,13 @@ public class TaskDBDAO implements TaskDBDAOInterface
 
     private final DatabaseConnector dbCon;
     private UserDBDAO userDBDAO;
+    private ProjectDBDAO projectDBDAO;
 
     public TaskDBDAO() throws IOException
     {
         dbCon = new DatabaseConnector();
         userDBDAO = new UserDBDAO();
+        projectDBDAO = new ProjectDBDAO();
     }
 
 
@@ -191,7 +193,7 @@ public class TaskDBDAO implements TaskDBDAOInterface
              if(rs.next())
              {
                  String title = rs.getString("title");
-                 Project project = new Project(0, "reeeeeeee", new Client(0, "why", 0, 0), 0); //getProject
+                 Project project = projectDBDAO.getProject(new Project(rs.getInt("projectID"), title, new Client(0, title, 0, 0), 0));
                  int duration = rs.getInt("duration");
                 String projectName = project.getProjectName();
                 String clientName = project.getClientName();
