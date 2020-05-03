@@ -5,6 +5,7 @@ Hentet fra javafx-treetableview-example: https://examples.javacodegeeks.com/desk
 package examProjectTheDisciplesOfSkrumm.BLL.Util;
 
 import examProjectTheDisciplesOfSkrumm.BE.Client;
+import examProjectTheDisciplesOfSkrumm.BE.Interval;
 import examProjectTheDisciplesOfSkrumm.BE.Project;
 import examProjectTheDisciplesOfSkrumm.BE.Task;
 import examProjectTheDisciplesOfSkrumm.BE.User;
@@ -30,7 +31,8 @@ public class TreeTableUtil implements TreeTableUtilInterface
     
     
     @SuppressWarnings("unchecked")
-    public TreeItem<Task> getModel(ObservableList<Task> tasks)
+    @Override
+    public TreeItem getModel(ObservableList<Task> tasks)
     {
     
     /* Create all task*/
@@ -38,20 +40,20 @@ public class TreeTableUtil implements TreeTableUtilInterface
     Task rootTask = new Task(1, "Root", new Project(1, "Root", new Client(1, "Root", 0, 0), 0), 0,
             LocalDateTime.MIN, LocalDate.MIN, LocalTime.MIN, LocalTime.MIN,
             new User("standard@user.now", "h", "l", "nemt", false), new ArrayList<>());
-        ArrayList<TreeItem<Task>> treeItems = new ArrayList();
+        ArrayList<TreeItem> treeItems = new ArrayList();
         
     
 
         for (Task task : tasks) 
         {  
-           TreeItem<Task> treeitem = new TreeItem<Task>(task);
+           TreeItem treeitem = new TreeItem(task);
            if(!task.getIntervals().isEmpty())
            {
-               ArrayList<TreeItem<Task>> intervals = new ArrayList();
+               ArrayList<TreeItem> intervals = new ArrayList();
                
-               for (Task interval : task.getIntervals()) 
+               for (Interval interval : task.getIntervals()) 
                {
-                    intervals.add(new TreeItem<Task>(interval));
+                    intervals.add(new TreeItem(interval));
                }
                treeitem.getChildren().addAll(intervals);
            }
@@ -59,7 +61,7 @@ public class TreeTableUtil implements TreeTableUtilInterface
         }
         
     //Create the root node and add children
-    TreeItem<Task> rootTaskNode = new TreeItem<>(rootTask);
+    TreeItem rootTaskNode = new TreeItem(rootTask);
     rootTaskNode.getChildren().addAll(treeItems);
     return rootTaskNode;
     }

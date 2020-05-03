@@ -160,19 +160,19 @@ public class ProjectDBDAO implements ProjectDBDAOInterface
         {
             System.out.println(project);   
         }
-         System.out.println("  ");
-         System.out.println("  ");
-         System.out.println("  ");  
-         
-           Client steve = new Client(1, "Steve", 0, 0);
-           Client grumsen = clientdb.getClient(steve);
-          Project projectx = new Project(0, "Victory",grumsen , 99);
-          System.out.println(projectDb.createProject(projectx));
-
-        for (Project project : projects)
-        {
-            System.out.println(project);   
-        }
+//         System.out.println("  ");
+//         System.out.println("  ");
+//         System.out.println("  ");  
+//         
+//           Client steve = new Client(1, "Steve", 0, 0);
+//           Client grumsen = clientdb.getClient(steve);
+//          Project projectx = new Project(0, "Victory",grumsen , 99);
+//          System.out.println(projectDb.createProject(projectx));
+//
+//        for (Project project : projects)
+//        {
+//            System.out.println(project);   
+//        }
        
 
     }

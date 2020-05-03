@@ -33,14 +33,14 @@ public class Task
     private LocalTime startTime;
     private LocalTime stopTime;
     private User user;
-    private ArrayList<Task> intervals;
+    private ArrayList<Interval> intervals;
             
 
    
     
     public Task(int id, String title, Project project, int duration, LocalDateTime lastUsed,
             LocalDate creationDate, LocalTime startTime, LocalTime stopTime, User user,
-            ArrayList<Task> intervals) 
+            ArrayList<Interval> intervals) 
     {
         this.id = new SimpleIntegerProperty(id);
         this.title = new SimpleStringProperty(title);
@@ -80,6 +80,22 @@ public class Task
     public int getIsPaid()
     {
         return isPaid.get();
+    }
+    
+    public String getIsPaidBoolean()
+    {
+        if (isPaid.get() == 0)
+        {
+            return "unpaid";
+        }
+        else if(isPaid.get() == 1)
+        {
+            return "paid";
+        }
+        else
+        {
+            return "error";
+        }
     }
 
     public String getTitle() {
@@ -150,11 +166,11 @@ public class Task
         this.user.setEmail(userEmail);
     }
    
-    public ArrayList<Task> getIntervals() {
+    public ArrayList<Interval> getIntervals() {
         return intervals;
     }
 
-    public void setIntervals(ArrayList<Task> intervals) {
+    public void setIntervals(ArrayList<Interval> intervals) {
         this.intervals = intervals;
     }
 
