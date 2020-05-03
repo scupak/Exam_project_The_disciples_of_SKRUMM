@@ -395,7 +395,7 @@ public class MainViewController implements Initializable
             }
         }
         
-        handleStart(intervalLabel,totaltimelabel, button,60);
+        handleStart(intervalLabel,totaltimelabel, button,130);
         
         if (!running)
         {

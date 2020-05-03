@@ -22,7 +22,7 @@ import javafx.scene.control.TreeItem;
  */
 public class ModelFacade implements ModelFacadeInterface
 {
-    private static ModelFacadeInterface modelfacade = null;
+    private static volatile ModelFacadeInterface modelfacade = null;
     private TaskModelInterface taskmodel;
     private ProjectModelInterface projectmodel;
     private ClientModelInterface clientmodel;
@@ -43,11 +43,26 @@ public class ModelFacade implements ModelFacadeInterface
      */
     public static ModelFacadeInterface getInstance() throws IOException, Exception
     {
-        if (modelfacade == null)
+        ModelFacadeInterface instance = ModelFacade.modelfacade;
+        if (instance == null) // First check (no locking)
         {
-            modelfacade = new ModelFacade();
+              synchronized(ModelFacade.class){ 
+                instance = ModelFacade.modelfacade;
+                  
+                 if (instance == null) // Second check (with locking)
+        { 
+                  
+                    ModelFacade.modelfacade = instance = new ModelFacade();
+            
+            
+            
+              }
+              }
         }
-        return modelfacade;
+        return instance;
+        
+        
+        
     }
     
 
