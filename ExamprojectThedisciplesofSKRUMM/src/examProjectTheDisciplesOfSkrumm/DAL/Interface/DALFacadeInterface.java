@@ -9,7 +9,7 @@ package examProjectTheDisciplesOfSkrumm.DAL.Interface;
  *
  * @author lumby
  */
-public interface DALFacadeInterface extends UserDBDAOInterface, ClientDBDAOInterface, ProjectDBDAOInterface 
+public interface DALFacadeInterface extends UserDBDAOInterface, ClientDBDAOInterface, ProjectDBDAOInterface, TaskDBDAOInterface 
 {
     
 }
