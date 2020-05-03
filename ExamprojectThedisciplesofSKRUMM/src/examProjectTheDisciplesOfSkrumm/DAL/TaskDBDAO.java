@@ -7,6 +7,7 @@ package examProjectTheDisciplesOfSkrumm.DAL;
 
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import examProjectTheDisciplesOfSkrumm.BE.Client;
+import examProjectTheDisciplesOfSkrumm.BE.Interval;
 import examProjectTheDisciplesOfSkrumm.BE.Project;
 import examProjectTheDisciplesOfSkrumm.BE.Task;
 import examProjectTheDisciplesOfSkrumm.BE.User;
@@ -214,5 +215,35 @@ public class TaskDBDAO
         Task task = new Task(5, "rjo", project, 50, LocalDateTime.now(), LocalDate.now(), LocalTime.now(), LocalTime.now(), user, intervals);
        
         System.out.println(taskDBDAO.getTask(task));
+    }
+
+    public void newInterval(Interval interval) throws SQLServerException, SQLException
+    {
+        //set last used in the task
+        
+        try(Connection con = dbCon.getConnection())
+        {
+            String sql = "INSERT INTO [interval] VALUES (?,?,?,?)";
+            PreparedStatement ps = con.prepareStatement(sql);
+            
+            ps.setTimestamp(1, java.sql.Timestamp.valueOf(interval.getStartTime()));
+            ps.setTimestamp(2, java.sql.Timestamp.valueOf(interval.getStopTime()));
+            ps.setInt(3, interval.getIntervalTime());
+            ps.setInt(4, interval.getTask().getId());
+            
+            ps.execute();
+            
+            interval.getTask().getId();
+            
+            
+            String updateLastUsed = "UPDATE [task] SET lastUsed = ?, duration = ? WHERE id = ?";
+            PreparedStatement ps2 = con.prepareStatement(updateLastUsed);
+            
+            ps.setTimestamp(1, java.sql.Timestamp.valueOf(interval.getStopTime()));
+            ps.setInt(2, interval.getTask().getDuration() + interval.getIntervalTime());
+            ps.setInt(3, interval.getTask().getId());
+            
+            ps.execute();
+        }
     }
 }

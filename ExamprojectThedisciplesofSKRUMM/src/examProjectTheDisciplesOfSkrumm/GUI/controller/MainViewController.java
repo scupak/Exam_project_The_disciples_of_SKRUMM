@@ -8,6 +8,7 @@ package examProjectTheDisciplesOfSkrumm.GUI.controller;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import examProjectTheDisciplesOfSkrumm.BE.Client;
+import examProjectTheDisciplesOfSkrumm.BE.Interval;
 import examProjectTheDisciplesOfSkrumm.BE.Project;
 import examProjectTheDisciplesOfSkrumm.BE.Task;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.ModelFacadeInterface;
@@ -20,6 +21,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutorService;
@@ -126,6 +128,13 @@ public class MainViewController implements Initializable
     ExecutorService executorService;
     TimerUtil timerutil;
     JFXButton previousbutton = null;
+    
+    LocalDateTime startTime;
+    LocalDateTime stopTime;
+    int interval;
+    int totalTime;
+    
+    ObservableList<Task> tasks;
 
     /**
      * Initializes the controller class.
@@ -243,7 +252,7 @@ public class MainViewController implements Initializable
     private void fillGrid()
     {
         int anchorPaneNumber = 0;
-        ObservableList<Task> tasks = modelfacade.getTasks();
+        tasks = modelfacade.getTasks();
         
         panes.add(taskOne);
         panes.add(taskTwo);
@@ -371,7 +380,9 @@ public class MainViewController implements Initializable
     @FXML
     private void handlePlay(ActionEvent event)
     {
-        ImageView Play = new ImageView("/examProjectTheDisciplesOfSkrumm/GUI/Icons/Playbutton.png");
+        Task currentTask;
+        
+                ImageView Play = new ImageView("/examProjectTheDisciplesOfSkrumm/GUI/Icons/Playbutton.png");
         ImageView Pause = new ImageView("/examProjectTheDisciplesOfSkrumm/GUI/Icons/PauseBtn.png");
         
         Play.setScaleX(0.3);
@@ -401,22 +412,26 @@ public class MainViewController implements Initializable
                 System.out.println("difrent button");
                 ImageView view = ((ImageView)previousbutton.getChildrenUnmodifiable().get(1));
                 view.setImage(new Image("/examProjectTheDisciplesOfSkrumm/GUI/Icons/Playbutton.png"));
-                
-            
-            
             }
             
             totalTimeLabels.get(index).setText(ultimateLabel.getText());
             button.setGraphic(Play);
             button.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
             button.setContentDisplay(ContentDisplay.CENTER);
+            startTime = LocalDateTime.now();
             
         }
+        
         else
         {
             button.setGraphic(Pause);
             button.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
             button.setContentDisplay(ContentDisplay.CENTER);
+            stopTime = LocalDateTime.now();
+            currentTask = tasks.get(index);
+            Interval interval = new Interval(startTime, stopTime, timerutil.getTotalsec(), currentTask);
+            modelfacade.newInterval(interval);
+            
         }
         previousbutton = button;
 
@@ -470,59 +485,7 @@ public class MainViewController implements Initializable
             executorService.submit(timerutil);
             
         }
-/*
-        new Thread(()
-                ->
-        {
-            while (true)
-            {
-
-                if (running)
-                {
-
-                    try
-                    {
-                        Thread.sleep(1000);
-
-                        sec++;
-                        totalsec++;
-
-                        if (sec >= 60)
-                        {
-                            min++;
-                            sec = 0;
-                        }
-
-                        if (min >= 60)
-                        {
-                            hour++;
-                            min = 0;
-                        }
-
-                        String time = String.format("%02d", hour) + ":" + String.format("%02d", min) + ":" + String.format("%02d", sec);
-                        System.out.println(time);
-                        System.out.println(totalsec);
-                        Platform.runLater(()
-                                ->
-                        {
-                            label.setText(String.format("%02d", hour) + ":" + String.format("%02d", min) + ":" + String.format("%02d", sec));
-                        }
-                        );
-
-                    } catch (Exception e)
-                    {
-                    }
-
-                } else
-                {
-
-                    break;
-
-                }
-
-            }
-
-        }).start();
-        */
     }
+    
+    
 }

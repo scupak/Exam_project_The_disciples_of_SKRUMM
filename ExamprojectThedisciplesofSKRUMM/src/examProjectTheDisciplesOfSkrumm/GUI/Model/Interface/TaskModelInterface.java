@@ -6,8 +6,10 @@
 package examProjectTheDisciplesOfSkrumm.GUI.Model.Interface;
 
 import examProjectTheDisciplesOfSkrumm.BE.Client;
+import examProjectTheDisciplesOfSkrumm.BE.Interval;
 import examProjectTheDisciplesOfSkrumm.BE.Project;
 import examProjectTheDisciplesOfSkrumm.BE.Task;
+import java.time.LocalDateTime;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TreeItem;
 
@@ -25,5 +27,7 @@ public interface TaskModelInterface
     public ObservableList<Task> getTasks();
     
     public void setTasks(ObservableList<Task> tasks);
+
+    public Interval newInterval(Interval interval);
     
 }
