@@ -152,8 +152,14 @@ public class MainViewController implements Initializable
         } catch (Exception ex) {
             Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        fillGrid();
-        // anchorPane00.setUserData(new Task("title", "projectName", "clientName", 0) );
+        try
+        {
+            fillGrid();
+            // anchorPane00.setUserData(new Task("title", "projectName", "clientName", 0) );
+        } catch (SQLException ex)
+        {
+            Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         // anchorPane00.setUserData(new Task("title", "projectName", "clientName", 0) );
         formatter = DateTimeFormatter.ofPattern("dd/MM/YYYY");
@@ -251,10 +257,10 @@ public class MainViewController implements Initializable
         mainView.close();
     }
 
-    private void fillGrid()
+    private void fillGrid() throws SQLException
     {
         int anchorPaneNumber = 0;
-        tasks = modelfacade.getTasks();
+        tasks = modelfacade.getSixTasks(modelfacade.getCurrentuser());
         
         panes.add(taskOne);
         panes.add(taskTwo);
@@ -424,7 +430,7 @@ public class MainViewController implements Initializable
             
             stopTime = LocalTime.now();
             currentTask = tasks.get(index);
-            Interval taskInterval = new Interval(startTime, stopTime, timerutil.getTotalIntervalSec(), timerutil.getTotalSec(), currentTask);
+            Interval taskInterval = new Interval(startTime, stopTime, LocalDate.now(), timerutil.getTotalIntervalSec(), timerutil.getTotalSec(), currentTask);
             System.out.println(taskInterval.getStartTime() + "@@@@@@@@@@@@@@@@@@@@@@");
             
             modelfacade.newInterval(taskInterval);

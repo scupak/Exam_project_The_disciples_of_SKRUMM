@@ -209,13 +209,16 @@ public class TaskDBDAO implements TaskDBDAOInterface
          return returnTask;
      }
      
-     public List<Task> getSixTasks() throws SQLException
+    @Override
+     public List<Task> getSixTasks(User user) throws SQLException
      {
          ArrayList<Task> tasks = new ArrayList<>();
 
         try (Connection con = dbCon.getConnection())
         {
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM [task] ORDER BY lastUsed LIMIT 6");
+            PreparedStatement ps = con.prepareStatement("SELECT TOP 6 * FROM [task] WHERE userEmail = ? ORDER BY lastUsed DESC");
+           
+            ps.setString(1, user.getEmail());
             ResultSet rs = ps.executeQuery();
 
             while (rs.next())
@@ -224,16 +227,18 @@ public class TaskDBDAO implements TaskDBDAOInterface
                 String title = rs.getString("title");
                 Project project = projectDBDAO.getProject(new Project(rs.getInt("ProjectID"), title, new Client(id, title, id, id), id));
                 int duration = rs.getInt("duration");
-                String clientName = project.getClientName();
                 LocalDateTime lastUsed = rs.getTimestamp("lastUsed").toLocalDateTime();
                 LocalDate creationDate = rs.getDate("creationDate").toLocalDate();
                 LocalTime startTime = rs.getTime("startTime").toLocalTime();
                 LocalTime stopTime = rs.getTime("stopTime").toLocalTime();
                 
-                String userEmail = rs.getString("userEmail");
-                User user = userDBDAO.getUser(new User(userEmail, clientName, clientName, title, false));                
+                String userEmail = rs.getString("userEmail");               
                 tasks.add(new Task(id, title, project, duration, lastUsed, creationDate, startTime, stopTime, user, tasks));
 
+            }
+            if(tasks.isEmpty())
+            {
+                System.out.println("no tasks for this user");
             }
 
             return tasks;
@@ -257,13 +262,14 @@ public class TaskDBDAO implements TaskDBDAOInterface
             String sql = "INSERT INTO [interval] VALUES (?,?,?,?,?)";
             PreparedStatement ps = con.prepareStatement(sql);
             
-            ps.setDate(1, java.sql.Date.valueOf(LocalDate.now()));
+            ps.setDate(1, java.sql.Date.valueOf(interval.getCreationDate()));
             ps.setTime(2, java.sql.Time.valueOf(interval.getStartTime()));
             ps.setTime(3, java.sql.Time.valueOf(interval.getStopTime()));
             ps.setInt(4, interval.getIntervalTime());
             ps.setInt(5, interval.getTask().getId());
             
             ps.executeUpdate();
+            
             
             
             String updateLastUsed = "UPDATE [task] SET lastUsed = ?, duration = ? WHERE id = ?";
@@ -282,18 +288,26 @@ public class TaskDBDAO implements TaskDBDAOInterface
         
         Client client = new Client(0, "why", 0, 0);
         Project project = new Project(0, "reeeeeeee", client, 0);
-        User user = new User("Kof", "kof", "kof", "fok", true);
+        User user = new User("admin@user.now", "kk", "kk", "kk", true);
         ArrayList<Task> intervals = new ArrayList<>();
         Task task = new Task(2, "rjo", project, 50, LocalDateTime.now(), LocalDate.now(), LocalTime.now(), LocalTime.now(), user, intervals);
        Task task2 = taskDBDAO.getTask(task);
        
-        System.out.println(task2);
+       ArrayList<Task> six = new ArrayList<>();
+       six.addAll(taskDBDAO.getSixTasks(user));
+       
+        for (Task task1 : six)
+        {
+            System.out.println(task1.toString());
+        }
+       
+        //System.out.println(task2);
 
        // System.out.println(task2);
        
-       Interval interval = new Interval(LocalTime.now(),LocalTime.now(), 600, 50, task);
+       //Interval interval = new Interval(LocalTime.now(),LocalTime.now(), 600, 50, task);
        
-       taskDBDAO.newInterval(interval);
+       //taskDBDAO.newInterval(interval);
         
     }
 

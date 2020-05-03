@@ -99,4 +99,10 @@ public class BLLFacade implements BLLFacadeInterface
         taskmanager.newInterval(interval);
     }
 
+    @Override
+    public List<Task> getSixTasks(User user) throws SQLException
+    {
+       return taskmanager.getSixTasks(user);
+    }
+
 }

@@ -150,5 +150,11 @@ public class DALFacade implements DALFacadeInterface
     {
         taskDBDAO.newInterval(interval);
     }
+
+    @Override
+    public List<Task> getSixTasks(User user) throws SQLException
+    {
+        return taskDBDAO.getSixTasks(user);
+    }
     
 }

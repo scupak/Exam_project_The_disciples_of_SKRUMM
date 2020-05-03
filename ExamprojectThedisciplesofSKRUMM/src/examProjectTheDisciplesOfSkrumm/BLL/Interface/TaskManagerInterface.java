@@ -8,7 +8,10 @@ package examProjectTheDisciplesOfSkrumm.BLL.Interface;
 import examProjectTheDisciplesOfSkrumm.BE.Client;
 import examProjectTheDisciplesOfSkrumm.BE.Interval;
 import examProjectTheDisciplesOfSkrumm.BE.Project;
+import examProjectTheDisciplesOfSkrumm.BE.Task;
+import examProjectTheDisciplesOfSkrumm.BE.User;
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  *
@@ -17,5 +20,7 @@ import java.sql.SQLException;
 public interface TaskManagerInterface 
 {
     public void newInterval(Interval interval) throws SQLException;
+    
+    public List<Task> getSixTasks(User user) throws SQLException;
     
 }

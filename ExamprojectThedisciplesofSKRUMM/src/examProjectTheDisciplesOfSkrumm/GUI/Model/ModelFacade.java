@@ -185,5 +185,11 @@ public class ModelFacade implements ModelFacadeInterface
     {
         taskmodel.newInterval(interval);
     }
+
+    @Override
+    public ObservableList<Task> getSixTasks(User user) throws SQLException
+    {
+        return taskmodel.getSixTasks(user);
+    }
     
 }

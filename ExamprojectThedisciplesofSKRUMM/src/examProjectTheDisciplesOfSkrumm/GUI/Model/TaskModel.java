@@ -25,6 +25,8 @@ import javafx.scene.Parent;
 import javafx.scene.control.TreeItem;
 import java.sql.SQLException;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
+import examProjectTheDisciplesOfSkrumm.BE.User;
+import java.util.List;
 
 /**
  *
@@ -38,7 +40,8 @@ public class TaskModel implements TaskModelInterface
     TaskModel() throws IOException
     {
         bllfacade = new BLLFacade();
-        tasks = FXCollections.observableArrayList();
+       
+        
     }
 
     
@@ -52,7 +55,8 @@ public class TaskModel implements TaskModelInterface
     @Override
     public void createTask(Task task) 
     {
-        tasks.add(task);
+        //tasks.add(task);
+        
        
         
     }
@@ -70,6 +74,15 @@ public class TaskModel implements TaskModelInterface
     {
         System.out.println(interval.getStartTime() + "!!!!!");
         bllfacade.newInterval(interval);
+    }
+    
+    @Override
+    public ObservableList<Task> getSixTasks(User user) throws SQLException
+    {
+        //ArrayList<Task> sixTasks = (ArrayList<Task>) bllfacade.getSixTasks(user);
+        ObservableList<Task> sixTasks = FXCollections.observableArrayList();
+        sixTasks.addAll(bllfacade.getSixTasks(user));
+        return sixTasks;
     }
     
     
