@@ -70,6 +70,8 @@ public class MainViewController implements Initializable
     private GridPane taskGrid;
     @FXML
     private JFXButton taskBtn;
+
+    private boolean adminCheck;
     @FXML
     private JFXButton clientsProjectBtn;
     @FXML
@@ -159,10 +161,13 @@ public class MainViewController implements Initializable
 
     public MainViewController()
     {
-       
+        adminCheck = false;
     }
 
-   
+    public void setAdminCheck(boolean adminCheck)
+    {
+        this.adminCheck = adminCheck;
+    }
 
     @FXML
     private void handleChartView(ActionEvent event) throws IOException

@@ -34,15 +34,18 @@ public class TaskDBDAO implements TaskDBDAOInterface
 
     private final DatabaseConnector dbCon;
     private UserDBDAO userDBDAO;
-    private ProjectDBDAO projectDBDAO;
 
     public TaskDBDAO() throws IOException {
         dbCon = new DatabaseConnector();
         userDBDAO = new UserDBDAO();
-        projectDBDAO = new ProjectDBDAO();
     }
 
+<<<<<<< HEAD
     public List<Task> getAllTasks() throws SQLException {
+=======
+    public List<Task> getAllTasks() throws SQLException
+    {
+>>>>>>> parent of 52a1e7c... getTaskworks
         ArrayList<Task> tasks = new ArrayList<>();
 
         try (Connection con = dbCon.getConnection()) {
@@ -73,8 +76,15 @@ public class TaskDBDAO implements TaskDBDAOInterface
         }
     }
 
+<<<<<<< HEAD
     public boolean taskExist(Task task) throws SQLException {
         try (Connection con = dbCon.getConnection()) {
+=======
+    public boolean taskExist(Task task) throws SQLException
+    {
+        try (Connection con = dbCon.getConnection())
+        {
+>>>>>>> parent of 52a1e7c... getTaskworks
             PreparedStatement ps = con.prepareStatement("SELECT * FROM [task] WHERE id = ?");
             ps.setInt(1, task.getId());
 
@@ -88,8 +98,15 @@ public class TaskDBDAO implements TaskDBDAOInterface
         }
     }
 
+<<<<<<< HEAD
     public Task createTask(Task task) throws SQLException {
         if (taskExist(task)) {
+=======
+    public Task createTask(Task task) throws SQLException
+    {
+        if (taskExist(task))
+        {
+>>>>>>> parent of 52a1e7c... getTaskworks
             return null;
         }
 
@@ -120,9 +137,17 @@ public class TaskDBDAO implements TaskDBDAOInterface
         }
 
     }
+<<<<<<< HEAD
 
     public Boolean updateTask(Task task) throws SQLException {
         if (!taskExist(task)) {
+=======
+    
+     public Boolean updateTask(Task task) throws SQLException
+        {
+            if (!taskExist(task))
+            {
+>>>>>>> parent of 52a1e7c... getTaskworks
             return null;
         }
 
@@ -146,7 +171,6 @@ public class TaskDBDAO implements TaskDBDAOInterface
 
         }
      
-    @Override
      public Task getTask(Task task) throws SQLException
      {
          if (!taskExist(task))
@@ -166,7 +190,7 @@ public class TaskDBDAO implements TaskDBDAOInterface
              if(rs.next())
              {
                  String title = rs.getString("title");
-                 Project project = projectDBDAO.getProject(new Project(rs.getInt("projectID"), "1", new Client(1, "1", 0, 0), 0));
+                 Project project = new Project(0, "reeeeeeee", new Client(0, "why", 0, 0), 0); //getProject
                  int duration = rs.getInt("duration");
                 String projectName = project.getProjectName();
                 String clientName = project.getClientName();
@@ -186,9 +210,26 @@ public class TaskDBDAO implements TaskDBDAOInterface
          return returnTask;
      }
 
+<<<<<<< HEAD
 
     @Override
      public void newInterval(Interval interval) throws SQLServerException, SQLException {
+=======
+    public static void main(String[] args) throws IOException, SQLException
+    {
+        TaskDBDAO taskDBDAO = new TaskDBDAO();
+        Client client = new Client(0, "why", 0, 0);
+        Project project = new Project(0, "reeeeeeee", client, 0);
+        User user = new User("Kof", "kof", "kof", "fok", true);
+        ArrayList<Task> intervals = new ArrayList<>();
+        Task task = new Task(5, "rjo", project, 50, LocalDateTime.now(), LocalDate.now(), LocalTime.now(), LocalTime.now(), user, intervals);
+       
+        System.out.println(taskDBDAO.getTask(task));
+    }
+
+    public void newInterval(Interval interval) throws SQLServerException, SQLException
+    {
+>>>>>>> parent of 52a1e7c... getTaskworks
         //set last used in the task
         //TODO implement transactions. 
 
