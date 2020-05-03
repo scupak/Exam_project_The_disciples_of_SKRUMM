@@ -238,27 +238,6 @@ public class TaskViewController implements Initializable
             }
          });
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-       
-        
-       
-        
-        
-        
-        
         //Creating the rootNodeTask
         TreeItem<Task> rootNodeTask = modelfacade.getModel();
         rootNodeTask.setExpanded(true);

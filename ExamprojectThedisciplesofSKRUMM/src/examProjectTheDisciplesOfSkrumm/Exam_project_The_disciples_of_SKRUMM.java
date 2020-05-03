@@ -45,10 +45,10 @@ public class Exam_project_The_disciples_of_SKRUMM extends Application
         Task task1 = new Task(1, "Making candy", project1, 0, LocalDateTime.now(),
                 LocalDate.now(), LocalTime.NOON, LocalTime.MIN,
                 new User("standard@user.now", "h", "l", "nemt", false), new ArrayList());
-        Task task2 = new Task(1, "Developing apps", project3, 532240, LocalDateTime.now(),
+        Task task2 = new Task(2, "Developing apps", project3, 532240, LocalDateTime.now(),
                 LocalDate.now(), LocalTime.NOON, LocalTime.MIN,
                 new User("standard@user.now", "h", "l", "nemt", false), new ArrayList() );
-        Task task3 = new Task(1, "World domination", project2, 3412, LocalDateTime.now(),
+        Task task3 = new Task(3, "World domination", project2, 3412, LocalDateTime.now(),
                 LocalDate.now(), LocalTime.NOON, LocalTime.MIN,
                 new User("standard@user.now", "h", "l", "nemt", false), new ArrayList() );
         Interval interval = new Interval(LocalTime.MIN, LocalTime.now(), LocalDate.now(), 666, 0, task2);

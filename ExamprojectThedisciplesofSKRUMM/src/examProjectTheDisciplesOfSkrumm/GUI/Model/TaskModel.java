@@ -40,7 +40,7 @@ public class TaskModel implements TaskModelInterface
     TaskModel() throws IOException
     {
         bllfacade = new BLLFacade();
-       
+       tasks = FXCollections.observableArrayList();
         
     }
 
@@ -55,10 +55,8 @@ public class TaskModel implements TaskModelInterface
     @Override
     public void createTask(Task task) 
     {
-        //tasks.add(task);
-        
-       
-        
+        tasks.add(task);
+         
     }
 
     public ObservableList<Task> getTasks() {
