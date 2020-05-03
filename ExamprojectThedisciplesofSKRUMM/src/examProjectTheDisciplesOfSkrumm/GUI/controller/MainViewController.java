@@ -424,7 +424,7 @@ public class MainViewController implements Initializable
             
         }
         
-        else
+        if (running)
         {
             button.setGraphic(Pause);
             button.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);

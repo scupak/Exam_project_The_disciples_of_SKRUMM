@@ -13,5 +13,5 @@ import examProjectTheDisciplesOfSkrumm.BE.Interval;
  */
 public interface ModelFacadeInterface extends TaskModelInterface, ProjectModelInterface, ClientModelInterface, UserModelInterface
 {
-    public void newInterval(Interval interval);
+    
 }
