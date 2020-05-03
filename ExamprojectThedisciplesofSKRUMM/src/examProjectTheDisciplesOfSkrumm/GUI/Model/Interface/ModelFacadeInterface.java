@@ -6,6 +6,7 @@
 package examProjectTheDisciplesOfSkrumm.GUI.Model.Interface;
 
 import examProjectTheDisciplesOfSkrumm.BE.Interval;
+import java.sql.SQLException;
 
 /**
  *
@@ -13,5 +14,5 @@ import examProjectTheDisciplesOfSkrumm.BE.Interval;
  */
 public interface ModelFacadeInterface extends TaskModelInterface, ProjectModelInterface, ClientModelInterface, UserModelInterface
 {
-    
+    public void newInterval(Interval interval) throws SQLException;
 }

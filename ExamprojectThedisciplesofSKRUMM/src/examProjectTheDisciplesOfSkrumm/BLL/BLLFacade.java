@@ -94,7 +94,7 @@ public class BLLFacade implements BLLFacadeInterface
     }
 
     @Override
-    public void newInterval(Interval interval)
+    public void newInterval(Interval interval) throws SQLException
     {
         taskmanager.newInterval(interval);
     }

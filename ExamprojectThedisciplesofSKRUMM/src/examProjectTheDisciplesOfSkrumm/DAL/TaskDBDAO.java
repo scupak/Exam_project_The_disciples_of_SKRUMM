@@ -34,13 +34,19 @@ public class TaskDBDAO implements TaskDBDAOInterface
 
     private final DatabaseConnector dbCon;
     private UserDBDAO userDBDAO;
+    private ProjectDBDAO projectDBDAO;
 
     public TaskDBDAO() throws IOException
     {
         dbCon = new DatabaseConnector();
         userDBDAO = new UserDBDAO();
+        projectDBDAO = new ProjectDBDAO();
     }
 
+
+
+   
+    @Override
     public List<Task> getAllTasks() throws SQLException
     {
         ArrayList<Task> returntasks = new ArrayList<>();
@@ -54,9 +60,8 @@ public class TaskDBDAO implements TaskDBDAOInterface
             {
                 int id = rs.getInt("id");
                 String title = rs.getString("title");
-                Project project = new Project(1, "need project table", new Client(1, "need client table", 5, 1), 755);
+                Project project = projectDBDAO.getProject(new Project(rs.getInt("ProjectID"), title, new Client(id, title, id, id), id));
                 int duration = rs.getInt("duration");
-                String projectName = project.getProjectName();
                 String clientName = project.getClientName();
                 LocalDateTime lastUsed = rs.getTimestamp("lastUsed").toLocalDateTime();
                 LocalDate creationDate = rs.getDate("creationDate").toLocalDate();
@@ -65,11 +70,7 @@ public class TaskDBDAO implements TaskDBDAOInterface
                 ArrayList<Interval> intervals = new ArrayList<Interval>();
                 String userEmail = rs.getString("userEmail");
                 User user = userDBDAO.getUser(new User(userEmail, clientName, clientName, title, false));
-                
-                
-
-
-                returntasks.add(new Task(id, title, project, duration, lastUsed, LocalDate.MIN, LocalTime.MIN, LocalTime.MIN, user, intervals));
+                returntasks.add(new Task(id, title, project, duration, lastUsed, creationDate, startTime, stopTime, user, tasks));
 
             }
 
@@ -95,6 +96,7 @@ public class TaskDBDAO implements TaskDBDAOInterface
             return false;
         }
     }
+
 
     public Task createTask(Task task) throws SQLException
     {
@@ -135,7 +137,7 @@ public class TaskDBDAO implements TaskDBDAOInterface
        
 
     }
-    
+
      public Boolean updateTask(Task task) throws SQLException
         {
             if (!taskExist(task))
@@ -186,7 +188,7 @@ public class TaskDBDAO implements TaskDBDAOInterface
              if(rs.next())
              {
                  String title = rs.getString("title");
-                 Project project = new Project(0, "reeeeeeee", new Client(0, "why", 0, 0), 0); //getProject
+                 Project project = projectDBDAO.getProject(new Project(rs.getInt("projectID"), title, new Client(0, title, 0, 0), 0));
                  int duration = rs.getInt("duration");
                 String projectName = project.getProjectName();
                 String clientName = project.getClientName();
@@ -199,31 +201,59 @@ public class TaskDBDAO implements TaskDBDAOInterface
                 User user = userDBDAO.getUser(new User(userEmail, clientName, clientName, title, true));
                 
                 returnTask = new Task(task.getId(), title, project, duration, lastUsed, creationDate, startTime, stopTime, user, intervals);
+                
              }
              
          }
          
          return returnTask;
      }
+     
+     public List<Task> getSixTasks() throws SQLException
+     {
+         ArrayList<Task> tasks = new ArrayList<>();
 
-    public static void main(String[] args) throws IOException, SQLException
-    {
-        TaskDBDAO taskDBDAO = new TaskDBDAO();
-        Client client = new Client(0, "why", 0, 0);
-        Project project = new Project(0, "reeeeeeee", client, 0);
-        User user = new User("Kof", "kof", "kof", "fok", true);
-        ArrayList<Interval> intervals = new ArrayList<>();
-        Task task = new Task(5, "rjo", project, 50, LocalDateTime.now(), LocalDate.now(), LocalTime.now(), LocalTime.now(), user, intervals);
-       
-        System.out.println(taskDBDAO.getTask(task));
-    }
+        try (Connection con = dbCon.getConnection())
+        {
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM [task] ORDER BY lastUsed LIMIT 6");
+            ResultSet rs = ps.executeQuery();
 
+            while (rs.next())
+            {
+                int id = rs.getInt("id");
+                String title = rs.getString("title");
+                Project project = projectDBDAO.getProject(new Project(rs.getInt("ProjectID"), title, new Client(id, title, id, id), id));
+                int duration = rs.getInt("duration");
+                String clientName = project.getClientName();
+                LocalDateTime lastUsed = rs.getTimestamp("lastUsed").toLocalDateTime();
+                LocalDate creationDate = rs.getDate("creationDate").toLocalDate();
+                LocalTime startTime = rs.getTime("startTime").toLocalTime();
+                LocalTime stopTime = rs.getTime("stopTime").toLocalTime();
+                
+                String userEmail = rs.getString("userEmail");
+                User user = userDBDAO.getUser(new User(userEmail, clientName, clientName, title, false));                
+                tasks.add(new Task(id, title, project, duration, lastUsed, creationDate, startTime, stopTime, user, tasks));
+
+            }
+
+            return tasks;
+
+        }
+     }
+
+
+
+   
+    @Override
     public void newInterval(Interval interval) throws SQLServerException, SQLException
     {
         //set last used in the task
+        //TODO implement transactions. 
+
+       
         
-        try(Connection con = dbCon.getConnection())
-        {
+        
+        try (Connection con = dbCon.getConnection()) {
             String sql = "INSERT INTO [interval] VALUES (?,?,?,?,?)";
             PreparedStatement ps = con.prepareStatement(sql);
             
@@ -233,7 +263,7 @@ public class TaskDBDAO implements TaskDBDAOInterface
             ps.setInt(4, interval.getIntervalTime());
             ps.setInt(5, interval.getTask().getId());
             
-            ps.executeQuery();
+            ps.executeUpdate();
             
             
             String updateLastUsed = "UPDATE [task] SET lastUsed = ?, duration = ? WHERE id = ?";
@@ -243,7 +273,28 @@ public class TaskDBDAO implements TaskDBDAOInterface
             ps2.setInt(2, interval.getTask().getDuration() + interval.getIntervalTime());
             ps2.setInt(3, interval.getTask().getId());
             
-            ps.executeUpdate();
+            ps2.executeUpdate();
         }
     }
+
+    public static void main(String[] args) throws IOException, SQLException {
+        TaskDBDAO taskDBDAO = new TaskDBDAO();
+        
+        Client client = new Client(0, "why", 0, 0);
+        Project project = new Project(0, "reeeeeeee", client, 0);
+        User user = new User("Kof", "kof", "kof", "fok", true);
+        ArrayList<Task> intervals = new ArrayList<>();
+        Task task = new Task(2, "rjo", project, 50, LocalDateTime.now(), LocalDate.now(), LocalTime.now(), LocalTime.now(), user, intervals);
+       Task task2 = taskDBDAO.getTask(task);
+       
+        System.out.println(task2);
+
+       // System.out.println(task2);
+       
+       Interval interval = new Interval(LocalTime.now(),LocalTime.now(), 600, 50, task);
+       
+       taskDBDAO.newInterval(interval);
+        
+    }
+
 }

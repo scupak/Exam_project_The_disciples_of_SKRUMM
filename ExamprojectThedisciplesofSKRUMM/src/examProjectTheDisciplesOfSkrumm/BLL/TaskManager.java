@@ -24,7 +24,6 @@ public class TaskManager implements TaskManagerInterface
     private DALFacade dal;
     
     
-    @Override
     public void newInterval(Interval interval)
     {
         try
@@ -34,7 +33,6 @@ public class TaskManager implements TaskManagerInterface
         {
             Logger.getLogger(TaskManager.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
     }
     
     
