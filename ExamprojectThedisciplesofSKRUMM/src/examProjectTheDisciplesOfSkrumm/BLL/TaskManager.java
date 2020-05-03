@@ -24,6 +24,7 @@ public class TaskManager implements TaskManagerInterface
     private DALFacade dal;
     
     
+    @Override
     public void newInterval(Interval interval)
     {
         try
