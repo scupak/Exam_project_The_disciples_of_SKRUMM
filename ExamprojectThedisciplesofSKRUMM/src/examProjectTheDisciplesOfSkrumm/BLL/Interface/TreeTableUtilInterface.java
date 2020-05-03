@@ -19,6 +19,6 @@ public interface TreeTableUtilInterface
 {
   
     
-    public TreeItem<Task> getModel(ObservableList<Task> tasks);
+    public TreeItem getModel(ObservableList<Task> tasks);
     
 }

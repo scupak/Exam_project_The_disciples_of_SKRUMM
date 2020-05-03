@@ -1,13 +1,18 @@
 /* Got help and inspiration for this class from 
-Pomarolli, A. (3. 10 2016). 
-Java Code Geeks. 
-Hentet fra javafx-treetableview-example: https://examples.javacodegeeks.com/desktop-java/javafx/javafx-treetableview-example/
-Also got help and inspiration from James_D. (7. 3 2014).
-set-two-root-nodes-for-treeview.
-Hentet fra stackoverflow.com: https://stackoverflow.com/questions/22260032/set-two-root-nodes-for-treeview/22260167*/
+
+Pomarolli, A. (Set D. 24-04-20) Java Code Geeks. https://examples.javacodegeeks.com/desktop-java/javafx/javafx-treetableview-example/
+En guide til hvordan man kan bruge TreeTableViews
+ 
+James_D. (Set D. 24-04-20) StackOverflow. https://stackoverflow.com/questions/22260032/set-two-root-nodes-for-treeview/22260167
+En guide til hvordan man kan gemme TreeTableViews
+ 
+Ranga. (Set D. 03-05-20) javanbswing.blogspot.com. http://javanbswing.blogspot.com/2016/06/javafx-treetableview-example-with.html
+En guide til hvordan man kan have to forskellige slags objekter i en treeTableView.
+*/
 package examProjectTheDisciplesOfSkrumm.GUI.controller;
 
 import com.jfoenix.controls.JFXButton;
+import examProjectTheDisciplesOfSkrumm.BE.Interval;
 import examProjectTheDisciplesOfSkrumm.BE.Task;
 import examProjectTheDisciplesOfSkrumm.BLL.Util.TreeTableUtil;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.ModelFacadeInterface;
@@ -19,6 +24,7 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -45,9 +51,9 @@ public class TaskViewController implements Initializable
 {
     ModelFacadeInterface modelfacade;
     @FXML
-    private TreeTableView<Task> TaskTable;
+    private TreeTableView TaskTable;
     @FXML
-    private TreeTableColumn<Task, Integer> TimeColumn;
+    private TreeTableColumn TimeColumn;
     @FXML
     private JFXButton homeBtn;
     @FXML
@@ -57,7 +63,7 @@ public class TaskViewController implements Initializable
     @FXML
     private JFXButton createTaskButton;
     @FXML
-    private TreeTableColumn<Task, String> clientColumn;
+    private TreeTableColumn clientColumn;
     @FXML
     private Label weekNumberLabel;
     @FXML
@@ -67,9 +73,9 @@ public class TaskViewController implements Initializable
     @FXML
     private Label CurrentTaskLabel;
     @FXML
-    private TreeTableColumn<Task, String> TaskColumn;
+    private TreeTableColumn TaskColumn;
     @FXML
-    private TreeTableColumn<Task, String> ProjectColumn;
+    private TreeTableColumn ProjectColumn;
     @FXML
     private Label timeLabel;
 
@@ -78,11 +84,11 @@ public class TaskViewController implements Initializable
     private int hour = 0;
     private boolean running = false;
     @FXML
-    private TreeTableColumn<Task, LocalTime> startTimeColumn;
+    private TreeTableColumn startTimeColumn;
     @FXML
-    private TreeTableColumn<Task, Integer> IsPaidColumn;
+    private TreeTableColumn IsPaidColumn;
     @FXML
-    private TreeTableColumn<Task, LocalTime> stopTimeColumn;
+    private TreeTableColumn stopTimeColumn;
 
     /**
      * Initializes the controller class.
@@ -100,13 +106,158 @@ public class TaskViewController implements Initializable
         //Making some mock tasks
         
         //Setting cellValue Factories for TreeTableView 
-        TaskColumn.setCellValueFactory(new TreeItemPropertyValueFactory<>("title"));
-        ProjectColumn.setCellValueFactory(new TreeItemPropertyValueFactory<>("projectName"));
-        TimeColumn.setCellValueFactory(new TreeItemPropertyValueFactory<>("duration"));
-        clientColumn.setCellValueFactory(new TreeItemPropertyValueFactory<>("clientName"));
-        startTimeColumn.setCellValueFactory(new TreeItemPropertyValueFactory<>("startTime"));
-        stopTimeColumn.setCellValueFactory(new TreeItemPropertyValueFactory<>("stopTime"));
-        IsPaidColumn.setCellValueFactory(new TreeItemPropertyValueFactory<>("isPaid"));
+        TaskColumn.setCellValueFactory( new Callback() {
+            @Override
+            public Object call(Object obj) 
+            {
+                final Object dataObj = ((TreeTableColumn.CellDataFeatures) obj).getValue().getValue();
+                if (dataObj instanceof Task)
+                {
+                    return new ReadOnlyStringWrapper(((Task) dataObj).getTitle());
+                }
+                else
+                {
+                    return null;
+                }
+                
+            }
+        });
+        
+        
+        ProjectColumn.setCellValueFactory(new Callback() {
+            @Override
+            public Object call(Object obj) 
+            {
+                final Object dataObj = ((TreeTableColumn.CellDataFeatures) obj).getValue().getValue();
+                if (dataObj instanceof Task)
+                {
+                    return new ReadOnlyStringWrapper(((Task) dataObj).getProjectName());
+                }
+                else
+                {
+                    return null;
+                }
+                   
+               
+            }
+        });
+        
+        
+        TimeColumn.setCellValueFactory( new Callback() {
+            @Override
+            public Object call(Object obj) 
+            {
+                final Object dataObj = ((TreeTableColumn.CellDataFeatures) obj).getValue().getValue();
+                if (dataObj instanceof Task)
+                {
+                    return new ReadOnlyStringWrapper(String.valueOf(((Task) dataObj).getDuration()));
+                }
+                else  if (dataObj instanceof Interval)
+                {
+                    return new ReadOnlyStringWrapper(String.valueOf(((Interval) dataObj).getIntervalTime()));
+                }
+                else
+                {
+                    return null;
+                }
+                
+            }
+        });
+        
+         clientColumn.setCellValueFactory(new Callback() {
+            @Override
+            public Object call(Object obj) 
+            {
+                final Object dataObj = ((TreeTableColumn.CellDataFeatures) obj).getValue().getValue();
+                if (dataObj instanceof Task)
+                {
+                    return new ReadOnlyStringWrapper(((Task) dataObj).getClientName());
+                }
+                else
+                {
+                    return null;
+                }
+                
+            }
+         });
+         
+         startTimeColumn.setCellValueFactory(new Callback() {
+            @Override
+            public Object call(Object obj) 
+            {
+                final Object dataObj = ((TreeTableColumn.CellDataFeatures) obj).getValue().getValue();
+                if (dataObj instanceof Interval)
+                {
+                    return new ReadOnlyStringWrapper(((Interval) dataObj).getStartTime().toString());
+                }
+                else if(dataObj instanceof Task)
+                {
+                     return new ReadOnlyStringWrapper(((Task) dataObj).getStartTime().toString());
+                }
+                else
+                {
+                    return null;
+                }
+                
+            }
+         });
+         
+         stopTimeColumn.setCellValueFactory(new Callback() {
+            @Override
+            public Object call(Object obj) 
+            {
+                final Object dataObj = ((TreeTableColumn.CellDataFeatures) obj).getValue().getValue();
+                if (dataObj instanceof Interval)
+                {
+                    return new ReadOnlyStringWrapper(((Interval) dataObj).getStopTime().toString());
+                }
+                else if(dataObj instanceof Task)
+                {
+                     return new ReadOnlyStringWrapper(((Task) dataObj).getStopTime().toString());
+                }
+                else
+                {
+                    return null;
+                }
+                
+            }
+         });
+         
+         IsPaidColumn.setCellValueFactory(new Callback() {
+            @Override
+            public Object call(Object obj) {
+                final Object dataObj = ((TreeTableColumn.CellDataFeatures) obj).getValue().getValue();
+                if (dataObj instanceof Task)
+                {
+                    return new ReadOnlyStringWrapper(((Task) dataObj).getIsPaidBoolean());
+                }
+                else
+                {
+                    return null;
+                }
+            }
+         });
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+       
+        
+       
+        
+        
+        
         
         //Creating the rootNodeTask
         TreeItem<Task> rootNodeTask = modelfacade.getModel();

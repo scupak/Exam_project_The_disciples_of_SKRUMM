@@ -9,6 +9,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import examProjectTheDisciplesOfSkrumm.BE.Client;
+import examProjectTheDisciplesOfSkrumm.BE.Interval;
 import examProjectTheDisciplesOfSkrumm.BE.Project;
 import examProjectTheDisciplesOfSkrumm.BE.Task;
 import examProjectTheDisciplesOfSkrumm.BE.User;
@@ -92,7 +93,7 @@ public class CreateTaskController implements Initializable
                 LocalDate creationDate = LocalDate.now();
                 LocalTime startTime = LocalTime.MIN;
                 LocalTime stopTime = LocalTime.MIN;
-                ArrayList<Task> intervals = new ArrayList<Task>();
+                ArrayList<Interval> intervals = new ArrayList<Interval>();
                 User user = modelfacade.getCurrentuser();
        
         
@@ -123,7 +124,7 @@ public class CreateTaskController implements Initializable
                 LocalDate creationDate = LocalDate.now();
                 LocalTime startTime = LocalTime.MIN;
                 LocalTime stopTime = LocalTime.MIN;
-                ArrayList<Task> intervals = new ArrayList<Task>();
+                ArrayList<Interval> intervals = new ArrayList<Interval>();
                 User user = modelfacade.getCurrentuser();
        
         

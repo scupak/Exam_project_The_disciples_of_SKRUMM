@@ -6,6 +6,7 @@
 package examProjectTheDisciplesOfSkrumm;
 
 import examProjectTheDisciplesOfSkrumm.BE.Client;
+import examProjectTheDisciplesOfSkrumm.BE.Interval;
 import examProjectTheDisciplesOfSkrumm.BE.Project;
 import examProjectTheDisciplesOfSkrumm.BE.Task;
 import examProjectTheDisciplesOfSkrumm.BE.User;
@@ -40,20 +41,31 @@ public class Exam_project_The_disciples_of_SKRUMM extends Application
         modelfacade.CreateProject(project1);
         modelfacade.CreateProject(project2);
         modelfacade.CreateProject(project3);
-        Task interval1 = new Task(1, "Developing apps", project3, 432240, LocalDateTime.now(),
-                LocalDate.now(), LocalTime.of(1, 20, 50), LocalTime.of(3, 24, 50),
-                new User("standard@user.now", "h", "l", "nemt", false), new ArrayList());
-        ArrayList<Task> intervals = new ArrayList<Task>();
-        intervals.add(interval1);
+        
         Task task1 = new Task(1, "Making candy", project1, 0, LocalDateTime.now(),
-                LocalDate.now(), LocalTime.MIN, LocalTime.MIN,
+                LocalDate.now(), LocalTime.NOON, LocalTime.MIN,
                 new User("standard@user.now", "h", "l", "nemt", false), new ArrayList());
         Task task2 = new Task(1, "Developing apps", project3, 532240, LocalDateTime.now(),
-                LocalDate.now(), LocalTime.MIN, LocalTime.MIN,
-                new User("standard@user.now", "h", "l", "nemt", false), intervals);
+                LocalDate.now(), LocalTime.NOON, LocalTime.MIN,
+                new User("standard@user.now", "h", "l", "nemt", false), new ArrayList() );
+        Task task3 = new Task(1, "World domination", project2, 3412, LocalDateTime.now(),
+                LocalDate.now(), LocalTime.NOON, LocalTime.MIN,
+                new User("standard@user.now", "h", "l", "nemt", false), new ArrayList() );
+        Interval interval = new Interval(LocalTime.MIN, LocalTime.now(), 666, 0, task2);
+        Interval interva2 = new Interval(LocalTime.MIN, LocalTime.now(), 420, 0, task2);
+        Interval interva3 = new Interval(LocalTime.MIN, LocalTime.now(), 777, 0, task3);
+        ArrayList<Interval> intervals1 = new ArrayList<Interval>();
+        intervals1.add(interval);
+        intervals1.add(interva2);
+        ArrayList<Interval> intervals2 = new ArrayList<Interval>();
+        intervals2.add(interva3);
+        task2.setIntervals(intervals1);
+        task3.setIntervals(intervals2);
+        
         
         modelfacade.createTask(task1);
         modelfacade.createTask(task2);
+        modelfacade.createTask(task3);
                 
         Parent root = FXMLLoader.load(getClass().getResource("GUI/view/LoginView.fxml"));
         //Parent root = FXMLLoader.load(getClass().getResource("GUI/view/TimeView.fxml"));
