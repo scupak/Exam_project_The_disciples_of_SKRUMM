@@ -60,9 +60,8 @@ public class TaskDBDAO implements TaskDBDAOInterface
             {
                 int id = rs.getInt("id");
                 String title = rs.getString("title");
-                Project project = new Project(1, "need project table", new Client(1, "need client table", 5, 1), 755);
+                Project project = projectDBDAO.getProject(new Project(rs.getInt("ProjectID"), title, new Client(id, title, id, id), id));
                 int duration = rs.getInt("duration");
-                String projectName = project.getProjectName();
                 String clientName = project.getClientName();
                 LocalDateTime lastUsed = rs.getTimestamp("lastUsed").toLocalDateTime();
                 LocalDate creationDate = rs.getDate("creationDate").toLocalDate();
@@ -71,11 +70,7 @@ public class TaskDBDAO implements TaskDBDAOInterface
                 
                 String userEmail = rs.getString("userEmail");
                 User user = userDBDAO.getUser(new User(userEmail, clientName, clientName, title, false));
-                
-                
-
-
-                tasks.add(new Task(id, title, project, duration, lastUsed, LocalDate.MIN, LocalTime.MIN, LocalTime.MIN, user, tasks));
+                tasks.add(new Task(id, title, project, duration, lastUsed, creationDate, startTime, stopTime, user, tasks));
 
             }
 
@@ -206,11 +201,44 @@ public class TaskDBDAO implements TaskDBDAOInterface
                 User user = userDBDAO.getUser(new User(userEmail, clientName, clientName, title, true));
                 
                 returnTask = new Task(task.getId(), title, project, duration, lastUsed, creationDate, startTime, stopTime, user, intervals);
+                
              }
              
          }
          
          return returnTask;
+     }
+     
+     public List<Task> getSixTasks() throws SQLException
+     {
+         ArrayList<Task> tasks = new ArrayList<>();
+
+        try (Connection con = dbCon.getConnection())
+        {
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM [task] ORDER BY lastUsed LIMIT 6");
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next())
+            {
+                int id = rs.getInt("id");
+                String title = rs.getString("title");
+                Project project = projectDBDAO.getProject(new Project(rs.getInt("ProjectID"), title, new Client(id, title, id, id), id));
+                int duration = rs.getInt("duration");
+                String clientName = project.getClientName();
+                LocalDateTime lastUsed = rs.getTimestamp("lastUsed").toLocalDateTime();
+                LocalDate creationDate = rs.getDate("creationDate").toLocalDate();
+                LocalTime startTime = rs.getTime("startTime").toLocalTime();
+                LocalTime stopTime = rs.getTime("stopTime").toLocalTime();
+                
+                String userEmail = rs.getString("userEmail");
+                User user = userDBDAO.getUser(new User(userEmail, clientName, clientName, title, false));                
+                tasks.add(new Task(id, title, project, duration, lastUsed, creationDate, startTime, stopTime, user, tasks));
+
+            }
+
+            return tasks;
+
+        }
      }
 
 
