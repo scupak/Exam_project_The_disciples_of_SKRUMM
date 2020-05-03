@@ -7,11 +7,14 @@ package examProjectTheDisciplesOfSkrumm.DAL;
 
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import examProjectTheDisciplesOfSkrumm.BE.Client;
+import examProjectTheDisciplesOfSkrumm.BE.Interval;
 import examProjectTheDisciplesOfSkrumm.BE.Project;
+import examProjectTheDisciplesOfSkrumm.BE.Task;
 import examProjectTheDisciplesOfSkrumm.BE.User;
 import examProjectTheDisciplesOfSkrumm.DAL.Interface.ClientDBDAOInterface;
 import examProjectTheDisciplesOfSkrumm.DAL.Interface.DALFacadeInterface;
 import examProjectTheDisciplesOfSkrumm.DAL.Interface.ProjectDBDAOInterface;
+import examProjectTheDisciplesOfSkrumm.DAL.Interface.TaskDBDAOInterface;
 import examProjectTheDisciplesOfSkrumm.DAL.Interface.UserDBDAOInterface;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -26,6 +29,7 @@ public class DALFacade implements DALFacadeInterface
     private UserDBDAOInterface userDBDAO;
     private ClientDBDAOInterface clientDBDAO;
     private ProjectDBDAOInterface projecDBDAO;
+    private TaskDBDAOInterface taskDBDAO;
 
 
     public DALFacade() throws IOException
@@ -33,6 +37,7 @@ public class DALFacade implements DALFacadeInterface
         userDBDAO = new UserDBDAO();
         clientDBDAO = new ClientDBDAO();
         projecDBDAO = new ProjectDBDAO();
+        taskDBDAO = new TaskDBDAO();
     }
     
     @Override
@@ -108,6 +113,42 @@ public class DALFacade implements DALFacadeInterface
     @Override
     public Project getProject(Project project) throws SQLException {
         return projecDBDAO.getProject(project);
+    }
+
+    @Override
+    public List<Task> getAllTasks() throws SQLException
+    {
+        return taskDBDAO.getAllTasks();
+    }
+
+    @Override
+    public boolean taskExist(Task task) throws SQLException
+    {
+        return taskDBDAO.taskExist(task);
+    }
+
+    @Override
+    public Task createTask(Task task) throws SQLException
+    {
+        return taskDBDAO.createTask(task);
+    }
+
+    @Override
+    public Boolean updateTask(Task task) throws SQLException
+    {
+        return taskDBDAO.updateTask(task);
+    }
+
+    @Override
+    public Task getTask(Task task) throws SQLException
+    {
+        return taskDBDAO.getTask(task);
+    }
+
+    @Override
+    public void newInterval(Interval interval) throws SQLServerException, SQLException
+    {
+        taskDBDAO.newInterval(interval);
     }
     
 }

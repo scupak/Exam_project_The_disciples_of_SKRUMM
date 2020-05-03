@@ -11,6 +11,7 @@ import examProjectTheDisciplesOfSkrumm.BE.Interval;
 import examProjectTheDisciplesOfSkrumm.BE.Project;
 import examProjectTheDisciplesOfSkrumm.BE.Task;
 import examProjectTheDisciplesOfSkrumm.BE.User;
+import examProjectTheDisciplesOfSkrumm.DAL.Interface.TaskDBDAOInterface;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +29,8 @@ import java.time.LocalTime;
  *
  * @author lumby
  */
-public class TaskDBDAO {
+public class TaskDBDAO implements TaskDBDAOInterface
+{
 
     private final DatabaseConnector dbCon;
     private UserDBDAO userDBDAO;

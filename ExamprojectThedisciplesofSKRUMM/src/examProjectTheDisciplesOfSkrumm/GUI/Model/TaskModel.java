@@ -63,6 +63,7 @@ public class TaskModel implements TaskModelInterface
         this.tasks = tasks;
     }
     
+    @Override
     public void newInterval(Interval interval)
     {
         bllfacade.newInterval(interval);
