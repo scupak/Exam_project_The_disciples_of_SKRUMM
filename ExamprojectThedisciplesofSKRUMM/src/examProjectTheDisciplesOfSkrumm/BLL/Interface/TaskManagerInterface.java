@@ -6,6 +6,7 @@
 package examProjectTheDisciplesOfSkrumm.BLL.Interface;
 
 import examProjectTheDisciplesOfSkrumm.BE.Client;
+import examProjectTheDisciplesOfSkrumm.BE.Interval;
 import examProjectTheDisciplesOfSkrumm.BE.Project;
 
 /**
@@ -14,5 +15,6 @@ import examProjectTheDisciplesOfSkrumm.BE.Project;
  */
 public interface TaskManagerInterface 
 {
-     
+    public Interval newInterval(Interval interval);
+    
 }

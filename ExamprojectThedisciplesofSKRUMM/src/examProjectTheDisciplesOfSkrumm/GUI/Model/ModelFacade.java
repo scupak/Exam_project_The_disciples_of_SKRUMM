@@ -7,6 +7,7 @@ package examProjectTheDisciplesOfSkrumm.GUI.Model;
 
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import examProjectTheDisciplesOfSkrumm.BE.Client;
+import examProjectTheDisciplesOfSkrumm.BE.Interval;
 import examProjectTheDisciplesOfSkrumm.BE.Project;
 import examProjectTheDisciplesOfSkrumm.BE.Task;
 import examProjectTheDisciplesOfSkrumm.BE.User;
@@ -17,6 +18,7 @@ import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.TaskModelInterface;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.UserModelInterface;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.List;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TreeItem;
@@ -176,6 +178,12 @@ public class ModelFacade implements ModelFacadeInterface
     @Override
     public void setCurrentuser(User currentuser) {
         userModel.setCurrentuser(currentuser);
+    }
+    
+    @Override
+    public void newInterval(Interval interval)
+    {
+        taskmodel.newInterval(interval);
     }
     
 }

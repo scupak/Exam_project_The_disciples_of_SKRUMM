@@ -6,6 +6,7 @@
 package examProjectTheDisciplesOfSkrumm.GUI.Model;
 
 import examProjectTheDisciplesOfSkrumm.BE.Client;
+import examProjectTheDisciplesOfSkrumm.BE.Interval;
 import examProjectTheDisciplesOfSkrumm.BE.Project;
 import examProjectTheDisciplesOfSkrumm.BE.Task;
 import examProjectTheDisciplesOfSkrumm.BLL.BLLFacade;
@@ -13,6 +14,7 @@ import examProjectTheDisciplesOfSkrumm.BLL.Interface.BLLFacadeInterface;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.TaskModelInterface;
 import examProjectTheDisciplesOfSkrumm.GUI.controller.TaskViewController;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -61,7 +63,10 @@ public class TaskModel implements TaskModelInterface
         this.tasks = tasks;
     }
     
-    
+    public void newInterval(Interval interval)
+    {
+        bllfacade.newInterval(interval);
+    }
     
     
 }
