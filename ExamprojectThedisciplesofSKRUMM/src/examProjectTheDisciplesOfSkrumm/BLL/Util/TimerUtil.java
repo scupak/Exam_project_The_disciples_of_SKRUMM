@@ -71,6 +71,7 @@ public class TimerUtil implements Runnable
                         sec++;
                         intervalsec++;
                         totalSec++;
+                        totalIntervalsec++;
 
                         if (sec >= 60) {
                             min++;
@@ -138,9 +139,24 @@ public class TimerUtil implements Runnable
      
      }
             
-    public int getTotalsec(){
+    public int getTotalSec(){
     return totalSec;
     }
+
+    public void setTotalSec(int totalSec) {
+        this.totalSec = totalSec;
+    }
+
+    public int getTotalIntervalSec() {
+        return totalIntervalsec;
+    }
+
+    public void setTotalIntervalSec(int totalIntervalsec) {
+        this.totalIntervalsec = totalIntervalsec;
+    }
+    
+    
+    
 
     public Label getTotalTimeLabel() {
         return totaltimeLabel;
