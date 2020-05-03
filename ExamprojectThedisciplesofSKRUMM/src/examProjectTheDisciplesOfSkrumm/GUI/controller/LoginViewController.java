@@ -75,11 +75,6 @@ public class LoginViewController implements Initializable {
         Parent root = loader.load();
         MainViewController controller = loader.getController();
         
-        if(user.getIsAdmin() == true)
-        {
-            controller.setAdminCheck(true);
-            
-        }
         
         Stage stage = new Stage();
         stage.setScene(new Scene(root));

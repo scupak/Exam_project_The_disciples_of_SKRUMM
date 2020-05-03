@@ -34,13 +34,16 @@ public class TaskDBDAO implements TaskDBDAOInterface
 
     private final DatabaseConnector dbCon;
     private UserDBDAO userDBDAO;
+    private ProjectDBDAO projectDBDAO;
 
     public TaskDBDAO() throws IOException
     {
         dbCon = new DatabaseConnector();
         userDBDAO = new UserDBDAO();
+        projectDBDAO = new ProjectDBDAO();
     }
 
+    @Override
     public List<Task> getAllTasks() throws SQLException
     {
         ArrayList<Task> tasks = new ArrayList<>();
@@ -78,6 +81,7 @@ public class TaskDBDAO implements TaskDBDAOInterface
         }
     }
 
+    @Override
     public boolean taskExist(Task task) throws SQLException
     {
         try (Connection con = dbCon.getConnection())
@@ -96,6 +100,7 @@ public class TaskDBDAO implements TaskDBDAOInterface
         }
     }
 
+    @Override
     public Task createTask(Task task) throws SQLException
     {
         if (taskExist(task))
@@ -136,6 +141,7 @@ public class TaskDBDAO implements TaskDBDAOInterface
 
     }
     
+    @Override
      public Boolean updateTask(Task task) throws SQLException
         {
             if (!taskExist(task))
@@ -167,6 +173,7 @@ public class TaskDBDAO implements TaskDBDAOInterface
             
         }
      
+    @Override
      public Task getTask(Task task) throws SQLException
      {
          if (!taskExist(task))
@@ -186,7 +193,7 @@ public class TaskDBDAO implements TaskDBDAOInterface
              if(rs.next())
              {
                  String title = rs.getString("title");
-                 Project project = new Project(0, "reeeeeeee", new Client(0, "why", 0, 0), 0); //getProject
+                 Project project = projectDBDAO.getProject(new Project(rs.getInt("projectID"), "1", new Client(1, "1", 0, 0), 0));
                  int duration = rs.getInt("duration");
                 String projectName = project.getProjectName();
                 String clientName = project.getClientName();
@@ -214,10 +221,12 @@ public class TaskDBDAO implements TaskDBDAOInterface
         User user = new User("Kof", "kof", "kof", "fok", true);
         ArrayList<Task> intervals = new ArrayList<>();
         Task task = new Task(5, "rjo", project, 50, LocalDateTime.now(), LocalDate.now(), LocalTime.now(), LocalTime.now(), user, intervals);
+       Task task2 = taskDBDAO.getTask(task);
        
-        System.out.println(taskDBDAO.getTask(task));
+        System.out.println(task2);
     }
 
+    @Override
     public void newInterval(Interval interval) throws SQLServerException, SQLException
     {
         //set last used in the task
