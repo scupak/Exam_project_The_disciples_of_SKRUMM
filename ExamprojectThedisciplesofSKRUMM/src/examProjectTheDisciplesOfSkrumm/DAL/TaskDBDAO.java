@@ -185,6 +185,9 @@ public class TaskDBDAO implements TaskDBDAOInterface
         //set last used in the task
         //TODO implement transactions. 
 
+       
+        
+        
         try (Connection con = dbCon.getConnection()) {
             String sql = "INSERT INTO [interval] VALUES (?,?,?,?,?)";
             PreparedStatement ps = con.prepareStatement(sql);

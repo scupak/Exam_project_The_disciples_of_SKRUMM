@@ -34,6 +34,7 @@ public class TaskManager implements TaskManagerInterface
     @Override
     public void newInterval(Interval interval) throws SQLServerException, SQLException
     {
+        
         dal.newInterval(interval);
     }
 }
