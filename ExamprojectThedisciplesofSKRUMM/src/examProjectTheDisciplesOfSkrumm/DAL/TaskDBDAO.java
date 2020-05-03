@@ -35,24 +35,32 @@ public class TaskDBDAO implements TaskDBDAOInterface
     private final DatabaseConnector dbCon;
     private UserDBDAO userDBDAO;
 
-    public TaskDBDAO() throws IOException {
+    public TaskDBDAO() throws IOException
+    {
         dbCon = new DatabaseConnector();
         userDBDAO = new UserDBDAO();
     }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     public List<Task> getAllTasks() throws SQLException {
 =======
     public List<Task> getAllTasks() throws SQLException
     {
 >>>>>>> parent of 52a1e7c... getTaskworks
+=======
+    public List<Task> getAllTasks() throws SQLException
+    {
+>>>>>>> parent of 61096ed... Merge branch 'master' of https://github.com/scupak/Exam_project_The_disciples_of_SKRUMM
         ArrayList<Task> tasks = new ArrayList<>();
 
-        try (Connection con = dbCon.getConnection()) {
+        try (Connection con = dbCon.getConnection())
+        {
             PreparedStatement ps = con.prepareStatement("SELECT * FROM [task]");
             ResultSet rs = ps.executeQuery();
 
-            while (rs.next()) {
+            while (rs.next())
+            {
                 int id = rs.getInt("id");
                 String title = rs.getString("title");
                 Project project = new Project(1, "need project table", new Client(1, "need client table", 5, 1), 755);
@@ -63,9 +71,12 @@ public class TaskDBDAO implements TaskDBDAOInterface
                 LocalDate creationDate = rs.getDate("creationDate").toLocalDate();
                 LocalTime startTime = rs.getTime("startTime").toLocalTime();
                 LocalTime stopTime = rs.getTime("stopTime").toLocalTime();
-
+                
                 String userEmail = rs.getString("userEmail");
                 User user = userDBDAO.getUser(new User(userEmail, clientName, clientName, title, false));
+                
+                
+
 
                 tasks.add(new Task(id, title, project, duration, lastUsed, LocalDate.MIN, LocalTime.MIN, LocalTime.MIN, user, tasks));
 
@@ -77,20 +88,27 @@ public class TaskDBDAO implements TaskDBDAOInterface
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     public boolean taskExist(Task task) throws SQLException {
         try (Connection con = dbCon.getConnection()) {
 =======
+=======
+>>>>>>> parent of 61096ed... Merge branch 'master' of https://github.com/scupak/Exam_project_The_disciples_of_SKRUMM
     public boolean taskExist(Task task) throws SQLException
     {
         try (Connection con = dbCon.getConnection())
         {
+<<<<<<< HEAD
 >>>>>>> parent of 52a1e7c... getTaskworks
+=======
+>>>>>>> parent of 61096ed... Merge branch 'master' of https://github.com/scupak/Exam_project_The_disciples_of_SKRUMM
             PreparedStatement ps = con.prepareStatement("SELECT * FROM [task] WHERE id = ?");
             ps.setInt(1, task.getId());
 
             ResultSet rs = ps.executeQuery();
 
-            while (rs.next()) {
+            while (rs.next())
+            {
                 return true;
             }
 
@@ -99,18 +117,25 @@ public class TaskDBDAO implements TaskDBDAOInterface
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     public Task createTask(Task task) throws SQLException {
         if (taskExist(task)) {
 =======
+=======
+>>>>>>> parent of 61096ed... Merge branch 'master' of https://github.com/scupak/Exam_project_The_disciples_of_SKRUMM
     public Task createTask(Task task) throws SQLException
     {
         if (taskExist(task))
         {
+<<<<<<< HEAD
 >>>>>>> parent of 52a1e7c... getTaskworks
+=======
+>>>>>>> parent of 61096ed... Merge branch 'master' of https://github.com/scupak/Exam_project_The_disciples_of_SKRUMM
             return null;
         }
 
-        try (Connection con = dbCon.getConnection()) {
+        try (Connection con = dbCon.getConnection())
+        {
             PreparedStatement ps = con.prepareStatement("INSERT INTO [task]"
                     + "(title, projectID, lastUsed, CreationDate, startTime, stopTime, duration, userEmail)"
                     + "VALUES (?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
@@ -127,35 +152,46 @@ public class TaskDBDAO implements TaskDBDAOInterface
 
             ResultSet rs = ps.getGeneratedKeys();
 
-            if (rs.next()) {
+            if (rs.next())
+            {
                 task.setId((int) rs.getLong(1));
-            } else {
+            } else
+            {
                 return null;
             }
 
             return task;
         }
+        
+       
 
     }
+<<<<<<< HEAD
 <<<<<<< HEAD
 
     public Boolean updateTask(Task task) throws SQLException {
         if (!taskExist(task)) {
 =======
+=======
+>>>>>>> parent of 61096ed... Merge branch 'master' of https://github.com/scupak/Exam_project_The_disciples_of_SKRUMM
     
      public Boolean updateTask(Task task) throws SQLException
         {
             if (!taskExist(task))
             {
+<<<<<<< HEAD
 >>>>>>> parent of 52a1e7c... getTaskworks
+=======
+>>>>>>> parent of 61096ed... Merge branch 'master' of https://github.com/scupak/Exam_project_The_disciples_of_SKRUMM
             return null;
-        }
-
-        try (Connection con = dbCon.getConnection()) {
-            PreparedStatement ps = con.prepareStatement("UPDATE [task] "
-                    + "SET title = ?, projectID = ?, lastUsed = ?, creationDate = ?,"
-                    + " startTime = ?, stopTime = ?, duration = ?, userEmail = ?"
-                    + " WHERE id = ?");
+            }
+            
+            try(Connection con = dbCon.getConnection())
+            {
+                PreparedStatement ps = con.prepareStatement("UPDATE [task] "
+                        + "SET title = ?, projectID = ?, lastUsed = ?, creationDate = ?,"
+                        + " startTime = ?, stopTime = ?, duration = ?, userEmail = ?"
+                        + " WHERE id = ?");
             ps.setString(1, task.getTitle());
             ps.setInt(2, task.getProject().getId());
             ps.setTimestamp(3, java.sql.Timestamp.valueOf(task.getLastUsed()));
@@ -164,11 +200,14 @@ public class TaskDBDAO implements TaskDBDAOInterface
             ps.setTime(6, java.sql.Time.valueOf(task.getStopTime()));
             ps.setInt(7, task.getDuration());
             ps.setString(8, task.getUserEmail());
-
+            
             int updatedRows = ps.executeUpdate();
-
+            
             return updatedRows > 0;
-
+                
+                
+            } 
+            
         }
      
      public Task getTask(Task task) throws SQLException
@@ -198,10 +237,10 @@ public class TaskDBDAO implements TaskDBDAOInterface
                 LocalDate creationDate = rs.getDate("creationDate").toLocalDate();
                 LocalTime startTime = rs.getTime("startTime").toLocalTime();
                 LocalTime stopTime = rs.getTime("stopTime").toLocalTime();
-
+                
                 String userEmail = rs.getString("userEmail");
                 User user = userDBDAO.getUser(new User(userEmail, clientName, clientName, title, true));
-
+                
                 returnTask = new Task(task.getId(), title, project, duration, lastUsed, creationDate, startTime, stopTime, user, intervals);
              }
              
@@ -211,10 +250,13 @@ public class TaskDBDAO implements TaskDBDAOInterface
      }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
     @Override
      public void newInterval(Interval interval) throws SQLServerException, SQLException {
 =======
+=======
+>>>>>>> parent of 61096ed... Merge branch 'master' of https://github.com/scupak/Exam_project_The_disciples_of_SKRUMM
     public static void main(String[] args) throws IOException, SQLException
     {
         TaskDBDAO taskDBDAO = new TaskDBDAO();
@@ -229,14 +271,17 @@ public class TaskDBDAO implements TaskDBDAOInterface
 
     public void newInterval(Interval interval) throws SQLServerException, SQLException
     {
+<<<<<<< HEAD
 >>>>>>> parent of 52a1e7c... getTaskworks
+=======
+>>>>>>> parent of 61096ed... Merge branch 'master' of https://github.com/scupak/Exam_project_The_disciples_of_SKRUMM
         //set last used in the task
-        //TODO implement transactions. 
-
-        try (Connection con = dbCon.getConnection()) {
+        
+        try(Connection con = dbCon.getConnection())
+        {
             String sql = "INSERT INTO [interval] VALUES (?,?,?,?,?)";
             PreparedStatement ps = con.prepareStatement(sql);
-
+            
             ps.setDate(1, java.sql.Date.valueOf(LocalDate.now()));
             ps.setTime(2, java.sql.Time.valueOf(interval.getStartTime()));
             ps.setTime(3, java.sql.Time.valueOf(interval.getStopTime()));
@@ -248,14 +293,15 @@ public class TaskDBDAO implements TaskDBDAOInterface
             
             String updateLastUsed = "UPDATE [task] SET lastUsed = ?, duration = ? WHERE id = ?";
             PreparedStatement ps2 = con.prepareStatement(updateLastUsed);
-
+            
             ps2.setTimestamp(1, java.sql.Timestamp.valueOf(LocalDateTime.now()));
             ps2.setInt(2, interval.getTask().getDuration() + interval.getIntervalTime());
             ps2.setInt(3, interval.getTask().getId());
-
-            ps2.executeUpdate();
+            
+            ps.executeUpdate();
         }
     }
+<<<<<<< HEAD
 
     public static void main(String[] args) throws IOException, SQLException {
         TaskDBDAO taskDBDAO = new TaskDBDAO();
@@ -276,4 +322,6 @@ public class TaskDBDAO implements TaskDBDAOInterface
        taskDBDAO.newInterval(interval);
         
     }
+=======
+>>>>>>> parent of 61096ed... Merge branch 'master' of https://github.com/scupak/Exam_project_The_disciples_of_SKRUMM
 }
