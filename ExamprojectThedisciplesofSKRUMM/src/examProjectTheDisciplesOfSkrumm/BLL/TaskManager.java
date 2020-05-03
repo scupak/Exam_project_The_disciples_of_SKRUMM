@@ -23,6 +23,7 @@ public class TaskManager implements TaskManagerInterface
     private TaskDBDAO taskDB;
     
     
+    @Override
     public void newInterval(Interval interval)
     {
         try
