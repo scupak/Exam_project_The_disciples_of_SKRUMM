@@ -70,7 +70,7 @@ public class TaskDBDAO implements TaskDBDAOInterface
                 ArrayList<Interval> intervals = new ArrayList<Interval>();
                 String userEmail = rs.getString("userEmail");
                 User user = userDBDAO.getUser(new User(userEmail, clientName, clientName, title, false));
-                returntasks.add(new Task(id, title, project, duration, lastUsed, creationDate, startTime, stopTime, user, tasks));
+                returntasks.add(new Task(id, title, project, duration, lastUsed, creationDate, startTime, stopTime, user, intervals));
 
             }
 
@@ -229,10 +229,10 @@ public class TaskDBDAO implements TaskDBDAOInterface
                 LocalDate creationDate = rs.getDate("creationDate").toLocalDate();
                 LocalTime startTime = rs.getTime("startTime").toLocalTime();
                 LocalTime stopTime = rs.getTime("stopTime").toLocalTime();
-                
+                ArrayList<Interval> intervals = new ArrayList<Interval>();
                 String userEmail = rs.getString("userEmail");
                 User user = userDBDAO.getUser(new User(userEmail, clientName, clientName, title, false));                
-                tasks.add(new Task(id, title, project, duration, lastUsed, creationDate, startTime, stopTime, user, tasks));
+                tasks.add(new Task(id, title, project, duration, lastUsed, creationDate, startTime, stopTime, user, intervals));
 
             }
 
@@ -283,7 +283,7 @@ public class TaskDBDAO implements TaskDBDAOInterface
         Client client = new Client(0, "why", 0, 0);
         Project project = new Project(0, "reeeeeeee", client, 0);
         User user = new User("Kof", "kof", "kof", "fok", true);
-        ArrayList<Task> intervals = new ArrayList<>();
+        ArrayList<Interval> intervals = new ArrayList<>();
         Task task = new Task(2, "rjo", project, 50, LocalDateTime.now(), LocalDate.now(), LocalTime.now(), LocalTime.now(), user, intervals);
        Task task2 = taskDBDAO.getTask(task);
        
