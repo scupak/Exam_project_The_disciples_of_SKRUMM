@@ -5,6 +5,9 @@
  */
 package examProjectTheDisciplesOfSkrumm.BLL.Interface;
 
+import examProjectTheDisciplesOfSkrumm.BE.Interval;
+import java.time.LocalDateTime;
+
 /**
  *
  * @author kacpe
@@ -12,5 +15,7 @@ package examProjectTheDisciplesOfSkrumm.BLL.Interface;
 
 public interface BLLFacadeInterface extends TreeTableUtilInterface, TaskManagerInterface, SecurityManagerInterface, UserManagerInterface
 {
+
+    public void newInterval(Interval interval);
     
 }

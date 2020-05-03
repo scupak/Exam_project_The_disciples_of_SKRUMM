@@ -28,6 +28,6 @@ public interface TaskModelInterface
     
     public void setTasks(ObservableList<Task> tasks);
 
-    public Interval newInterval(Interval interval);
+    public void newInterval(Interval interval);
     
 }

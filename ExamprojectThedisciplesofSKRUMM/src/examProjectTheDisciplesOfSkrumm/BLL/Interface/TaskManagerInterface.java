@@ -15,6 +15,6 @@ import examProjectTheDisciplesOfSkrumm.BE.Project;
  */
 public interface TaskManagerInterface 
 {
-    public Interval newInterval(Interval interval);
+    public void newInterval(Interval interval);
     
 }
