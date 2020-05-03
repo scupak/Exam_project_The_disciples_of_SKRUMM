@@ -16,6 +16,7 @@ import examProjectTheDisciplesOfSkrumm.GUI.Model.ModelFacade;
 import examProjectTheDisciplesOfSkrumm.BLL.Util.TimerUtil;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -130,12 +131,12 @@ public class MainViewController implements Initializable
     TimerUtil timerutil;
     JFXButton previousbutton = null;
     
-    LocalTime startTime;
-    LocalTime stopTime;
-    int interval;
-    int totalTime;
+    private LocalTime startTime;
+    private LocalTime stopTime;
+    private int interval;
+    private int totalTime;
     
-    ObservableList<Task> tasks;
+    private ObservableList<Task> tasks;
 
     /**
      * Initializes the controller class.
@@ -379,7 +380,7 @@ public class MainViewController implements Initializable
     }
 
     @FXML
-    private void handlePlay(ActionEvent event)
+    private void handlePlay(ActionEvent event) throws SQLException
     {
         Task currentTask;
         
@@ -420,8 +421,13 @@ public class MainViewController implements Initializable
             button.setGraphic(Play);
             button.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
             button.setContentDisplay(ContentDisplay.CENTER);
-            startTime = LocalTime.now();
             
+            stopTime = LocalTime.now();
+            currentTask = tasks.get(index);
+            Interval taskInterval = new Interval(startTime, stopTime, timerutil.getTotalIntervalSec(), timerutil.getTotalSec(), currentTask);
+            System.out.println(taskInterval.getStartTime() + "@@@@@@@@@@@@@@@@@@@@@@");
+            
+            modelfacade.newInterval(taskInterval);
         }
         
         else
@@ -429,11 +435,8 @@ public class MainViewController implements Initializable
             button.setGraphic(Pause);
             button.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
             button.setContentDisplay(ContentDisplay.CENTER);
-            stopTime = LocalTime.now();
-            currentTask = tasks.get(index);
-            Interval interval = new Interval(startTime, stopTime, timerutil.getTotalIntervalSec(), timerutil.getTotalSec(), currentTask);
-            modelfacade.newInterval(interval);
-            
+            startTime = LocalTime.now();
+            System.out.println(startTime);
         }
         previousbutton = button;
 

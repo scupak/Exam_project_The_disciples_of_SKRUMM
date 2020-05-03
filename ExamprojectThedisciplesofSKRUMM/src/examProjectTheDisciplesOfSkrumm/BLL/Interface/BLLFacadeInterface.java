@@ -7,6 +7,7 @@ package examProjectTheDisciplesOfSkrumm.BLL.Interface;
 
 import examProjectTheDisciplesOfSkrumm.BE.Interval;
 import java.time.LocalDateTime;
+import java.sql.SQLException;
 
 /**
  *
@@ -16,6 +17,6 @@ import java.time.LocalDateTime;
 public interface BLLFacadeInterface extends TreeTableUtilInterface, TaskManagerInterface, SecurityManagerInterface, UserManagerInterface
 {
 
-    public void newInterval(Interval interval);
+    public void newInterval(Interval interval) throws SQLException;
     
 }

@@ -248,9 +248,12 @@ public class TaskDBDAO implements TaskDBDAOInterface
     public void newInterval(Interval interval) throws SQLServerException, SQLException
     {
         //set last used in the task
+        //TODO implement transactions. 
+
+       
         
-        try(Connection con = dbCon.getConnection())
-        {
+        
+        try (Connection con = dbCon.getConnection()) {
             String sql = "INSERT INTO [interval] VALUES (?,?,?,?,?)";
             PreparedStatement ps = con.prepareStatement(sql);
             
@@ -260,7 +263,7 @@ public class TaskDBDAO implements TaskDBDAOInterface
             ps.setInt(4, interval.getIntervalTime());
             ps.setInt(5, interval.getTask().getId());
             
-            ps.executeQuery();
+            ps.executeUpdate();
             
             
             String updateLastUsed = "UPDATE [task] SET lastUsed = ?, duration = ? WHERE id = ?";
@@ -270,7 +273,7 @@ public class TaskDBDAO implements TaskDBDAOInterface
             ps2.setInt(2, interval.getTask().getDuration() + interval.getIntervalTime());
             ps2.setInt(3, interval.getTask().getId());
             
-            ps.executeUpdate();
+            ps2.executeUpdate();
         }
     }
 

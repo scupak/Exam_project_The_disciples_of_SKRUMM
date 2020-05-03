@@ -23,6 +23,8 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.TreeItem;
+import java.sql.SQLException;
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 
 /**
  *
@@ -63,8 +65,10 @@ public class TaskModel implements TaskModelInterface
         this.tasks = tasks;
     }
     
-    public void newInterval(Interval interval)
+    @Override
+    public void newInterval(Interval interval) throws SQLServerException, SQLException
     {
+        System.out.println(interval.getStartTime() + "!!!!!");
         bllfacade.newInterval(interval);
     }
     

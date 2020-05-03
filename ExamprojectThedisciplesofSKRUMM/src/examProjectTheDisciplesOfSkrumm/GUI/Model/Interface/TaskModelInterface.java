@@ -5,6 +5,7 @@
  */
 package examProjectTheDisciplesOfSkrumm.GUI.Model.Interface;
 
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 import examProjectTheDisciplesOfSkrumm.BE.Client;
 import examProjectTheDisciplesOfSkrumm.BE.Interval;
 import examProjectTheDisciplesOfSkrumm.BE.Project;
@@ -12,6 +13,7 @@ import examProjectTheDisciplesOfSkrumm.BE.Task;
 import java.time.LocalDateTime;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TreeItem;
+import java.sql.SQLException;
 
 /**
  *
@@ -28,6 +30,6 @@ public interface TaskModelInterface
     
     public void setTasks(ObservableList<Task> tasks);
 
-    public void newInterval(Interval interval);
+    public void newInterval(Interval interval) throws SQLException, SQLServerException;
     
 }
