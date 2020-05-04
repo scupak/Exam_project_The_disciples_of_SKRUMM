@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TreeItem;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -35,5 +36,15 @@ public interface TaskModelInterface
     public void newInterval(Interval interval) throws SQLException, SQLServerException;
     
     public ObservableList<Task> getSixTasks(User user) throws SQLException;
+    
+    public List<Task> getTasksForUser(User user, LocalDate date) throws SQLException;
+    
+    public List<Task> getAllTasks() throws SQLException;
+
+    public boolean taskExist(Task task) throws SQLException;
+
+    public Boolean updateTask(Task task) throws SQLException;
+
+    public Task getTask(Task task) throws SQLException;
     
 }

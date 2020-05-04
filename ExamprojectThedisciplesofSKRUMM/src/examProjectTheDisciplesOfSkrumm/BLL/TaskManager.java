@@ -15,6 +15,7 @@ import examProjectTheDisciplesOfSkrumm.DAL.DALFacade;
 import examProjectTheDisciplesOfSkrumm.DAL.TaskDBDAO;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -52,10 +53,82 @@ public class TaskManager implements TaskManagerInterface
         return dal.getSixTasks(user);
     }
     
+    public List<Task> getTasksForUser(User user, LocalDate date) throws SQLException
+    {
+        return dal.getTasksForUser(user, date);
+    }
+    
+    @Override
+    public String convertSecToTimeString(int totalSec){
+        int hour = 0;
+        int min = 0; 
+        int sec = 0;
+        
+    
+         while(totalSec >= 3600){
+        totalSec  = totalSec - 3600;
+        hour++;
+        System.out.println("added one to hours...");
+        }
+        
+        while(totalSec >= 60){
+        totalSec = totalSec - 60;
+        min++;
+        System.out.println("added one to min...");
+        }
+        
+        sec = totalSec;
+        System.out.println("added rest of seconds to sec...");
+        
+        return(String.format("%02d", hour) + ":" + String.format("%02d", min) + ":" + String.format("%02d", sec));
+        
+    
+    }
+    
+    
+    
     public static void main(String[] args)
     {
         DALFacade dal;
+        
+        
     }
+    
+    
+    
+    
+
+    @Override
+    public List<Task> getAllTasks() throws SQLException
+    {
+       return dal.getAllTasks();
+    }
+
+    @Override
+    public boolean taskExist(Task task) throws SQLException
+    {
+        return dal.taskExist(task);
+    }
+
+    @Override
+    public Task createTask(Task task) throws SQLException
+    {
+       return dal.createTask(task);
+    }
+
+    @Override
+    public Boolean updateTask(Task task) throws SQLException
+    {
+       return dal.updateTask(task);
+    }
+
+    @Override
+    public Task getTask(Task task) throws SQLException
+    {
+        return dal.getTask(task);
+    }
+  
+   
     
     
 }

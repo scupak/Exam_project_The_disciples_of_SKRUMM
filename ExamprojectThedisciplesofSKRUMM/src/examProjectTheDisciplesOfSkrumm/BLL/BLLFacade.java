@@ -13,6 +13,7 @@ import examProjectTheDisciplesOfSkrumm.BE.Project;
 import examProjectTheDisciplesOfSkrumm.BE.Task;
 import examProjectTheDisciplesOfSkrumm.BE.User;
 import examProjectTheDisciplesOfSkrumm.BLL.Interface.BLLFacadeInterface;
+import examProjectTheDisciplesOfSkrumm.BLL.Interface.ProjectManagerInterface;
 import examProjectTheDisciplesOfSkrumm.BLL.Interface.SecurityManagerInterface;
 import examProjectTheDisciplesOfSkrumm.BLL.Interface.TaskManagerInterface;
 import examProjectTheDisciplesOfSkrumm.BLL.Interface.TreeTableUtilInterface;
@@ -20,6 +21,7 @@ import examProjectTheDisciplesOfSkrumm.BLL.Interface.UserManagerInterface;
 import examProjectTheDisciplesOfSkrumm.BLL.Util.TreeTableUtil;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import javafx.collections.ObservableList;
@@ -35,9 +37,11 @@ public class BLLFacade implements BLLFacadeInterface
     private TaskManagerInterface taskmanager;
     private SecurityManagerInterface securityManager;
     private UserManagerInterface userManager;
+    private ProjectManagerInterface projectmanager;
 
     public BLLFacade() throws IOException 
     {
+        projectmanager = new ProjectManager();
         treeTableUtil = new TreeTableUtil();
         taskmanager = new TaskManager();
         securityManager = new examProjectTheDisciplesOfSkrumm.BLL.Security.SecurityManager();
@@ -103,6 +107,68 @@ public class BLLFacade implements BLLFacadeInterface
     public List<Task> getSixTasks(User user) throws SQLException
     {
        return taskmanager.getSixTasks(user);
+    }
+
+    @Override
+    public List<Task> getTasksForUser(User user, LocalDate date) throws SQLException
+    {
+        return taskmanager.getTasksForUser(user, date);
+    }
+    
+    @Override
+    public List<Project> getAllProjects() throws SQLServerException, SQLException {
+        return projectmanager.getAllProjects();
+    }
+
+    @Override
+    public boolean projectExist(Project project) throws SQLException {
+        return projectmanager.projectExist(project);
+    }
+
+    @Override
+    public Project createProject(Project project) throws SQLException {
+        return projectmanager.createProject(project);
+    }
+
+    @Override
+    public Project getProject(Project project) throws SQLException {
+        return projectmanager.getProject(project);
+    }
+
+    @Override
+    public List<Task> getAllTasks() throws SQLException
+    {
+        return taskmanager.getAllTasks();
+    }
+
+    @Override
+    public boolean taskExist(Task task) throws SQLException
+    {
+        return taskmanager.taskExist(task);
+    }
+
+    @Override
+    public Task createTask(Task task) throws SQLException
+    {
+        return taskmanager.createTask(task);
+    }
+
+    @Override
+    public Boolean updateTask(Task task) throws SQLException
+    {
+        return taskmanager.taskExist(task);
+    }
+
+    @Override
+    public Task getTask(Task task) throws SQLException
+    {
+       return taskmanager.getTask(task);
+    }
+
+    @Override
+    public String convertSecToTimeString(int totalSec) {
+        
+        return taskmanager.convertSecToTimeString(totalSec);
     }
 
 }

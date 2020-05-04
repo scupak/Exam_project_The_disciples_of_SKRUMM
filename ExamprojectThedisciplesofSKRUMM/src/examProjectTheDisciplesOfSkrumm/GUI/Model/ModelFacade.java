@@ -18,7 +18,9 @@ import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.TaskModelInterface;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.UserModelInterface;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TreeItem;
@@ -191,5 +193,37 @@ public class ModelFacade implements ModelFacadeInterface
     {
         return taskmodel.getSixTasks(user);
     }
+
+    @Override
+    public List<Task> getTasksForUser(User user, LocalDate date) throws SQLException
+    {
+        return taskmodel.getTasksForUser(user, date);
+    }
+
+    @Override
+    public List<Task> getAllTasks() throws SQLException
+    {
+        return taskmodel.getAllTasks();
+    }
+
+    @Override
+    public boolean taskExist(Task task) throws SQLException
+    {
+        return taskmodel.taskExist(task);
+    }
+
+    @Override
+    public Boolean updateTask(Task task) throws SQLException
+    {
+        return taskmodel.updateTask(task);
+    }
+
+    @Override
+    public Task getTask(Task task) throws SQLException
+    {
+        return taskmodel.getTask(task);
+    }
+    
+    
     
 }
