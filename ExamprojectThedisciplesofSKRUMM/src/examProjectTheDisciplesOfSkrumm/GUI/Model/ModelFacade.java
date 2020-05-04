@@ -18,6 +18,7 @@ import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.TaskModelInterface;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.UserModelInterface;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import javafx.collections.ObservableList;
@@ -190,6 +191,12 @@ public class ModelFacade implements ModelFacadeInterface
     public ObservableList<Task> getSixTasks(User user) throws SQLException
     {
         return taskmodel.getSixTasks(user);
+    }
+
+    @Override
+    public List<Task> getTasksForUser(User user, LocalDate date) throws SQLException
+    {
+        return taskmodel.getTasksForUser(user, date);
     }
     
 }

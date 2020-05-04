@@ -20,6 +20,7 @@ import examProjectTheDisciplesOfSkrumm.BLL.Interface.UserManagerInterface;
 import examProjectTheDisciplesOfSkrumm.BLL.Util.TreeTableUtil;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import javafx.collections.ObservableList;
@@ -103,6 +104,12 @@ public class BLLFacade implements BLLFacadeInterface
     public List<Task> getSixTasks(User user) throws SQLException
     {
        return taskmanager.getSixTasks(user);
+    }
+
+    @Override
+    public List<Task> getTasksForUser(User user, LocalDate date) throws SQLException
+    {
+        return taskmanager.getTasksForUser(user, date);
     }
 
 }

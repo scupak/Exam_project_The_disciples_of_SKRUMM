@@ -18,6 +18,7 @@ import examProjectTheDisciplesOfSkrumm.DAL.Interface.TaskDBDAOInterface;
 import examProjectTheDisciplesOfSkrumm.DAL.Interface.UserDBDAOInterface;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -155,6 +156,12 @@ public class DALFacade implements DALFacadeInterface
     public List<Task> getSixTasks(User user) throws SQLException
     {
         return taskDBDAO.getSixTasks(user);
+    }
+
+    @Override
+    public List<Task> getTasksForUser(User user, LocalDate date) throws SQLException
+    {
+        return taskDBDAO.getTasksForUser(user, date);
     }
     
 }

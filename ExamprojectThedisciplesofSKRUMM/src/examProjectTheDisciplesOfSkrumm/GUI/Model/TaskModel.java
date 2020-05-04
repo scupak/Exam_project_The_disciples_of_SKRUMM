@@ -26,6 +26,7 @@ import javafx.scene.control.TreeItem;
 import java.sql.SQLException;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import examProjectTheDisciplesOfSkrumm.BE.User;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -81,6 +82,11 @@ public class TaskModel implements TaskModelInterface
         ObservableList<Task> sixTasks = FXCollections.observableArrayList();
         sixTasks.addAll(bllfacade.getSixTasks(user));
         return sixTasks;
+    }
+    
+    public List<Task> getTasksForUser(User user, LocalDate date) throws SQLException
+    {
+        return bllfacade.getTasksForUser(user, date);
     }
     
     

@@ -15,6 +15,7 @@ import examProjectTheDisciplesOfSkrumm.DAL.DALFacade;
 import examProjectTheDisciplesOfSkrumm.DAL.TaskDBDAO;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -52,10 +53,17 @@ public class TaskManager implements TaskManagerInterface
         return dal.getSixTasks(user);
     }
     
+    public List<Task> getTasksForUser(User user, LocalDate date) throws SQLException
+    {
+        return dal.getTasksForUser(user, date);
+    }
+    
     public static void main(String[] args)
     {
         DALFacade dal;
     }
+    
+   
     
     
 }
