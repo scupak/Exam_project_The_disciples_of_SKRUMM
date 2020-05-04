@@ -71,8 +71,6 @@ public class TaskViewController implements Initializable
     @FXML
     private Label WeekdayLabel;
     @FXML
-    private Label DateLabel;
-    @FXML
     private Label CurrentTaskLabel;
     @FXML
     private TreeTableColumn TaskColumn;
