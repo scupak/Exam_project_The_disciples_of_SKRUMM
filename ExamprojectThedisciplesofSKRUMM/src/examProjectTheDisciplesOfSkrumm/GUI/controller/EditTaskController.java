@@ -99,6 +99,7 @@ public class EditTaskController implements Initializable
             
             if(editTime != null && !editTime.isEmpty()){
             editTime = editTimeTextField.getText();
+            
             try{
             intTime = Integer.parseInt(editTime);
             }

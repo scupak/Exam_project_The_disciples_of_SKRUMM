@@ -113,6 +113,11 @@ public class TaskModel implements TaskModelInterface
     {
         return bllfacade.getTask(task);
     }
+
+    @Override
+    public String convertSecToTimeString(int totalSec) {
+       return bllfacade.convertSecToTimeString(totalSec);
+    }
     
     
 }

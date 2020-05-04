@@ -223,6 +223,12 @@ public class ModelFacade implements ModelFacadeInterface
     {
         return taskmodel.getTask(task);
     }
+
+    @Override
+    public String convertSecToTimeString(int totalSec) {
+        
+       return taskmodel.convertSecToTimeString(totalSec);
+    }
     
     
     
