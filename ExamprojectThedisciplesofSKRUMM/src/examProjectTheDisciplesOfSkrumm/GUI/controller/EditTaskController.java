@@ -104,7 +104,7 @@ public class EditTaskController implements Initializable
         }
             
             else{
-            JOptionPane.showMessageDialog(null, "New task duration can not be blank!");
+            JOptionPane.showMessageDialog(null, "New task duration can not be blank!\n Task duration must be an integer!");
             editTimeTextField.setText("EDIT ME");
             blank = true;
             System.out.println(blank);
