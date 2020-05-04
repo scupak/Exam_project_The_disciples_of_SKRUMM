@@ -96,9 +96,16 @@ public class EditTaskController implements Initializable
             System.out.println(blank);
         }
             
+            
             if(editTime != null && !editTime.isEmpty()){
             editTime = editTimeTextField.getText();
+            try{
             intTime = Integer.parseInt(editTime);
+            }
+            catch(NumberFormatException e){
+            
+            }
+            
             blank = false;
             System.out.println(blank);
         }
