@@ -51,9 +51,9 @@ public class Exam_project_The_disciples_of_SKRUMM extends Application
         Task task3 = new Task(3, "World domination", project2, 3412, LocalDateTime.now(),
                 LocalDate.now(), LocalTime.NOON, LocalTime.MIN,
                 new User("standard@user.now", "h", "l", "nemt", false), new ArrayList() );
-        Interval interval = new Interval(LocalTime.MIN, LocalTime.now(), LocalDate.now(), 666, 0, task2);
-        Interval interva2 = new Interval(LocalTime.MIN, LocalTime.now(), LocalDate.now(), 420, 0, task2);
-        Interval interva3 = new Interval(LocalTime.MIN, LocalTime.now(), LocalDate.now(), 777, 0, task3);
+        Interval interval = new Interval(LocalTime.MIN, LocalTime.now(), LocalDate.now(), 666, task2);
+        Interval interva2 = new Interval(LocalTime.MIN, LocalTime.now(), LocalDate.now(), 420, task2);
+        Interval interva3 = new Interval(LocalTime.MIN, LocalTime.now(), LocalDate.now(), 777, task3);
         ArrayList<Interval> intervals1 = new ArrayList<Interval>();
         intervals1.add(interval);
         intervals1.add(interva2);

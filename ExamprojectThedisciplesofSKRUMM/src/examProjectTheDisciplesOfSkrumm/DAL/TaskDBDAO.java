@@ -68,18 +68,42 @@ public class TaskDBDAO implements TaskDBDAOInterface
                 LocalDate creationDate = rs.getDate("creationDate").toLocalDate();
                 LocalTime startTime = rs.getTime("startTime").toLocalTime();
                 LocalTime stopTime = rs.getTime("stopTime").toLocalTime();
+                
                 ArrayList<Interval> intervals = new ArrayList<Interval>();
+                
                 String userEmail = rs.getString("userEmail");
+                
                 User user = userDBDAO.getUser(new User(userEmail, clientName, clientName, title, false));
+               
+               
+                //Getting the intervals
+                PreparedStatement ps2 = con.prepareStatement("SELECT * FROM [interval] WHERE interval.taskId = ?");
+                
+                ps2.setInt(1, id);
+                
+                ResultSet rs2 = ps2.executeQuery();
+                while (rs2.next())
+                {
+                    Date date = rs2.getDate("creationDate");
+                    java.sql.Time intervalStartTime = rs2.getTime("startTime");
+                    java.sql.Time intervalStopTime = rs2.getTime("stopTime");
+                    int intervalTime = rs2.getInt("intervalTime");
+                    
+                    Interval interval = new Interval(intervalStartTime.toLocalTime(), intervalStopTime.toLocalTime(), date.toLocalDate(), intervalTime, 
+                            new Task(id, title, project, duration, lastUsed, creationDate, startTime, stopTime, user, intervals));
+                    
+                    intervals.add(interval);
+                }
+                
+                
                 returntasks.add(new Task(id, title, project, duration, lastUsed, creationDate, startTime, stopTime, user, intervals));
-
             }
 
             return returntasks;
 
         }
     }
-
+    
     public boolean taskExist(Task task) throws SQLException
     {
         try (Connection con = dbCon.getConnection())
@@ -300,7 +324,7 @@ public class TaskDBDAO implements TaskDBDAOInterface
 
     }
 
-
+    
 
    
     @Override
@@ -373,6 +397,8 @@ public class TaskDBDAO implements TaskDBDAOInterface
             //System.out.println(task1.toString());
         //}
        
+        
+
         //System.out.println(task2);
 
        // System.out.println(task2);
