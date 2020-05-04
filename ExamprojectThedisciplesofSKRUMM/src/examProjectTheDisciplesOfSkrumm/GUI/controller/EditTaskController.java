@@ -103,6 +103,12 @@ public class EditTaskController implements Initializable
             intTime = Integer.parseInt(editTime);
             }
             catch(NumberFormatException e){
+                
+                JOptionPane.showMessageDialog(null, "New task duration has to be a whole number!");
+                editTimeTextField.setText("EDIT ME");
+                blank = true;
+                System.out.println(blank);
+                
             
             }
             
