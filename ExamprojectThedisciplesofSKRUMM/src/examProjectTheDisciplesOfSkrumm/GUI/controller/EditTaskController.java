@@ -62,10 +62,7 @@ public class EditTaskController implements Initializable
             Logger.getLogger(CreateTaskController.class.getName()).log(Level.SEVERE, null, ex);
             }
       
-        editProjectCombobox.getItems().addAll(modelfacade.getProjects());
-        editTitleTextField.setText(editTask.getTitle()); 
-        editTimeTextField.setText(Integer.toString(editTask.getDuration()));
-        editProjectCombobox.getSelectionModel().select(editTask.getProject());
+       
         
 
         
@@ -82,9 +79,10 @@ public class EditTaskController implements Initializable
     @FXML
     private void editTask(ActionEvent event)
     {
+        editTitle = editTitleTextField.getText(); 
         
             if(editTitle != null && !editTitle.isEmpty()){
-            editTitle = editTitleTextField.getText();     
+               
             blank = false;
             System.out.println(blank);
         }
@@ -96,9 +94,10 @@ public class EditTaskController implements Initializable
             System.out.println(blank);
         }
             
+            editTime = editTimeTextField.getText();
             
             if(editTime != null && !editTime.isEmpty()){
-            editTime = editTimeTextField.getText();
+            
             
             try{
             intTime = Integer.parseInt(editTime);
@@ -123,14 +122,15 @@ public class EditTaskController implements Initializable
             blank = true;
             System.out.println(blank);
         }
-            if(blank = false){
+            if(blank == false){
             editTask.setTitle(editTitle);
             editTask.setDuration(intTime);
             editTask.setProject(editProjectCombobox.getValue());
                 try
                 {
-                    modelfacade.updateTask(editTask);
-                } catch (SQLException ex)
+                    System.out.println(modelfacade.updateTask(editTask) + "  " +"update");
+                }
+                catch (SQLException ex)
                 {
                     JOptionPane.showMessageDialog(null, "Unknown SQL exception ocurred!");
                 }
@@ -146,6 +146,11 @@ public class EditTaskController implements Initializable
     public void setEditTask(Task editTask)
     {
         this.editTask = editTask;
+        
+         editProjectCombobox.getItems().addAll(modelfacade.getProjects());
+        editTitleTextField.setText(editTask.getTitle()); 
+        editTimeTextField.setText(Integer.toString(editTask.getDuration()));
+        editProjectCombobox.getSelectionModel().select(editTask.getProject());
     }
     
     

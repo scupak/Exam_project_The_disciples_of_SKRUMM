@@ -351,17 +351,12 @@ public class TaskViewController implements Initializable
         stage.show();
     }
 
-
+    @FXML
     private void handleEditTaskAction(ActionEvent event) throws IOException
     {
         
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/EditTaskView.fxml"));
-        Parent root = loader.load();
-        EditTaskController controller = loader.getController();
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.setTitle("Edit Task");
-        stage.show();
+        
+        
         final JDialog dialog = new JDialog();
         dialog.setAlwaysOnTop(true);
         
@@ -369,14 +364,42 @@ public class TaskViewController implements Initializable
             JOptionPane.showMessageDialog(dialog, "Nothing seems to be selected!\nSelect a task to edit before pressing edit!", "ERROR", JOptionPane.ERROR_MESSAGE);   
         } 
         
-        else if(!(TaskTable.getSelectionModel().getSelectedItem() instanceof Task)){
-            JOptionPane.showMessageDialog(dialog, "Please select a valid task to edit!", "ERROR", JOptionPane.ERROR_MESSAGE);
+        else {
+            
+            
+             TreeItem<Task> selectedItem = (TreeItem<Task>)(TaskTable.getSelectionModel().getSelectedItem());
+             
+            
+            if(selectedItem.getValue() instanceof Task){
+            
+                System.err.println("its a task!!!!!!!!!!!!!!!!!!!!");
+                System.out.println(selectedItem.getValue());
+                
+                
+              
+           FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/EditTaskView.fxml"));
+           Parent root = loader.load();
+           EditTaskController controller = loader.getController();
+           controller.setEditTask((Task) selectedItem.getValue());
+           Stage stage = new Stage();
+           stage.setScene(new Scene(root));
+           stage.setTitle("Edit Task");
+           stage.show();
+           
+            
+            
+            }
+            else{
+            
+                    System.err.println("not a task!!!!!!!!!!!!!!!!!!!!");
+                    JOptionPane.showMessageDialog(dialog, "Please select a valid task to edit!", "ERROR", JOptionPane.ERROR_MESSAGE);
+            
+            }
+            
+           
         }
+       
         
-        else
-        {
-           controller.setEditTask((Task) TaskTable.getSelectionModel().getSelectedItem());
-        }
     } 
     
     @FXML

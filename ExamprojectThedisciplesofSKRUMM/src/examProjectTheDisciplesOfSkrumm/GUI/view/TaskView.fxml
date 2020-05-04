@@ -227,7 +227,7 @@
       <HBox layoutX="22.0" layoutY="471.0" prefHeight="25.0" prefWidth="162.0" AnchorPane.bottomAnchor="29.0" AnchorPane.leftAnchor="22.0">
          <children>
             <JFXButton fx:id="createTaskButton" onAction="#createTask" prefHeight="17.0" prefWidth="102.0" text="Create new task" />
-            <JFXButton prefHeight="11.0" prefWidth="61.0" text="Edit task" />
+            <JFXButton onAction="#handleEditTaskAction" prefHeight="11.0" prefWidth="61.0" text="Edit task" />
          </children>
       </HBox>
       <JFXDatePicker fx:id="datePicker" defaultColor="#435a9a" layoutX="423.0" layoutY="109.0" prefHeight="28.0" prefWidth="125.0" translateX="5.0" AnchorPane.leftAnchor="422.0" AnchorPane.topAnchor="109.0" />
