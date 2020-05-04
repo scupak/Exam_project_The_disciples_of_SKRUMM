@@ -5,7 +5,11 @@
  */
 package examProjectTheDisciplesOfSkrumm.BLL.Interface;
 
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 import examProjectTheDisciplesOfSkrumm.BE.Client;
+import examProjectTheDisciplesOfSkrumm.BE.Project;
+import java.sql.SQLException;
+import java.util.List;
 
 /**
  *
@@ -13,5 +17,13 @@ import examProjectTheDisciplesOfSkrumm.BE.Client;
  */
 public interface ProjectManagerInterface 
 {
+     public List<Project> getAllProjects() throws SQLServerException, SQLException;
+    
+    public boolean projectExist(Project project) throws SQLException;
+    
+    public Project createProject(Project project) throws SQLException;
+    
+    public Project getProject(Project project) throws SQLException;
+    
    
 }

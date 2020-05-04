@@ -126,7 +126,7 @@ public class TaskDBDAO implements TaskDBDAOInterface
             if (rs.next())
             {
                 task.setId((int) rs.getLong(1));
-            } else
+            } else 
             {
                 return null;
             }
@@ -287,16 +287,17 @@ public class TaskDBDAO implements TaskDBDAOInterface
         Project project = new Project(0, "reeeeeeee", client, 0);
         User user = new User("Kof", "kof", "kof", "fok", true);
         ArrayList<Interval> intervals = new ArrayList<>();
-        Task task = new Task(2, "rjo", project, 50, LocalDateTime.now(), LocalDate.now(), LocalTime.now(), LocalTime.now(), user, intervals);
-       Task task2 = taskDBDAO.getTask(task);
-       
-       ArrayList<Task> six = new ArrayList<>();
-       six.addAll(taskDBDAO.getSixTasks(user));
-       
-        for (Task task1 : six)
-        {
-            System.out.println(task1.toString());
-        }
+        Task task = new Task(3, "rjo", project, 50, LocalDateTime.now(), LocalDate.now(), LocalTime.now(), LocalTime.now(), user, intervals);
+        Task task2 = taskDBDAO.getTask(task);
+       task2.setDuration(666);
+        taskDBDAO.updateTask(task2);
+//        ArrayList<Task> six = new ArrayList<>();
+//        six.addAll(taskDBDAO.getSixTasks(user));
+//       
+//        for (Task task1 : six)
+//        {
+//            System.out.println(task1.toString());
+//        }
        
         //System.out.println(task2);
 
