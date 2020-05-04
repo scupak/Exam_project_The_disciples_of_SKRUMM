@@ -22,13 +22,12 @@ public class Interval
     private int intervalTime;
     private Task task;
     
-    public Interval(LocalTime startTime, LocalTime stopTime, LocalDate creationDate, int intervalTime, int totalTime, Task task)
+    public Interval(LocalTime startTime, LocalTime stopTime, LocalDate creationDate, int intervalTime, Task task)
     {
         this.startTime = startTime;
         this.stopTime = stopTime;
         this.creationDate = creationDate;
         this.intervalTime = intervalTime;
-        this.totalTime = totalTime;
         this.task = task;
         
     }
