@@ -21,6 +21,7 @@ import examProjectTheDisciplesOfSkrumm.BLL.Interface.UserManagerInterface;
 import examProjectTheDisciplesOfSkrumm.BLL.Util.TreeTableUtil;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import javafx.collections.ObservableList;
@@ -109,6 +110,12 @@ public class BLLFacade implements BLLFacadeInterface
     }
 
     @Override
+    public List<Task> getTasksForUser(User user, LocalDate date) throws SQLException
+    {
+        return taskmanager.getTasksForUser(user, date);
+    }
+    
+    @Override
     public List<Project> getAllProjects() throws SQLServerException, SQLException {
         return projectmanager.getAllProjects();
     }
@@ -126,6 +133,42 @@ public class BLLFacade implements BLLFacadeInterface
     @Override
     public Project getProject(Project project) throws SQLException {
         return projectmanager.getProject(project);
+    }
+
+    @Override
+    public List<Task> getAllTasks() throws SQLException
+    {
+        return taskmanager.getAllTasks();
+    }
+
+    @Override
+    public boolean taskExist(Task task) throws SQLException
+    {
+        return taskmanager.taskExist(task);
+    }
+
+    @Override
+    public Task createTask(Task task) throws SQLException
+    {
+        return taskmanager.createTask(task);
+    }
+
+    @Override
+    public Boolean updateTask(Task task) throws SQLException
+    {
+        return taskmanager.taskExist(task);
+    }
+
+    @Override
+    public Task getTask(Task task) throws SQLException
+    {
+       return taskmanager.getTask(task);
+    }
+
+    @Override
+    public String convertSecToTimeString(int totalSec) {
+        
+        return taskmanager.convertSecToTimeString(totalSec);
     }
 
 }

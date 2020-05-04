@@ -46,6 +46,8 @@ import javafx.scene.control.TreeTableView;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 
 /**
  * FXML Controller class
@@ -292,7 +294,7 @@ public class TaskViewController implements Initializable
         
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
-        stage.setTitle("TimeTracker");
+        stage.setTitle("View Charts");
         stage.show();
         chartView.close();
     }
@@ -308,7 +310,7 @@ public class TaskViewController implements Initializable
         
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
-        stage.setTitle("TimeTracker");
+        stage.setTitle("Home view");
         stage.show();
         chartView.close();
     }
@@ -329,7 +331,7 @@ public class TaskViewController implements Initializable
         
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
-        stage.setTitle("TimeTracker");
+        stage.setTitle("Clients and Projects");
         stage.show();
         taskView.close();
     }
@@ -345,7 +347,7 @@ public class TaskViewController implements Initializable
         
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
-        stage.setTitle("TimeTracker");
+        stage.setTitle("Create Task");
         stage.show();
     }
 
@@ -353,15 +355,28 @@ public class TaskViewController implements Initializable
     private void handleEditTaskAction(ActionEvent event) throws IOException
     {
         
-      
-       
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/CreateTaskView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/EditTaskView.fxml"));
         Parent root = loader.load();
-        CreateTaskController controller = loader.getController();
+        EditTaskController controller = loader.getController();
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
-        stage.setTitle("TimeTracker");
+        stage.setTitle("Edit Task");
         stage.show();
+        final JDialog dialog = new JDialog();
+        dialog.setAlwaysOnTop(true);
+        
+        if((TaskTable.getSelectionModel().getSelectedItem() == null)){
+            JOptionPane.showMessageDialog(dialog, "Nothing seems to be selected!\nSelect a task to edit before pressing edit!", "ERROR", JOptionPane.ERROR_MESSAGE);   
+        } 
+        
+        else if(!(TaskTable.getSelectionModel().getSelectedItem() instanceof Task)){
+            JOptionPane.showMessageDialog(dialog, "Please select a valid task to edit!", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        else
+        {
+           controller.setEditTask((Task) TaskTable.getSelectionModel().getSelectedItem());
+        }
     } 
     
     @FXML
