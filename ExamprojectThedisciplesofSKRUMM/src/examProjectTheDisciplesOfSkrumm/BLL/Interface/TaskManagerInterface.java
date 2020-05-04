@@ -26,4 +26,6 @@ public interface TaskManagerInterface
     
     public List<Task> getTasksForUser(User user, LocalDate date) throws SQLException;
     
+    public String convertSecToTimeString(int totalSec);
+    
 }
