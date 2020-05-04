@@ -236,7 +236,7 @@
       <HBox layoutX="22.0" layoutY="471.0" prefHeight="25.0" prefWidth="162.0">
          <children>
             <JFXButton fx:id="createTaskButton" onAction="#createTask" prefHeight="17.0" prefWidth="102.0" text="Create new task" />
-            <JFXButton prefHeight="11.0" prefWidth="61.0" text="Edit task" />
+            <JFXButton onAction="#handleEditTaskAction" prefHeight="11.0" prefWidth="61.0" text="Edit task" />
          </children>
       </HBox>
    </children>

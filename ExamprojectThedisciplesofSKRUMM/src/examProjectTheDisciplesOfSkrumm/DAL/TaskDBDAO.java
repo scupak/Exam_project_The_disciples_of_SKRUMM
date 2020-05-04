@@ -171,6 +171,8 @@ public class TaskDBDAO implements TaskDBDAOInterface
             return null;
             }
             
+            System.err.println(task);
+            
             try(Connection con = dbCon.getConnection())
             {
                 PreparedStatement ps = con.prepareStatement("UPDATE [task] "
@@ -275,6 +277,7 @@ public class TaskDBDAO implements TaskDBDAOInterface
         }
      }
      
+    @Override
      public List<Task> getTasksForUser(User user, LocalDate date) throws SQLException
     {
         ArrayList<Task> tasks = new ArrayList<>();

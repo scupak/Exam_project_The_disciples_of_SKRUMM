@@ -156,7 +156,8 @@ public class BLLFacade implements BLLFacadeInterface
     @Override
     public Boolean updateTask(Task task) throws SQLException
     {
-        return taskmanager.taskExist(task);
+        //change to update task
+        return taskmanager.updateTask(task);
     }
 
     @Override
