@@ -13,6 +13,7 @@ import examProjectTheDisciplesOfSkrumm.BE.Task;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.ModelFacadeInterface;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.ModelFacade;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -33,7 +34,7 @@ public class EditTaskController implements Initializable
     private String editTitle;
     private String editTime;
     private int intTime;
-    private boolean blank;
+    private boolean blank = true;
     private Task editTask;
     private ModelFacadeInterface modelfacade;
     @FXML
@@ -109,7 +110,16 @@ public class EditTaskController implements Initializable
             System.out.println(blank);
         }
             if(blank = false){
-            
+            editTask.setTitle(editTitle);
+            editTask.setDuration(intTime);
+            editTask.setProject(editProjectCombobox.getValue());
+                try
+                {
+                    modelfacade.updateTask(editTask);
+                } catch (SQLException ex)
+                {
+                    JOptionPane.showMessageDialog(null, "Unknown SQL exception ocurred!");
+                }
                 
             }
     }
