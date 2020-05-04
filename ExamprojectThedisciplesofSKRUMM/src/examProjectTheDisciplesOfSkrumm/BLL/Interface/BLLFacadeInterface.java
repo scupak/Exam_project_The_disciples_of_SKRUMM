@@ -16,7 +16,6 @@ import java.sql.SQLException;
 
 public interface BLLFacadeInterface extends TreeTableUtilInterface, TaskManagerInterface, SecurityManagerInterface, UserManagerInterface
 {
-
     public void newInterval(Interval interval) throws SQLException;
     
 }
