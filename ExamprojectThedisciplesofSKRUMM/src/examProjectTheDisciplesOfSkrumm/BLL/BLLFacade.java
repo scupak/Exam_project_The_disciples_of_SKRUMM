@@ -165,4 +165,10 @@ public class BLLFacade implements BLLFacadeInterface
        return taskmanager.getTask(task);
     }
 
+    @Override
+    public String convertSecToTimeString(int totalSec) {
+        
+        return taskmanager.convertSecToTimeString(totalSec);
+    }
+
 }
