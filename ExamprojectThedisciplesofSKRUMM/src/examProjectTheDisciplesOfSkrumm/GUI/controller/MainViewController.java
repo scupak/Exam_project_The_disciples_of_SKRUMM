@@ -413,7 +413,7 @@ public class MainViewController implements Initializable
             }
         }
         
-        handleStart(intervalLabel,totaltimelabel, button,130);
+        handleStart(intervalLabel,totaltimelabel, button, tasks.get(index).getDuration());
         
         if (!running)
         {
@@ -431,7 +431,7 @@ public class MainViewController implements Initializable
             stopTime = LocalTime.now();
             currentTask = tasks.get(index);
             Interval taskInterval = new Interval(startTime, stopTime, LocalDate.now(), timerutil.getTotalIntervalSec(), timerutil.getTotalSec(), currentTask);
-            System.out.println(taskInterval.getStartTime() + "@@@@@@@@@@@@@@@@@@@@@@");
+            currentTask.setDuration(timerutil.getTotalSec());
             
             modelfacade.newInterval(taskInterval);
         }

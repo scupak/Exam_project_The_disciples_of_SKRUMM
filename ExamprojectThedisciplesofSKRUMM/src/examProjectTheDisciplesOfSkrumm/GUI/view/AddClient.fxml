@@ -8,10 +8,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="232.0" prefWidth="300.0" styleClass="AnchorPane" stylesheets="@../css/Graphics.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="examProjectTheDisciplesOfSkrumm.GUI.controller.AddClientController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="248.0" prefWidth="300.0" styleClass="AnchorPane" stylesheets="@../css/Graphics.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="examProjectTheDisciplesOfSkrumm.GUI.controller.AddClientController">
    <children>
       <StackPane prefHeight="56.0" prefWidth="320.0" styleClass="chart-bar" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -22,7 +21,7 @@
             </Label>
          </children>
       </StackPane>
-      <HBox alignment="BOTTOM_CENTER" layoutX="1.0" layoutY="223.0" prefHeight="30.0" prefWidth="300.0" spacing="5.0" AnchorPane.bottomAnchor="22.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <HBox alignment="BOTTOM_CENTER" layoutX="1.0" layoutY="203.0" prefHeight="30.0" prefWidth="300.0" spacing="5.0" AnchorPane.bottomAnchor="14.599999999999994" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0">
          <children>
             <JFXButton fx:id="AddClientOkBtn" onAction="#HandleAddClientOkBtn" text="Create" textFill="WHITE">
                <font>
@@ -36,36 +35,24 @@
             </JFXButton>
          </children>
       </HBox>
-      <HBox layoutX="-6.0" layoutY="104.0" prefHeight="75.0" prefWidth="276.0" spacing="5.0" AnchorPane.leftAnchor="-6.0" AnchorPane.rightAnchor="50.0">
-         <children>
-            <VBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="154.0" spacing="10.0">
-               <children>
-                  <Label styleClass="Label" text="Client name:">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-                  <Label styleClass="Label" text="Client rate:">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-               </children>
-            </VBox>
-            <VBox prefHeight="75.0" prefWidth="105.0" spacing="12.0">
-               <children>
-                  <JFXTextField fx:id="ClientNameTextField" promptText="Enter client's name" />
-                  <JFXTextField fx:id="ClientRateTextField" prefHeight="25.0" prefWidth="120.0" promptText="Enter clients's rate" />
-               </children>
-            </VBox>
-         </children>
-      </HBox>
-      <Label layoutX="85.0" layoutY="65.0" styleClass="Label" text="Is paid:">
+      <Label layoutX="12.0" layoutY="111.0" prefHeight="27.0" prefWidth="99.0" styleClass="Label" text="Client name:">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <ImageView fx:id="IspaidImageView" fitHeight="42.0" fitWidth="30.0" layoutX="150.0" layoutY="64.0" onMouseClicked="#handleIsPaid" pickOnBounds="true" preserveRatio="true">
+      <Label alignment="CENTER" layoutX="12.0" layoutY="149.0" prefHeight="27.0" prefWidth="99.0" styleClass="Label" text="Client rate:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <JFXTextField fx:id="ClientNameTextField" layoutX="125.0" layoutY="111.0" prefHeight="26.0" prefWidth="148.0" promptText="Enter client's name" />
+      <JFXTextField fx:id="ClientRateTextField" layoutX="125.0" layoutY="149.0" prefHeight="26.0" prefWidth="148.0" promptText="Enter clients's rate" />
+      <Label alignment="CENTER" layoutX="12.0" layoutY="73.0" prefHeight="27.0" prefWidth="99.0" styleClass="Label" text="Is paid:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="IspaidImageView" fitHeight="44.0" fitWidth="36.0" layoutX="123.0" layoutY="69.0" onMouseClicked="#handleIsPaid" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../Icons/Paid.png" />
          </image>

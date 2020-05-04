@@ -34,20 +34,20 @@
             </JFXButton>
          </children>
       </HBox>
-      <JFXTextField fx:id="titleTextField" layoutX="133.0" layoutY="69.0" prefHeight="0.0" prefWidth="201.0" promptText="Enter title" />
-      <Label layoutX="83.0" layoutY="100.0" styleClass="Label" text="Time:">
+      <JFXTextField fx:id="titleTextField" layoutX="114.0" layoutY="69.0" prefHeight="0.0" prefWidth="201.0" promptText="Enter title" />
+      <Label alignment="CENTER" layoutX="34.0" layoutY="100.0" prefHeight="27.0" prefWidth="59.0" styleClass="Label" text="Time:">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <JFXTextField fx:id="timeTextField" layoutX="133.0" layoutY="101.0" prefHeight="25.0" prefWidth="201.0" promptText="Enter time" />
-      <Label layoutX="67.0" layoutY="135.0" styleClass="Label" text="Project:">
+      <JFXTextField fx:id="timeTextField" layoutX="114.0" layoutY="101.0" prefHeight="25.0" prefWidth="201.0" promptText="Enter time" />
+      <Label layoutX="34.0" layoutY="135.0" styleClass="Label" text="Project:">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <JFXComboBox fx:id="projectCombobox" layoutX="133.0" layoutY="136.0" prefHeight="25.0" prefWidth="201.0" promptText="Select project" />
-      <Label layoutX="86.0" layoutY="67.0" styleClass="Label" text="Title:">
+      <JFXComboBox fx:id="projectCombobox" layoutX="114.0" layoutY="136.0" prefHeight="25.0" prefWidth="201.0" promptText="Select project" />
+      <Label alignment="CENTER" layoutX="32.0" layoutY="67.0" prefHeight="27.0" prefWidth="59.0" styleClass="Label" text="Title:">
          <font>
             <Font size="18.0" />
          </font>
