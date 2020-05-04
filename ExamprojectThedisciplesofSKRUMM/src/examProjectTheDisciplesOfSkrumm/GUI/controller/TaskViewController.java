@@ -871,7 +871,6 @@ public class TaskViewController implements Initializable
         }
     }
 
-    @FXML
     private void handleDatepickerAction(ActionEvent event) 
     {
         checkForCurrentday();

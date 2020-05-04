@@ -95,7 +95,7 @@
             </HBox>
          </children>
       </HBox>
-      <VBox layoutX="553.0" layoutY="118.0" prefHeight="92.0" prefWidth="151.0" spacing="5.0" translateY="1.0" AnchorPane.bottomAnchor="348.0" AnchorPane.leftAnchor="552.0" AnchorPane.rightAnchor="22.0" AnchorPane.topAnchor="86.0">
+      <VBox layoutX="553.0" layoutY="118.0" prefHeight="92.0" prefWidth="151.0" spacing="5.0" translateY="1.0" AnchorPane.leftAnchor="553.0" AnchorPane.topAnchor="86.0">
          <children>
             <VBox prefHeight="41.0" prefWidth="146.0" spacing="1.0">
                <children>
@@ -134,25 +134,25 @@
       </VBox>
       <VBox alignment="CENTER_LEFT" layoutX="91.0" layoutY="118.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="59.0" prefWidth="463.0" spacing="15.0" AnchorPane.leftAnchor="91.0" AnchorPane.rightAnchor="171.0" AnchorPane.topAnchor="118.0">
          <children>
-            <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="14.0" prefWidth="328.0" spacing="14.0">
+            <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="14.0" prefWidth="328.0" spacing="20.0">
                <children>
-                  <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="150.0" styleClass="Label">
+                  <HBox alignment="CENTER" prefHeight="28.0" prefWidth="150.0" styleClass="Label">
                      <children>
                         <Label alignment="CENTER" prefHeight="20.0" prefWidth="76.0" styleClass="Label" text="Week num:">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="weekNumberLabel" alignment="TOP_LEFT" prefHeight="20.0" prefWidth="33.0" styleClass="Label" text="5">
+                        <Label fx:id="weekNumberLabel" prefHeight="20.0" prefWidth="29.0" styleClass="Label" text="5">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="150.0" styleClass="Label">
+                  <HBox alignment="CENTER" prefHeight="20.0" prefWidth="150.0" styleClass="Label">
                      <children>
-                        <Label fx:id="WeekdayLabel" alignment="CENTER" prefHeight="20.0" prefWidth="139.0" styleClass="Label" text="thursday">
+                        <Label fx:id="WeekdayLabel" alignment="CENTER" prefHeight="20.0" prefWidth="102.0" styleClass="Label" text="thursday">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -167,7 +167,7 @@
                   <Insets right="2.0" />
                </VBox.margin>
             </HBox>
-            <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="47.0" prefWidth="464.0" spacing="9.0" translateX="-1.0">
+            <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="47.0" prefWidth="464.0" spacing="10.0" translateX="-5.0">
                <children>
                   <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="45.0">
                      <children>
@@ -218,9 +218,6 @@
                      </children>
                   </VBox>
                </children>
-               <padding>
-                  <Insets left="-5.0" />
-               </padding>
             </HBox>
          </children>
          <padding>
@@ -233,7 +230,7 @@
             <JFXButton prefHeight="11.0" prefWidth="61.0" text="Edit task" />
          </children>
       </HBox>
-      <JFXDatePicker fx:id="datePicker" defaultColor="#435a9a" layoutX="423.0" layoutY="109.0" onAction="#handleDatepickerAction" prefHeight="28.0" prefWidth="125.0" AnchorPane.rightAnchor="178.0" AnchorPane.topAnchor="109.0" />
-      <JFXButton fx:id="returnToCurrentDayButton" layoutX="403.0" layoutY="78.0" onAction="#handlecurrentday" prefHeight="25.0" prefWidth="138.0" text="Return to current day" AnchorPane.leftAnchor="402.0" AnchorPane.rightAnchor="186.0" AnchorPane.topAnchor="77.0" />
+      <JFXDatePicker fx:id="datePicker" defaultColor="#435a9a" layoutX="423.0" layoutY="109.0" prefHeight="28.0" prefWidth="125.0" translateX="5.0" AnchorPane.leftAnchor="422.0" AnchorPane.topAnchor="109.0" />
+      <JFXButton fx:id="returnToCurrentDayButton" layoutX="403.0" layoutY="78.0" onAction="#handlecurrentday" prefHeight="25.0" prefWidth="131.0" text="Return to current day" translateX="5.0" AnchorPane.leftAnchor="408.0" AnchorPane.topAnchor="77.0" />
    </children>
 </AnchorPane>
