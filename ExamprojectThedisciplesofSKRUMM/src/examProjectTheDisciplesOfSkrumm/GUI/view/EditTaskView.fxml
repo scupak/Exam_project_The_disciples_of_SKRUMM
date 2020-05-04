@@ -22,7 +22,7 @@
       </StackPane>
       <HBox alignment="BOTTOM_CENTER" layoutX="31.0" layoutY="185.0" prefHeight="30.0" prefWidth="259.0" spacing="5.0" AnchorPane.bottomAnchor="14.599999999999994" AnchorPane.leftAnchor="31.0" AnchorPane.rightAnchor="31.0">
          <children>
-            <JFXButton fx:id="createTaskBtn" onAction="#createTask" text="Confirm" textFill="WHITE">
+            <JFXButton fx:id="editTaskBtn" onAction="#editTask" text="Confirm" textFill="WHITE">
                <font>
                   <Font size="13.0" />
                </font>
@@ -34,19 +34,19 @@
             </JFXButton>
          </children>
       </HBox>
-      <JFXTextField fx:id="titleTextField" layoutX="117.0" layoutY="69.0" prefHeight="0.0" prefWidth="201.0" promptText="Enter title" />
+      <JFXTextField fx:id="editTitleTextField" layoutX="117.0" layoutY="69.0" prefHeight="0.0" prefWidth="201.0" promptText="Enter title" />
       <Label alignment="CENTER" layoutX="43.0" layoutY="101.0" prefHeight="27.0" prefWidth="59.0" styleClass="Label" text="Time:" textAlignment="CENTER">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <JFXTextField fx:id="timeTextField" layoutX="117.0" layoutY="102.0" prefHeight="25.0" prefWidth="201.0" promptText="Enter time" />
+      <JFXTextField fx:id="editTimeTextField" layoutX="117.0" layoutY="102.0" prefHeight="25.0" prefWidth="201.0" promptText="Enter time" />
       <Label layoutX="43.0" layoutY="135.0" styleClass="Label" text="Project:">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <JFXComboBox fx:id="projectCombobox" layoutX="117.0" layoutY="136.0" prefHeight="25.0" prefWidth="201.0" promptText="Select project" />
+      <JFXComboBox fx:id="editProjectCombobox" layoutX="117.0" layoutY="136.0" prefHeight="25.0" prefWidth="201.0" promptText="Select project" />
       <Label alignment="CENTER" layoutX="43.0" layoutY="68.0" prefHeight="27.0" prefWidth="59.0" styleClass="Label" text="Title:" textAlignment="CENTER">
          <font>
             <Font size="18.0" />
