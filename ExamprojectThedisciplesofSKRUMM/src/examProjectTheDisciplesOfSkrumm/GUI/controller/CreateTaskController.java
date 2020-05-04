@@ -76,6 +76,8 @@ public class CreateTaskController implements Initializable
             Logger.getLogger(CreateTaskController.class.getName()).log(Level.SEVERE, null, ex);
         }
         projectCombobox.getItems().addAll(modelfacade.getProjects());
+        
+        
       
     }    
 

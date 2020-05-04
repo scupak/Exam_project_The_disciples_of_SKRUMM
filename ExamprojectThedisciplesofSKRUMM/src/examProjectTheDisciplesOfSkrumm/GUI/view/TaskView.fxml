@@ -69,11 +69,11 @@
             </VBox>
          </children>
       </StackPane>
-      <HBox layoutX="22.0" layoutY="118.0" prefHeight="47.0" prefWidth="61.0" spacing="5.0">
+      <HBox layoutX="22.0" layoutY="118.0" prefHeight="47.0" prefWidth="61.0" spacing="5.0" AnchorPane.leftAnchor="22.0" AnchorPane.topAnchor="119.0">
          <children>
             <HBox prefHeight="59.0" prefWidth="63.0">
                <children>
-                  <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="59.0" prefWidth="30.0">
+                  <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handlePreviousDay" prefHeight="59.0" prefWidth="30.0">
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -82,7 +82,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="59.0" prefWidth="30.0">
+                  <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleNextDay" prefHeight="59.0" prefWidth="30.0">
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -95,7 +95,7 @@
             </HBox>
          </children>
       </HBox>
-      <VBox layoutX="553.0" layoutY="118.0" prefHeight="92.0" prefWidth="151.0" spacing="5.0" translateY="1.0" AnchorPane.bottomAnchor="348.0" AnchorPane.leftAnchor="552.0" AnchorPane.rightAnchor="22.0" AnchorPane.topAnchor="85.0">
+      <VBox layoutX="553.0" layoutY="118.0" prefHeight="92.0" prefWidth="151.0" spacing="5.0" translateY="1.0" AnchorPane.bottomAnchor="348.0" AnchorPane.leftAnchor="552.0" AnchorPane.rightAnchor="22.0" AnchorPane.topAnchor="86.0">
          <children>
             <VBox prefHeight="41.0" prefWidth="146.0" spacing="1.0">
                <children>
@@ -104,7 +104,7 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Label fx:id="CurrentTaskLabel" alignment="CENTER" prefHeight="20.0" prefWidth="170.0" styleClass="Label" text="Nemesis">
+                  <Label fx:id="CurrentTaskLabel" alignment="CENTER" prefHeight="20.0" prefWidth="170.0" styleClass="Label" text="current task">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -132,42 +132,36 @@
             </VBox>
          </children>
       </VBox>
-      <VBox alignment="CENTER_LEFT" layoutX="91.0" layoutY="118.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="59.0" prefWidth="463.0" spacing="15.0">
+      <VBox alignment="CENTER_LEFT" layoutX="91.0" layoutY="118.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="59.0" prefWidth="463.0" spacing="15.0" AnchorPane.leftAnchor="91.0" AnchorPane.rightAnchor="171.0" AnchorPane.topAnchor="118.0">
          <children>
-            <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="14.0" prefWidth="461.0" spacing="27.0">
+            <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="14.0" prefWidth="328.0" spacing="14.0">
                <children>
-                  <HBox alignment="CENTER" prefHeight="28.0" prefWidth="150.0" styleClass="Label">
+                  <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="150.0" styleClass="Label">
                      <children>
-                        <Label alignment="CENTER" prefHeight="25.0" prefWidth="92.0" styleClass="Label" text="Week number:">
+                        <Label alignment="CENTER" prefHeight="20.0" prefWidth="76.0" styleClass="Label" text="Week num:">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="weekNumberLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="0.0" prefWidth="11.0" styleClass="Label" text="5">
+                        <Label fx:id="weekNumberLabel" alignment="TOP_LEFT" prefHeight="20.0" prefWidth="33.0" styleClass="Label" text="5">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" prefHeight="20.0" prefWidth="150.0" styleClass="Label">
+                  <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="150.0" styleClass="Label">
                      <children>
-                        <Label prefHeight="20.0" prefWidth="64.0" styleClass="Label" text="Weekday:">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="WeekdayLabel" prefHeight="20.0" prefWidth="55.0" styleClass="Label" text="thursday">
+                        <Label fx:id="WeekdayLabel" alignment="CENTER" prefHeight="20.0" prefWidth="139.0" styleClass="Label" text="thursday">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
                      </children>
                   </HBox>
-                  <JFXDatePicker defaultColor="#435a9a" prefHeight="19.0" prefWidth="171.0" />
                </children>
                <padding>
-                  <Insets left="5.0" right="5.0" />
+                  <Insets right="5.0" />
                </padding>
                <VBox.margin>
                   <Insets right="2.0" />
@@ -177,43 +171,43 @@
                <children>
                   <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="45.0">
                      <children>
-                        <Button alignment="CENTER" mnemonicParsing="false" prefHeight="26.0" prefWidth="34.0" text="Mo" />
+                        <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleMonday" prefHeight="26.0" prefWidth="34.0" text="Mo" />
+                        <Label fx:id="mondayTotalTimeLabel" text="0:00" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="45.0">
+                     <children>
+                        <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleTuesday" text="Tu" />
+                        <Label fx:id="thursdayTotalTimeLabel" text="0:00" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="45.0">
+                     <children>
+                        <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleWednesday" text="We" />
+                        <Label fx:id="wednesdayTotalTimeLabel" text="0:00" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="45.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#handleThursday" text="Th" />
+                        <Label fx:id="thursdayTotalTimeLabel" text="0:00" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="45.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#handleFriday" text="Fr" />
+                        <Label fx:id="fridayTotalTimeLabel" text="0:00" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="45.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#handleSaturday" text="Sa" />
                         <Label text="0:00" />
                      </children>
                   </VBox>
                   <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="45.0">
                      <children>
-                        <Button alignment="CENTER" mnemonicParsing="false" text="Tu" />
-                        <Label text="0:00" />
-                     </children>
-                  </VBox>
-                  <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="45.0">
-                     <children>
-                        <Button alignment="CENTER" mnemonicParsing="false" text="We" />
-                        <Label text="0:00" />
-                     </children>
-                  </VBox>
-                  <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="45.0">
-                     <children>
-                        <Button mnemonicParsing="false" text="Th" />
-                        <Label text="0:00" />
-                     </children>
-                  </VBox>
-                  <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="45.0">
-                     <children>
-                        <Button mnemonicParsing="false" text="Fr" />
-                        <Label text="0:00" />
-                     </children>
-                  </VBox>
-                  <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="45.0">
-                     <children>
-                        <Button mnemonicParsing="false" text="Sa" />
-                        <Label text="0:00" />
-                     </children>
-                  </VBox>
-                  <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="45.0">
-                     <children>
-                        <Button mnemonicParsing="false" text="Su" />
+                        <Button mnemonicParsing="false" onAction="#handleSunday" text="Su" />
                         <Label text="0:00" />
                      </children>
                   </VBox>
@@ -225,7 +219,7 @@
                   </VBox>
                </children>
                <padding>
-                  <Insets left="-3.0" />
+                  <Insets left="-5.0" />
                </padding>
             </HBox>
          </children>
@@ -233,11 +227,13 @@
             <Insets top="25.0" />
          </padding>
       </VBox>
-      <HBox layoutX="22.0" layoutY="471.0" prefHeight="25.0" prefWidth="162.0">
+      <HBox layoutX="22.0" layoutY="471.0" prefHeight="25.0" prefWidth="162.0" AnchorPane.bottomAnchor="29.0" AnchorPane.leftAnchor="22.0">
          <children>
             <JFXButton fx:id="createTaskButton" onAction="#createTask" prefHeight="17.0" prefWidth="102.0" text="Create new task" />
             <JFXButton prefHeight="11.0" prefWidth="61.0" text="Edit task" />
          </children>
       </HBox>
+      <JFXDatePicker fx:id="datePicker" defaultColor="#435a9a" layoutX="423.0" layoutY="109.0" onAction="#handleDatepickerAction" prefHeight="28.0" prefWidth="125.0" AnchorPane.rightAnchor="178.0" AnchorPane.topAnchor="109.0" />
+      <JFXButton fx:id="returnToCurrentDayButton" layoutX="403.0" layoutY="78.0" onAction="#handlecurrentday" prefHeight="25.0" prefWidth="138.0" text="Return to current day" AnchorPane.leftAnchor="402.0" AnchorPane.rightAnchor="186.0" AnchorPane.topAnchor="77.0" />
    </children>
 </AnchorPane>
