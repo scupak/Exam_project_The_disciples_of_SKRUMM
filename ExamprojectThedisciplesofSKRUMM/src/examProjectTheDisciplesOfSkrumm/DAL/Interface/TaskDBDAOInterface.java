@@ -10,6 +10,7 @@ import examProjectTheDisciplesOfSkrumm.BE.Interval;
 import examProjectTheDisciplesOfSkrumm.BE.Task;
 import examProjectTheDisciplesOfSkrumm.BE.User;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -32,4 +33,6 @@ public interface TaskDBDAOInterface
     public void newInterval(Interval interval) throws SQLServerException, SQLException;
 
     public List<Task> getSixTasks(User user) throws SQLException;
+    
+    public List<Task> getTasksForUser(User user, LocalDate date) throws SQLException;
 }

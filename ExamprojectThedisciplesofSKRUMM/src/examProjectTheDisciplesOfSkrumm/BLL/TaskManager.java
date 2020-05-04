@@ -97,6 +97,37 @@ public class TaskManager implements TaskManagerInterface
     
     
     
+
+    @Override
+    public List<Task> getAllTasks() throws SQLException
+    {
+       return dal.getAllTasks();
+    }
+
+    @Override
+    public boolean taskExist(Task task) throws SQLException
+    {
+        return dal.taskExist(task);
+    }
+
+    @Override
+    public Task createTask(Task task) throws SQLException
+    {
+       return dal.createTask(task);
+    }
+
+    @Override
+    public Boolean updateTask(Task task) throws SQLException
+    {
+       return dal.updateTask(task);
+    }
+
+    @Override
+    public Task getTask(Task task) throws SQLException
+    {
+        return dal.getTask(task);
+    }
+  
    
     
     

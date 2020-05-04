@@ -198,5 +198,29 @@ public class ModelFacade implements ModelFacadeInterface
     {
         return taskmodel.getTasksForUser(user, date);
     }
+
+    @Override
+    public List<Task> getAllTasks() throws SQLException
+    {
+        return taskmodel.getAllTasks();
+    }
+
+    @Override
+    public boolean taskExist(Task task) throws SQLException
+    {
+        return taskmodel.taskExist(task);
+    }
+
+    @Override
+    public Boolean updateTask(Task task) throws SQLException
+    {
+        return taskmodel.updateTask(task);
+    }
+
+    @Override
+    public Task getTask(Task task) throws SQLException
+    {
+        return taskmodel.getTask(task);
+    }
     
 }
