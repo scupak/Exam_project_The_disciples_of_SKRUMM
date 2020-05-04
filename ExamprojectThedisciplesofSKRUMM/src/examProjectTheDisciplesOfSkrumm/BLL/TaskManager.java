@@ -57,12 +57,37 @@ public class TaskManager implements TaskManagerInterface
     {
         return dal.getTasksForUser(user, date);
     }
-    
-    public static void main(String[] args)
+
+    @Override
+    public List<Task> getAllTasks() throws SQLException
     {
-        DALFacade dal;
+       return dal.getAllTasks();
     }
-    
+
+    @Override
+    public boolean taskExist(Task task) throws SQLException
+    {
+        return dal.taskExist(task);
+    }
+
+    @Override
+    public Task createTask(Task task) throws SQLException
+    {
+       return dal.createTask(task);
+    }
+
+    @Override
+    public Boolean updateTask(Task task) throws SQLException
+    {
+       return dal.updateTask(task);
+    }
+
+    @Override
+    public Task getTask(Task task) throws SQLException
+    {
+        return dal.getTask(task);
+    }
+  
    
     
     

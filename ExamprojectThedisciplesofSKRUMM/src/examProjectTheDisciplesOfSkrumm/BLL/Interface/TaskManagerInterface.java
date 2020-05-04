@@ -26,4 +26,14 @@ public interface TaskManagerInterface
     
     public List<Task> getTasksForUser(User user, LocalDate date) throws SQLException;
     
+    public List<Task> getAllTasks() throws SQLException;
+
+    public boolean taskExist(Task task) throws SQLException;
+
+    public Task createTask(Task task) throws SQLException;
+
+    public Boolean updateTask(Task task) throws SQLException;
+
+    public Task getTask(Task task) throws SQLException;
+    
 }
