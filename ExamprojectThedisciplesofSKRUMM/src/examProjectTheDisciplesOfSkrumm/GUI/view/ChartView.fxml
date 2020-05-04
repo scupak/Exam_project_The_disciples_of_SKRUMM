@@ -29,7 +29,7 @@
           <NumberAxis label="Hours" side="LEFT" />
         </yAxis>
       </BarChart>
-      <JFXButton fx:id="setBtn" buttonType="RAISED" layoutX="648.0" layoutY="273.0" prefHeight="26.0" prefWidth="50.0" stylesheets="@../css/Graphics.css" text="Set" AnchorPane.rightAnchor="22.600000000000023" AnchorPane.topAnchor="273.0" />
+      <JFXButton fx:id="setBtn" buttonType="RAISED" layoutX="657.0" layoutY="273.0" prefHeight="26.0" prefWidth="50.0" stylesheets="@../css/Graphics.css" text="Set" AnchorPane.rightAnchor="13.600000000000023" AnchorPane.topAnchor="273.0" />
       <JFXDatePicker fx:id="startDate" defaultColor="#435a9a" layoutX="538.0" layoutY="159.0" promptText="Start" AnchorPane.rightAnchor="11.800000000000011" AnchorPane.topAnchor="159.0" />
       <JFXDatePicker fx:id="endDate" defaultColor="#435a9a" layoutX="538.0" layoutY="234.0" promptText="End" AnchorPane.rightAnchor="12.800000000000011" AnchorPane.topAnchor="234.0" />
       <JFXButton fx:id="backBtn" buttonType="RAISED" layoutX="655.0" layoutY="483.0" onAction="#handleBack" prefHeight="26.0" prefWidth="49.0" stylesheets="@../css/Graphics.css" text="Back" AnchorPane.bottomAnchor="15.600000000000001" AnchorPane.rightAnchor="22.0" />

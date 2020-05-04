@@ -39,27 +39,27 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label prefHeight="18.0" prefWidth="58.0" style="-fx-background-color: #435a9a; -fx-background-radius: 3 3 3 3; -fx-text-fill: white;" text="E-mail:">
+            <Label alignment="CENTER" prefHeight="27.0" prefWidth="98.0" style="-fx-background-color: #435a9a; -fx-background-radius: 3 3 3 3; -fx-text-fill: white;" text="E-mail:">
                <font>
                   <Font size="18.0" />
                </font></Label>
-            <Label style="-fx-background-color: #435a9a; -fx-background-radius: 3 3 3 3; -fx-text-fill: white;" text="Password: " GridPane.rowIndex="1">
+            <Label alignment="CENTER" prefHeight="27.0" prefWidth="113.0" style="-fx-background-color: #435a9a; -fx-background-radius: 3 3 3 3; -fx-text-fill: white;" text="Password: " GridPane.rowIndex="1">
                <font>
                   <Font size="18.0" />
                </font></Label>
-            <Label alignment="TOP_LEFT" prefHeight="27.0" prefWidth="97.0" style="-fx-background-color: #435a9a; -fx-background-radius: 3 3 3 3; -fx-text-fill: white;" text="First name: " GridPane.rowIndex="2">
+            <Label alignment="CENTER" prefHeight="27.0" prefWidth="97.0" style="-fx-background-color: #435a9a; -fx-background-radius: 3 3 3 3; -fx-text-fill: white;" text="First name: " GridPane.rowIndex="2">
                <font>
                   <Font size="18.0" />
                </font></Label>
-            <JFXTextField fx:id="emailTextField" GridPane.columnIndex="1" />
-            <JFXTextField fx:id="passwordTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <JFXTextField fx:id="firstNameTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Label alignment="TOP_LEFT" prefHeight="27.0" prefWidth="97.0" style="-fx-background-color: #435a9a; -fx-background-radius: 3 3 3 3; -fx-text-fill: white;" text="Last name:" GridPane.rowIndex="3">
+            <JFXTextField fx:id="emailTextField" promptText="E-Mail" GridPane.columnIndex="1" />
+            <JFXTextField fx:id="passwordTextField" promptText="Password" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <JFXTextField fx:id="firstNameTextField" promptText="First name" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label alignment="CENTER" prefHeight="27.0" prefWidth="97.0" style="-fx-background-color: #435a9a; -fx-background-radius: 3 3 3 3; -fx-text-fill: white;" text="Last name:" GridPane.rowIndex="3">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <JFXTextField fx:id="lastNameTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <JFXTextField fx:id="lastNameTextField" promptText="Last Name" GridPane.columnIndex="1" GridPane.rowIndex="3" />
          </children>
       </GridPane>
       <JFXButton fx:id="createBtn" layoutX="118.0" layoutY="238.0" onAction="#handleCreateUser" style="-fx-background-color: #435a9a;" text="Create" textFill="WHITE" />

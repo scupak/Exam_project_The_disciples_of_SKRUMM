@@ -177,19 +177,19 @@
                <children>
                   <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="45.0">
                      <children>
-                        <Button mnemonicParsing="false" text="M" />
+                        <Button alignment="CENTER" mnemonicParsing="false" prefHeight="26.0" prefWidth="34.0" text="Mo" />
                         <Label text="0:00" />
                      </children>
                   </VBox>
                   <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="45.0">
                      <children>
-                        <Button mnemonicParsing="false" text="Tu" />
+                        <Button alignment="CENTER" mnemonicParsing="false" text="Tu" />
                         <Label text="0:00" />
                      </children>
                   </VBox>
                   <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="45.0">
                      <children>
-                        <Button mnemonicParsing="false" text="W" />
+                        <Button alignment="CENTER" mnemonicParsing="false" text="We" />
                         <Label text="0:00" />
                      </children>
                   </VBox>
@@ -201,7 +201,7 @@
                   </VBox>
                   <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="45.0">
                      <children>
-                        <Button mnemonicParsing="false" text="F" />
+                        <Button mnemonicParsing="false" text="Fr" />
                         <Label text="0:00" />
                      </children>
                   </VBox>
@@ -219,7 +219,7 @@
                   </VBox>
                   <VBox alignment="CENTER" prefHeight="37.0" prefWidth="81.0">
                      <children>
-                        <Label prefHeight="25.0" prefWidth="69.0" styleClass="Label" text="Week Total:" />
+                        <Label alignment="CENTER" prefHeight="25.0" prefWidth="69.0" styleClass="Label" text="Week Total:" />
                         <Label text="0:00" />
                      </children>
                   </VBox>
