@@ -230,7 +230,7 @@
             <JFXButton onAction="#handleEditTaskAction" prefHeight="11.0" prefWidth="61.0" text="Edit task" />
          </children>
       </HBox>
-      <JFXDatePicker fx:id="datePicker" defaultColor="#435a9a" layoutX="423.0" layoutY="109.0" prefHeight="28.0" prefWidth="125.0" translateX="5.0" AnchorPane.leftAnchor="422.0" AnchorPane.topAnchor="109.0" />
+      <JFXDatePicker fx:id="datePicker" defaultColor="#435a9a" layoutX="423.0" layoutY="109.0" onAction="#handleDatepickerAction" prefHeight="28.0" prefWidth="125.0" translateX="5.0" AnchorPane.leftAnchor="422.0" AnchorPane.topAnchor="109.0" />
       <JFXButton fx:id="returnToCurrentDayButton" layoutX="403.0" layoutY="78.0" onAction="#handlecurrentday" prefHeight="25.0" prefWidth="131.0" text="Return to current day" translateX="5.0" AnchorPane.leftAnchor="408.0" AnchorPane.topAnchor="77.0" />
    </children>
 </AnchorPane>
