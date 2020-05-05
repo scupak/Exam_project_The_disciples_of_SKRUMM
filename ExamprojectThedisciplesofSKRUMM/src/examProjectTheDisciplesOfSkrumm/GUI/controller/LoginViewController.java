@@ -95,6 +95,7 @@ public class LoginViewController implements Initializable {
             alert.setHeaderText("your email or password may be incorect");
             alert.setContentText("Please try again");
             alert.showAndWait();
+            
         }
     }
     

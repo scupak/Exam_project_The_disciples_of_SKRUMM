@@ -7,7 +7,13 @@ package examProjectTheDisciplesOfSkrumm.GUI.Model;
 
 import examProjectTheDisciplesOfSkrumm.BE.Client;
 import examProjectTheDisciplesOfSkrumm.BE.Project;
+import examProjectTheDisciplesOfSkrumm.BLL.BLLFacade;
+import examProjectTheDisciplesOfSkrumm.BLL.Interface.BLLFacadeInterface;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.ClientModelInterface;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -17,14 +23,23 @@ import javafx.collections.ObservableList;
  */
 public class ClientModel implements ClientModelInterface
 {
+    private final BLLFacadeInterface bllfacade;
     ObservableList<Client> clients;
 
-    public ClientModel() 
+    public ClientModel() throws IOException 
     {
+        bllfacade = new BLLFacade();
         this.clients = FXCollections.observableArrayList();
     }
 
-    public ObservableList<Client> getClients() {
+    public ObservableList<Client> getClients() 
+    {   
+        clients.clear();
+        try {
+            clients.addAll(bllfacade.getAllClients());
+        } catch (SQLException ex) {
+            Logger.getLogger(ClientModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return clients;
     }
 
@@ -34,7 +49,11 @@ public class ClientModel implements ClientModelInterface
     
     public void createClient(Client client)
     {
-        clients.add(client);
+        try {
+            bllfacade.createClient(client);
+        } catch (SQLException ex) {
+            Logger.getLogger(ClientModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
 }

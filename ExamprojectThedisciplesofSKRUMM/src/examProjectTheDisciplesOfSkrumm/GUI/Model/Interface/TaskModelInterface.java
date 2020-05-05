@@ -25,7 +25,7 @@ import java.util.List;
 public interface TaskModelInterface 
 {
     
-    public TreeItem<Task> getModel();
+    public TreeItem<Task> getModel(User user, LocalDate date);
     
     public void createTask(Task task);
     

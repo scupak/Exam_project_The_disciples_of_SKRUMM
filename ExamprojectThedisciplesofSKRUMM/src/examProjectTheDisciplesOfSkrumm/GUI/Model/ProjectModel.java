@@ -7,7 +7,13 @@ package examProjectTheDisciplesOfSkrumm.GUI.Model;
 
 import examProjectTheDisciplesOfSkrumm.BE.Client;
 import examProjectTheDisciplesOfSkrumm.BE.Project;
+import examProjectTheDisciplesOfSkrumm.BLL.BLLFacade;
+import examProjectTheDisciplesOfSkrumm.BLL.Interface.BLLFacadeInterface;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.ProjectModelInterface;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -18,17 +24,28 @@ import javafx.collections.ObservableList;
 public class ProjectModel implements ProjectModelInterface
 {
     ObservableList<Project> projects;
+    private final BLLFacadeInterface bllfacade;
 
-    public ProjectModel()
+    public ProjectModel() throws IOException
     {
+        bllfacade = new BLLFacade();
         this.projects = FXCollections.observableArrayList();
+        
     }
 
+    @Override
     public ObservableList<Project> getProjects() 
     {
+        projects.clear();
+        try {
+            projects.addAll(bllfacade.getAllProjects());
+        } catch (SQLException ex) {
+            Logger.getLogger(ProjectModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return projects;
     }
 
+    @Override
     public void setProjects(ObservableList<Project> projects) 
     {
         this.projects = projects;
@@ -37,7 +54,12 @@ public class ProjectModel implements ProjectModelInterface
     @Override
     public void CreateProject(Project project) 
     {
-       projects.add(project);
+        try {
+            bllfacade.createProject(project);
+        } catch (SQLException ex) {
+            Logger.getLogger(ProjectModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       getProjects();
     }
     
     
