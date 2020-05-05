@@ -104,6 +104,7 @@ public class TaskDBDAO implements TaskDBDAOInterface
         }
     }
     
+    @Override
     public boolean taskExist(Task task) throws SQLException
     {
         try (Connection con = dbCon.getConnection())
@@ -123,6 +124,7 @@ public class TaskDBDAO implements TaskDBDAOInterface
     }
 
 
+    @Override
     public Task createTask(Task task) throws SQLException
     {
         if (taskExist(task))

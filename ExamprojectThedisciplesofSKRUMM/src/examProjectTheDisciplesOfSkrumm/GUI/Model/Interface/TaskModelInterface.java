@@ -49,4 +49,8 @@ public interface TaskModelInterface
     
     public String convertSecToTimeString(int totalSec);
     
+     public boolean getisTimerRunning();
+     
+       public void setIsTimerRunning(boolean isTimerRunning);
+    
 }

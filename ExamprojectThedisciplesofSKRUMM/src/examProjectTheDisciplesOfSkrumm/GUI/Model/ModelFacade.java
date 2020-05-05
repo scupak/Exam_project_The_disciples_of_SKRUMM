@@ -229,6 +229,16 @@ public class ModelFacade implements ModelFacadeInterface
         
        return taskmodel.convertSecToTimeString(totalSec);
     }
+
+    @Override
+    public boolean getisTimerRunning() {
+       return taskmodel.getisTimerRunning();
+    }
+
+    @Override
+    public void setIsTimerRunning(boolean isTimerRunning) {
+       taskmodel.setIsTimerRunning(isTimerRunning);
+    }
     
     
     
