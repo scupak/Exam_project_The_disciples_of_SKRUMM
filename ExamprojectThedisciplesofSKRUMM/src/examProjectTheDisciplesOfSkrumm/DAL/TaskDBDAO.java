@@ -240,6 +240,7 @@ public class TaskDBDAO implements TaskDBDAOInterface
                 LocalTime startTime = rs.getTime("startTime").toLocalTime();
                 LocalTime stopTime = rs.getTime("stopTime").toLocalTime();
                 String userEmail = rs.getString("userEmail");
+                intervals = getIntervals(task);
                 User user = userDBDAO.getUser(new User(userEmail, clientName, clientName, title, true));
 
                 returnTask = new Task(task.getId(), title, project, duration, lastUsed, creationDate, startTime, stopTime, user, intervals);
@@ -273,10 +274,9 @@ public class TaskDBDAO implements TaskDBDAOInterface
                 LocalDate creationDate = rs.getDate("creationDate").toLocalDate();
                 LocalTime startTime = rs.getTime("startTime").toLocalTime();
                 LocalTime stopTime = rs.getTime("stopTime").toLocalTime();
-                ArrayList<Interval> intervals = new ArrayList<Interval>();
                 String userEmail = rs.getString("userEmail");
                 User user1 = userDBDAO.getUser(new User(userEmail, "22", "22", title, false));
-                tasks.add(new Task(id, title, project, duration, lastUsed, creationDate, startTime, stopTime, user1, intervals));
+                tasks.add(new Task(id, title, project, duration, lastUsed, creationDate, startTime, stopTime, user1));
 
             }
             if (tasks.isEmpty())
@@ -326,7 +326,7 @@ public class TaskDBDAO implements TaskDBDAOInterface
                 LocalDate creationDate = rs.getDate("creationDate").toLocalDate();
                 LocalTime startTime = rs.getTime("startTime").toLocalTime();
                 LocalTime stopTime = rs.getTime("stopTime").toLocalTime();
-                ArrayList<Interval> intervals = new ArrayList<>();
+                ArrayList<Interval> intervals = getIntervals(new Task(id, title, project, duration, lastUsed, creationDate, startTime, stopTime, user));
                 String userEmail = rs.getString("userEmail");
                 User user1 = userDBDAO.getUser(new User(userEmail, "22", "22", title, false));
                 tasks.add(new Task(id, title, project, duration, lastUsed, creationDate, startTime, stopTime, user1, intervals));
@@ -367,11 +367,11 @@ public class TaskDBDAO implements TaskDBDAOInterface
         }
     }
 
-    private List<Interval> getIntervals(Task task) throws SQLException
+    private ArrayList<Interval> getIntervals(Task task) throws SQLException
     {
         try (Connection con = dbCon.getConnection())
         {
-            List<Interval> intervals = new ArrayList<>();
+            ArrayList<Interval> intervals = new ArrayList<>();
 
             PreparedStatement ps = con.prepareStatement("SELECT * FROM [interval] WHERE interval.taskId = ?");
 

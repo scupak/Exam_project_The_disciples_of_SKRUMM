@@ -53,6 +53,7 @@ public class TaskManager implements TaskManagerInterface
         return dal.getSixTasks(user);
     }
     
+    @Override
     public List<Task> getTasksForUser(User user, LocalDate date) throws SQLException
     {
         return dal.getTasksForUser(user, date);
