@@ -175,5 +175,10 @@ public class DALFacade implements DALFacadeInterface
     {
         return taskDBDAO.clearTask(task);
     }
+
+    @Override
+    public boolean deleteClient(Client client) throws SQLException {
+        return clientDBDAO.deleteClient(client);
+    }
     
 }

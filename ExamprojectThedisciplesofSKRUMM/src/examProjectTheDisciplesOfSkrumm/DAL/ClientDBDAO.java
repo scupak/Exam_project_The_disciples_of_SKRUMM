@@ -7,7 +7,6 @@ package examProjectTheDisciplesOfSkrumm.DAL;
 
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import examProjectTheDisciplesOfSkrumm.BE.Client;
-import examProjectTheDisciplesOfSkrumm.BE.User;
 import examProjectTheDisciplesOfSkrumm.DAL.Interface.ClientDBDAOInterface;
 import java.io.IOException;
 import java.sql.Connection;
@@ -17,14 +16,12 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
 /**
  *
  * @author Zanaxdk <https://github.com/zanaxdk>
  */
 public class ClientDBDAO implements ClientDBDAOInterface
 {
-
     private final DatabaseConnector dbCon;
 
     public ClientDBDAO() throws IOException
@@ -132,8 +129,7 @@ public class ClientDBDAO implements ClientDBDAOInterface
             }
             return client;
         }
-        
-        
+
     }
     
     public static void main(String[] args) throws IOException, SQLException
@@ -158,14 +154,44 @@ public class ClientDBDAO implements ClientDBDAOInterface
 //        {
 //          System.out.println(client);
 //        }
-        
-        
-        
-        
-        
-        
-       
+    }
 
+    @Override
+    public boolean deleteClient(Client client) throws SQLException {
+        try(Connection con = dbCon.getConnection())
+        {
+
+            PreparedStatement ps = con.prepareStatement("DELETE FROM [client] WHERE id = ?");
+            ps.setInt(1, client.getId());
+            
+            int updatedRows = ps.executeUpdate();
+            
+            return updatedRows > 0;
+            
+            
+        }
+        
+    }
+    
+        public boolean clearTask(Client client) throws SQLException
+    {
+        try(Connection con = dbCon.getConnection())
+        {
+            PreparedStatement ps = con.prepareStatement("DELETE FROM [project] WHERE clientID = ?");
+            ps.setInt(1, client.getId());
+            ps.executeUpdate();
+            
+            PreparedStatement ps2 = con.prepareStatement("SELECT * FROM [project] WHERE clientID = ?");
+            ps2.setInt(1, client.getId());
+            ResultSet rs = ps2.executeQuery();
+            
+            while(rs.next())
+            {
+                return false;
+            }
+            
+            return true;
+        }
     }
     
 }
