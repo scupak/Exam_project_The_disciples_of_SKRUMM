@@ -57,6 +57,26 @@ public class Task
         this.intervals = intervals;
     }
 
+    public Task(int id, String title, Project project, int duration,
+            LocalDateTime lastUsed, LocalDate creationDate, LocalTime startTime, LocalTime stopTime, User user)
+    {
+        this.id = new SimpleIntegerProperty(id);
+        this.title = new SimpleStringProperty(title);
+        this.project = project;
+        this.duration = new SimpleIntegerProperty(duration);
+        this.projectName = new SimpleStringProperty(project.getProjectName());
+        this.clientName = new SimpleStringProperty(project.getClient().getClientName());
+        this.isPaid =  new SimpleIntegerProperty(project.getIsPaid());
+        this.lastUsed = lastUsed;
+        this.creationDate = creationDate;
+        this.startTime = startTime;
+        this.stopTime = stopTime;
+        this.user = user;
+        this.intervals = new ArrayList<>();
+    }
+    
+    
+
     public int getId()
     {
         return id.get();

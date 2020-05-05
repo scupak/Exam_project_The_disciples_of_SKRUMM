@@ -8,7 +8,7 @@ En guide til hvordan man kan gemme TreeTableViews
  
 Ranga. (Set D. 03-05-20) javanbswing.blogspot.com. http://javanbswing.blogspot.com/2016/06/javafx-treetableview-example-with.html
 En guide til hvordan man kan have to forskellige slags objekter i en treeTableView.
-*/
+ */
 package examProjectTheDisciplesOfSkrumm.GUI.controller;
 
 import com.jfoenix.controls.JFXButton;
@@ -20,6 +20,7 @@ import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.ModelFacadeInterface;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.ModelFacade;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -54,8 +55,9 @@ import javax.swing.JOptionPane;
  *
  * @author kacpe
  */
-public class TaskViewController implements Initializable 
+public class TaskViewController implements Initializable
 {
+
     ModelFacadeInterface modelfacade;
     @FXML
     private TreeTableView TaskTable;
@@ -83,7 +85,7 @@ public class TaskViewController implements Initializable
     private TreeTableColumn ProjectColumn;
     @FXML
     private Label timeLabel;
-    
+
     boolean isCurrentDay;
     Locale locale;
 
@@ -110,188 +112,184 @@ public class TaskViewController implements Initializable
     private Label fridayTotalTimeLabel;
     @FXML
     private JFXButton returnToCurrentDayButton;
+    @FXML
+    private JFXButton deleteTask;
 
     /**
      * Initializes the controller class.
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb) 
+    public void initialize(URL url, ResourceBundle rb)
     {
-        try {
+        try
+        {
             //Getting the model
             modelfacade = ModelFacade.getInstance();
-        } catch (Exception ex) {
+        } catch (Exception ex)
+        {
             Logger.getLogger(TaskViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         datePicker.setValue(LocalDate.now());
         locale = Locale.ENGLISH;
         weekOfYear = datePicker.getValue().get(WeekFields.of(locale).weekOfWeekBasedYear());
         weekNumberLabel.setText("" + weekOfYear);
-        
+
         returnToCurrentDayButton.setVisible(false);
         returnToCurrentDayButton.setDisable(true);
         isCurrentDay = true;
         WeekdayLabel.setText(datePicker.getValue().getDayOfWeek().toString().toLowerCase());
         //Making some mock tasks
-        
+
         //Setting cellValue Factories for TreeTableView 
-        TaskColumn.setCellValueFactory( new Callback() {
+        TaskColumn.setCellValueFactory(new Callback()
+        {
             @Override
-            public Object call(Object obj) 
+            public Object call(Object obj)
             {
                 final Object dataObj = ((TreeTableColumn.CellDataFeatures) obj).getValue().getValue();
                 if (dataObj instanceof Task)
                 {
                     return new ReadOnlyStringWrapper(((Task) dataObj).getTitle());
-                }
-                else
+                } else
                 {
                     return null;
                 }
-                
+
             }
         });
-        
-        
-        ProjectColumn.setCellValueFactory(new Callback() {
+
+        ProjectColumn.setCellValueFactory(new Callback()
+        {
             @Override
-            public Object call(Object obj) 
+            public Object call(Object obj)
             {
                 final Object dataObj = ((TreeTableColumn.CellDataFeatures) obj).getValue().getValue();
                 if (dataObj instanceof Task)
                 {
                     return new ReadOnlyStringWrapper(((Task) dataObj).getProjectName());
-                }
-                else
+                } else
                 {
                     return null;
                 }
-                   
-               
+
             }
         });
-        
-        
-        TimeColumn.setCellValueFactory( new Callback() {
+
+        TimeColumn.setCellValueFactory(new Callback()
+        {
             @Override
-            public Object call(Object obj) 
+            public Object call(Object obj)
             {
                 final Object dataObj = ((TreeTableColumn.CellDataFeatures) obj).getValue().getValue();
                 if (dataObj instanceof Task)
                 {
                     return new ReadOnlyStringWrapper(String.valueOf(((Task) dataObj).getDuration()));
-                }
-                else  if (dataObj instanceof Interval)
+                } else if (dataObj instanceof Interval)
                 {
                     return new ReadOnlyStringWrapper(String.valueOf(((Interval) dataObj).getIntervalTime()));
-                }
-                else
+                } else
                 {
                     return null;
                 }
-                
+
             }
         });
-        
-         clientColumn.setCellValueFactory(new Callback() {
+
+        clientColumn.setCellValueFactory(new Callback()
+        {
             @Override
-            public Object call(Object obj) 
+            public Object call(Object obj)
             {
                 final Object dataObj = ((TreeTableColumn.CellDataFeatures) obj).getValue().getValue();
                 if (dataObj instanceof Task)
                 {
                     return new ReadOnlyStringWrapper(((Task) dataObj).getClientName());
-                }
-                else
+                } else
                 {
                     return null;
                 }
-                
+
             }
-         });
-         
-         startTimeColumn.setCellValueFactory(new Callback() {
+        });
+
+        startTimeColumn.setCellValueFactory(new Callback()
+        {
             @Override
-            public Object call(Object obj) 
+            public Object call(Object obj)
             {
                 final Object dataObj = ((TreeTableColumn.CellDataFeatures) obj).getValue().getValue();
                 if (dataObj instanceof Interval)
                 {
                     return new ReadOnlyStringWrapper(((Interval) dataObj).getStartTime().toString());
-                }
-                else if(dataObj instanceof Task)
+                } else if (dataObj instanceof Task)
                 {
-                     return new ReadOnlyStringWrapper(((Task) dataObj).getStartTime().toString());
-                }
-                else
+                    return new ReadOnlyStringWrapper(((Task) dataObj).getStartTime().toString());
+                } else
                 {
                     return null;
                 }
-                
+
             }
-         });
-         
-         stopTimeColumn.setCellValueFactory(new Callback() {
+        });
+
+        stopTimeColumn.setCellValueFactory(new Callback()
+        {
             @Override
-            public Object call(Object obj) 
+            public Object call(Object obj)
             {
                 final Object dataObj = ((TreeTableColumn.CellDataFeatures) obj).getValue().getValue();
                 if (dataObj instanceof Interval)
                 {
                     return new ReadOnlyStringWrapper(((Interval) dataObj).getStopTime().toString());
-                }
-                else if(dataObj instanceof Task)
+                } else if (dataObj instanceof Task)
                 {
-                     return new ReadOnlyStringWrapper(((Task) dataObj).getStopTime().toString());
-                }
-                else
+                    return new ReadOnlyStringWrapper(((Task) dataObj).getStopTime().toString());
+                } else
                 {
                     return null;
                 }
-                
+
             }
-         });
-         
-         IsPaidColumn.setCellValueFactory(new Callback() {
+        });
+
+        IsPaidColumn.setCellValueFactory(new Callback()
+        {
             @Override
-            public Object call(Object obj) {
+            public Object call(Object obj)
+            {
                 final Object dataObj = ((TreeTableColumn.CellDataFeatures) obj).getValue().getValue();
                 if (dataObj instanceof Task)
                 {
                     return new ReadOnlyStringWrapper(((Task) dataObj).getIsPaidBoolean());
-                }
-                else
+                } else
                 {
                     return null;
                 }
             }
-         });
-        
+        });
+
         //Creating the rootNodeTask
         TreeItem<Task> rootNodeTask = modelfacade.getModel(modelfacade.getCurrentuser(), datePicker.getValue());
         rootNodeTask.setExpanded(true);
-        
+
         //Set the model for the TreeTableView
         TaskTable.setRoot(rootNodeTask);
-        
+
         // Make the root node invisible
         TaskTable.setShowRoot(false);
-        
-        
-        
-        
-    } 
+
+    }
 
     @FXML
-    private void handlecChartView(ActionEvent event) throws IOException 
+    private void handlecChartView(ActionEvent event) throws IOException
     {
         Stage chartView = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/ChartView.fxml"));
         Parent root = loader.load();
         ChartViewController Controller = loader.getController();
-        
+
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.setTitle("View Charts");
@@ -303,11 +301,11 @@ public class TaskViewController implements Initializable
     private void handleHome(ActionEvent event) throws IOException
     {
         Stage chartView = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/MainView.fxml"));
         Parent root = loader.load();
         MainViewController Controller = loader.getController();
-        
+
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.setTitle("Home view");
@@ -316,19 +314,19 @@ public class TaskViewController implements Initializable
     }
 
     /**
-     * 
+     *
      * @param event
-     * @throws IOException 
+     * @throws IOException
      */
     @FXML
     private void handleClientsProject(ActionEvent event) throws IOException
     {
         Stage taskView = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/ClientsAndProjects.fxml"));
         Parent root = loader.load();
         ClientsAndProjectsController Controller = loader.getController();
-        
+
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.setTitle("Clients and Projects");
@@ -342,9 +340,9 @@ public class TaskViewController implements Initializable
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/CreateTaskView.fxml"));
         Parent root = loader.load();
         CreateTaskController controller = loader.getController();
-        
+
         controller.settaskViewController(this);
-        
+
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.setTitle("Create Task");
@@ -354,92 +352,88 @@ public class TaskViewController implements Initializable
     @FXML
     private void handleEditTaskAction(ActionEvent event) throws IOException
     {
-        
-        
-        
+
         final JDialog dialog = new JDialog();
         dialog.setAlwaysOnTop(true);
-        
-        if((TaskTable.getSelectionModel().getSelectedItem() == null)){
-            JOptionPane.showMessageDialog(dialog, "Nothing seems to be selected!\nSelect a task to edit before pressing edit!", "ERROR", JOptionPane.ERROR_MESSAGE);   
-        } 
-        
-        else {
-            
-            
-             TreeItem<Task> selectedItem = (TreeItem<Task>)(TaskTable.getSelectionModel().getSelectedItem());
-             
-            
-            if(selectedItem.getValue() instanceof Task){
-            
+
+        if ((TaskTable.getSelectionModel().getSelectedItem() == null))
+        {
+            JOptionPane.showMessageDialog(dialog, "Nothing seems to be selected!\nSelect a task to edit before pressing edit!", "ERROR", JOptionPane.ERROR_MESSAGE);
+        } else
+        {
+
+            TreeItem<Task> selectedItem = (TreeItem<Task>) (TaskTable.getSelectionModel().getSelectedItem());
+
+            if (selectedItem.getValue() instanceof Task)
+            {
+
                 System.err.println("its a task!!!!!!!!!!!!!!!!!!!!");
                 System.out.println(selectedItem.getValue());
-                
-                
-              
-           FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/EditTaskView.fxml"));
-           Parent root = loader.load();
-           EditTaskController controller = loader.getController();
-           controller.setEditTask((Task) selectedItem.getValue());
-           Stage stage = new Stage();
-           stage.setScene(new Scene(root));
-           stage.setTitle("Edit Task");
-           stage.show();
-           
-            
-            
+
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/EditTaskView.fxml"));
+                Parent root = loader.load();
+                EditTaskController controller = loader.getController();
+                controller.setEditTask((Task) selectedItem.getValue());
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.setTitle("Edit Task");
+                stage.show();
+
+            } else
+            {
+
+                System.err.println("not a task!!!!!!!!!!!!!!!!!!!!");
+                JOptionPane.showMessageDialog(dialog, "Please select a valid task to edit!", "ERROR", JOptionPane.ERROR_MESSAGE);
+
             }
-            else{
-            
-                    System.err.println("not a task!!!!!!!!!!!!!!!!!!!!");
-                    JOptionPane.showMessageDialog(dialog, "Please select a valid task to edit!", "ERROR", JOptionPane.ERROR_MESSAGE);
-            
-            }
-            
-           
+
         }
-       
-        
-    } 
-    
+
+    }
+
     @FXML
-    private void handleStartTimer(ActionEvent event) 
+    private void handleStartTimer(ActionEvent event)
     {
 
-        
-        
-                
         System.out.println(System.getProperty("java.version"));
         System.out.println(System.getProperty("javafx.runtime.version"));
-        
+
         System.out.println("start");
 
-        if (running) {
+        if (running)
+        {
 
             running = false;
 
-        } else if (!running) {
+        } else if (!running)
+        {
             running = true;
 
         }
 
         new Thread(()
-                -> {
-            while (true) {
+                ->
+        {
+            while (true)
+            {
 
-                if (running) {
+                if (running)
+                {
 
-                    try {
+                    try
+                    {
                         Thread.sleep(1000);
 
                         sec++;
 
-                        if (sec >= 60) {
+                        if (sec >= 60)
+                        {
                             min++;
                             sec = 0;
                         }
 
-                        if (min >= 60) {
+                        if (min >= 60)
+                        {
                             hour++;
                             min = 0;
                         }
@@ -447,15 +441,18 @@ public class TaskViewController implements Initializable
                         String time = String.format("%02d", hour) + " : " + String.format("%02d", min) + " : " + String.format("%02d", sec);
                         System.out.println(time);
                         Platform.runLater(()
-                                -> {
+                                ->
+                        {
                             timeLabel.setText(String.format("%02d", hour) + " : " + String.format("%02d", min) + " : " + String.format("%02d", sec));
                         }
                         );
 
-                    } catch (Exception e) {
+                    } catch (Exception e)
+                    {
                     }
 
-                } else {
+                } else
+                {
 
                     break;
 
@@ -470,21 +467,21 @@ public class TaskViewController implements Initializable
     /**
      * Refreshes the tableview
      */
-    public void RefreshTreeView() 
+    public void RefreshTreeView()
     {
         //Creating the rootNodeTask
         TreeItem<Task> rootNodeTask = modelfacade.getModel(modelfacade.getCurrentuser(), datePicker.getValue());
         rootNodeTask.setExpanded(true);
-        
+
         //Set the model for the TreeTableView
         TaskTable.setRoot(rootNodeTask);
-        
+
         // Make the root node invisible
         TaskTable.setShowRoot(false);
     }
 
     @FXML
-    private void handlePreviousDay(ActionEvent event) 
+    private void handlePreviousDay(ActionEvent event)
     {
         LocalDate previoday = datePicker.getValue().minusDays(1);
         datePicker.setValue(previoday);
@@ -494,7 +491,7 @@ public class TaskViewController implements Initializable
     }
 
     @FXML
-    private void handleNextDay(ActionEvent event) 
+    private void handleNextDay(ActionEvent event)
     {
         LocalDate previoday = datePicker.getValue().plusDays(1);
         datePicker.setValue(previoday);
@@ -504,23 +501,23 @@ public class TaskViewController implements Initializable
     }
 
     @FXML
-    private void handleMonday(ActionEvent event) 
+    private void handleMonday(ActionEvent event)
     {
-        switch(datePicker.getValue().getDayOfWeek())
+        switch (datePicker.getValue().getDayOfWeek())
         {
             case MONDAY:
                 checkForCurrentday();
                 checkWeekNumber();
                 RefreshTreeView();
                 break;
-            
+
             case TUESDAY:
                 datePicker.setValue(datePicker.getValue().minusDays(1));
                 checkForCurrentday();
                 checkWeekNumber();
                 RefreshTreeView();
                 break;
-                
+
             case WEDNESDAY:
                 datePicker.setValue(datePicker.getValue().minusDays(2));
                 checkForCurrentday();
@@ -534,40 +531,40 @@ public class TaskViewController implements Initializable
                 checkWeekNumber();
                 RefreshTreeView();
                 break;
-             
+
             case FRIDAY:
                 datePicker.setValue(datePicker.getValue().minusDays(4));
                 checkForCurrentday();
                 checkWeekNumber();
                 RefreshTreeView();
                 break;
-                
+
             case SATURDAY:
                 datePicker.setValue(datePicker.getValue().minusDays(5));
                 checkForCurrentday();
                 checkWeekNumber();
                 RefreshTreeView();
                 break;
-                
+
             case SUNDAY:
                 datePicker.setValue(datePicker.getValue().minusDays(6));
                 checkForCurrentday();
                 checkWeekNumber();
                 RefreshTreeView();
                 break;
-                
+
             default:
                 checkForCurrentday();
                 checkWeekNumber();
                 RefreshTreeView();
         }
-         
+
     }
-    
+
     @FXML
-    private void handleTuesday(ActionEvent event) 
+    private void handleTuesday(ActionEvent event)
     {
-        switch(datePicker.getValue().getDayOfWeek())
+        switch (datePicker.getValue().getDayOfWeek())
         {
             case MONDAY:
                 datePicker.setValue(datePicker.getValue().plusDays(1));
@@ -575,13 +572,13 @@ public class TaskViewController implements Initializable
                 checkWeekNumber();
                 RefreshTreeView();
                 break;
-            
+
             case TUESDAY:
                 checkForCurrentday();
                 checkWeekNumber();
                 RefreshTreeView();
                 break;
-                
+
             case WEDNESDAY:
                 datePicker.setValue(datePicker.getValue().minusDays(1));
                 checkForCurrentday();
@@ -595,39 +592,39 @@ public class TaskViewController implements Initializable
                 checkWeekNumber();
                 RefreshTreeView();
                 break;
-             
+
             case FRIDAY:
                 datePicker.setValue(datePicker.getValue().minusDays(3));
                 checkForCurrentday();
                 checkWeekNumber();
                 RefreshTreeView();
                 break;
-                
+
             case SATURDAY:
                 datePicker.setValue(datePicker.getValue().minusDays(4));
                 checkForCurrentday();
                 checkWeekNumber();
                 RefreshTreeView();
                 break;
-                
+
             case SUNDAY:
                 datePicker.setValue(datePicker.getValue().minusDays(5));
                 checkForCurrentday();
                 checkWeekNumber();
                 RefreshTreeView();
                 break;
-                
+
             default:
                 checkForCurrentday();
                 checkWeekNumber();
                 RefreshTreeView();
         }
     }
-    
+
     @FXML
-    private void handleWednesday(ActionEvent event) 
+    private void handleWednesday(ActionEvent event)
     {
-        switch(datePicker.getValue().getDayOfWeek())
+        switch (datePicker.getValue().getDayOfWeek())
         {
             case MONDAY:
                 datePicker.setValue(datePicker.getValue().plusDays(2));
@@ -635,14 +632,14 @@ public class TaskViewController implements Initializable
                 checkWeekNumber();
                 RefreshTreeView();
                 break;
-            
+
             case TUESDAY:
                 datePicker.setValue(datePicker.getValue().plusDays(1));
                 checkForCurrentday();
                 checkWeekNumber();
                 RefreshTreeView();
                 break;
-                
+
             case WEDNESDAY:
                 checkForCurrentday();
                 checkWeekNumber();
@@ -655,41 +652,40 @@ public class TaskViewController implements Initializable
                 checkWeekNumber();
                 RefreshTreeView();
                 break;
-             
+
             case FRIDAY:
                 datePicker.setValue(datePicker.getValue().minusDays(2));
                 checkForCurrentday();
                 checkWeekNumber();
                 RefreshTreeView();
                 break;
-                
+
             case SATURDAY:
                 datePicker.setValue(datePicker.getValue().minusDays(3));
                 checkForCurrentday();
                 checkWeekNumber();
                 RefreshTreeView();
                 break;
-                
+
             case SUNDAY:
                 datePicker.setValue(datePicker.getValue().minusDays(4));
                 checkForCurrentday();
                 checkWeekNumber();
                 RefreshTreeView();
                 break;
-                
+
             default:
                 checkForCurrentday();
                 checkWeekNumber();
                 RefreshTreeView();
         }
-        
-       
+
     }
 
     @FXML
     private void handleThursday(ActionEvent event)
     {
-        switch(datePicker.getValue().getDayOfWeek())
+        switch (datePicker.getValue().getDayOfWeek())
         {
             case MONDAY:
                 datePicker.setValue(datePicker.getValue().plusDays(3));
@@ -697,14 +693,14 @@ public class TaskViewController implements Initializable
                 checkWeekNumber();
                 RefreshTreeView();
                 break;
-            
+
             case TUESDAY:
                 datePicker.setValue(datePicker.getValue().plusDays(2));
                 checkForCurrentday();
                 checkWeekNumber();
                 RefreshTreeView();
                 break;
-                
+
             case WEDNESDAY:
                 datePicker.setValue(datePicker.getValue().plusDays(1));
                 checkForCurrentday();
@@ -717,28 +713,28 @@ public class TaskViewController implements Initializable
                 checkWeekNumber();
                 RefreshTreeView();
                 break;
-             
+
             case FRIDAY:
                 datePicker.setValue(datePicker.getValue().minusDays(1));
                 checkForCurrentday();
                 checkWeekNumber();
                 RefreshTreeView();
                 break;
-                
+
             case SATURDAY:
                 datePicker.setValue(datePicker.getValue().minusDays(2));
                 checkForCurrentday();
                 checkWeekNumber();
                 RefreshTreeView();
                 break;
-                
+
             case SUNDAY:
                 datePicker.setValue(datePicker.getValue().minusDays(3));
                 checkForCurrentday();
                 checkWeekNumber();
                 RefreshTreeView();
                 break;
-                
+
             default:
                 checkForCurrentday();
                 checkWeekNumber();
@@ -746,12 +742,10 @@ public class TaskViewController implements Initializable
         }
     }
 
-    
-
     @FXML
-    private void handleFriday(ActionEvent event) 
+    private void handleFriday(ActionEvent event)
     {
-       switch(datePicker.getValue().getDayOfWeek())
+        switch (datePicker.getValue().getDayOfWeek())
         {
             case MONDAY:
                 datePicker.setValue(datePicker.getValue().plusDays(4));
@@ -759,14 +753,14 @@ public class TaskViewController implements Initializable
                 checkWeekNumber();
                 RefreshTreeView();
                 break;
-            
+
             case TUESDAY:
                 datePicker.setValue(datePicker.getValue().plusDays(3));
                 checkForCurrentday();
                 checkWeekNumber();
                 RefreshTreeView();
                 break;
-                
+
             case WEDNESDAY:
                 datePicker.setValue(datePicker.getValue().plusDays(2));
                 checkForCurrentday();
@@ -780,27 +774,27 @@ public class TaskViewController implements Initializable
                 checkWeekNumber();
                 RefreshTreeView();
                 break;
-             
+
             case FRIDAY:
                 checkForCurrentday();
                 checkWeekNumber();
                 RefreshTreeView();
                 break;
-                
+
             case SATURDAY:
                 datePicker.setValue(datePicker.getValue().minusDays(1));
                 checkForCurrentday();
                 checkWeekNumber();
                 RefreshTreeView();
                 break;
-                
+
             case SUNDAY:
                 datePicker.setValue(datePicker.getValue().minusDays(2));
                 checkForCurrentday();
                 checkWeekNumber();
                 RefreshTreeView();
                 break;
-                
+
             default:
                 checkForCurrentday();
                 checkWeekNumber();
@@ -809,9 +803,9 @@ public class TaskViewController implements Initializable
     }
 
     @FXML
-    private void handleSaturday(ActionEvent event) 
+    private void handleSaturday(ActionEvent event)
     {
-        switch(datePicker.getValue().getDayOfWeek())
+        switch (datePicker.getValue().getDayOfWeek())
         {
             case MONDAY:
                 datePicker.setValue(datePicker.getValue().plusDays(5));
@@ -819,14 +813,14 @@ public class TaskViewController implements Initializable
                 checkWeekNumber();
                 RefreshTreeView();
                 break;
-            
+
             case TUESDAY:
                 datePicker.setValue(datePicker.getValue().plusDays(4));
                 checkForCurrentday();
                 checkWeekNumber();
                 RefreshTreeView();
                 break;
-                
+
             case WEDNESDAY:
                 datePicker.setValue(datePicker.getValue().plusDays(3));
                 checkForCurrentday();
@@ -840,27 +834,27 @@ public class TaskViewController implements Initializable
                 checkWeekNumber();
                 RefreshTreeView();
                 break;
-             
+
             case FRIDAY:
                 datePicker.setValue(datePicker.getValue().plusDays(1));
                 checkForCurrentday();
                 checkWeekNumber();
                 RefreshTreeView();
                 break;
-                
+
             case SATURDAY:
                 checkForCurrentday();
                 checkWeekNumber();
                 RefreshTreeView();
                 break;
-                
+
             case SUNDAY:
                 datePicker.setValue(datePicker.getValue().minusDays(1));
                 checkForCurrentday();
                 checkWeekNumber();
                 RefreshTreeView();
                 break;
-                
+
             default:
                 checkForCurrentday();
                 checkWeekNumber();
@@ -869,9 +863,9 @@ public class TaskViewController implements Initializable
     }
 
     @FXML
-    private void handleSunday(ActionEvent event) 
+    private void handleSunday(ActionEvent event)
     {
-         switch(datePicker.getValue().getDayOfWeek())
+        switch (datePicker.getValue().getDayOfWeek())
         {
             case MONDAY:
                 datePicker.setValue(datePicker.getValue().plusDays(6));
@@ -879,14 +873,14 @@ public class TaskViewController implements Initializable
                 checkWeekNumber();
                 RefreshTreeView();
                 break;
-            
+
             case TUESDAY:
                 datePicker.setValue(datePicker.getValue().plusDays(5));
                 checkForCurrentday();
                 checkWeekNumber();
                 RefreshTreeView();
                 break;
-                
+
             case WEDNESDAY:
                 datePicker.setValue(datePicker.getValue().plusDays(4));
                 checkForCurrentday();
@@ -900,27 +894,27 @@ public class TaskViewController implements Initializable
                 checkWeekNumber();
                 RefreshTreeView();
                 break;
-             
+
             case FRIDAY:
                 datePicker.setValue(datePicker.getValue().plusDays(2));
                 checkForCurrentday();
                 checkWeekNumber();
                 RefreshTreeView();
                 break;
-                
+
             case SATURDAY:
                 datePicker.setValue(datePicker.getValue().plusDays(1));
                 checkForCurrentday();
                 checkWeekNumber();
                 RefreshTreeView();
                 break;
-                
+
             case SUNDAY:
                 checkForCurrentday();
                 checkWeekNumber();
                 RefreshTreeView();
                 break;
-                
+
             default:
                 checkForCurrentday();
                 checkWeekNumber();
@@ -929,7 +923,7 @@ public class TaskViewController implements Initializable
     }
 
     @FXML
-    private void handlecurrentday(ActionEvent event) 
+    private void handlecurrentday(ActionEvent event)
     {
         datePicker.setValue(LocalDate.now());
         checkForCurrentday();
@@ -937,16 +931,15 @@ public class TaskViewController implements Initializable
         RefreshTreeView();
         
     }
-    
+
     private void checkForCurrentday()
     {
         LocalDate date = datePicker.getValue();
-        if(!(date.isEqual(LocalDate.now())))
+        if (!(date.isEqual(LocalDate.now())))
         {
             returnToCurrentDayButton.setVisible(true);
             returnToCurrentDayButton.setDisable(false);
-        }
-        else if(date.isEqual(LocalDate.now()))
+        } else if (date.isEqual(LocalDate.now()))
         {
             returnToCurrentDayButton.setVisible(false);
             returnToCurrentDayButton.setDisable(true);
@@ -954,27 +947,48 @@ public class TaskViewController implements Initializable
     }
 
     @FXML
-    private void handleDatepickerAction(ActionEvent event) 
+    private void handleDatepickerAction(ActionEvent event)
     {
         checkForCurrentday();
         checkWeekNumber();
         RefreshTreeView();
     }
-    
+
     private void checkWeekNumber()
     {
-         weekOfYear = datePicker.getValue().get(WeekFields.of(locale).weekOfWeekBasedYear());
-         weekNumberLabel.setText("" + weekOfYear);
-         WeekdayLabel.setText(datePicker.getValue().getDayOfWeek().toString().toLowerCase());
+        weekOfYear = datePicker.getValue().get(WeekFields.of(locale).weekOfWeekBasedYear());
+        weekNumberLabel.setText("" + weekOfYear);
+        WeekdayLabel.setText(datePicker.getValue().getDayOfWeek().toString().toLowerCase());
     }
 
-    
-        
-               
-    
-    
-  
-    
-    
-   
+    @FXML
+    private void handleDeleteTaskAction(ActionEvent event) throws SQLException
+    {
+        final JDialog dialog = new JDialog();
+        dialog.setAlwaysOnTop(true);
+
+        if ((TaskTable.getSelectionModel().getSelectedItem() == null))
+        {
+            JOptionPane.showMessageDialog(dialog, "Nothing seems to be selected!\nSelect a task to delete before pressing delete!", "ERROR", JOptionPane.ERROR_MESSAGE);
+        } else
+        {
+
+            TreeItem<Task> selectedItem = (TreeItem<Task>) (TaskTable.getSelectionModel().getSelectedItem());
+
+            if (selectedItem.getValue() instanceof Task)
+            {
+
+                Task task = selectedItem.getValue();
+                int input = JOptionPane.showConfirmDialog(null, "delete task?", "Select an Option...",
+                        JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+
+                if (input == JOptionPane.YES_OPTION)
+                {
+                    modelfacade.deleteTask(task);
+                }
+
+            }
+        }
+
+    }
 }

@@ -229,6 +229,27 @@ public class ModelFacade implements ModelFacadeInterface
         
        return taskmodel.convertSecToTimeString(totalSec);
     }
+
+    @Override
+    public boolean deleteTask(Task task) throws SQLException
+    {
+        return taskmodel.deleteTask(task);
+    }
+
+    @Override
+    public boolean clearTask(Task task) throws SQLException
+    {
+        return taskmodel.clearTask(task);
+    }
+    
+    public boolean getisTimerRunning() {
+       return taskmodel.getisTimerRunning();
+    }
+
+    @Override
+    public void setIsTimerRunning(boolean isTimerRunning) {
+       taskmodel.setIsTimerRunning(isTimerRunning);
+    }
     
     
     

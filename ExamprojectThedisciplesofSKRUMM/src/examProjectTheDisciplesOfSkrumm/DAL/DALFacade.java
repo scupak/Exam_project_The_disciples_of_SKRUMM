@@ -163,5 +163,17 @@ public class DALFacade implements DALFacadeInterface
     {
         return taskDBDAO.getTasksForUser(user, date);
     }
+
+    @Override
+    public boolean deleteTask(Task task) throws SQLException
+    {
+      return taskDBDAO.deleteTask(task);
+    }
+
+    @Override
+    public boolean clearTask(Task task) throws SQLException
+    {
+        return taskDBDAO.clearTask(task);
+    }
     
 }

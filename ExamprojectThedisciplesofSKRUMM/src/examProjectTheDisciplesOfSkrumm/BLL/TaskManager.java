@@ -128,6 +128,18 @@ public class TaskManager implements TaskManagerInterface
     {
         return dal.getTask(task);
     }
+
+    @Override
+    public boolean deleteTask(Task task) throws SQLException
+    {
+        return dal.deleteTask(task);
+    }
+
+    @Override
+    public boolean clearTask(Task task) throws SQLException
+    {
+        return dal.clearTask(task);
+    }
   
    
     

@@ -196,5 +196,16 @@ public class BLLFacade implements BLLFacadeInterface
     public Client createClient(Client client) throws SQLException {
         return clientmanager.createClient(client);
     }
+    
+    public boolean deleteTask(Task task) throws SQLException
+    {
+        return taskmanager.deleteTask(task);
+    }
+
+    @Override
+    public boolean clearTask(Task task) throws SQLException
+    {
+        return taskmanager.clearTask(task);
+    }
 
 }

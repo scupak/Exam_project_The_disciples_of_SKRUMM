@@ -37,16 +37,18 @@ public class TaskModel implements TaskModelInterface
 {
     private final BLLFacadeInterface bllfacade;
     private ObservableList<Task> tasks;
+    private boolean isTimerRunning;
 
     TaskModel() throws IOException
     {
        bllfacade = new BLLFacade();
        tasks = FXCollections.observableArrayList();
+       isTimerRunning = false;
         
     }
 
     
-
+    
     @Override
     public TreeItem<Task> getModel(User user, LocalDate date) 
     {
@@ -131,6 +133,29 @@ public class TaskModel implements TaskModelInterface
     public String convertSecToTimeString(int totalSec) {
        return bllfacade.convertSecToTimeString(totalSec);
     }
+
+    @Override
+    public boolean deleteTask(Task task) throws SQLException
+    {
+        return bllfacade.deleteTask(task);
+    }
+
+    @Override
+    public boolean clearTask(Task task) throws SQLException
+    {
+        return bllfacade.clearTask(task);
+    }
+    
+    public boolean getisTimerRunning() {
+        return isTimerRunning;
+    }
+
+    @Override
+    public void setIsTimerRunning(boolean isTimerRunning) {
+        this.isTimerRunning = isTimerRunning;
+    }
+    
+    
     
     
 }
