@@ -11,6 +11,7 @@ import examProjectTheDisciplesOfSkrumm.BE.Interval;
 import examProjectTheDisciplesOfSkrumm.BE.Project;
 import examProjectTheDisciplesOfSkrumm.BE.Task;
 import examProjectTheDisciplesOfSkrumm.BE.User;
+import examProjectTheDisciplesOfSkrumm.BLL.Util.TimerUtil;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.ClientModelInterface;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.ModelFacadeInterface;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.ProjectModelInterface;
@@ -81,8 +82,8 @@ public class ModelFacade implements ModelFacadeInterface
    
 
     @Override
-    public TreeItem<Task> getModel() {
-        return taskmodel.getModel();
+    public TreeItem<Task> getModel(User user, LocalDate date) {
+        return taskmodel.getModel( user, date);
     }
 
     @Override
@@ -249,6 +250,16 @@ public class ModelFacade implements ModelFacadeInterface
     @Override
     public void setIsTimerRunning(boolean isTimerRunning) {
        taskmodel.setIsTimerRunning(isTimerRunning);
+    }
+
+    @Override
+    public TimerUtil getTimerutil() {
+       return taskmodel.getTimerutil();
+    }
+
+    @Override
+    public void setTimerutil(TimerUtil timerutil) {
+        taskmodel.setTimerutil(timerutil);
     }
     
     

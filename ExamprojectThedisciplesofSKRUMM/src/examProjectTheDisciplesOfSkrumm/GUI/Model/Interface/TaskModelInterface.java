@@ -11,6 +11,7 @@ import examProjectTheDisciplesOfSkrumm.BE.Interval;
 import examProjectTheDisciplesOfSkrumm.BE.Project;
 import examProjectTheDisciplesOfSkrumm.BE.Task;
 import examProjectTheDisciplesOfSkrumm.BE.User;
+import examProjectTheDisciplesOfSkrumm.BLL.Util.TimerUtil;
 import java.time.LocalDateTime;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TreeItem;
@@ -25,7 +26,7 @@ import java.util.List;
 public interface TaskModelInterface 
 {
     
-    public TreeItem<Task> getModel();
+    public TreeItem<Task> getModel(User user, LocalDate date);
     
     public void createTask(Task task);
     
@@ -49,12 +50,18 @@ public interface TaskModelInterface
     
     public String convertSecToTimeString(int totalSec);
     
+    public boolean getisTimerRunning();
+     
+    public void setIsTimerRunning(boolean isTimerRunning);
+    
+    public TimerUtil getTimerutil();
+
+    public void setTimerutil(TimerUtil timerutil);
+  
     public boolean deleteTask(Task task) throws SQLException;
     
     public boolean clearTask(Task task) throws SQLException;
      
-    public boolean getisTimerRunning();
-     
-    public void setIsTimerRunning(boolean isTimerRunning);
+   
     
 }

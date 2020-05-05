@@ -270,7 +270,7 @@ public class TaskViewController implements Initializable
         });
 
         //Creating the rootNodeTask
-        TreeItem<Task> rootNodeTask = modelfacade.getModel();
+        TreeItem<Task> rootNodeTask = modelfacade.getModel(modelfacade.getCurrentuser(), datePicker.getValue());
         rootNodeTask.setExpanded(true);
 
         //Set the model for the TreeTableView
@@ -470,7 +470,7 @@ public class TaskViewController implements Initializable
     public void RefreshTreeView()
     {
         //Creating the rootNodeTask
-        TreeItem<Task> rootNodeTask = modelfacade.getModel();
+        TreeItem<Task> rootNodeTask = modelfacade.getModel(modelfacade.getCurrentuser(), datePicker.getValue());
         rootNodeTask.setExpanded(true);
 
         //Set the model for the TreeTableView
@@ -487,6 +487,7 @@ public class TaskViewController implements Initializable
         datePicker.setValue(previoday);
         checkForCurrentday();
         checkWeekNumber();
+        RefreshTreeView();
     }
 
     @FXML
@@ -496,6 +497,7 @@ public class TaskViewController implements Initializable
         datePicker.setValue(previoday);
         checkForCurrentday();
         checkWeekNumber();
+        RefreshTreeView();
     }
 
     @FXML
@@ -506,47 +508,55 @@ public class TaskViewController implements Initializable
             case MONDAY:
                 checkForCurrentday();
                 checkWeekNumber();
+                RefreshTreeView();
                 break;
 
             case TUESDAY:
                 datePicker.setValue(datePicker.getValue().minusDays(1));
                 checkForCurrentday();
                 checkWeekNumber();
+                RefreshTreeView();
                 break;
 
             case WEDNESDAY:
                 datePicker.setValue(datePicker.getValue().minusDays(2));
                 checkForCurrentday();
                 checkWeekNumber();
-                break;
-
+                RefreshTreeView();
+                break;    
+            
             case THURSDAY:
                 datePicker.setValue(datePicker.getValue().minusDays(3));
                 checkForCurrentday();
                 checkWeekNumber();
+                RefreshTreeView();
                 break;
 
             case FRIDAY:
                 datePicker.setValue(datePicker.getValue().minusDays(4));
                 checkForCurrentday();
                 checkWeekNumber();
+                RefreshTreeView();
                 break;
 
             case SATURDAY:
                 datePicker.setValue(datePicker.getValue().minusDays(5));
                 checkForCurrentday();
                 checkWeekNumber();
+                RefreshTreeView();
                 break;
 
             case SUNDAY:
                 datePicker.setValue(datePicker.getValue().minusDays(6));
                 checkForCurrentday();
                 checkWeekNumber();
+                RefreshTreeView();
                 break;
 
             default:
                 checkForCurrentday();
                 checkWeekNumber();
+                RefreshTreeView();
         }
 
     }
@@ -560,46 +570,54 @@ public class TaskViewController implements Initializable
                 datePicker.setValue(datePicker.getValue().plusDays(1));
                 checkForCurrentday();
                 checkWeekNumber();
+                RefreshTreeView();
                 break;
 
             case TUESDAY:
                 checkForCurrentday();
                 checkWeekNumber();
+                RefreshTreeView();
                 break;
 
             case WEDNESDAY:
                 datePicker.setValue(datePicker.getValue().minusDays(1));
                 checkForCurrentday();
                 checkWeekNumber();
-                break;
-
+                RefreshTreeView();
+                break;    
+            
             case THURSDAY:
                 datePicker.setValue(datePicker.getValue().minusDays(2));
                 checkForCurrentday();
                 checkWeekNumber();
+                RefreshTreeView();
                 break;
 
             case FRIDAY:
                 datePicker.setValue(datePicker.getValue().minusDays(3));
                 checkForCurrentday();
                 checkWeekNumber();
+                RefreshTreeView();
                 break;
 
             case SATURDAY:
                 datePicker.setValue(datePicker.getValue().minusDays(4));
                 checkForCurrentday();
                 checkWeekNumber();
+                RefreshTreeView();
                 break;
 
             case SUNDAY:
                 datePicker.setValue(datePicker.getValue().minusDays(5));
                 checkForCurrentday();
                 checkWeekNumber();
+                RefreshTreeView();
                 break;
 
             default:
                 checkForCurrentday();
                 checkWeekNumber();
+                RefreshTreeView();
         }
     }
 
@@ -612,46 +630,54 @@ public class TaskViewController implements Initializable
                 datePicker.setValue(datePicker.getValue().plusDays(2));
                 checkForCurrentday();
                 checkWeekNumber();
+                RefreshTreeView();
                 break;
 
             case TUESDAY:
                 datePicker.setValue(datePicker.getValue().plusDays(1));
                 checkForCurrentday();
                 checkWeekNumber();
+                RefreshTreeView();
                 break;
 
             case WEDNESDAY:
                 checkForCurrentday();
                 checkWeekNumber();
-                break;
-
+                RefreshTreeView();
+                break;    
+            
             case THURSDAY:
                 datePicker.setValue(datePicker.getValue().minusDays(1));
                 checkForCurrentday();
                 checkWeekNumber();
+                RefreshTreeView();
                 break;
 
             case FRIDAY:
                 datePicker.setValue(datePicker.getValue().minusDays(2));
                 checkForCurrentday();
                 checkWeekNumber();
+                RefreshTreeView();
                 break;
 
             case SATURDAY:
                 datePicker.setValue(datePicker.getValue().minusDays(3));
                 checkForCurrentday();
                 checkWeekNumber();
+                RefreshTreeView();
                 break;
 
             case SUNDAY:
                 datePicker.setValue(datePicker.getValue().minusDays(4));
                 checkForCurrentday();
                 checkWeekNumber();
+                RefreshTreeView();
                 break;
 
             default:
                 checkForCurrentday();
                 checkWeekNumber();
+                RefreshTreeView();
         }
 
     }
@@ -665,46 +691,54 @@ public class TaskViewController implements Initializable
                 datePicker.setValue(datePicker.getValue().plusDays(3));
                 checkForCurrentday();
                 checkWeekNumber();
+                RefreshTreeView();
                 break;
 
             case TUESDAY:
                 datePicker.setValue(datePicker.getValue().plusDays(2));
                 checkForCurrentday();
                 checkWeekNumber();
+                RefreshTreeView();
                 break;
 
             case WEDNESDAY:
                 datePicker.setValue(datePicker.getValue().plusDays(1));
                 checkForCurrentday();
                 checkWeekNumber();
-                break;
-
+                RefreshTreeView();
+                break;    
+            
             case THURSDAY:
                 checkForCurrentday();
                 checkWeekNumber();
+                RefreshTreeView();
                 break;
 
             case FRIDAY:
                 datePicker.setValue(datePicker.getValue().minusDays(1));
                 checkForCurrentday();
                 checkWeekNumber();
+                RefreshTreeView();
                 break;
 
             case SATURDAY:
                 datePicker.setValue(datePicker.getValue().minusDays(2));
                 checkForCurrentday();
                 checkWeekNumber();
+                RefreshTreeView();
                 break;
 
             case SUNDAY:
                 datePicker.setValue(datePicker.getValue().minusDays(3));
                 checkForCurrentday();
                 checkWeekNumber();
+                RefreshTreeView();
                 break;
 
             default:
                 checkForCurrentday();
                 checkWeekNumber();
+                RefreshTreeView();
         }
     }
 
@@ -717,46 +751,54 @@ public class TaskViewController implements Initializable
                 datePicker.setValue(datePicker.getValue().plusDays(4));
                 checkForCurrentday();
                 checkWeekNumber();
+                RefreshTreeView();
                 break;
 
             case TUESDAY:
                 datePicker.setValue(datePicker.getValue().plusDays(3));
                 checkForCurrentday();
                 checkWeekNumber();
+                RefreshTreeView();
                 break;
 
             case WEDNESDAY:
                 datePicker.setValue(datePicker.getValue().plusDays(2));
                 checkForCurrentday();
                 checkWeekNumber();
-                break;
-
+                RefreshTreeView();
+                break;    
+            
             case THURSDAY:
                 datePicker.setValue(datePicker.getValue().plusDays(1));
                 checkForCurrentday();
                 checkWeekNumber();
+                RefreshTreeView();
                 break;
 
             case FRIDAY:
                 checkForCurrentday();
                 checkWeekNumber();
+                RefreshTreeView();
                 break;
 
             case SATURDAY:
                 datePicker.setValue(datePicker.getValue().minusDays(1));
                 checkForCurrentday();
                 checkWeekNumber();
+                RefreshTreeView();
                 break;
 
             case SUNDAY:
                 datePicker.setValue(datePicker.getValue().minusDays(2));
                 checkForCurrentday();
                 checkWeekNumber();
+                RefreshTreeView();
                 break;
 
             default:
                 checkForCurrentday();
                 checkWeekNumber();
+                RefreshTreeView();
         }
     }
 
@@ -769,46 +811,54 @@ public class TaskViewController implements Initializable
                 datePicker.setValue(datePicker.getValue().plusDays(5));
                 checkForCurrentday();
                 checkWeekNumber();
+                RefreshTreeView();
                 break;
 
             case TUESDAY:
                 datePicker.setValue(datePicker.getValue().plusDays(4));
                 checkForCurrentday();
                 checkWeekNumber();
+                RefreshTreeView();
                 break;
 
             case WEDNESDAY:
                 datePicker.setValue(datePicker.getValue().plusDays(3));
                 checkForCurrentday();
                 checkWeekNumber();
-                break;
-
+                RefreshTreeView();
+                break;    
+            
             case THURSDAY:
                 datePicker.setValue(datePicker.getValue().plusDays(2));
                 checkForCurrentday();
                 checkWeekNumber();
+                RefreshTreeView();
                 break;
 
             case FRIDAY:
                 datePicker.setValue(datePicker.getValue().plusDays(1));
                 checkForCurrentday();
                 checkWeekNumber();
+                RefreshTreeView();
                 break;
 
             case SATURDAY:
                 checkForCurrentday();
                 checkWeekNumber();
+                RefreshTreeView();
                 break;
 
             case SUNDAY:
                 datePicker.setValue(datePicker.getValue().minusDays(1));
                 checkForCurrentday();
                 checkWeekNumber();
+                RefreshTreeView();
                 break;
 
             default:
                 checkForCurrentday();
                 checkWeekNumber();
+                RefreshTreeView();
         }
     }
 
@@ -821,46 +871,54 @@ public class TaskViewController implements Initializable
                 datePicker.setValue(datePicker.getValue().plusDays(6));
                 checkForCurrentday();
                 checkWeekNumber();
+                RefreshTreeView();
                 break;
 
             case TUESDAY:
                 datePicker.setValue(datePicker.getValue().plusDays(5));
                 checkForCurrentday();
                 checkWeekNumber();
+                RefreshTreeView();
                 break;
 
             case WEDNESDAY:
                 datePicker.setValue(datePicker.getValue().plusDays(4));
                 checkForCurrentday();
                 checkWeekNumber();
-                break;
-
+                RefreshTreeView();
+                break;    
+            
             case THURSDAY:
                 datePicker.setValue(datePicker.getValue().plusDays(3));
                 checkForCurrentday();
                 checkWeekNumber();
+                RefreshTreeView();
                 break;
 
             case FRIDAY:
                 datePicker.setValue(datePicker.getValue().plusDays(2));
                 checkForCurrentday();
                 checkWeekNumber();
+                RefreshTreeView();
                 break;
 
             case SATURDAY:
                 datePicker.setValue(datePicker.getValue().plusDays(1));
                 checkForCurrentday();
                 checkWeekNumber();
+                RefreshTreeView();
                 break;
 
             case SUNDAY:
                 checkForCurrentday();
                 checkWeekNumber();
+                RefreshTreeView();
                 break;
 
             default:
                 checkForCurrentday();
                 checkWeekNumber();
+                RefreshTreeView();
         }
     }
 
@@ -870,7 +928,8 @@ public class TaskViewController implements Initializable
         datePicker.setValue(LocalDate.now());
         checkForCurrentday();
         checkWeekNumber();
-
+        RefreshTreeView();
+        
     }
 
     private void checkForCurrentday()
@@ -892,6 +951,7 @@ public class TaskViewController implements Initializable
     {
         checkForCurrentday();
         checkWeekNumber();
+        RefreshTreeView();
     }
 
     private void checkWeekNumber()
@@ -925,6 +985,7 @@ public class TaskViewController implements Initializable
                 if (input == JOptionPane.YES_OPTION)
                 {
                     modelfacade.deleteTask(task);
+                    RefreshTreeView();
                 }
 
             }

@@ -13,6 +13,7 @@ import examProjectTheDisciplesOfSkrumm.BE.Project;
 import examProjectTheDisciplesOfSkrumm.BE.Task;
 import examProjectTheDisciplesOfSkrumm.BE.User;
 import examProjectTheDisciplesOfSkrumm.BLL.Interface.BLLFacadeInterface;
+import examProjectTheDisciplesOfSkrumm.BLL.Interface.ClientManagerInterface;
 import examProjectTheDisciplesOfSkrumm.BLL.Interface.ProjectManagerInterface;
 import examProjectTheDisciplesOfSkrumm.BLL.Interface.SecurityManagerInterface;
 import examProjectTheDisciplesOfSkrumm.BLL.Interface.TaskManagerInterface;
@@ -38,6 +39,7 @@ public class BLLFacade implements BLLFacadeInterface
     private SecurityManagerInterface securityManager;
     private UserManagerInterface userManager;
     private ProjectManagerInterface projectmanager;
+    private ClientManagerInterface clientmanager;
 
     public BLLFacade() throws IOException 
     {
@@ -46,6 +48,7 @@ public class BLLFacade implements BLLFacadeInterface
         taskmanager = new TaskManager();
         securityManager = new examProjectTheDisciplesOfSkrumm.BLL.Security.SecurityManager();
         userManager = new UserManager();
+        clientmanager = new ClientManager();
     }
     
 
@@ -173,6 +176,27 @@ public class BLLFacade implements BLLFacadeInterface
     }
 
     @Override
+    public Client getClient(Client client) throws SQLException 
+    {
+      return clientmanager.getClient(client);
+    }
+
+    @Override
+    public List<Client> getAllClients() throws SQLServerException, SQLException 
+    {
+        return clientmanager.getAllClients();
+    }
+
+    @Override
+    public boolean clientExist(Client client) throws SQLException {
+        return clientmanager.clientExist(client);
+    }
+
+    @Override
+    public Client createClient(Client client) throws SQLException {
+        return clientmanager.createClient(client);
+    }
+    
     public boolean deleteTask(Task task) throws SQLException
     {
         return taskmanager.deleteTask(task);

@@ -415,7 +415,7 @@ public class MainViewController implements Initializable
         
         handleStart(intervalLabel,totaltimelabel, button, tasks.get(index).getDuration());
         
-        if (!running)
+        if (!modelfacade.getisTimerRunning())
         {
             if(previousbutton != null && !button.equals(previousbutton)){
                 System.out.println("difrent button");
@@ -479,18 +479,20 @@ public class MainViewController implements Initializable
 
         //System.out.println("start");
 
-        if (running)
+        if (modelfacade.getisTimerRunning())
         {
+            modelfacade.setIsTimerRunning(false);
             running = false;
             timerutil.setIsRunning(false);
             executorService.shutdownNow();
             System.err.println("stopped");
         } 
         
-        else if (!running)
+        else if (!modelfacade.getisTimerRunning())
         {
             System.out.println("not running");
             running = true;
+            modelfacade.setIsTimerRunning(true);
             timerutil = new TimerUtil(intervalLabel,totaltimelabel,totalsecfortask);
             executorService = Executors.newFixedThreadPool(1);
             executorService.submit(timerutil);

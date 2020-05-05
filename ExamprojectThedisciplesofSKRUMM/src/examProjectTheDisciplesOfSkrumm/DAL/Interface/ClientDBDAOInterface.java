@@ -16,11 +16,13 @@ import java.util.List;
  */
 public interface ClientDBDAOInterface
 {
-     public Client getClient(Client client) throws SQLException;
+    public Client getClient(Client client) throws SQLException;
     
-     public List<Client> getAllClients() throws SQLServerException, SQLException;
+    public List<Client> getAllClients() throws SQLServerException, SQLException;
     
-     public boolean clientExist(Client client) throws SQLException;
+    public boolean clientExist(Client client) throws SQLException;
     
-     public Client createClient(Client client) throws SQLException;
+    public Client createClient(Client client) throws SQLException;
+     
+    public boolean deleteClient(Client client) throws SQLException;
 }
