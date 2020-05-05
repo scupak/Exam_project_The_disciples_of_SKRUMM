@@ -181,7 +181,6 @@ public class TaskDBDAO implements TaskDBDAOInterface
         }
          
          Task returnTask = null;
-         ArrayList<Interval> intervals = new ArrayList<>();
          try(Connection con = dbCon.getConnection())
          {
              PreparedStatement ps = con.prepareStatement("SELECT * FROM [task] WHERE id = ?");
@@ -200,6 +199,7 @@ public class TaskDBDAO implements TaskDBDAOInterface
                 LocalDate creationDate = rs.getDate("creationDate").toLocalDate();
                 LocalTime startTime = rs.getTime("startTime").toLocalTime();
                 LocalTime stopTime = rs.getTime("stopTime").toLocalTime();
+                ArrayList<Interval> intervals = new ArrayList<>();
                 
                 String userEmail = rs.getString("userEmail");
                 User user = userDBDAO.getUser(new User(userEmail, clientName, clientName, title, true));
@@ -251,6 +251,7 @@ public class TaskDBDAO implements TaskDBDAOInterface
         }
      }
      
+    @Override
      public List<Task> getTasksForUser(User user, LocalDate date) throws SQLException
     {
         ArrayList<Task> tasks = new ArrayList<>();
