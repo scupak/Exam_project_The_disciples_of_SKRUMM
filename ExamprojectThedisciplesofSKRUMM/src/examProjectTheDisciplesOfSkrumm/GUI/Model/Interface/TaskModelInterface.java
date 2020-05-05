@@ -52,5 +52,9 @@ public interface TaskModelInterface
     public boolean deleteTask(Task task) throws SQLException;
     
     public boolean clearTask(Task task) throws SQLException;
+     
+    public boolean getisTimerRunning();
+     
+    public void setIsTimerRunning(boolean isTimerRunning);
     
 }

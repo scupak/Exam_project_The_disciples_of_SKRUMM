@@ -81,7 +81,6 @@ public class TaskDBDAO implements TaskDBDAOInterface
 
         }
     }
-
     public boolean taskExist(Task task) throws SQLException
     {
         try (Connection con = dbCon.getConnection())

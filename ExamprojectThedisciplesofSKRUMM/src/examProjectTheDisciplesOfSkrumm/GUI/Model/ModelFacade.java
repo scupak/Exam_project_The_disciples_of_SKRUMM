@@ -242,6 +242,15 @@ public class ModelFacade implements ModelFacadeInterface
         return taskmodel.clearTask(task);
     }
     
+    public boolean getisTimerRunning() {
+       return taskmodel.getisTimerRunning();
+    }
+
+    @Override
+    public void setIsTimerRunning(boolean isTimerRunning) {
+       taskmodel.setIsTimerRunning(isTimerRunning);
+    }
+    
     
     
 }
