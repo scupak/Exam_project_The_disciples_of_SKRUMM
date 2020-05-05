@@ -175,6 +175,7 @@ public class AddProjectViewController implements Initializable
     
     public void refreshClientComboBox()
     {
+        clientComboBox.getItems().clear();
         clientComboBox.getItems().addAll(modelfacade.getClients());
     }
 

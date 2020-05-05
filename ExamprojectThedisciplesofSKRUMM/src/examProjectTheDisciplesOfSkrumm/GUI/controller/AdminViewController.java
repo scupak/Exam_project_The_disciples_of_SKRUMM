@@ -31,6 +31,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 
 /**
  * FXML Controller class
@@ -192,8 +194,27 @@ public class AdminViewController implements Initializable
     }
 
     @FXML
-    private void deleteProject(ActionEvent event)
+    private void deleteProject(ActionEvent event) throws SQLException
     {
+        final JDialog dialog = new JDialog();
+        dialog.setAlwaysOnTop(true);
+        
+        if((ClientList.getSelectionModel().getSelectedItem() == null))
+        {
+            JOptionPane.showMessageDialog(dialog, "Nothing seems to be selected!\nSelect a project to delete before pressing delete!", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+        else
+        {
+            int input = JOptionPane.showConfirmDialog(null, "delete task?", "Select an Option...",
+                        JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+
+                if (input == JOptionPane.YES_OPTION)
+                {
+                    modelfacade.deleteProject(ClientList.getSelectionModel().getSelectedItem());
+                    RefreshTableView();
+                }
+        }
+        
     }
 
     @FXML

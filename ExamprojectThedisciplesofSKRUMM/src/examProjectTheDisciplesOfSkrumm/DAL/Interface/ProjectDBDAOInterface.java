@@ -24,6 +24,10 @@ public interface ProjectDBDAOInterface
     
     public Project getProject(Project project) throws SQLException;
     
+    public boolean deleteProject(Project project) throws SQLException;
+    
+    public boolean clearProject(Project project) throws SQLException;
+    
     
     
     

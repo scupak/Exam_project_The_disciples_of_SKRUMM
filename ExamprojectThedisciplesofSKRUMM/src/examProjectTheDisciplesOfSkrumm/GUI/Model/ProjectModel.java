@@ -61,6 +61,11 @@ public class ProjectModel implements ProjectModelInterface
         }
        getProjects();
     }
+
+    @Override
+    public boolean deleteProject(Project project) throws SQLException {
+       return bllfacade.deleteProject(project);
+    }
     
     
     

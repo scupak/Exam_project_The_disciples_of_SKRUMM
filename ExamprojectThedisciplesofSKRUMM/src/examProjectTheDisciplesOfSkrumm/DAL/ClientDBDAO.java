@@ -107,10 +107,7 @@ public class ClientDBDAO implements ClientDBDAOInterface
     @Override
     public Client createClient(Client client) throws SQLException
     {
-        if (clientExist(client))
-        {
-            return null;
-        }
+        
 
         try (Connection con = dbCon.getConnection())
         {
@@ -147,17 +144,18 @@ public class ClientDBDAO implements ClientDBDAOInterface
 //          System.out.println(client);
 //        }
         
-        Client steve = new Client(3, "Steve", 0, 0);
-        System.out.println(clientDb.clientExist(steve));
+        Client steve = new Client(3, "Test", 0, 0);
+        clientDb.createClient(steve);
+//        System.out.println(clientDb.clientExist(steve));
 //       System.out.println(clientDb.getClient(steve));
 //        clientDb.createClient(steve);
 //        
-//        clients.addAll(clientDb.getAllClients());
-//        
-//        for (Client client : clients)
-//        {
-//          System.out.println(client);
-//        }
+////        clients.addAll(clientDb.getAllClients());
+////        
+////        for (Client client : clients)
+////        {
+////          System.out.println(client);
+////        }
         
         
         
