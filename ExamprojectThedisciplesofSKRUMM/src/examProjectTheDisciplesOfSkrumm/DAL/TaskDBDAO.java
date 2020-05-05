@@ -137,6 +137,46 @@ public class TaskDBDAO implements TaskDBDAOInterface
         }
 
     }
+    
+    public boolean deleteTask(Task task) throws SQLException
+    {
+        try(Connection con = dbCon.getConnection())
+        {
+            if(clearTask(task))
+            {
+            PreparedStatement ps = con.prepareStatement("DELTE FROM [task] WHERE id = ?");
+            ps.setInt(1, task.getId());
+            
+            int updatedRows = ps.executeUpdate();
+            
+            return updatedRows > 0;
+            }
+            
+        }
+        
+        return false;
+    }
+    
+    public boolean clearTask(Task task) throws SQLException
+    {
+        try(Connection con = dbCon.getConnection())
+        {
+            PreparedStatement ps = con.prepareStatement("DELETE FROM [interval] WHERE taskId = ?");
+            ps.setInt(1, task.getId());
+            ps.executeUpdate();
+            
+            PreparedStatement ps2 = con.prepareStatement("SELECT FROM [interval] WHERE taskId = ?");
+            ps2.setInt(1, task.getId());
+            ResultSet rs = ps2.executeQuery();
+            
+            while(rs.next())
+            {
+                return false;
+            }
+            
+            return true;
+        }
+    }
 
     @Override
     public Boolean updateTask(Task task) throws SQLException

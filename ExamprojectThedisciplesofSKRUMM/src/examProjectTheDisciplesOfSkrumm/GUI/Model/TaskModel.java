@@ -118,6 +118,18 @@ public class TaskModel implements TaskModelInterface
     public String convertSecToTimeString(int totalSec) {
        return bllfacade.convertSecToTimeString(totalSec);
     }
+
+    @Override
+    public boolean deleteTask(Task task) throws SQLException
+    {
+        return bllfacade.deleteTask(task);
+    }
+
+    @Override
+    public boolean clearTask(Task task) throws SQLException
+    {
+        return bllfacade.clearTask(task);
+    }
     
     
 }

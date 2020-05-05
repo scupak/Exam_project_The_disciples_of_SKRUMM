@@ -38,4 +38,7 @@ public interface TaskManagerInterface
 
     public Task getTask(Task task) throws SQLException;
     
+    public boolean deleteTask(Task task) throws SQLException;
+    
+    public boolean clearTask(Task task) throws SQLException;
 }

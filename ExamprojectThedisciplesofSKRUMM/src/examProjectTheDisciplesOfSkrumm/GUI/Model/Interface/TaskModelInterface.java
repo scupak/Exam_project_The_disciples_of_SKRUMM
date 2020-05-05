@@ -49,4 +49,8 @@ public interface TaskModelInterface
     
     public String convertSecToTimeString(int totalSec);
     
+    public boolean deleteTask(Task task) throws SQLException;
+    
+    public boolean clearTask(Task task) throws SQLException;
+    
 }

@@ -172,4 +172,16 @@ public class BLLFacade implements BLLFacadeInterface
         return taskmanager.convertSecToTimeString(totalSec);
     }
 
+    @Override
+    public boolean deleteTask(Task task) throws SQLException
+    {
+        return taskmanager.deleteTask(task);
+    }
+
+    @Override
+    public boolean clearTask(Task task) throws SQLException
+    {
+        return taskmanager.clearTask(task);
+    }
+
 }
