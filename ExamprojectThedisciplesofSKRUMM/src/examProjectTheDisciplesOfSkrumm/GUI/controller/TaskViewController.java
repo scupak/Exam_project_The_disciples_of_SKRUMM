@@ -985,6 +985,7 @@ public class TaskViewController implements Initializable
                 if (input == JOptionPane.YES_OPTION)
                 {
                     modelfacade.deleteTask(task);
+                    RefreshTreeView();
                 }
 
             }
