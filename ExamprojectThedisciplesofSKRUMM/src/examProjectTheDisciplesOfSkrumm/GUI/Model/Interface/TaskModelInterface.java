@@ -11,6 +11,7 @@ import examProjectTheDisciplesOfSkrumm.BE.Interval;
 import examProjectTheDisciplesOfSkrumm.BE.Project;
 import examProjectTheDisciplesOfSkrumm.BE.Task;
 import examProjectTheDisciplesOfSkrumm.BE.User;
+import examProjectTheDisciplesOfSkrumm.BLL.Util.TimerUtil;
 import java.time.LocalDateTime;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TreeItem;
@@ -49,8 +50,14 @@ public interface TaskModelInterface
     
     public String convertSecToTimeString(int totalSec);
     
-     public boolean getisTimerRunning();
+    public boolean getisTimerRunning();
      
-       public void setIsTimerRunning(boolean isTimerRunning);
+    public void setIsTimerRunning(boolean isTimerRunning);
+    
+    public TimerUtil getTimerutil();
+
+    public void setTimerutil(TimerUtil timerutil);
+  
+    
     
 }
