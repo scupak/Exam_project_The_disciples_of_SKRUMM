@@ -200,7 +200,6 @@ public class TaskDBDAO implements TaskDBDAOInterface
                 LocalDate creationDate = rs.getDate("creationDate").toLocalDate();
                 LocalTime startTime = rs.getTime("startTime").toLocalTime();
                 LocalTime stopTime = rs.getTime("stopTime").toLocalTime();
-
                 String userEmail = rs.getString("userEmail");
                 User user = userDBDAO.getUser(new User(userEmail, clientName, clientName, title, true));
 
