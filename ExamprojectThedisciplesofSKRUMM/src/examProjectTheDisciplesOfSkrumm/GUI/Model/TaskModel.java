@@ -43,7 +43,7 @@ public class TaskModel implements TaskModelInterface
 
     TaskModel() throws IOException
     {
-        bllfacade = new BLLFacade();
+       bllfacade = new BLLFacade();
        tasks = FXCollections.observableArrayList();
        isTimerRunning = false;
         
@@ -52,23 +52,35 @@ public class TaskModel implements TaskModelInterface
     
     
     @Override
-    public TreeItem<Task> getModel() 
+    public TreeItem<Task> getModel(User user, LocalDate date) 
     {
+        try {
+            tasks.clear();
+            tasks.addAll(bllfacade.getTasksForUser(user, date));
+        } catch (SQLException ex) {
+            Logger.getLogger(TaskModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return bllfacade.getModel(tasks);
     }
 
     @Override
     public void createTask(Task task) 
     {
-        //bllfacade.createTask(task);
-        tasks.add(task);
+        try {
+            bllfacade.createTask(task);
+        } catch (SQLException ex) {
+            Logger.getLogger(TaskModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
          
     }
 
+    @Override
     public ObservableList<Task> getTasks() {
         return tasks;
     }
 
+    @Override
     public void setTasks(ObservableList<Task> tasks) {
         this.tasks = tasks;
     }
@@ -89,6 +101,7 @@ public class TaskModel implements TaskModelInterface
         return sixTasks;
     }
     
+    @Override
     public List<Task> getTasksForUser(User user, LocalDate date) throws SQLException
     {
         return bllfacade.getTasksForUser(user, date);
@@ -124,6 +137,17 @@ public class TaskModel implements TaskModelInterface
     }
 
     @Override
+    public boolean deleteTask(Task task) throws SQLException
+    {
+        return bllfacade.deleteTask(task);
+    }
+
+    @Override
+    public boolean clearTask(Task task) throws SQLException
+    {
+        return bllfacade.clearTask(task);
+    }
+    
     public boolean getisTimerRunning() {
         
         System.err.println(isTimerRunning + "is timer running");

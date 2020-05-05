@@ -53,6 +53,7 @@ public class TaskManager implements TaskManagerInterface
         return dal.getSixTasks(user);
     }
     
+    @Override
     public List<Task> getTasksForUser(User user, LocalDate date) throws SQLException
     {
         return dal.getTasksForUser(user, date);
@@ -126,6 +127,18 @@ public class TaskManager implements TaskManagerInterface
     public Task getTask(Task task) throws SQLException
     {
         return dal.getTask(task);
+    }
+
+    @Override
+    public boolean deleteTask(Task task) throws SQLException
+    {
+        return dal.deleteTask(task);
+    }
+
+    @Override
+    public boolean clearTask(Task task) throws SQLException
+    {
+        return dal.clearTask(task);
     }
   
    

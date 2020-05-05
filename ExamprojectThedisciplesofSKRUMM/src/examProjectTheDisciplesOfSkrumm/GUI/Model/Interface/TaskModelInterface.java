@@ -26,7 +26,7 @@ import java.util.List;
 public interface TaskModelInterface 
 {
     
-    public TreeItem<Task> getModel();
+    public TreeItem<Task> getModel(User user, LocalDate date);
     
     public void createTask(Task task);
     
@@ -58,6 +58,10 @@ public interface TaskModelInterface
 
     public void setTimerutil(TimerUtil timerutil);
   
+    public boolean deleteTask(Task task) throws SQLException;
     
+    public boolean clearTask(Task task) throws SQLException;
+     
+   
     
 }

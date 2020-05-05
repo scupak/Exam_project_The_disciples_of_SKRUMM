@@ -35,4 +35,8 @@ public interface TaskDBDAOInterface
     public List<Task> getSixTasks(User user) throws SQLException;
     
     public List<Task> getTasksForUser(User user, LocalDate date) throws SQLException;
+    
+    public boolean deleteTask(Task task) throws SQLException;
+    
+    public boolean clearTask(Task task) throws SQLException;
 }
