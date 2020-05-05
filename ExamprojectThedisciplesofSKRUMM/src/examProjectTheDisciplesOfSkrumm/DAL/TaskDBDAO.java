@@ -317,16 +317,19 @@ public class TaskDBDAO implements TaskDBDAOInterface
             {
                 int id = rs.getInt("id");
                 String title = rs.getString("title");
-                Project project = projectDBDAO.getProject(new Project(rs.getInt("ProjectID"), title, new Client(id, title, id, id), id));
+                Project project = projectDBDAO.getProject(new Project(rs.getInt("ProjectID"), title, new Client(id, title, id,
+                        id), id));
                 int duration = rs.getInt("duration");
                 LocalDateTime lastUsed = rs.getTimestamp("lastUsed").toLocalDateTime();
                 LocalDate creationDate = rs.getDate("creationDate").toLocalDate();
                 LocalTime startTime = rs.getTime("startTime").toLocalTime();
                 LocalTime stopTime = rs.getTime("stopTime").toLocalTime();
-                ArrayList<Interval> intervals = getIntervals(new Task(id, title, project, duration, lastUsed, creationDate, startTime, stopTime, user));
+                ArrayList<Interval> intervals = getIntervals(new Task(id, title, project, duration, lastUsed, 
+                        creationDate, startTime, stopTime, user));
                 String userEmail = rs.getString("userEmail");
                 User user1 = userDBDAO.getUser(new User(userEmail, "22", "22", title, false));
-                tasks.add(new Task(id, title, project, duration, lastUsed, creationDate, startTime, stopTime, user1, intervals));
+                tasks.add(new Task(id, title, project, duration, lastUsed, creationDate, startTime, 
+                        stopTime, user1, intervals));
 
             }
 
