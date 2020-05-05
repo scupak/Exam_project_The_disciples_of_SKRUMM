@@ -26,6 +26,8 @@ public interface TaskManagerInterface
     
     public List<Task> getTasksForUser(User user, LocalDate date) throws SQLException;
     
+    public String convertSecToTimeString(int totalSec);
+    
     public List<Task> getAllTasks() throws SQLException;
 
     public boolean taskExist(Task task) throws SQLException;

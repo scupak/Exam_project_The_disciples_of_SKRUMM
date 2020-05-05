@@ -430,7 +430,7 @@ public class MainViewController implements Initializable
             
             stopTime = LocalTime.now();
             currentTask = tasks.get(index);
-            Interval taskInterval = new Interval(startTime, stopTime, LocalDate.now(), timerutil.getTotalIntervalSec(), timerutil.getTotalSec(), currentTask);
+            Interval taskInterval = new Interval(startTime, stopTime, LocalDate.now(), timerutil.getTotalIntervalSec(), currentTask);
             currentTask.setDuration(timerutil.getTotalSec());
             
             modelfacade.newInterval(taskInterval);

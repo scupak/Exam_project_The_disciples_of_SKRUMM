@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TreeItem;
@@ -222,5 +223,13 @@ public class ModelFacade implements ModelFacadeInterface
     {
         return taskmodel.getTask(task);
     }
+
+    @Override
+    public String convertSecToTimeString(int totalSec) {
+        
+       return taskmodel.convertSecToTimeString(totalSec);
+    }
+    
+    
     
 }

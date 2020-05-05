@@ -12,6 +12,7 @@ En guide til hvordan man kan have to forskellige slags objekter i en treeTableVi
 package examProjectTheDisciplesOfSkrumm.GUI.controller;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDatePicker;
 import examProjectTheDisciplesOfSkrumm.BE.Interval;
 import examProjectTheDisciplesOfSkrumm.BE.Task;
 import examProjectTheDisciplesOfSkrumm.BLL.Util.TreeTableUtil;
@@ -19,7 +20,11 @@ import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.ModelFacadeInterface;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.ModelFacade;
 import java.io.IOException;
 import java.net.URL;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.temporal.WeekFields;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -41,6 +46,8 @@ import javafx.scene.control.TreeTableView;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 
 /**
  * FXML Controller class
@@ -76,7 +83,11 @@ public class TaskViewController implements Initializable
     private TreeTableColumn ProjectColumn;
     @FXML
     private Label timeLabel;
+    
+    boolean isCurrentDay;
+    Locale locale;
 
+    int weekOfYear;
     private int sec = 0;
     private int min = 0;
     private int hour = 0;
@@ -87,6 +98,18 @@ public class TaskViewController implements Initializable
     private TreeTableColumn IsPaidColumn;
     @FXML
     private TreeTableColumn stopTimeColumn;
+    @FXML
+    private JFXDatePicker datePicker;
+    @FXML
+    private Label mondayTotalTimeLabel;
+    @FXML
+    private Label thursdayTotalTimeLabel;
+    @FXML
+    private Label wednesdayTotalTimeLabel;
+    @FXML
+    private Label fridayTotalTimeLabel;
+    @FXML
+    private JFXButton returnToCurrentDayButton;
 
     /**
      * Initializes the controller class.
@@ -101,6 +124,15 @@ public class TaskViewController implements Initializable
             Logger.getLogger(TaskViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+        datePicker.setValue(LocalDate.now());
+        locale = Locale.ENGLISH;
+        weekOfYear = datePicker.getValue().get(WeekFields.of(locale).weekOfWeekBasedYear());
+        weekNumberLabel.setText("" + weekOfYear);
+        
+        returnToCurrentDayButton.setVisible(false);
+        returnToCurrentDayButton.setDisable(true);
+        isCurrentDay = true;
+        WeekdayLabel.setText(datePicker.getValue().getDayOfWeek().toString().toLowerCase());
         //Making some mock tasks
         
         //Setting cellValue Factories for TreeTableView 
@@ -252,7 +284,8 @@ public class TaskViewController implements Initializable
     } 
 
     @FXML
-    private void handlecChartView(ActionEvent event) throws IOException {
+    private void handlecChartView(ActionEvent event) throws IOException 
+    {
         Stage chartView = (Stage) ((Node) event.getSource()).getScene().getWindow();
         
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/ChartView.fxml"));
@@ -261,7 +294,7 @@ public class TaskViewController implements Initializable
         
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
-        stage.setTitle("TimeTracker");
+        stage.setTitle("View Charts");
         stage.show();
         chartView.close();
     }
@@ -277,7 +310,7 @@ public class TaskViewController implements Initializable
         
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
-        stage.setTitle("TimeTracker");
+        stage.setTitle("Home view");
         stage.show();
         chartView.close();
     }
@@ -298,7 +331,7 @@ public class TaskViewController implements Initializable
         
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
-        stage.setTitle("TimeTracker");
+        stage.setTitle("Clients and Projects");
         stage.show();
         taskView.close();
     }
@@ -314,27 +347,68 @@ public class TaskViewController implements Initializable
         
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
-        stage.setTitle("TimeTracker");
+        stage.setTitle("Create Task");
         stage.show();
     }
 
-
+    @FXML
     private void handleEditTaskAction(ActionEvent event) throws IOException
     {
-      
         
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/CreateTaskView.fxml"));
-        Parent root = loader.load();
-        CreateTaskController controller = loader.getController();
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.setTitle("TimeTracker");
-        stage.show();
+        
+        
+        final JDialog dialog = new JDialog();
+        dialog.setAlwaysOnTop(true);
+        
+        if((TaskTable.getSelectionModel().getSelectedItem() == null)){
+            JOptionPane.showMessageDialog(dialog, "Nothing seems to be selected!\nSelect a task to edit before pressing edit!", "ERROR", JOptionPane.ERROR_MESSAGE);   
+        } 
+        
+        else {
+            
+            
+             TreeItem<Task> selectedItem = (TreeItem<Task>)(TaskTable.getSelectionModel().getSelectedItem());
+             
+            
+            if(selectedItem.getValue() instanceof Task){
+            
+                System.err.println("its a task!!!!!!!!!!!!!!!!!!!!");
+                System.out.println(selectedItem.getValue());
+                
+                
+              
+           FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/EditTaskView.fxml"));
+           Parent root = loader.load();
+           EditTaskController controller = loader.getController();
+           controller.setEditTask((Task) selectedItem.getValue());
+           Stage stage = new Stage();
+           stage.setScene(new Scene(root));
+           stage.setTitle("Edit Task");
+           stage.show();
+           
+            
+            
+            }
+            else{
+            
+                    System.err.println("not a task!!!!!!!!!!!!!!!!!!!!");
+                    JOptionPane.showMessageDialog(dialog, "Please select a valid task to edit!", "ERROR", JOptionPane.ERROR_MESSAGE);
+            
+            }
+            
+           
+        }
+       
+        
     } 
     
     @FXML
-    private void handleStartTimer(ActionEvent event) {
+    private void handleStartTimer(ActionEvent event) 
+    {
 
+        
+        
+                
         System.out.println(System.getProperty("java.version"));
         System.out.println(System.getProperty("javafx.runtime.version"));
         
@@ -408,6 +482,432 @@ public class TaskViewController implements Initializable
         // Make the root node invisible
         TaskTable.setShowRoot(false);
     }
+
+    @FXML
+    private void handlePreviousDay(ActionEvent event) 
+    {
+        LocalDate previoday = datePicker.getValue().minusDays(1);
+        datePicker.setValue(previoday);
+        checkForCurrentday();
+        checkWeekNumber();
+    }
+
+    @FXML
+    private void handleNextDay(ActionEvent event) 
+    {
+        LocalDate previoday = datePicker.getValue().plusDays(1);
+        datePicker.setValue(previoday);
+        checkForCurrentday();
+        checkWeekNumber();
+    }
+
+    @FXML
+    private void handleMonday(ActionEvent event) 
+    {
+        switch(datePicker.getValue().getDayOfWeek())
+        {
+            case MONDAY:
+                checkForCurrentday();
+                checkWeekNumber();
+                break;
+            
+            case TUESDAY:
+                datePicker.setValue(datePicker.getValue().minusDays(1));
+                checkForCurrentday();
+                checkWeekNumber();
+                break;
+                
+            case WEDNESDAY:
+                datePicker.setValue(datePicker.getValue().minusDays(2));
+                checkForCurrentday();
+                checkWeekNumber();
+                break;    
+            
+            case THURSDAY:
+                datePicker.setValue(datePicker.getValue().minusDays(3));
+                checkForCurrentday();
+                checkWeekNumber();
+                break;
+             
+            case FRIDAY:
+                datePicker.setValue(datePicker.getValue().minusDays(4));
+                checkForCurrentday();
+                checkWeekNumber();
+                break;
+                
+            case SATURDAY:
+                datePicker.setValue(datePicker.getValue().minusDays(5));
+                checkForCurrentday();
+                checkWeekNumber();
+                break;
+                
+            case SUNDAY:
+                datePicker.setValue(datePicker.getValue().minusDays(6));
+                checkForCurrentday();
+                checkWeekNumber();
+                break;
+                
+            default:
+                checkForCurrentday();
+                checkWeekNumber();
+        }
+         
+    }
+    
+    @FXML
+    private void handleTuesday(ActionEvent event) 
+    {
+        switch(datePicker.getValue().getDayOfWeek())
+        {
+            case MONDAY:
+                datePicker.setValue(datePicker.getValue().plusDays(1));
+                checkForCurrentday();
+                checkWeekNumber();
+                break;
+            
+            case TUESDAY:
+                checkForCurrentday();
+                checkWeekNumber();
+                break;
+                
+            case WEDNESDAY:
+                datePicker.setValue(datePicker.getValue().minusDays(1));
+                checkForCurrentday();
+                checkWeekNumber();
+                break;    
+            
+            case THURSDAY:
+                datePicker.setValue(datePicker.getValue().minusDays(2));
+                checkForCurrentday();
+                checkWeekNumber();
+                break;
+             
+            case FRIDAY:
+                datePicker.setValue(datePicker.getValue().minusDays(3));
+                checkForCurrentday();
+                checkWeekNumber();
+                break;
+                
+            case SATURDAY:
+                datePicker.setValue(datePicker.getValue().minusDays(4));
+                checkForCurrentday();
+                checkWeekNumber();
+                break;
+                
+            case SUNDAY:
+                datePicker.setValue(datePicker.getValue().minusDays(5));
+                checkForCurrentday();
+                checkWeekNumber();
+                break;
+                
+            default:
+                checkForCurrentday();
+                checkWeekNumber();
+        }
+    }
+    
+    @FXML
+    private void handleWednesday(ActionEvent event) 
+    {
+        switch(datePicker.getValue().getDayOfWeek())
+        {
+            case MONDAY:
+                datePicker.setValue(datePicker.getValue().plusDays(2));
+                checkForCurrentday();
+                checkWeekNumber();
+                break;
+            
+            case TUESDAY:
+                datePicker.setValue(datePicker.getValue().plusDays(1));
+                checkForCurrentday();
+                checkWeekNumber();
+                break;
+                
+            case WEDNESDAY:
+                checkForCurrentday();
+                checkWeekNumber();
+                break;    
+            
+            case THURSDAY:
+                datePicker.setValue(datePicker.getValue().minusDays(1));
+                checkForCurrentday();
+                checkWeekNumber();
+                break;
+             
+            case FRIDAY:
+                datePicker.setValue(datePicker.getValue().minusDays(2));
+                checkForCurrentday();
+                checkWeekNumber();
+                break;
+                
+            case SATURDAY:
+                datePicker.setValue(datePicker.getValue().minusDays(3));
+                checkForCurrentday();
+                checkWeekNumber();
+                break;
+                
+            case SUNDAY:
+                datePicker.setValue(datePicker.getValue().minusDays(4));
+                checkForCurrentday();
+                checkWeekNumber();
+                break;
+                
+            default:
+                checkForCurrentday();
+                checkWeekNumber();
+        }
+        
+       
+    }
+
+    @FXML
+    private void handleThursday(ActionEvent event)
+    {
+        switch(datePicker.getValue().getDayOfWeek())
+        {
+            case MONDAY:
+                datePicker.setValue(datePicker.getValue().plusDays(3));
+                checkForCurrentday();
+                checkWeekNumber();
+                break;
+            
+            case TUESDAY:
+                datePicker.setValue(datePicker.getValue().plusDays(2));
+                checkForCurrentday();
+                checkWeekNumber();
+                break;
+                
+            case WEDNESDAY:
+                datePicker.setValue(datePicker.getValue().plusDays(1));
+                checkForCurrentday();
+                checkWeekNumber();
+                break;    
+            
+            case THURSDAY:
+                checkForCurrentday();
+                checkWeekNumber();
+                break;
+             
+            case FRIDAY:
+                datePicker.setValue(datePicker.getValue().minusDays(1));
+                checkForCurrentday();
+                checkWeekNumber();
+                break;
+                
+            case SATURDAY:
+                datePicker.setValue(datePicker.getValue().minusDays(2));
+                checkForCurrentday();
+                checkWeekNumber();
+                break;
+                
+            case SUNDAY:
+                datePicker.setValue(datePicker.getValue().minusDays(3));
+                checkForCurrentday();
+                checkWeekNumber();
+                break;
+                
+            default:
+                checkForCurrentday();
+                checkWeekNumber();
+        }
+    }
+
+    
+
+    @FXML
+    private void handleFriday(ActionEvent event) 
+    {
+       switch(datePicker.getValue().getDayOfWeek())
+        {
+            case MONDAY:
+                datePicker.setValue(datePicker.getValue().plusDays(4));
+                checkForCurrentday();
+                checkWeekNumber();
+                break;
+            
+            case TUESDAY:
+                datePicker.setValue(datePicker.getValue().plusDays(3));
+                checkForCurrentday();
+                checkWeekNumber();
+                break;
+                
+            case WEDNESDAY:
+                datePicker.setValue(datePicker.getValue().plusDays(2));
+                checkForCurrentday();
+                checkWeekNumber();
+                break;    
+            
+            case THURSDAY:
+                datePicker.setValue(datePicker.getValue().plusDays(1));
+                checkForCurrentday();
+                checkWeekNumber();
+                break;
+             
+            case FRIDAY:
+                checkForCurrentday();
+                checkWeekNumber();
+                break;
+                
+            case SATURDAY:
+                datePicker.setValue(datePicker.getValue().minusDays(1));
+                checkForCurrentday();
+                checkWeekNumber();
+                break;
+                
+            case SUNDAY:
+                datePicker.setValue(datePicker.getValue().minusDays(2));
+                checkForCurrentday();
+                checkWeekNumber();
+                break;
+                
+            default:
+                checkForCurrentday();
+                checkWeekNumber();
+        }
+    }
+
+    @FXML
+    private void handleSaturday(ActionEvent event) 
+    {
+        switch(datePicker.getValue().getDayOfWeek())
+        {
+            case MONDAY:
+                datePicker.setValue(datePicker.getValue().plusDays(5));
+                checkForCurrentday();
+                checkWeekNumber();
+                break;
+            
+            case TUESDAY:
+                datePicker.setValue(datePicker.getValue().plusDays(4));
+                checkForCurrentday();
+                checkWeekNumber();
+                break;
+                
+            case WEDNESDAY:
+                datePicker.setValue(datePicker.getValue().plusDays(3));
+                checkForCurrentday();
+                checkWeekNumber();
+                break;    
+            
+            case THURSDAY:
+                datePicker.setValue(datePicker.getValue().plusDays(2));
+                checkForCurrentday();
+                checkWeekNumber();
+                break;
+             
+            case FRIDAY:
+                datePicker.setValue(datePicker.getValue().plusDays(1));
+                checkForCurrentday();
+                checkWeekNumber();
+                break;
+                
+            case SATURDAY:
+                checkForCurrentday();
+                checkWeekNumber();
+                break;
+                
+            case SUNDAY:
+                datePicker.setValue(datePicker.getValue().minusDays(1));
+                checkForCurrentday();
+                checkWeekNumber();
+                break;
+                
+            default:
+                checkForCurrentday();
+                checkWeekNumber();
+        }
+    }
+
+    @FXML
+    private void handleSunday(ActionEvent event) 
+    {
+         switch(datePicker.getValue().getDayOfWeek())
+        {
+            case MONDAY:
+                datePicker.setValue(datePicker.getValue().plusDays(6));
+                checkForCurrentday();
+                checkWeekNumber();
+                break;
+            
+            case TUESDAY:
+                datePicker.setValue(datePicker.getValue().plusDays(5));
+                checkForCurrentday();
+                checkWeekNumber();
+                break;
+                
+            case WEDNESDAY:
+                datePicker.setValue(datePicker.getValue().plusDays(4));
+                checkForCurrentday();
+                checkWeekNumber();
+                break;    
+            
+            case THURSDAY:
+                datePicker.setValue(datePicker.getValue().plusDays(3));
+                checkForCurrentday();
+                checkWeekNumber();
+                break;
+             
+            case FRIDAY:
+                datePicker.setValue(datePicker.getValue().plusDays(2));
+                checkForCurrentday();
+                checkWeekNumber();
+                break;
+                
+            case SATURDAY:
+                datePicker.setValue(datePicker.getValue().plusDays(1));
+                checkForCurrentday();
+                checkWeekNumber();
+                break;
+                
+            case SUNDAY:
+                checkForCurrentday();
+                checkWeekNumber();
+                break;
+                
+            default:
+                checkForCurrentday();
+                checkWeekNumber();
+        }
+    }
+
+    @FXML
+    private void handlecurrentday(ActionEvent event) 
+    {
+        datePicker.setValue(LocalDate.now());
+        checkForCurrentday();
+        checkWeekNumber();
+        
+    }
+    
+    private void checkForCurrentday()
+    {
+        LocalDate date = datePicker.getValue();
+        if(!(date.isEqual(LocalDate.now())))
+        {
+            returnToCurrentDayButton.setVisible(true);
+            returnToCurrentDayButton.setDisable(false);
+        }
+        else if(date.isEqual(LocalDate.now()))
+        {
+            returnToCurrentDayButton.setVisible(false);
+            returnToCurrentDayButton.setDisable(true);
+        }
+    }
+
+    @FXML
+    private void handleDatepickerAction(ActionEvent event) 
+    {
+        checkForCurrentday();
+        checkWeekNumber();
+    }
+    
+    private void checkWeekNumber()
+    {
+         weekOfYear = datePicker.getValue().get(WeekFields.of(locale).weekOfWeekBasedYear());
+         weekNumberLabel.setText("" + weekOfYear);
+         WeekdayLabel.setText(datePicker.getValue().getDayOfWeek().toString().toLowerCase());
+    }
+
     
         
                

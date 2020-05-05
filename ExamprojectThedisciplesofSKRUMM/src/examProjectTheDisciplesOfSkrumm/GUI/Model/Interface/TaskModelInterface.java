@@ -47,4 +47,6 @@ public interface TaskModelInterface
 
     public Task getTask(Task task) throws SQLException;
     
+    public String convertSecToTimeString(int totalSec);
+    
 }

@@ -65,8 +65,6 @@ public class CreateTaskController implements Initializable
     
     
     
-   
-    
     @Override
     public void initialize(URL url, ResourceBundle rb) 
     {
@@ -76,6 +74,8 @@ public class CreateTaskController implements Initializable
             Logger.getLogger(CreateTaskController.class.getName()).log(Level.SEVERE, null, ex);
         }
         projectCombobox.getItems().addAll(modelfacade.getProjects());
+        
+        
       
     }    
 

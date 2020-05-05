@@ -57,6 +57,46 @@ public class TaskManager implements TaskManagerInterface
     {
         return dal.getTasksForUser(user, date);
     }
+    
+    @Override
+    public String convertSecToTimeString(int totalSec){
+        int hour = 0;
+        int min = 0; 
+        int sec = 0;
+        
+    
+         while(totalSec >= 3600){
+        totalSec  = totalSec - 3600;
+        hour++;
+        System.out.println("added one to hours...");
+        }
+        
+        while(totalSec >= 60){
+        totalSec = totalSec - 60;
+        min++;
+        System.out.println("added one to min...");
+        }
+        
+        sec = totalSec;
+        System.out.println("added rest of seconds to sec...");
+        
+        return(String.format("%02d", hour) + ":" + String.format("%02d", min) + ":" + String.format("%02d", sec));
+        
+    
+    }
+    
+    
+    
+    public static void main(String[] args)
+    {
+        DALFacade dal;
+        
+        
+    }
+    
+    
+    
+    
 
     @Override
     public List<Task> getAllTasks() throws SQLException
