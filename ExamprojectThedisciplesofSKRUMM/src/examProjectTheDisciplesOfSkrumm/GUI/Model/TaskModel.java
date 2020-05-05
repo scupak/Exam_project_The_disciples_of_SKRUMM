@@ -26,6 +26,7 @@ import javafx.scene.control.TreeItem;
 import java.sql.SQLException;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import examProjectTheDisciplesOfSkrumm.BE.User;
+import examProjectTheDisciplesOfSkrumm.BLL.Util.TimerUtil;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -38,6 +39,7 @@ public class TaskModel implements TaskModelInterface
     private final BLLFacadeInterface bllfacade;
     private ObservableList<Task> tasks;
     private boolean isTimerRunning;
+    private TimerUtil timerutil = null;
 
     TaskModel() throws IOException
     {
@@ -147,6 +149,8 @@ public class TaskModel implements TaskModelInterface
     }
     
     public boolean getisTimerRunning() {
+        
+        System.err.println(isTimerRunning + "is timer running");
         return isTimerRunning;
     }
 
@@ -154,6 +158,15 @@ public class TaskModel implements TaskModelInterface
     public void setIsTimerRunning(boolean isTimerRunning) {
         this.isTimerRunning = isTimerRunning;
     }
+
+    public TimerUtil getTimerutil() {
+        return timerutil;
+    }
+
+    public void setTimerutil(TimerUtil timerutil) {
+        this.timerutil = timerutil;
+    }
+    
     
     
     
