@@ -561,6 +561,9 @@ public class MainViewController implements Initializable
         System.err.println(modelfacade.getTimerutil().getCurrenttask());
   
         taskindex = tasks.indexOf(modelfacade.getTimerutil().getCurrenttask());
+        
+        //check if the running task is one of the tasks in the maiin view
+        if( taskindex != -1){
     
         System.err.println(tasks.indexOf(modelfacade.getTimerutil().getCurrenttask())+ "  " + " task index");
         
@@ -601,7 +604,7 @@ public class MainViewController implements Initializable
        modelfacade.getTimerutil().setTotalTimeLabel(currenttotaltimelabel);
         
         
-       
+        }
         
         
         

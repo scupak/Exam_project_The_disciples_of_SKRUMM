@@ -433,14 +433,35 @@ public class TaskViewController implements Initializable
     }
 
     @FXML
-    private void handleStartTimer(ActionEvent event)
-    {
+    private void handleStartTimer(ActionEvent event) throws SQLException
+    {   final JDialog dialog = new JDialog();
+        dialog.setAlwaysOnTop(true);
+        
          if (modelfacade.getisTimerRunning())
         {
-            modelfacade.setIsTimerRunning(false);
-            modelfacade.getTimerutil().setIsRunning(false);
-            modelfacade.getExecutorService().shutdownNow();
-            timerButton.setText("start timer");
+             try {
+                 modelfacade.setIsTimerRunning(false);
+                 modelfacade.getTimerutil().setIsRunning(false);
+                 modelfacade.getExecutorService().shutdownNow();
+                 timerButton.setText("start timer");
+                 
+                 Task currentTask = modelfacade.getTimerutil().getCurrenttask();
+                 currentTask.setDuration(modelfacade.getTimerutil().getTotalSec());
+                 LocalTime  stopTime = LocalTime.now();
+                 
+                 
+                 Interval taskInterval = new Interval(modelfacade.getTimerutil().getStartTime(), stopTime, LocalDate.now(), modelfacade.getTimerutil().getTotalIntervalSec(),currentTask);
+                 
+                 modelfacade.newInterval(taskInterval);
+                 refreshEverything();
+                 
+                 
+                 
+             } catch (SQLException ex) {
+                 Logger.getLogger(TaskViewController.class.getName()).log(Level.SEVERE, null, ex);
+                 
+                 JOptionPane.showMessageDialog(dialog, "an SQLException occurred while trying to make a new interval", "ERROR", JOptionPane.ERROR_MESSAGE);
+             }
             
             
         } 
@@ -448,10 +469,9 @@ public class TaskViewController implements Initializable
         else if (!modelfacade.getisTimerRunning())
         {
             
-            /*
             
-            final JDialog dialog = new JDialog();
-        dialog.setAlwaysOnTop(true);
+            
+        
 
         if ((TaskTable.getSelectionModel().getSelectedItem() == null))
         {
@@ -467,14 +487,18 @@ public class TaskViewController implements Initializable
                 System.err.println("its a task!!!!!!!!!!!!!!!!!!!!");
                 System.out.println(selectedItem.getValue());
 
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/EditTaskView.fxml"));
-                Parent root = loader.load();
-                EditTaskController controller = loader.getController();
-                controller.setEditTask((Task) selectedItem.getValue());
-                Stage stage = new Stage();
-                stage.setScene(new Scene(root));
-                stage.setTitle("Edit Task");
-                stage.show();
+                 modelfacade.setIsTimerRunning(true);
+                 modelfacade.setTimerutil(new TimerUtil(null,timeLabel,selectedItem.getValue().getDuration(),selectedItem.getValue(),LocalTime.now() ));
+                 modelfacade.setExecutorService(Executors.newFixedThreadPool(1));
+                 modelfacade.getExecutorService().submit(modelfacade.getTimerutil());
+                 
+                 CurrentTaskLabel.setText(modelfacade.getTimerutil().getCurrenttask().getTitle());
+                 timerButton.setText("stop timer");
+                 
+                 
+                 
+                 
+                 
 
             } else
             {
@@ -486,15 +510,13 @@ public class TaskViewController implements Initializable
             
             
             
-            modelfacade.setIsTimerRunning(true);
-            modelfacade.setTimerutil(new TimerUtil(null,timeLabel,totalsecfortask,currenttask,LocalTime.now() ));
-            modelfacade.setExecutorService(Executors.newFixedThreadPool(1));
-            modelfacade.getExecutorService().submit(modelfacade.getTimerutil());
-            */
+           
+            
         }
 
        
 
+    }
     }
 
     /**
