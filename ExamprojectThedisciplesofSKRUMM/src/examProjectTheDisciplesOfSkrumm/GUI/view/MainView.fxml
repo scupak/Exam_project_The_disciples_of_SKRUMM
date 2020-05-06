@@ -37,7 +37,7 @@
             </JFXButton>
          </children>
       </HBox>
-      <Label fx:id="welcomeLabel" layoutX="277.0" layoutY="20.0" text="Welcome USERNAME!" textFill="WHITE">
+      <Label fx:id="welcomeLabel" alignment="CENTER" layoutX="182.0" layoutY="21.0" prefHeight="27.0" prefWidth="363.0" text="Welcome USERNAME!" textFill="WHITE" AnchorPane.leftAnchor="182.0" AnchorPane.rightAnchor="178.0" AnchorPane.topAnchor="-70.0">
          <font>
             <Font size="18.0" />
          </font>
