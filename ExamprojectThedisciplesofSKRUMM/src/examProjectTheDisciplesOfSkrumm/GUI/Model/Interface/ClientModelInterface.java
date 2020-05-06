@@ -6,6 +6,7 @@
 package examProjectTheDisciplesOfSkrumm.GUI.Model.Interface;
 
 import examProjectTheDisciplesOfSkrumm.BE.Client;
+import java.sql.SQLException;
 import javafx.collections.ObservableList;
 
 /**
@@ -19,6 +20,8 @@ public interface ClientModelInterface
     public void setClients(ObservableList<Client> clients);
     
     public void createClient(Client client);
+    
+    public boolean deleteClient(Client client) throws SQLException;
            
     
 }

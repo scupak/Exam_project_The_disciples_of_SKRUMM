@@ -267,6 +267,11 @@ public class ModelFacade implements ModelFacadeInterface
     {
         return projectmodel.deleteProject(project);
     }
+
+    @Override
+    public boolean deleteClient(Client client) throws SQLException {
+        return clientmodel.deleteClient(client);
+    }
     
     
     
