@@ -127,7 +127,7 @@
                         </Label>
                      </children>
                   </HBox>
-                  <JFXButton onAction="#handleStartTimer" prefHeight="25.0" prefWidth="217.0" text="Start timer" />
+                  <JFXButton fx:id="timerButton" onAction="#handleStartTimer" prefHeight="25.0" prefWidth="217.0" text="Start timer" />
                </children>
             </VBox>
          </children>

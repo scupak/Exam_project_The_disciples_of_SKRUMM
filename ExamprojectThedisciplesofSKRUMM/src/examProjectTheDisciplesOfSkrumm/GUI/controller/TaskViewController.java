@@ -15,6 +15,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
 import examProjectTheDisciplesOfSkrumm.BE.Interval;
 import examProjectTheDisciplesOfSkrumm.BE.Task;
+import examProjectTheDisciplesOfSkrumm.BLL.Util.TimerUtil;
 import examProjectTheDisciplesOfSkrumm.BLL.Util.TreeTableUtil;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.ModelFacadeInterface;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.ModelFacade;
@@ -28,6 +29,7 @@ import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -73,6 +75,8 @@ public class TaskViewController implements Initializable
     private JFXButton statisticsBtn;
     @FXML
     private JFXButton createTaskButton;
+    @FXML
+    private JFXButton timerButton;
     @FXML
     private TreeTableColumn clientColumn;
     @FXML
@@ -150,6 +154,24 @@ public class TaskViewController implements Initializable
         weekNumberLabel.setText("" + weekOfYear);
         try {
             refreshEverything();
+            
+            
+             if(modelfacade.getisTimerRunning()){
+                
+                
+                handleTimerUtilIsRunning();
+                
+            
+            
+            
+            
+            
+            }
+            
+            
+            
+            
+            
         } catch (SQLException ex) {
             Logger.getLogger(TaskViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -413,6 +435,63 @@ public class TaskViewController implements Initializable
     @FXML
     private void handleStartTimer(ActionEvent event)
     {
+         if (modelfacade.getisTimerRunning())
+        {
+            modelfacade.setIsTimerRunning(false);
+            modelfacade.getTimerutil().setIsRunning(false);
+            modelfacade.getExecutorService().shutdownNow();
+            timerButton.setText("start timer");
+            
+            
+        } 
+        
+        else if (!modelfacade.getisTimerRunning())
+        {
+            
+            /*
+            
+            final JDialog dialog = new JDialog();
+        dialog.setAlwaysOnTop(true);
+
+        if ((TaskTable.getSelectionModel().getSelectedItem() == null))
+        {
+            JOptionPane.showMessageDialog(dialog, "Nothing seems to be selected!\nSelect a task to edit before pressing edit!", "ERROR", JOptionPane.ERROR_MESSAGE);
+        } else
+        {
+
+            TreeItem<Task> selectedItem = (TreeItem<Task>) (TaskTable.getSelectionModel().getSelectedItem());
+
+            if (selectedItem.getValue() instanceof Task)
+            {
+
+                System.err.println("its a task!!!!!!!!!!!!!!!!!!!!");
+                System.out.println(selectedItem.getValue());
+
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/EditTaskView.fxml"));
+                Parent root = loader.load();
+                EditTaskController controller = loader.getController();
+                controller.setEditTask((Task) selectedItem.getValue());
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.setTitle("Edit Task");
+                stage.show();
+
+            } else
+            {
+
+                System.err.println("not a task!!!!!!!!!!!!!!!!!!!!");
+                JOptionPane.showMessageDialog(dialog, "Please select a valid task to edit!", "ERROR", JOptionPane.ERROR_MESSAGE);
+
+            }
+            
+            
+            
+            modelfacade.setIsTimerRunning(true);
+            modelfacade.setTimerutil(new TimerUtil(null,timeLabel,totalsecfortask,currenttask,LocalTime.now() ));
+            modelfacade.setExecutorService(Executors.newFixedThreadPool(1));
+            modelfacade.getExecutorService().submit(modelfacade.getTimerutil());
+            */
+        }
 
        
 
@@ -855,6 +934,19 @@ public class TaskViewController implements Initializable
         checkForCurrentday();
         checkWeekNumber();
         RefreshTreeView();
+    }
+
+    /**
+     * this method gets called if the timer is allready running when you initilize the view. 
+     */
+    private void handleTimerUtilIsRunning() {
+        
+        modelfacade.getTimerutil().setTotalTimeLabel(timeLabel);
+        CurrentTaskLabel.setText(modelfacade.getTimerutil().getCurrenttask().getTitle());
+        timerButton.setText("stop timer");
+        
+        
+        
     }
 }
 

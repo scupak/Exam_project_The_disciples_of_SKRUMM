@@ -29,6 +29,7 @@ public class Task
     private StringProperty projectName;
     private StringProperty clientName;
     private IntegerProperty isPaid;
+    private StringProperty formatedDuration;
     private LocalDateTime lastUsed;
     private LocalDate creationDate;
     private LocalTime startTime;
@@ -50,6 +51,7 @@ public class Task
         this.projectName = new SimpleStringProperty(project.getProjectName());
         this.clientName = new SimpleStringProperty(project.getClient().getClientName());
         this.isPaid =  new SimpleIntegerProperty(project.getIsPaid());
+        this.formatedDuration = new SimpleStringProperty("");
         this.lastUsed = lastUsed;
         this.creationDate = creationDate;
         this.startTime = startTime;
@@ -68,6 +70,7 @@ public class Task
         this.projectName = new SimpleStringProperty(project.getProjectName());
         this.clientName = new SimpleStringProperty(project.getClient().getClientName());
         this.isPaid =  new SimpleIntegerProperty(project.getIsPaid());
+        this.formatedDuration = new SimpleStringProperty("");
         this.lastUsed = lastUsed;
         this.creationDate = creationDate;
         this.startTime = startTime;
