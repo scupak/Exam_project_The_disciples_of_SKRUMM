@@ -6,6 +6,8 @@
 package examProjectTheDisciplesOfSkrumm.BLL.Util;
 
 import com.sun.javafx.tools.packager.Main;
+import examProjectTheDisciplesOfSkrumm.BE.Task;
+import java.time.LocalTime;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import javafx.application.Platform;
@@ -30,8 +32,10 @@ public class TimerUtil implements Runnable
     private Label intervalLabel;
     private int totalSec = 0;
     private int totalIntervalsec = 0;
+    private Task currenttask;
+    private LocalTime startTime;
 
-    public TimerUtil(Label intervalLabel,Label totaltimeLabel, int totalSec) {
+    public TimerUtil(Label intervalLabel,Label totaltimeLabel, int totalSec, Task task, LocalTime startTime) {
         this.totalSec = totalSec;
         while(totalSec >= 3600){
         totalSec  = totalSec - 3600;
@@ -56,6 +60,8 @@ public class TimerUtil implements Runnable
         //add rest of seconds to sec
         this.totaltimeLabel = totaltimeLabel;
         this.intervalLabel = intervalLabel;
+        this.currenttask = task;
+        this.startTime = startTime;
     }
     
 
@@ -93,6 +99,7 @@ public class TimerUtil implements Runnable
                         System.out.println("intervalTimeString" + "    " +intervalTimeString);
                         System.out.println("totalSec" + "    " + totalSec);
                         System.out.println("intervalsec" + "    " + intervalsec);
+                        System.out.println(currenttask);
                         
                             if(totaltimeLabel != null){
                             Platform.runLater (() -> 
@@ -173,23 +180,48 @@ public class TimerUtil implements Runnable
     public void setIsRunning(boolean isRunning) {
         this.isRunning = isRunning;
     }
+
+    public Task getCurrenttask() {
+        return currenttask;
+    }
+
+    public void setCurrenttask(Task currenttask) {
+        this.currenttask = currenttask;
+    }
+
+    public LocalTime getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(LocalTime startTime) {
+        this.startTime = startTime;
+    }
+
+    public Label getIntervalLabel() {
+        return intervalLabel;
+    }
+
+    public void setIntervalLabel(Label intervalLabel) {
+        this.intervalLabel = intervalLabel;
+    }
     
+        
     
-    
+        
     
                 
     public static void main(String[] args){
         int totSec = 123456;
         
         //giving label null, as it works with null
-        TimerUtil tu = new TimerUtil(null,null, totSec);
+       /* TimerUtil tu = new TimerUtil(null,null, totSec);
         
         ExecutorService executorService = 
             Executors.newFixedThreadPool(1);
         
         executorService.submit(tu);
         
-        
+        */
         
         //executorService.shutdownNow();
     }

@@ -158,6 +158,21 @@ public class MainViewController implements Initializable
         {
             welcomeLabel.setText("Welcome" + " " + modelfacade.getCurrentuser().getFirstName());
             fillGrid();
+            
+            if(modelfacade.getisTimerRunning()){
+                
+                
+                handleTimerUtilIsRunning();
+                
+            
+            
+            
+            
+            
+            }
+            
+            
+            
             // anchorPane00.setUserData(new Task("title", "projectName", "clientName", 0) );
         } catch (SQLException ex)
         {
@@ -422,15 +437,35 @@ public class MainViewController implements Initializable
             }
         }
         
-        handleStart(intervalLabel,totaltimelabel, button, tasks.get(index).getDuration());
+        handleStart(intervalLabel,totaltimelabel, button, tasks.get(index).getDuration(),tasks.get(index));
         
         if (!modelfacade.getisTimerRunning())
         {
+            /*
             if(previousbutton != null && !button.equals(previousbutton)){
                 System.out.println("difrent button");
                 ImageView view = ((ImageView)previousbutton.getChildrenUnmodifiable().get(1));
                 view.setImage(new Image("/examProjectTheDisciplesOfSkrumm/GUI/Icons/Playbutton.png"));
             }
+            */
+            if(modelfacade.getTimerutil().getCurrenttask() != null && !tasks.get(index).equals(modelfacade.getTimerutil().getCurrenttask())){
+                System.out.println("difrent button");
+                ImageView view = ((ImageView)previousbutton.getChildrenUnmodifiable().get(1));
+                view.setImage(new Image("/examProjectTheDisciplesOfSkrumm/GUI/Icons/Playbutton.png"));
+                
+                stopTime = LocalTime.now();
+                currentTask = modelfacade.getTimerutil().getCurrenttask();
+                Interval taskInterval = new Interval(modelfacade.getTimerutil().getStartTime(), stopTime, LocalDate.now(), modelfacade.getTimerutil().getTotalIntervalSec(), currentTask);
+            
+                System.out.println(taskInterval);
+            
+                currentTask.setDuration(modelfacade.getTimerutil().getTotalSec());
+            
+                modelfacade.newInterval(taskInterval);
+                
+                
+            }
+            else{
             
             //totalTimeLabels.get(index).setText(ultimateLabel.getText());
             button.setGraphic(Play);
@@ -439,12 +474,16 @@ public class MainViewController implements Initializable
             
             stopTime = LocalTime.now();
             currentTask = tasks.get(index);
-            Interval taskInterval = new Interval(startTime, stopTime, LocalDate.now(), modelfacade.getTimerutil().getTotalIntervalSec(), currentTask);
+            Interval taskInterval = new Interval(modelfacade.getTimerutil().getStartTime(), stopTime, LocalDate.now(), modelfacade.getTimerutil().getTotalIntervalSec(), currentTask);
+            
+            System.out.println(taskInterval);
+            
             currentTask.setDuration(modelfacade.getTimerutil().getTotalSec());
             
             modelfacade.newInterval(taskInterval);
         }
-        
+            
+        }
         else
         {
             button.setGraphic(Pause);
@@ -476,7 +515,7 @@ public class MainViewController implements Initializable
         mainView.close();
     }
 
-    private synchronized void handleStart(Label intervalLabel, Label totaltimelabel, JFXButton button, int totalsecfortask)
+    private synchronized void handleStart(Label intervalLabel, Label totaltimelabel, JFXButton button, int totalsecfortask, Task currenttask)
     {
        
         
@@ -502,11 +541,75 @@ public class MainViewController implements Initializable
             System.out.println("not running");
             running = true;
             modelfacade.setIsTimerRunning(true);
-            modelfacade.setTimerutil(new TimerUtil(intervalLabel,totaltimelabel,totalsecfortask));
+            modelfacade.setTimerutil(new TimerUtil(intervalLabel,totaltimelabel,totalsecfortask,currenttask,LocalTime.now() ));
             modelfacade.setExecutorService(Executors.newFixedThreadPool(1));
             modelfacade.getExecutorService().submit(modelfacade.getTimerutil());
             
         }
+    }
+    
+    
+    private void handleTimerUtilIsRunning(){
+        ImageView Pause = new ImageView("/examProjectTheDisciplesOfSkrumm/GUI/Icons/PauseBtn.png");
+        Pause.setScaleX(0.3);
+        Pause.setScaleY(0.3);
+        
+        //find the index for the task that is beaing run by the timerutil
+        int taskindex = 0;
+        AnchorPane currentpane;
+        
+        System.err.println(modelfacade.getTimerutil().getCurrenttask());
+  
+        taskindex = tasks.indexOf(modelfacade.getTimerutil().getCurrenttask());
+    
+        System.err.println(tasks.indexOf(modelfacade.getTimerutil().getCurrenttask())+ "  " + " task index");
+        
+        
+        //set the current AnchorPane to the one the task is on
+        currentpane = panes.get(taskindex);
+        
+        
+        
+        //set the current play/pause button
+        for (Object child : currentpane.getChildren()) {
+            
+      
+        
+        if (child instanceof JFXButton)
+            {
+                JFXButton button = (JFXButton) child;
+                
+                
+                if(button.getText().equals("Play"))
+                {
+                    button.setGraphic(Pause);
+                    button.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+                    button.setContentDisplay(ContentDisplay.CENTER);
+                    previousbutton = button;
+                }
+            }
+          }
+        
+        //set current interval label 
+        Label currentIntervalLabel; 
+        currentIntervalLabel = timeLabels.get(taskindex);
+        modelfacade.getTimerutil().setIntervalLabel(currentIntervalLabel);
+        
+        //set current totaltime label 
+        Label currenttotaltimelabel;
+       currenttotaltimelabel = totalTimeLabels.get(taskindex);
+       modelfacade.getTimerutil().setTotalTimeLabel(currenttotaltimelabel);
+        
+        
+       
+        
+        
+        
+        
+    
+    
+    
+    
     }
     
     
