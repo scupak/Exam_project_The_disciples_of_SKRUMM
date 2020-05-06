@@ -31,10 +31,10 @@
             <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TreeTableView>
-      <HBox alignment="CENTER" layoutX="627.0" layoutY="466.0" prefHeight="25.0" prefWidth="86.0" spacing="5.0" styleClass="Label" translateX="-9.0" translateY="5.0" AnchorPane.bottomAnchor="34.0" AnchorPane.rightAnchor="13.0">
+      <HBox alignment="CENTER" layoutX="610.0" layoutY="463.0" prefHeight="25.0" prefWidth="102.0" spacing="5.0" styleClass="Label" translateX="-9.0" translateY="5.0" AnchorPane.bottomAnchor="37.0" AnchorPane.rightAnchor="14.0">
          <children>
-            <Label styleClass="Label" text="Day Total:" />
-            <Label styleClass="Label" text="0:00" />
+            <Label alignment="TOP_RIGHT" prefHeight="17.0" prefWidth="57.0" styleClass="Label" text="Day Total:" />
+            <Label fx:id="daytotalTimeLabel" alignment="TOP_LEFT" prefHeight="17.0" prefWidth="35.0" styleClass="Label" text="0:00" />
          </children>
       </HBox>
       <StackPane alignment="BOTTOM_CENTER" layoutX="3.0" layoutY="2.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0" prefWidth="722.0" styleClass="chart-bar" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -202,19 +202,19 @@
                   <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="45.0">
                      <children>
                         <Button mnemonicParsing="false" onAction="#handleSaturday" text="Sa" />
-                        <Label text="0:00" />
+                        <Label fx:id="SaturdaytotalTImeLabel" text="0:00" />
                      </children>
                   </VBox>
                   <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="45.0">
                      <children>
                         <Button mnemonicParsing="false" onAction="#handleSunday" text="Su" />
-                        <Label text="0:00" />
+                        <Label fx:id="SundayTotalTimeLabel" text="0:00" />
                      </children>
                   </VBox>
                   <VBox alignment="CENTER" prefHeight="37.0" prefWidth="81.0">
                      <children>
                         <Label alignment="CENTER" prefHeight="25.0" prefWidth="69.0" styleClass="Label" text="Week Total:" />
-                        <Label text="0:00" />
+                        <Label fx:id="WeekTotalTimeLabel" text="0:00" />
                      </children>
                   </VBox>
                </children>
@@ -226,9 +226,9 @@
       </VBox>
       <HBox layoutX="25.0" layoutY="469.0" prefHeight="26.0" prefWidth="246.0" AnchorPane.bottomAnchor="31.0" AnchorPane.leftAnchor="24.0">
          <children>
-            <JFXButton fx:id="createTaskButton" onAction="#createTask" prefHeight="17.0" prefWidth="102.0" text="Create new task" />
-            <JFXButton onAction="#handleEditTaskAction" prefHeight="11.0" prefWidth="61.0" text="Edit task" />
-            <JFXButton fx:id="deleteTask" onAction="#handleDeleteTaskAction" prefHeight="26.0" prefWidth="79.0" text="Delete task" />
+            <JFXButton fx:id="createTaskButton" onAction="#createTask" prefHeight="6.0" prefWidth="102.0" text="Create new task" />
+            <JFXButton onAction="#handleEditTaskAction" prefHeight="0.0" prefWidth="61.0" text="Edit task" />
+            <JFXButton fx:id="deleteTask" onAction="#handleDeleteTaskAction" prefHeight="17.0" prefWidth="79.0" text="Delete task" />
          </children>
       </HBox>
       <JFXDatePicker fx:id="datePicker" defaultColor="#435a9a" layoutX="423.0" layoutY="109.0" onAction="#handleDatepickerAction" prefHeight="28.0" prefWidth="125.0" translateX="5.0" AnchorPane.leftAnchor="422.0" AnchorPane.topAnchor="109.0" />

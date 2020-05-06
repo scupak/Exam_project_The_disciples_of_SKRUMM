@@ -25,8 +25,10 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.temporal.WeekFields;
+import java.util.ArrayList;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
@@ -114,7 +116,18 @@ public class TaskViewController implements Initializable
     private JFXButton returnToCurrentDayButton;
     @FXML
     private JFXButton deleteTask;
-
+    @FXML
+    private Label daytotalTimeLabel;
+    @FXML
+    private Label SaturdaytotalTImeLabel;
+    @FXML
+    private Label SundayTotalTimeLabel;
+    @FXML
+    private Label WeekTotalTimeLabel;
+    
+    private long daydurationtotal;
+    
+    
     /**
      * Initializes the controller class.
      */
@@ -129,11 +142,17 @@ public class TaskViewController implements Initializable
         {
             Logger.getLogger(TaskViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
 
         datePicker.setValue(LocalDate.now());
         locale = Locale.ENGLISH;
         weekOfYear = datePicker.getValue().get(WeekFields.of(locale).weekOfWeekBasedYear());
         weekNumberLabel.setText("" + weekOfYear);
+        try {
+            refreshEverything();
+        } catch (SQLException ex) {
+            Logger.getLogger(TaskViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         returnToCurrentDayButton.setVisible(false);
         returnToCurrentDayButton.setDisable(true);
@@ -481,454 +500,336 @@ public class TaskViewController implements Initializable
     }
 
     @FXML
-    private void handlePreviousDay(ActionEvent event)
+    private void handlePreviousDay(ActionEvent event) throws SQLException
     {
         LocalDate previoday = datePicker.getValue().minusDays(1);
         datePicker.setValue(previoday);
-        checkForCurrentday();
-        checkWeekNumber();
-        RefreshTreeView();
+        refreshEverything();
     }
 
     @FXML
-    private void handleNextDay(ActionEvent event)
+    private void handleNextDay(ActionEvent event) throws SQLException
     {
         LocalDate previoday = datePicker.getValue().plusDays(1);
         datePicker.setValue(previoday);
-        checkForCurrentday();
-        checkWeekNumber();
-        RefreshTreeView();
+        refreshEverything();
     }
 
     @FXML
-    private void handleMonday(ActionEvent event)
+    private void handleMonday(ActionEvent event) throws SQLException
     {
         switch (datePicker.getValue().getDayOfWeek())
         {
             case MONDAY:
-                checkForCurrentday();
-                checkWeekNumber();
-                RefreshTreeView();
+                refreshEverything();
                 break;
 
             case TUESDAY:
                 datePicker.setValue(datePicker.getValue().minusDays(1));
-                checkForCurrentday();
-                checkWeekNumber();
-                RefreshTreeView();
+                refreshEverything();
                 break;
 
             case WEDNESDAY:
                 datePicker.setValue(datePicker.getValue().minusDays(2));
-                checkForCurrentday();
-                checkWeekNumber();
-                RefreshTreeView();
+                refreshEverything();
                 break;    
             
             case THURSDAY:
                 datePicker.setValue(datePicker.getValue().minusDays(3));
-                checkForCurrentday();
-                checkWeekNumber();
-                RefreshTreeView();
+                refreshEverything();
                 break;
 
             case FRIDAY:
                 datePicker.setValue(datePicker.getValue().minusDays(4));
-                checkForCurrentday();
-                checkWeekNumber();
-                RefreshTreeView();
+                refreshEverything();
                 break;
 
             case SATURDAY:
                 datePicker.setValue(datePicker.getValue().minusDays(5));
-                checkForCurrentday();
-                checkWeekNumber();
-                RefreshTreeView();
+                refreshEverything();
                 break;
 
             case SUNDAY:
                 datePicker.setValue(datePicker.getValue().minusDays(6));
-                checkForCurrentday();
-                checkWeekNumber();
-                RefreshTreeView();
+                refreshEverything();
                 break;
 
             default:
-                checkForCurrentday();
-                checkWeekNumber();
-                RefreshTreeView();
+                refreshEverything();
         }
 
     }
 
     @FXML
-    private void handleTuesday(ActionEvent event)
+    private void handleTuesday(ActionEvent event) throws SQLException
     {
         switch (datePicker.getValue().getDayOfWeek())
         {
             case MONDAY:
                 datePicker.setValue(datePicker.getValue().plusDays(1));
-                checkForCurrentday();
-                checkWeekNumber();
-                RefreshTreeView();
+                refreshEverything();
                 break;
 
             case TUESDAY:
-                checkForCurrentday();
-                checkWeekNumber();
-                RefreshTreeView();
+                refreshEverything();
                 break;
 
             case WEDNESDAY:
                 datePicker.setValue(datePicker.getValue().minusDays(1));
-                checkForCurrentday();
-                checkWeekNumber();
-                RefreshTreeView();
+                refreshEverything();
                 break;    
             
             case THURSDAY:
                 datePicker.setValue(datePicker.getValue().minusDays(2));
-                checkForCurrentday();
-                checkWeekNumber();
-                RefreshTreeView();
+                refreshEverything();
                 break;
 
             case FRIDAY:
                 datePicker.setValue(datePicker.getValue().minusDays(3));
-                checkForCurrentday();
-                checkWeekNumber();
-                RefreshTreeView();
+                refreshEverything();
                 break;
 
             case SATURDAY:
                 datePicker.setValue(datePicker.getValue().minusDays(4));
-                checkForCurrentday();
-                checkWeekNumber();
-                RefreshTreeView();
+                refreshEverything();
                 break;
 
             case SUNDAY:
                 datePicker.setValue(datePicker.getValue().minusDays(5));
-                checkForCurrentday();
-                checkWeekNumber();
-                RefreshTreeView();
+                refreshEverything();
                 break;
 
             default:
-                checkForCurrentday();
-                checkWeekNumber();
-                RefreshTreeView();
+                refreshEverything();
         }
     }
 
     @FXML
-    private void handleWednesday(ActionEvent event)
+    private void handleWednesday(ActionEvent event) throws SQLException
     {
         switch (datePicker.getValue().getDayOfWeek())
         {
             case MONDAY:
                 datePicker.setValue(datePicker.getValue().plusDays(2));
-                checkForCurrentday();
-                checkWeekNumber();
-                RefreshTreeView();
+                refreshEverything();
                 break;
 
             case TUESDAY:
                 datePicker.setValue(datePicker.getValue().plusDays(1));
-                checkForCurrentday();
-                checkWeekNumber();
-                RefreshTreeView();
+                refreshEverything();
                 break;
 
             case WEDNESDAY:
-                checkForCurrentday();
-                checkWeekNumber();
-                RefreshTreeView();
+                refreshEverything();
                 break;    
             
             case THURSDAY:
                 datePicker.setValue(datePicker.getValue().minusDays(1));
-                checkForCurrentday();
-                checkWeekNumber();
-                RefreshTreeView();
+                refreshEverything();
                 break;
 
             case FRIDAY:
                 datePicker.setValue(datePicker.getValue().minusDays(2));
-                checkForCurrentday();
-                checkWeekNumber();
-                RefreshTreeView();
+                refreshEverything();
                 break;
 
             case SATURDAY:
                 datePicker.setValue(datePicker.getValue().minusDays(3));
-                checkForCurrentday();
-                checkWeekNumber();
-                RefreshTreeView();
+                refreshEverything();
                 break;
 
             case SUNDAY:
                 datePicker.setValue(datePicker.getValue().minusDays(4));
-                checkForCurrentday();
-                checkWeekNumber();
-                RefreshTreeView();
+                refreshEverything();
                 break;
 
             default:
-                checkForCurrentday();
-                checkWeekNumber();
-                RefreshTreeView();
+                refreshEverything();
         }
 
     }
 
     @FXML
-    private void handleThursday(ActionEvent event)
+    private void handleThursday(ActionEvent event) throws SQLException
     {
         switch (datePicker.getValue().getDayOfWeek())
         {
             case MONDAY:
                 datePicker.setValue(datePicker.getValue().plusDays(3));
-                checkForCurrentday();
-                checkWeekNumber();
-                RefreshTreeView();
+                refreshEverything();
                 break;
 
             case TUESDAY:
                 datePicker.setValue(datePicker.getValue().plusDays(2));
-                checkForCurrentday();
-                checkWeekNumber();
-                RefreshTreeView();
+                refreshEverything();
                 break;
 
             case WEDNESDAY:
                 datePicker.setValue(datePicker.getValue().plusDays(1));
-                checkForCurrentday();
-                checkWeekNumber();
-                RefreshTreeView();
+                refreshEverything();
                 break;    
             
             case THURSDAY:
-                checkForCurrentday();
-                checkWeekNumber();
-                RefreshTreeView();
+                refreshEverything();
                 break;
 
             case FRIDAY:
                 datePicker.setValue(datePicker.getValue().minusDays(1));
-                checkForCurrentday();
-                checkWeekNumber();
-                RefreshTreeView();
+                refreshEverything();
                 break;
 
             case SATURDAY:
                 datePicker.setValue(datePicker.getValue().minusDays(2));
-                checkForCurrentday();
-                checkWeekNumber();
-                RefreshTreeView();
+                refreshEverything();
                 break;
 
             case SUNDAY:
                 datePicker.setValue(datePicker.getValue().minusDays(3));
-                checkForCurrentday();
-                checkWeekNumber();
-                RefreshTreeView();
+                refreshEverything();
                 break;
 
             default:
-                checkForCurrentday();
-                checkWeekNumber();
-                RefreshTreeView();
+                refreshEverything();
         }
     }
 
     @FXML
-    private void handleFriday(ActionEvent event)
+    private void handleFriday(ActionEvent event) throws SQLException
     {
         switch (datePicker.getValue().getDayOfWeek())
         {
             case MONDAY:
                 datePicker.setValue(datePicker.getValue().plusDays(4));
-                checkForCurrentday();
-                checkWeekNumber();
-                RefreshTreeView();
+                refreshEverything();
                 break;
 
             case TUESDAY:
                 datePicker.setValue(datePicker.getValue().plusDays(3));
-                checkForCurrentday();
-                checkWeekNumber();
-                RefreshTreeView();
+                refreshEverything();
                 break;
 
             case WEDNESDAY:
                 datePicker.setValue(datePicker.getValue().plusDays(2));
-                checkForCurrentday();
-                checkWeekNumber();
-                RefreshTreeView();
+                refreshEverything();
                 break;    
             
             case THURSDAY:
                 datePicker.setValue(datePicker.getValue().plusDays(1));
-                checkForCurrentday();
-                checkWeekNumber();
-                RefreshTreeView();
+                refreshEverything();
                 break;
 
             case FRIDAY:
-                checkForCurrentday();
-                checkWeekNumber();
-                RefreshTreeView();
+                refreshEverything();
                 break;
 
             case SATURDAY:
                 datePicker.setValue(datePicker.getValue().minusDays(1));
-                checkForCurrentday();
-                checkWeekNumber();
-                RefreshTreeView();
+                refreshEverything();
                 break;
 
             case SUNDAY:
                 datePicker.setValue(datePicker.getValue().minusDays(2));
-                checkForCurrentday();
-                checkWeekNumber();
-                RefreshTreeView();
+                refreshEverything();
                 break;
 
             default:
-                checkForCurrentday();
-                checkWeekNumber();
-                RefreshTreeView();
+                refreshEverything();
         }
     }
 
     @FXML
-    private void handleSaturday(ActionEvent event)
+    private void handleSaturday(ActionEvent event) throws SQLException
     {
         switch (datePicker.getValue().getDayOfWeek())
         {
             case MONDAY:
                 datePicker.setValue(datePicker.getValue().plusDays(5));
-                checkForCurrentday();
-                checkWeekNumber();
-                RefreshTreeView();
+                refreshEverything();
                 break;
 
             case TUESDAY:
                 datePicker.setValue(datePicker.getValue().plusDays(4));
-                checkForCurrentday();
-                checkWeekNumber();
-                RefreshTreeView();
+                refreshEverything();
                 break;
 
             case WEDNESDAY:
                 datePicker.setValue(datePicker.getValue().plusDays(3));
-                checkForCurrentday();
-                checkWeekNumber();
-                RefreshTreeView();
+                refreshEverything();
                 break;    
             
             case THURSDAY:
                 datePicker.setValue(datePicker.getValue().plusDays(2));
-                checkForCurrentday();
-                checkWeekNumber();
-                RefreshTreeView();
+                refreshEverything();
                 break;
 
             case FRIDAY:
                 datePicker.setValue(datePicker.getValue().plusDays(1));
-                checkForCurrentday();
-                checkWeekNumber();
-                RefreshTreeView();
+                refreshEverything();
                 break;
 
             case SATURDAY:
-                checkForCurrentday();
-                checkWeekNumber();
-                RefreshTreeView();
+                refreshEverything();
                 break;
 
             case SUNDAY:
                 datePicker.setValue(datePicker.getValue().minusDays(1));
-                checkForCurrentday();
-                checkWeekNumber();
-                RefreshTreeView();
+                refreshEverything();
                 break;
 
             default:
-                checkForCurrentday();
-                checkWeekNumber();
-                RefreshTreeView();
+                refreshEverything();
         }
     }
 
     @FXML
-    private void handleSunday(ActionEvent event)
+    private void handleSunday(ActionEvent event) throws SQLException
     {
         switch (datePicker.getValue().getDayOfWeek())
         {
             case MONDAY:
                 datePicker.setValue(datePicker.getValue().plusDays(6));
-                checkForCurrentday();
-                checkWeekNumber();
-                RefreshTreeView();
+                refreshEverything();
                 break;
 
             case TUESDAY:
                 datePicker.setValue(datePicker.getValue().plusDays(5));
-                checkForCurrentday();
-                checkWeekNumber();
-                RefreshTreeView();
+                refreshEverything();
                 break;
 
             case WEDNESDAY:
                 datePicker.setValue(datePicker.getValue().plusDays(4));
-                checkForCurrentday();
-                checkWeekNumber();
-                RefreshTreeView();
+                refreshEverything();
                 break;    
             
             case THURSDAY:
                 datePicker.setValue(datePicker.getValue().plusDays(3));
-                checkForCurrentday();
-                checkWeekNumber();
-                RefreshTreeView();
+                refreshEverything();
                 break;
 
             case FRIDAY:
                 datePicker.setValue(datePicker.getValue().plusDays(2));
-                checkForCurrentday();
-                checkWeekNumber();
-                RefreshTreeView();
+                refreshEverything();
                 break;
 
             case SATURDAY:
                 datePicker.setValue(datePicker.getValue().plusDays(1));
-                checkForCurrentday();
-                checkWeekNumber();
-                RefreshTreeView();
+                refreshEverything();
                 break;
 
             case SUNDAY:
-                checkForCurrentday();
-                checkWeekNumber();
-                RefreshTreeView();
+                refreshEverything();
                 break;
 
             default:
-                checkForCurrentday();
-                checkWeekNumber();
-                RefreshTreeView();
+               refreshEverything();
         }
     }
 
     @FXML
-    private void handlecurrentday(ActionEvent event)
+    private void handlecurrentday(ActionEvent event) throws SQLException
     {
         datePicker.setValue(LocalDate.now());
-        checkForCurrentday();
-        checkWeekNumber();
-        RefreshTreeView();
+        refreshEverything();
         
     }
 
@@ -947,11 +848,9 @@ public class TaskViewController implements Initializable
     }
 
     @FXML
-    private void handleDatepickerAction(ActionEvent event)
+    private void handleDatepickerAction(ActionEvent event) throws SQLException
     {
-        checkForCurrentday();
-        checkWeekNumber();
-        RefreshTreeView();
+        refreshEverything();
     }
 
     private void checkWeekNumber()
@@ -992,4 +891,36 @@ public class TaskViewController implements Initializable
         }
 
     }
+    
+    private void refreshdaytotal() throws SQLException
+    {
+        daydurationtotal = 0;
+        ArrayList<Task> tasks = new ArrayList<>();
+        tasks.addAll(modelfacade.getTasksForUser(modelfacade.getCurrentuser(), datePicker.getValue()));
+        
+        for (Task task : tasks) 
+        {
+            daydurationtotal = daydurationtotal + task.getDuration();
+            
+        }
+        
+        long hour = TimeUnit.SECONDS.toHours(daydurationtotal);
+        long min = TimeUnit.SECONDS.toMinutes(daydurationtotal) - TimeUnit.HOURS.toMinutes(hour);
+        Long sec = daydurationtotal - TimeUnit.MINUTES.toSeconds(min);
+        
+        daytotalTimeLabel.setText(String.format("%d:%d:%d", hour, min, sec));
+        
+    }
+    
+    
+    
+    private void refreshEverything() throws SQLException
+    {
+        refreshdaytotal();
+        checkForCurrentday();
+        checkWeekNumber();
+        RefreshTreeView();
+    }
 }
+
+
