@@ -225,10 +225,10 @@ public class TaskViewController implements Initializable
                 final Object dataObj = ((TreeTableColumn.CellDataFeatures) obj).getValue().getValue();
                 if (dataObj instanceof Task)
                 {
-                    return new ReadOnlyStringWrapper(String.valueOf(((Task) dataObj).getDuration()));
+                    return new ReadOnlyStringWrapper(((Task) dataObj).getFormatedDuration());
                 } else if (dataObj instanceof Interval)
                 {
-                    return new ReadOnlyStringWrapper(String.valueOf(((Interval) dataObj).getIntervalTime()));
+                    return new ReadOnlyStringWrapper(((Interval) dataObj).getFormatedIntervaltime());
                 } else
                 {
                     return null;

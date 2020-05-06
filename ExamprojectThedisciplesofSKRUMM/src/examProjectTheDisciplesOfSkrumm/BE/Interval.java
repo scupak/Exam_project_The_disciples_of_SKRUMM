@@ -8,6 +8,7 @@ package examProjectTheDisciplesOfSkrumm.BE;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.concurrent.TimeUnit;
 
 /**
  *
@@ -60,6 +61,14 @@ public class Interval
     public LocalDate getCreationDate()
     {
         return creationDate;
+    }
+    
+    public String getFormatedIntervaltime() {
+        long hour = TimeUnit.SECONDS.toHours(intervalTime);
+        long min = TimeUnit.SECONDS.toMinutes(intervalTime) - TimeUnit.HOURS.toMinutes(hour);
+        Long sec = intervalTime - TimeUnit.MINUTES.toSeconds(min);
+        
+       return String.format("%d:%d:%d", hour, min, sec);
     }
 
     @Override

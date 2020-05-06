@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -147,6 +148,21 @@ public class Task
     public void setDuration(int time) {
         this.duration.set(time);
     }
+
+    public String getFormatedDuration() {
+        long hour = TimeUnit.SECONDS.toHours(duration.get());
+        long min = TimeUnit.SECONDS.toMinutes(duration.get()) - TimeUnit.HOURS.toMinutes(hour);
+        Long sec = duration.get() - TimeUnit.MINUTES.toSeconds(min);
+        
+       return String.format("%d:%d:%d", hour, min, sec);
+    }
+
+    public void setFormatedDuration(String formatedDuration) {
+        this.formatedDuration.set(formatedDuration);
+    }
+    
+    
+    
 
     public String getProjectName() {
         return projectName.get();
