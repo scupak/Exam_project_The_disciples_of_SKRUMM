@@ -172,10 +172,12 @@ public class TaskModel implements TaskModelInterface
         this.timerutil = timerutil;
     }
 
+    @Override
     public ExecutorService getExecutorService() {
         return executorService;
     }
 
+    @Override
     public void setExecutorService(ExecutorService executorService) {
         this.executorService = executorService;
     }

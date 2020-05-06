@@ -61,6 +61,12 @@ public class Interval
     {
         return creationDate;
     }
+
+    @Override
+    public String toString() {
+        return "Interval{" + "startTime=" + startTime + ", stopTime=" + stopTime + ", creationDate=" + creationDate + ", totalTime=" + totalTime + ", intervalTime=" + intervalTime + ", task=" + task + '}';
+    }
+    
     
     
     
