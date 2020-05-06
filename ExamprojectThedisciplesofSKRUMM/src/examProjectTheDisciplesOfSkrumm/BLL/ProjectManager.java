@@ -49,6 +49,11 @@ public class ProjectManager implements ProjectManagerInterface
         return dalfacade.getProject(project);
     }
 
+    @Override
+    public boolean deleteProject(Project project) throws SQLException {
+         return dalfacade.deleteProject(project);
+    }
+
     
     
 }

@@ -84,10 +84,7 @@ public class ProjectDBDAO implements ProjectDBDAOInterface
     @Override
     public Project createProject(Project project) throws SQLException 
     {
-        if (projectExist(project))
-        {
-            return null;
-        }
+        
         try (Connection con = dbcon.getConnection())
         {
             PreparedStatement ps = con.prepareStatement("INSERT INTO [project]"
@@ -175,6 +172,49 @@ public class ProjectDBDAO implements ProjectDBDAOInterface
 //        }
        
 
+    }
+
+    @Override
+    public boolean deleteProject(Project project) throws SQLException 
+    {
+        try(Connection con = dbcon.getConnection())
+        {
+            if(clearProject(project))
+            {
+            PreparedStatement ps = con.prepareStatement("DELETE FROM [project] WHERE id = ?");
+            ps.setInt(1, project.getId());
+            
+            int updatedRows = ps.executeUpdate();
+            
+            return updatedRows > 0;
+            }
+            
+        }
+        
+        return false;
+        
+    }
+
+    @Override
+    public boolean clearProject(Project project) throws SQLException 
+    {
+        try(Connection con = dbcon.getConnection())
+        {
+            PreparedStatement ps = con.prepareStatement("DELETE FROM [task] WHERE projectID = ?");
+            ps.setInt(1, project.getId());
+            ps.executeUpdate();
+            
+            PreparedStatement ps2 = con.prepareStatement("SELECT * FROM [task] WHERE projectID = ?");
+            ps2.setInt(1, project.getId());
+            ResultSet rs = ps2.executeQuery();
+            
+            while(rs.next())
+            {
+                return false;
+            }
+            
+            return true;
+        }
     }
     
 }

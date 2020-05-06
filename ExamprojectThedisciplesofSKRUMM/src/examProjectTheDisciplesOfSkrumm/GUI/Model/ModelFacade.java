@@ -261,6 +261,12 @@ public class ModelFacade implements ModelFacadeInterface
     public void setTimerutil(TimerUtil timerutil) {
         taskmodel.setTimerutil(timerutil);
     }
+
+    @Override
+    public boolean deleteProject(Project project) throws SQLException 
+    {
+        return projectmodel.deleteProject(project);
+    }
     
     
     

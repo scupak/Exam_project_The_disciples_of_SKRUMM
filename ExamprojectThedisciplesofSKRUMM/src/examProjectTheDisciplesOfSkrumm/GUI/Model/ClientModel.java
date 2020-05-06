@@ -32,9 +32,11 @@ public class ClientModel implements ClientModelInterface
         this.clients = FXCollections.observableArrayList();
     }
 
+    @Override
     public ObservableList<Client> getClients() 
     {   
         clients.clear();
+       
         try {
             clients.addAll(bllfacade.getAllClients());
         } catch (SQLException ex) {
@@ -47,6 +49,7 @@ public class ClientModel implements ClientModelInterface
         this.clients = clients;
     }
     
+    @Override
     public void createClient(Client client)
     {
         try {

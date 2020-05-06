@@ -7,6 +7,7 @@ package examProjectTheDisciplesOfSkrumm.GUI.Model.Interface;
 
 import examProjectTheDisciplesOfSkrumm.BE.Client;
 import examProjectTheDisciplesOfSkrumm.BE.Project;
+import java.sql.SQLException;
 import javafx.collections.ObservableList;
 
 /**
@@ -20,6 +21,9 @@ public interface ProjectModelInterface
     public void setProjects(ObservableList<Project> projects); 
     
     public void CreateProject(Project project);
+    
+    public boolean deleteProject(Project project) throws SQLException;
+    
     
     
 }

@@ -208,4 +208,9 @@ public class BLLFacade implements BLLFacadeInterface
         return taskmanager.clearTask(task);
     }
 
+    @Override
+    public boolean deleteProject(Project project) throws SQLException {
+       return projectmanager.deleteProject(project);
+    }
+
 }

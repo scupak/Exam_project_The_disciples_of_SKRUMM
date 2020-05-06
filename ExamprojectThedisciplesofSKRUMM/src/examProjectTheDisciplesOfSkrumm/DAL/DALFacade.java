@@ -177,6 +177,15 @@ public class DALFacade implements DALFacadeInterface
     }
 
     @Override
+    public boolean deleteProject(Project project) throws SQLException {
+        return projecDBDAO.deleteProject(project);
+    }
+
+    @Override
+    public boolean clearProject(Project project) throws SQLException {
+        return projecDBDAO.clearProject(project);
+    }
+    
     public boolean deleteClient(Client client) throws SQLException {
         return clientDBDAO.deleteClient(client);
     }
