@@ -360,7 +360,7 @@ public class TaskDBDAO implements TaskDBDAOInterface
             PreparedStatement ps2 = con.prepareStatement(updateLastUsed);
 
             ps2.setTimestamp(1, java.sql.Timestamp.valueOf(LocalDateTime.now()));
-            ps2.setInt(2, interval.getTotalTime());
+            ps2.setInt(2, interval.getTask().getDuration());
             ps2.setInt(3, interval.getTask().getId());
 
             ps2.executeUpdate();

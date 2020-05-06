@@ -137,6 +137,8 @@ public class MainViewController implements Initializable
     private int totalTime;
     
     private ObservableList<Task> tasks;
+    @FXML
+    private Label welcomeLabel;
 
     /**
      * Initializes the controller class.
@@ -154,6 +156,7 @@ public class MainViewController implements Initializable
         }
         try
         {
+            welcomeLabel.setText("Welcome" + " " + modelfacade.getCurrentuser().getFirstName());
             fillGrid();
             // anchorPane00.setUserData(new Task("title", "projectName", "clientName", 0) );
         } catch (SQLException ex)
@@ -286,7 +289,7 @@ public class MainViewController implements Initializable
         
         for (Task task : tasks)
         {
-            overwriteTasks(task.getTitle(), task.getClientName(), task.getLastUsed().toString().substring(0, 10), panes.get(anchorPaneNumber), task.getIsPaid());
+            overwriteTasks(panes.get(anchorPaneNumber), task);
             anchorPaneNumber++;
             
         }
@@ -306,7 +309,7 @@ public class MainViewController implements Initializable
         anchorPaneNumber = 0;
     }
 
-    private void overwriteTasks(String task, String client, String date, AnchorPane pane, int isPaid)
+    private void overwriteTasks(AnchorPane pane, Task task)
     {
         List children = pane.getChildren();
         List<Label> labels = new ArrayList();
@@ -334,10 +337,10 @@ public class MainViewController implements Initializable
             {
                 imgView = (ImageView) child;
 
-                if (isPaid == 1)
+                if (task.getIsPaid() == 1)
                 {
                     imgView.setImage(Paid);
-                } else if (isPaid == 0)
+                } else if (task.getIsPaid() == 0)
                 {
                     imgView.setImage(NotPaid);
                 }
@@ -363,7 +366,7 @@ public class MainViewController implements Initializable
         {
             if (label.getText().equals("TASK"))
             {
-                label.setText(task);
+                label.setText(task.getTitle());
                 label.setMaxWidth(Double.MAX_VALUE);
                 pane.setLeftAnchor(label, 0.0);
                 pane.setRightAnchor(label, 0.0);
@@ -372,7 +375,7 @@ public class MainViewController implements Initializable
 
             if (label.getText().equals("Client"))
             {
-                label.setText(client);
+                label.setText(task.getClientName());
                 label.setMaxWidth(Double.MAX_VALUE);
                 pane.setLeftAnchor(label, 0.0);
                 pane.setRightAnchor(label, 0.0);
@@ -381,7 +384,12 @@ public class MainViewController implements Initializable
 
             if (label.getText().equals("Date"))
             {
-                label.setText(date);
+                label.setText(task.getLastUsed().toString().substring(0, 10));
+            }
+            
+            if (label.getText().equals("TotalTime"))
+            {
+                label.setText(modelfacade.convertSecToTimeString(task.getDuration()));
             }
         }
     }

@@ -279,6 +279,10 @@ public class ModelFacade implements ModelFacadeInterface
            taskmodel.setExecutorService(executorService);
     }
     
+    public boolean deleteClient(Client client) throws SQLException {
+        return clientmodel.deleteClient(client);
+    }
+    
     
     
 }

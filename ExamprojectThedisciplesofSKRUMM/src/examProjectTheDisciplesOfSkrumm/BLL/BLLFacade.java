@@ -213,4 +213,9 @@ public class BLLFacade implements BLLFacadeInterface
        return projectmanager.deleteProject(project);
     }
 
+    @Override
+    public boolean deleteClient(Client client) throws SQLException {
+       return clientmanager.deleteClient(client);
+    }
+
 }
