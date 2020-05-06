@@ -89,7 +89,7 @@
                      </image>
                   </ImageView>
                   <Label layoutX="132.0" layoutY="85.0" text="Total Time:" />
-                  <Label fx:id="totalTimeOne" layoutX="198.0" layoutY="85.0" text="00:00:00" />
+                  <Label fx:id="totalTimeOne" layoutX="198.0" layoutY="85.0" text="TotalTime" />
                </children>
             </AnchorPane>
             <AnchorPane fx:id="taskThree" prefHeight="136.0" prefWidth="308.0" style="-fx-border-color: #435a9a; -fx-border-width: 2; -fx-border-radius: 11; -fx-background-color: #CFD8DC; -fx-background-radius: 11;" GridPane.rowIndex="1">
@@ -123,7 +123,7 @@
                      </image>
                   </ImageView>
                   <Label layoutX="132.0" layoutY="85.0" text="Total Time:" />
-                  <Label fx:id="totalTimeThree" layoutX="198.0" layoutY="85.0" text="00:00:00" />
+                  <Label fx:id="totalTimeThree" layoutX="198.0" layoutY="85.0" text="TotalTime" />
                </children>
             </AnchorPane>
             <AnchorPane fx:id="taskTwo" prefHeight="136.0" prefWidth="308.0" style="-fx-border-color: #435a9a; -fx-border-width: 2; -fx-border-radius: 11; -fx-background-color: #CFD8DC; -fx-background-radius: 11;" GridPane.columnIndex="1">
@@ -157,7 +157,7 @@
                      </image>
                   </ImageView>
                   <Label layoutX="132.0" layoutY="85.0" text="Total Time:" />
-                  <Label fx:id="totalTimeTwo" layoutX="198.0" layoutY="85.0" text="00:00:00" />
+                  <Label fx:id="totalTimeTwo" layoutX="198.0" layoutY="85.0" text="TotalTime" />
                </children>
             </AnchorPane>
             <AnchorPane fx:id="taskFour" prefHeight="136.0" prefWidth="308.0" style="-fx-border-color: #435a9a; -fx-border-width: 2; -fx-border-radius: 11; -fx-background-color: #CFD8DC; -fx-background-radius: 11;" GridPane.columnIndex="1" GridPane.rowIndex="1">
@@ -191,7 +191,7 @@
                      </image>
                   </ImageView>
                   <Label layoutX="132.0" layoutY="85.0" text="Total Time:" />
-                  <Label fx:id="totalTimeFour" layoutX="198.0" layoutY="85.0" text="00:00:00" />
+                  <Label fx:id="totalTimeFour" layoutX="198.0" layoutY="85.0" text="TotalTime" />
                </children>
             </AnchorPane>
             <AnchorPane fx:id="taskFive" prefHeight="136.0" prefWidth="308.0" style="-fx-border-color: #435a9a; -fx-border-width: 2; -fx-border-radius: 11; -fx-background-color: #CFD8DC; -fx-background-radius: 11;" GridPane.rowIndex="2">
@@ -225,7 +225,7 @@
                      </image>
                   </ImageView>
                   <Label layoutX="132.0" layoutY="85.0" text="Total Time:" />
-                  <Label fx:id="totalTimeFive" layoutX="198.0" layoutY="85.0" text="00:00:00" />
+                  <Label fx:id="totalTimeFive" layoutX="198.0" layoutY="85.0" text="TotalTime" />
                </children>
             </AnchorPane>
             <AnchorPane fx:id="taskSix" prefHeight="136.0" prefWidth="308.0" style="-fx-border-color: #435a9a; -fx-border-width: 2; -fx-border-radius: 11; -fx-background-color: #CFD8DC; -fx-background-radius: 11;" GridPane.columnIndex="1" GridPane.rowIndex="2">
@@ -259,7 +259,7 @@
                      </image>
                   </ImageView>
                   <Label layoutX="132.0" layoutY="85.0" text="Total Time:" />
-                  <Label fx:id="totalTimeSix" layoutX="198.0" layoutY="85.0" text="00:00:00" />
+                  <Label fx:id="totalTimeSix" layoutX="198.0" layoutY="85.0" text="TotalTime" />
                </children>
             </AnchorPane>
          </children>
