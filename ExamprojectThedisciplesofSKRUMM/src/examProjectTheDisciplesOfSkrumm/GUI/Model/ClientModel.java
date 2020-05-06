@@ -58,6 +58,11 @@ public class ClientModel implements ClientModelInterface
             Logger.getLogger(ClientModel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    @Override
+    public boolean deleteClient(Client client) throws SQLException {
+        return bllfacade.deleteClient(client);
+    }
     
 }
 
