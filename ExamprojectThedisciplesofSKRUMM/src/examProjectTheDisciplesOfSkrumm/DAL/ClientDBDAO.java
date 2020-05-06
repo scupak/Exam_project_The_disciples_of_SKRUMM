@@ -160,6 +160,8 @@ public class ClientDBDAO implements ClientDBDAOInterface
     public boolean deleteClient(Client client) throws SQLException {
         try(Connection con = dbCon.getConnection())
         {
+            if(clearClient(client))
+            {
 
             PreparedStatement ps = con.prepareStatement("DELETE FROM [client] WHERE id = ?");
             ps.setInt(1, client.getId());
@@ -167,13 +169,14 @@ public class ClientDBDAO implements ClientDBDAOInterface
             int updatedRows = ps.executeUpdate();
             
             return updatedRows > 0;
-            
+            }
             
         }
         
+        return false;
     }
     
-        public boolean clearTask(Client client) throws SQLException
+        public boolean clearClient(Client client) throws SQLException
     {
         try(Connection con = dbCon.getConnection())
         {
