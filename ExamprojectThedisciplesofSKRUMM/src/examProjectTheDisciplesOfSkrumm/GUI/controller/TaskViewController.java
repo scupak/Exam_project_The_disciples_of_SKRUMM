@@ -414,72 +414,7 @@ public class TaskViewController implements Initializable
     private void handleStartTimer(ActionEvent event)
     {
 
-        System.out.println(System.getProperty("java.version"));
-        System.out.println(System.getProperty("javafx.runtime.version"));
-
-        System.out.println("start");
-
-        if (running)
-        {
-
-            running = false;
-
-        } else if (!running)
-        {
-            running = true;
-
-        }
-
-        new Thread(()
-                ->
-        {
-            while (true)
-            {
-
-                if (running)
-                {
-
-                    try
-                    {
-                        Thread.sleep(1000);
-
-                        sec++;
-
-                        if (sec >= 60)
-                        {
-                            min++;
-                            sec = 0;
-                        }
-
-                        if (min >= 60)
-                        {
-                            hour++;
-                            min = 0;
-                        }
-
-                        String time = String.format("%02d", hour) + " : " + String.format("%02d", min) + " : " + String.format("%02d", sec);
-                        System.out.println(time);
-                        Platform.runLater(()
-                                ->
-                        {
-                            timeLabel.setText(String.format("%02d", hour) + " : " + String.format("%02d", min) + " : " + String.format("%02d", sec));
-                        }
-                        );
-
-                    } catch (Exception e)
-                    {
-                    }
-
-                } else
-                {
-
-                    break;
-
-                }
-
-            }
-
-        }).start();
+       
 
     }
 
