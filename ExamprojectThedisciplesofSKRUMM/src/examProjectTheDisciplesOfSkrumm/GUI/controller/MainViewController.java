@@ -137,6 +137,8 @@ public class MainViewController implements Initializable
     private int totalTime;
     
     private ObservableList<Task> tasks;
+    @FXML
+    private Label welcomeLabel;
 
     /**
      * Initializes the controller class.
@@ -154,6 +156,7 @@ public class MainViewController implements Initializable
         }
         try
         {
+            welcomeLabel.setText("Welcome" + " " + modelfacade.getCurrentuser().getFirstName());
             fillGrid();
             // anchorPane00.setUserData(new Task("title", "projectName", "clientName", 0) );
         } catch (SQLException ex)
