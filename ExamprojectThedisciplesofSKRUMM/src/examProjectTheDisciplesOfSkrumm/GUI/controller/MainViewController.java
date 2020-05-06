@@ -53,6 +53,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import javax.swing.JOptionPane;
 
 /**
  * FXML Controller class
@@ -61,10 +62,9 @@ import javafx.stage.Stage;
  */
 public class MainViewController implements Initializable
 {
-    
 
     ModelFacadeInterface modelfacade;
-    
+
     DateTimeFormatter formatter;
     @FXML
     private JFXButton AdminBtn;
@@ -102,7 +102,7 @@ public class MainViewController implements Initializable
     private List<AnchorPane> panes = new ArrayList<>();
     private List<Label> timeLabels = new ArrayList<>();
     private List<Label> totalTimeLabels = new ArrayList<>();
-    
+
     @FXML
     private Label timeLabelOne;
     @FXML
@@ -130,12 +130,12 @@ public class MainViewController implements Initializable
     //ExecutorService executorService;
     //TimerUtil timerutil;
     JFXButton previousbutton = null;
-    
+
     private LocalTime startTime;
     private LocalTime stopTime;
     private int interval;
     private int totalTime;
-    
+
     private ObservableList<Task> tasks;
     @FXML
     private Label welcomeLabel;
@@ -144,35 +144,53 @@ public class MainViewController implements Initializable
      * Initializes the controller class.
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        try {
+    public void initialize(URL url, ResourceBundle rb)
+    {
+        try
+        {
             /*
             ColumnConstraints halfConstraint = new ColumnConstraints(50);
             taskGrid.getColumnConstraints().addAll(halfConstraint,halfConstraint);
-            */
+             */
             modelfacade = ModelFacade.getInstance();
-        } catch (Exception ex) {
+        } catch (Exception ex)
+        {
             Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
         try
         {
             welcomeLabel.setText("Welcome" + " " + modelfacade.getCurrentuser().getFirstName());
+
+            panes.add(taskOne);
+            panes.add(taskTwo);
+            panes.add(taskThree);
+            panes.add(taskFour);
+            panes.add(taskFive);
+            panes.add(taskSix);
+
+            timeLabels.add(timeLabelOne);
+            timeLabels.add(timeLabelTwo);
+            timeLabels.add(timeLabelThree);
+            timeLabels.add(timeLabelFour);
+            timeLabels.add(timeLabelFive);
+            timeLabels.add(timeLabelSix);
+
+            totalTimeLabels.add(totalTimeOne);
+            totalTimeLabels.add(totalTimeTwo);
+            totalTimeLabels.add(totalTimeThree);
+            totalTimeLabels.add(totalTimeFour);
+            totalTimeLabels.add(totalTimeFive);
+            totalTimeLabels.add(totalTimeSix);
+
             fillGrid();
-            
-            if(modelfacade.getisTimerRunning()){
-                
-                
+
+            if (modelfacade.getisTimerRunning())
+            {
+
                 handleTimerUtilIsRunning();
-                
-            
-            
-            
-            
-            
+
             }
-            
-            
-            
+
             // anchorPane00.setUserData(new Task("title", "projectName", "clientName", 0) );
         } catch (SQLException ex)
         {
@@ -181,7 +199,7 @@ public class MainViewController implements Initializable
 
         // anchorPane00.setUserData(new Task("title", "projectName", "clientName", 0) );
         formatter = DateTimeFormatter.ofPattern("dd/MM/YYYY");
-        
+
     }
 
     public MainViewController()
@@ -255,7 +273,7 @@ public class MainViewController implements Initializable
         stage.setTitle("TimeTracker");
         stage.show();
         mainView.close();
-        
+
     }
 
     @FXML
@@ -280,33 +298,12 @@ public class MainViewController implements Initializable
     {
         int anchorPaneNumber = 0;
         tasks = modelfacade.getSixTasks(modelfacade.getCurrentuser());
-        
-        panes.add(taskOne);
-        panes.add(taskTwo);
-        panes.add(taskThree);
-        panes.add(taskFour);
-        panes.add(taskFive);
-        panes.add(taskSix);
-       
-        timeLabels.add(timeLabelOne);
-        timeLabels.add(timeLabelTwo);
-        timeLabels.add(timeLabelThree);
-        timeLabels.add(timeLabelFour);
-        timeLabels.add(timeLabelFive);
-        timeLabels.add(timeLabelSix);
-        
-        totalTimeLabels.add(totalTimeOne);
-        totalTimeLabels.add(totalTimeTwo);
-        totalTimeLabels.add(totalTimeThree);
-        totalTimeLabels.add(totalTimeFour);
-        totalTimeLabels.add(totalTimeFive);
-        totalTimeLabels.add(totalTimeSix);
-        
+
         for (Task task : tasks)
         {
             overwriteTasks(panes.get(anchorPaneNumber), task);
             anchorPaneNumber++;
-            
+
         }
 
         int tasksSize = tasks.size();
@@ -318,7 +315,6 @@ public class MainViewController implements Initializable
             panes.get(tasksSize + i).getChildren().clear();
             i++;
         }
-       
 
         i = 0;
         anchorPaneNumber = 0;
@@ -334,7 +330,7 @@ public class MainViewController implements Initializable
         ImageView Play = new ImageView("/examProjectTheDisciplesOfSkrumm/GUI/Icons/Playbutton.png");
         Play.setFitHeight(24);
         Play.setFitWidth(28);
-        
+
         Image Paid = new Image("/examProjectTheDisciplesOfSkrumm/GUI/Icons/Paid.png");
         Image NotPaid = new Image("/examProjectTheDisciplesOfSkrumm/GUI/Icons/NotPaid.png");
         ImageView imgView;
@@ -365,8 +361,8 @@ public class MainViewController implements Initializable
             {
                 JFXButton button = (JFXButton) child;
                 buttons.add(button);
-                
-                if(button.getText().equals("Play"))
+
+                if (button.getText().equals("Play"))
                 {
                     button.setGraphic(Play);
                     button.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
@@ -401,7 +397,7 @@ public class MainViewController implements Initializable
             {
                 label.setText(task.getLastUsed().toString().substring(0, 10));
             }
-            
+
             if (label.getText().equals("TotalTime"))
             {
                 label.setText(modelfacade.convertSecToTimeString(task.getDuration()));
@@ -413,20 +409,20 @@ public class MainViewController implements Initializable
     private void handlePlay(ActionEvent event) throws SQLException
     {
         Task currentTask;
-        
-                ImageView Play = new ImageView("/examProjectTheDisciplesOfSkrumm/GUI/Icons/Playbutton.png");
+
+        ImageView Play = new ImageView("/examProjectTheDisciplesOfSkrumm/GUI/Icons/Playbutton.png");
         ImageView Pause = new ImageView("/examProjectTheDisciplesOfSkrumm/GUI/Icons/PauseBtn.png");
-        
+
         Play.setScaleX(0.3);
         Play.setScaleY(0.3);
         Pause.setScaleX(0.3);
         Pause.setScaleY(0.3);
-        
+
         int index = 0;
-        
+
         JFXButton button = (JFXButton) event.getSource();
 //        System.out.println(button.getParent().getId());
-        
+
         for (AnchorPane pane : panes)
         {
             if (button.getParent().getId() == pane.getId())
@@ -436,9 +432,9 @@ public class MainViewController implements Initializable
                 totaltimelabel = totalTimeLabels.get(index);
             }
         }
-        
-        handleStart(intervalLabel,totaltimelabel, button, tasks.get(index).getDuration(),tasks.get(index));
-        
+
+        handleStart(intervalLabel, totaltimelabel, button, tasks.get(index).getDuration(), tasks.get(index));
+
         if (!modelfacade.getisTimerRunning())
         {
             /*
@@ -447,44 +443,43 @@ public class MainViewController implements Initializable
                 ImageView view = ((ImageView)previousbutton.getChildrenUnmodifiable().get(1));
                 view.setImage(new Image("/examProjectTheDisciplesOfSkrumm/GUI/Icons/Playbutton.png"));
             }
-            */
-            if(modelfacade.getTimerutil().getCurrenttask() != null && !tasks.get(index).equals(modelfacade.getTimerutil().getCurrenttask())){
+             */
+            if (modelfacade.getTimerutil().getCurrenttask() != null && !tasks.get(index).equals(modelfacade.getTimerutil().getCurrenttask()))
+            {
                 System.out.println("difrent button");
-                ImageView view = ((ImageView)previousbutton.getChildrenUnmodifiable().get(1));
+                ImageView view = ((ImageView) previousbutton.getChildrenUnmodifiable().get(1));
                 view.setImage(new Image("/examProjectTheDisciplesOfSkrumm/GUI/Icons/Playbutton.png"));
-                
+
                 stopTime = LocalTime.now();
                 currentTask = modelfacade.getTimerutil().getCurrenttask();
                 Interval taskInterval = new Interval(modelfacade.getTimerutil().getStartTime(), stopTime, LocalDate.now(), modelfacade.getTimerutil().getTotalIntervalSec(), currentTask);
-            
+
                 System.out.println(taskInterval);
-            
+
                 currentTask.setDuration(modelfacade.getTimerutil().getTotalSec());
-            
+
                 modelfacade.newInterval(taskInterval);
-                
-                
+
+            } else
+            {
+
+                //totalTimeLabels.get(index).setText(ultimateLabel.getText());
+                button.setGraphic(Play);
+                button.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+                button.setContentDisplay(ContentDisplay.CENTER);
+
+                stopTime = LocalTime.now();
+                currentTask = tasks.get(index);
+                Interval taskInterval = new Interval(modelfacade.getTimerutil().getStartTime(), stopTime, LocalDate.now(), modelfacade.getTimerutil().getTotalIntervalSec(), currentTask);
+
+                System.out.println(taskInterval);
+
+                currentTask.setDuration(modelfacade.getTimerutil().getTotalSec());
+
+                modelfacade.newInterval(taskInterval);
             }
-            else{
-            
-            //totalTimeLabels.get(index).setText(ultimateLabel.getText());
-            button.setGraphic(Play);
-            button.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
-            button.setContentDisplay(ContentDisplay.CENTER);
-            
-            stopTime = LocalTime.now();
-            currentTask = tasks.get(index);
-            Interval taskInterval = new Interval(modelfacade.getTimerutil().getStartTime(), stopTime, LocalDate.now(), modelfacade.getTimerutil().getTotalIntervalSec(), currentTask);
-            
-            System.out.println(taskInterval);
-            
-            currentTask.setDuration(modelfacade.getTimerutil().getTotalSec());
-            
-            modelfacade.newInterval(taskInterval);
-        }
-            
-        }
-        else
+
+        } else
         {
             button.setGraphic(Pause);
             button.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
@@ -494,7 +489,6 @@ public class MainViewController implements Initializable
         }
         previousbutton = button;
 
-        
     }
 
     @FXML
@@ -517,16 +511,13 @@ public class MainViewController implements Initializable
 
     private synchronized void handleStart(Label intervalLabel, Label totaltimelabel, JFXButton button, int totalsecfortask, Task currenttask)
     {
-       
-        
+
         //timerutil = new TimerUtil(label,0);
         //System.out.println(timerutil.getTimeLabel() +"timerlaber +++++++++++++++++");
 /*
         System.out.println(System.getProperty("java.version"));
         System.out.println(System.getProperty("javafx.runtime.version"));*/
-
         //System.out.println("start");
-
         if (modelfacade.getisTimerRunning())
         {
             modelfacade.setIsTimerRunning(false);
@@ -534,53 +525,46 @@ public class MainViewController implements Initializable
             modelfacade.getTimerutil().setIsRunning(false);
             modelfacade.getExecutorService().shutdownNow();
             System.err.println("stopped");
-        } 
-        
-        else if (!modelfacade.getisTimerRunning())
+        } else if (!modelfacade.getisTimerRunning())
         {
             System.out.println("not running");
             running = true;
             modelfacade.setIsTimerRunning(true);
-            modelfacade.setTimerutil(new TimerUtil(intervalLabel,totaltimelabel,totalsecfortask,currenttask,LocalTime.now() ));
+            modelfacade.setTimerutil(new TimerUtil(intervalLabel, totaltimelabel, totalsecfortask, currenttask, LocalTime.now()));
             modelfacade.setExecutorService(Executors.newFixedThreadPool(1));
             modelfacade.getExecutorService().submit(modelfacade.getTimerutil());
-            
+
         }
     }
-    
-    
-    private void handleTimerUtilIsRunning(){
+
+    private void handleTimerUtilIsRunning()
+    {
         ImageView Pause = new ImageView("/examProjectTheDisciplesOfSkrumm/GUI/Icons/PauseBtn.png");
         Pause.setScaleX(0.3);
         Pause.setScaleY(0.3);
-        
+
         //find the index for the task that is beaing run by the timerutil
         int taskindex = 0;
         AnchorPane currentpane;
-        
+
         System.err.println(modelfacade.getTimerutil().getCurrenttask());
-  
+
         taskindex = tasks.indexOf(modelfacade.getTimerutil().getCurrenttask());
-    
-        System.err.println(tasks.indexOf(modelfacade.getTimerutil().getCurrenttask())+ "  " + " task index");
-        
-        
+
+        System.err.println(tasks.indexOf(modelfacade.getTimerutil().getCurrenttask()) + "  " + " task index");
+
         //set the current AnchorPane to the one the task is on
         currentpane = panes.get(taskindex);
-        
-        
-        
+
         //set the current play/pause button
-        for (Object child : currentpane.getChildren()) {
-            
-      
-        
-        if (child instanceof JFXButton)
+        for (Object child : currentpane.getChildren())
+        {
+
+            if (child instanceof JFXButton)
             {
                 JFXButton button = (JFXButton) child;
-                
-                
-                if(button.getText().equals("Play"))
+
+                if (button.getText().equals("Play"))
                 {
                     button.setGraphic(Pause);
                     button.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
@@ -588,29 +572,75 @@ public class MainViewController implements Initializable
                     previousbutton = button;
                 }
             }
-          }
-        
+        }
+
         //set current interval label 
-        Label currentIntervalLabel; 
+        Label currentIntervalLabel;
         currentIntervalLabel = timeLabels.get(taskindex);
         modelfacade.getTimerutil().setIntervalLabel(currentIntervalLabel);
-        
+
         //set current totaltime label 
         Label currenttotaltimelabel;
-       currenttotaltimelabel = totalTimeLabels.get(taskindex);
-       modelfacade.getTimerutil().setTotalTimeLabel(currenttotaltimelabel);
-        
-        
-       
-        
-        
-        
-        
-    
-    
-    
-    
+        currenttotaltimelabel = totalTimeLabels.get(taskindex);
+        modelfacade.getTimerutil().setTotalTimeLabel(currenttotaltimelabel);
+
     }
-    
-    
+
+    @FXML
+    private void handleEditTask(ActionEvent event) throws IOException, SQLException
+    {
+        JFXButton button = (JFXButton) event.getSource();
+        int index = 0;
+        Task thisTask;
+
+        for (AnchorPane pane : panes)
+        {
+            if (button.getParent().getId() == pane.getId())
+            {
+                index = panes.indexOf(pane);
+            }
+        }
+
+        thisTask = tasks.get(index);
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/EditTaskView.fxml"));
+        Parent root = loader.load();
+        EditTaskController controller = loader.getController();
+        controller.setEditTask(thisTask);
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.setTitle("Edit Task");
+        stage.show();
+        
+        fillGrid();
+        
+    }
+
+    @FXML
+    private void handleDeleteTask(ActionEvent event) throws SQLException
+    {
+        JFXButton button = (JFXButton) event.getSource();
+        int index = 0;
+        Task thisTask;
+
+        for (AnchorPane pane : panes)
+        {
+            if (button.getParent().getId() == pane.getId())
+            {
+                index = panes.indexOf(pane);
+            }
+        }
+
+        thisTask = tasks.get(index);
+
+        int input = JOptionPane.showConfirmDialog(null, "Are you sure you want to permanently delete the task?", "Deleting task",
+                JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+
+        if (input == JOptionPane.YES_OPTION)
+        {
+            modelfacade.deleteTask(thisTask);
+            tasks.remove(thisTask);
+            fillGrid();
+        }
+    }
 }
