@@ -173,6 +173,10 @@ public class EditTaskController implements Initializable
                 }
                 
             }*/
+          
+          Stage stage = (Stage) editTaskBtn.getScene().getWindow();
+          stage.close();
+    
     }
     
     public Task getEditTask()
@@ -184,7 +188,7 @@ public class EditTaskController implements Initializable
     {
         this.editTask = editTask;
         
-         editProjectCombobox.getItems().addAll(modelfacade.getProjects());
+        editProjectCombobox.getItems().addAll(modelfacade.getProjects());
         editTitleTextField.setText(editTask.getTitle()); 
         editTimeTextField.setText(Integer.toString(editTask.getDuration()));
         editProjectCombobox.getSelectionModel().select(editTask.getProject());
