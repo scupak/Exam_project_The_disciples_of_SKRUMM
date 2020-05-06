@@ -29,6 +29,7 @@ import examProjectTheDisciplesOfSkrumm.BE.User;
 import examProjectTheDisciplesOfSkrumm.BLL.Util.TimerUtil;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
 
 /**
  *
@@ -40,12 +41,14 @@ public class TaskModel implements TaskModelInterface
     private ObservableList<Task> tasks;
     private boolean isTimerRunning;
     private TimerUtil timerutil = null;
+    private ExecutorService executorService;
 
     TaskModel() throws IOException
     {
        bllfacade = new BLLFacade();
        tasks = FXCollections.observableArrayList();
        isTimerRunning = false;
+      
         
     }
 
@@ -159,13 +162,25 @@ public class TaskModel implements TaskModelInterface
         this.isTimerRunning = isTimerRunning;
     }
 
+    @Override
     public TimerUtil getTimerutil() {
         return timerutil;
     }
 
+    @Override
     public void setTimerutil(TimerUtil timerutil) {
         this.timerutil = timerutil;
     }
+
+    public ExecutorService getExecutorService() {
+        return executorService;
+    }
+
+    public void setExecutorService(ExecutorService executorService) {
+        this.executorService = executorService;
+    }
+    
+    
     
     
     

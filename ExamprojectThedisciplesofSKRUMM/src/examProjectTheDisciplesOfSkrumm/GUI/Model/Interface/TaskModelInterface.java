@@ -18,6 +18,7 @@ import javafx.scene.control.TreeItem;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
 
 /**
  *
@@ -61,6 +62,11 @@ public interface TaskModelInterface
     public boolean deleteTask(Task task) throws SQLException;
     
     public boolean clearTask(Task task) throws SQLException;
+    
+    public ExecutorService getExecutorService();
+
+    public void setExecutorService(ExecutorService executorService);
+    
      
    
     

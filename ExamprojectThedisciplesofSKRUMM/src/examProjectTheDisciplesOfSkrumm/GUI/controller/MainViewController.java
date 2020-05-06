@@ -97,7 +97,7 @@ public class MainViewController implements Initializable
     private Label intervalLabel;
     private Label totaltimelabel;
 
-    private TimerUtil timer;
+    //private TimerUtil timer;
     private List<JFXButton> buttons = new ArrayList();
     private List<AnchorPane> panes = new ArrayList<>();
     private List<Label> timeLabels = new ArrayList<>();
@@ -127,8 +127,8 @@ public class MainViewController implements Initializable
     private Label totalTimeFive;
     @FXML
     private Label totalTimeSix;
-    ExecutorService executorService;
-    TimerUtil timerutil;
+    //ExecutorService executorService;
+    //TimerUtil timerutil;
     JFXButton previousbutton = null;
     
     private LocalTime startTime;
@@ -240,6 +240,7 @@ public class MainViewController implements Initializable
         stage.setTitle("TimeTracker");
         stage.show();
         mainView.close();
+        
     }
 
     @FXML
@@ -438,8 +439,8 @@ public class MainViewController implements Initializable
             
             stopTime = LocalTime.now();
             currentTask = tasks.get(index);
-            Interval taskInterval = new Interval(startTime, stopTime, LocalDate.now(), timerutil.getTotalIntervalSec(), currentTask);
-            currentTask.setDuration(timerutil.getTotalSec());
+            Interval taskInterval = new Interval(startTime, stopTime, LocalDate.now(), modelfacade.getTimerutil().getTotalIntervalSec(), currentTask);
+            currentTask.setDuration(modelfacade.getTimerutil().getTotalSec());
             
             modelfacade.newInterval(taskInterval);
         }
@@ -491,8 +492,8 @@ public class MainViewController implements Initializable
         {
             modelfacade.setIsTimerRunning(false);
             running = false;
-            timerutil.setIsRunning(false);
-            executorService.shutdownNow();
+            modelfacade.getTimerutil().setIsRunning(false);
+            modelfacade.getExecutorService().shutdownNow();
             System.err.println("stopped");
         } 
         
@@ -501,9 +502,9 @@ public class MainViewController implements Initializable
             System.out.println("not running");
             running = true;
             modelfacade.setIsTimerRunning(true);
-            timerutil = new TimerUtil(intervalLabel,totaltimelabel,totalsecfortask);
-            executorService = Executors.newFixedThreadPool(1);
-            executorService.submit(timerutil);
+            modelfacade.setTimerutil(new TimerUtil(intervalLabel,totaltimelabel,totalsecfortask));
+            modelfacade.setExecutorService(Executors.newFixedThreadPool(1));
+            modelfacade.getExecutorService().submit(modelfacade.getTimerutil());
             
         }
     }

@@ -23,6 +23,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TreeItem;
 
@@ -269,6 +270,15 @@ public class ModelFacade implements ModelFacadeInterface
     }
 
     @Override
+    public ExecutorService getExecutorService() {
+       return taskmodel.getExecutorService();
+    }
+
+    @Override
+    public void setExecutorService(ExecutorService executorService) {
+           taskmodel.setExecutorService(executorService);
+    }
+    
     public boolean deleteClient(Client client) throws SQLException {
         return clientmodel.deleteClient(client);
     }
