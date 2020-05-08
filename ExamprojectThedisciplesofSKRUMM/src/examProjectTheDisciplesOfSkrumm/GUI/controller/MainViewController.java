@@ -52,8 +52,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javax.swing.JOptionPane;
 
@@ -397,7 +395,11 @@ public class MainViewController implements Initializable
 
             if (label.getText().equals("Date"))
             {
-                label.setText(task.getLastUsed().toString().substring(0, 10));
+                label.setText(task.getLastUsed().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString().substring(0, 10));
+                label.setMaxWidth(Double.MAX_VALUE);
+                pane.setLeftAnchor(label, 0.0);
+                pane.setRightAnchor(label, 0.0);
+                label.setAlignment(Pos.CENTER);
             }
 
             if (label.getText().equals("TotalTime"))
@@ -470,9 +472,9 @@ public class MainViewController implements Initializable
                     paid2 = "not paid";
                 }
                 
-                int input = JOptionPane.showConfirmDialog(null, "This interval is set as " + paid + " would you like to change it to " + paid2 + "?", "New interval",
+                int input = JOptionPane.showConfirmDialog(null, "This interval is set as " + paid + "," + "\n" + "would you like to change it to " + paid2 + "?", "New interval",
                         JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
-
+                
                 if (input == JOptionPane.YES_OPTION)
                 {
                     if(isPaid == 0)
@@ -504,24 +506,20 @@ public class MainViewController implements Initializable
                 stopTime = LocalTime.now();
                 currentTask = tasks.get(index);
                 
-                Text paid = new Text();
-                Text paid2 = new Text();
+                String paid = "";
+                String paid2 = "";
                 
-                paid.setFill(Color.DARKTURQUOISE);
-                paid2.setFill(Color.BLUE);
-                    
                 int isPaid = currentTask.getIsPaid();
                 
                 if(isPaid == 0)
                 {
-                    paid.setText("not paid"); 
-                    paid.setText("paid");
-                    
+                    paid = "not paid";
+                    paid2 = "paid";
                 }
                 else if(isPaid == 1)
                 {
-                    paid.setText("paid"); 
-                    paid.setText("not paid");
+                    paid = "paid";
+                    paid2 = "not paid";
                 }
                 
                 int input = JOptionPane.showConfirmDialog(null, "This interval is set as " + paid + "," + "\n" + "would you like to change it to " + paid2 + "?", "New interval",

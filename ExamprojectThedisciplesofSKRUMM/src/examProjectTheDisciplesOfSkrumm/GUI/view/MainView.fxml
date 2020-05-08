@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -60,20 +61,20 @@
          <children>
             <AnchorPane fx:id="taskOne" prefHeight="136.0" prefWidth="308.0" style="-fx-border-color: #435a9a; -fx-border-width: 2; -fx-border-radius: 11; -fx-background-color: #CFD8DC; -fx-background-radius: 11;">
                <children>
-                  <Label layoutX="136.0" layoutY="58.0" text="Client">
+                  <Label layoutX="136.0" layoutY="55.0" text="Client">
                      <font>
                         <Font size="13.0" />
                      </font>
                   </Label>
-                  <Label layoutX="132.0" layoutY="32.0" text="TASK">
+                  <Label layoutX="132.0" layoutY="31.0" text="TASK">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Label fx:id="timeLabelOne" layoutX="76.0" layoutY="85.0" text="00:00:00" />
-                  <Label layoutX="13.0" layoutY="14.0" text="Date" />
-                  <JFXButton layoutX="7.0" layoutY="81.0" onAction="#handleEditTask" text="Edit" />
-                  <JFXButton layoutX="44.0" layoutY="82.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#handlePlay" prefHeight="24.0" prefWidth="28.0" text="Play">
+                  <Label fx:id="timeLabelOne" layoutX="37.0" layoutY="85.0" text="00:00:00" />
+                  <Label layoutX="139.0" layoutY="9.0" text="Date" />
+                  <JFXButton layoutX="7.0" layoutY="5.0" onAction="#handleEditTask" text="Edit" />
+                  <JFXButton layoutX="9.0" layoutY="81.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#handlePlay" prefHeight="24.0" prefWidth="28.0" text="Play">
                      <graphic>
                         <ImageView fitHeight="24.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -82,66 +83,33 @@
                         </ImageView>
                      </graphic>
                   </JFXButton>
-                  <JFXButton layoutX="243.0" layoutY="81.0" onAction="#handleDeleteTask" text="Delete" />
+                  <JFXButton layoutX="37.0" layoutY="5.0" onAction="#handleDeleteTask" text="Delete" />
                   <ImageView fitHeight="30.0" fitWidth="26.0" layoutX="272.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../Icons/Paid.png" />
                      </image>
                   </ImageView>
-                  <Label layoutX="132.0" layoutY="85.0" text="Total Time:" />
-                  <Label fx:id="totalTimeOne" layoutX="198.0" layoutY="85.0" text="TotalTime" />
-               </children>
-            </AnchorPane>
-            <AnchorPane fx:id="taskThree" prefHeight="136.0" prefWidth="308.0" style="-fx-border-color: #435a9a; -fx-border-width: 2; -fx-border-radius: 11; -fx-background-color: #CFD8DC; -fx-background-radius: 11;" GridPane.rowIndex="1">
-               <children>
-                  <Label layoutX="136.0" layoutY="58.0" text="Client">
-                     <font>
-                        <Font size="13.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="132.0" layoutY="32.0" text="TASK">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="timeLabelThree" layoutX="76.0" layoutY="85.0" text="00:00:00" />
-                  <Label layoutX="13.0" layoutY="14.0" text="Date" />
-                  <JFXButton layoutX="7.0" layoutY="81.0" onAction="#handleEditTask" text="Edit" />
-                  <JFXButton layoutX="44.0" layoutY="82.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#handlePlay" prefHeight="24.0" prefWidth="28.0" text="Play">
-                     <graphic>
-                        <ImageView fitHeight="24.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../Icons/Playbutton.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </JFXButton>
-                  <JFXButton layoutX="243.0" layoutY="81.0" onAction="#handleDeleteTask" text="Delete" />
-                  <ImageView fitHeight="30.0" fitWidth="26.0" layoutX="272.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../Icons/Paid.png" />
-                     </image>
-                  </ImageView>
-                  <Label layoutX="132.0" layoutY="85.0" text="Total Time:" />
-                  <Label fx:id="totalTimeThree" layoutX="198.0" layoutY="85.0" text="TotalTime" />
+                  <Label layoutX="94.0" layoutY="85.0" text="Total Time:" />
+                  <Label fx:id="totalTimeOne" layoutX="158.0" layoutY="85.0" text="TotalTime" />
+                  <JFXComboBox layoutX="222.0" layoutY="80.0" prefHeight="26.0" prefWidth="75.0" promptText="Intervals" />
                </children>
             </AnchorPane>
             <AnchorPane fx:id="taskTwo" prefHeight="136.0" prefWidth="308.0" style="-fx-border-color: #435a9a; -fx-border-width: 2; -fx-border-radius: 11; -fx-background-color: #CFD8DC; -fx-background-radius: 11;" GridPane.columnIndex="1">
                <children>
-                  <Label layoutX="136.0" layoutY="58.0" text="Client">
+                  <Label layoutX="136.0" layoutY="55.0" text="Client">
                      <font>
                         <Font size="13.0" />
                      </font>
                   </Label>
-                  <Label layoutX="132.0" layoutY="32.0" text="TASK">
+                  <Label layoutX="132.0" layoutY="31.0" text="TASK">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Label fx:id="timeLabelTwo" layoutX="76.0" layoutY="85.0" text="00:00:00" />
-                  <Label layoutX="13.0" layoutY="14.0" text="Date" />
-                  <JFXButton layoutX="7.0" layoutY="81.0" onAction="#handleEditTask" text="Edit" />
-                  <JFXButton layoutX="44.0" layoutY="82.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#handlePlay" prefHeight="24.0" prefWidth="28.0" text="Play">
+                  <Label fx:id="timeLabelTwo" layoutX="37.0" layoutY="85.0" text="00:00:00" />
+                  <Label layoutX="139.0" layoutY="9.0" text="Date" />
+                  <JFXButton layoutX="7.0" layoutY="5.0" onAction="#handleEditTask" text="Edit" />
+                  <JFXButton layoutX="9.0" layoutY="81.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#handlePlay" prefHeight="24.0" prefWidth="28.0" text="Play">
                      <graphic>
                         <ImageView fitHeight="24.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -150,32 +118,68 @@
                         </ImageView>
                      </graphic>
                   </JFXButton>
-                  <JFXButton layoutX="243.0" layoutY="81.0" onAction="#handleDeleteTask" text="Delete" />
+                  <JFXButton layoutX="37.0" layoutY="5.0" onAction="#handleDeleteTask" text="Delete" />
                   <ImageView fitHeight="30.0" fitWidth="26.0" layoutX="272.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../Icons/Paid.png" />
                      </image>
                   </ImageView>
-                  <Label layoutX="132.0" layoutY="85.0" text="Total Time:" />
-                  <Label fx:id="totalTimeTwo" layoutX="198.0" layoutY="85.0" text="TotalTime" />
+                  <Label layoutX="94.0" layoutY="85.0" text="Total Time:" />
+                  <Label fx:id="totalTimeTwo" layoutX="158.0" layoutY="85.0" text="TotalTime" />
+                  <JFXComboBox layoutX="222.0" layoutY="80.0" prefHeight="26.0" prefWidth="75.0" promptText="Intervals" />
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="taskThree" prefHeight="136.0" prefWidth="308.0" style="-fx-border-color: #435a9a; -fx-border-width: 2; -fx-border-radius: 11; -fx-background-color: #CFD8DC; -fx-background-radius: 11;" GridPane.rowIndex="1">
+               <children>
+                  <Label layoutX="136.0" layoutY="55.0" text="Client">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="132.0" layoutY="31.0" text="TASK">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="timeLabelThree" layoutX="37.0" layoutY="85.0" text="00:00:00" />
+                  <Label layoutX="139.0" layoutY="9.0" text="Date" />
+                  <JFXButton layoutX="7.0" layoutY="5.0" onAction="#handleEditTask" text="Edit" />
+                  <JFXButton layoutX="9.0" layoutY="81.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#handlePlay" prefHeight="24.0" prefWidth="28.0" text="Play">
+                     <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../Icons/Playbutton.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton layoutX="37.0" layoutY="5.0" onAction="#handleDeleteTask" text="Delete" />
+                  <ImageView fitHeight="30.0" fitWidth="26.0" layoutX="272.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Icons/Paid.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="94.0" layoutY="85.0" text="Total Time:" />
+                  <Label fx:id="totalTimeThree" layoutX="158.0" layoutY="85.0" text="TotalTime" />
+                  <JFXComboBox layoutX="222.0" layoutY="80.0" prefHeight="26.0" prefWidth="75.0" promptText="Intervals" />
                </children>
             </AnchorPane>
             <AnchorPane fx:id="taskFour" prefHeight="136.0" prefWidth="308.0" style="-fx-border-color: #435a9a; -fx-border-width: 2; -fx-border-radius: 11; -fx-background-color: #CFD8DC; -fx-background-radius: 11;" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
-                  <Label layoutX="136.0" layoutY="58.0" text="Client">
+                  <Label layoutX="136.0" layoutY="55.0" text="Client">
                      <font>
                         <Font size="13.0" />
                      </font>
                   </Label>
-                  <Label layoutX="132.0" layoutY="32.0" text="TASK">
+                  <Label layoutX="132.0" layoutY="31.0" text="TASK">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Label fx:id="timeLabelFour" layoutX="76.0" layoutY="85.0" text="00:00:00" />
-                  <Label layoutX="13.0" layoutY="14.0" text="Date" />
-                  <JFXButton layoutX="7.0" layoutY="81.0" onAction="#handleEditTask" text="Edit" />
-                  <JFXButton layoutX="44.0" layoutY="82.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#handlePlay" prefHeight="24.0" prefWidth="28.0" text="Play">
+                  <Label fx:id="timeLabelFour" layoutX="37.0" layoutY="85.0" text="00:00:00" />
+                  <Label layoutX="139.0" layoutY="9.0" text="Date" />
+                  <JFXButton layoutX="7.0" layoutY="5.0" onAction="#handleEditTask" text="Edit" />
+                  <JFXButton layoutX="9.0" layoutY="81.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#handlePlay" prefHeight="24.0" prefWidth="28.0" text="Play">
                      <graphic>
                         <ImageView fitHeight="24.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -184,32 +188,33 @@
                         </ImageView>
                      </graphic>
                   </JFXButton>
-                  <JFXButton layoutX="243.0" layoutY="81.0" onAction="#handleDeleteTask" text="Delete" />
+                  <JFXButton layoutX="37.0" layoutY="5.0" onAction="#handleDeleteTask" text="Delete" />
                   <ImageView fitHeight="30.0" fitWidth="26.0" layoutX="272.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../Icons/Paid.png" />
                      </image>
                   </ImageView>
-                  <Label layoutX="132.0" layoutY="85.0" text="Total Time:" />
-                  <Label fx:id="totalTimeFour" layoutX="198.0" layoutY="85.0" text="TotalTime" />
+                  <Label layoutX="94.0" layoutY="85.0" text="Total Time:" />
+                  <Label fx:id="totalTimeFour" layoutX="158.0" layoutY="85.0" text="TotalTime" />
+                  <JFXComboBox layoutX="222.0" layoutY="80.0" prefHeight="26.0" prefWidth="75.0" promptText="Intervals" />
                </children>
             </AnchorPane>
             <AnchorPane fx:id="taskFive" prefHeight="136.0" prefWidth="308.0" style="-fx-border-color: #435a9a; -fx-border-width: 2; -fx-border-radius: 11; -fx-background-color: #CFD8DC; -fx-background-radius: 11;" GridPane.rowIndex="2">
                <children>
-                  <Label layoutX="136.0" layoutY="58.0" text="Client">
+                  <Label layoutX="136.0" layoutY="55.0" text="Client">
                      <font>
                         <Font size="13.0" />
                      </font>
                   </Label>
-                  <Label layoutX="132.0" layoutY="32.0" text="TASK">
+                  <Label layoutX="132.0" layoutY="31.0" text="TASK">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Label fx:id="timeLabelFive" layoutX="76.0" layoutY="85.0" text="00:00:00" />
-                  <Label layoutX="13.0" layoutY="14.0" text="Date" />
-                  <JFXButton layoutX="7.0" layoutY="81.0" onAction="#handleEditTask" text="Edit" />
-                  <JFXButton layoutX="44.0" layoutY="82.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#handlePlay" prefHeight="24.0" prefWidth="28.0" text="Play">
+                  <Label fx:id="timeLabelFive" layoutX="37.0" layoutY="85.0" text="00:00:00" />
+                  <Label layoutX="139.0" layoutY="9.0" text="Date" />
+                  <JFXButton layoutX="7.0" layoutY="5.0" onAction="#handleEditTask" text="Edit" />
+                  <JFXButton layoutX="9.0" layoutY="81.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#handlePlay" prefHeight="24.0" prefWidth="28.0" text="Play">
                      <graphic>
                         <ImageView fitHeight="24.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -218,32 +223,33 @@
                         </ImageView>
                      </graphic>
                   </JFXButton>
-                  <JFXButton layoutX="243.0" layoutY="81.0" onAction="#handleDeleteTask" text="Delete" />
+                  <JFXButton layoutX="37.0" layoutY="5.0" onAction="#handleDeleteTask" text="Delete" />
                   <ImageView fitHeight="30.0" fitWidth="26.0" layoutX="272.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../Icons/Paid.png" />
                      </image>
                   </ImageView>
-                  <Label layoutX="132.0" layoutY="85.0" text="Total Time:" />
-                  <Label fx:id="totalTimeFive" layoutX="198.0" layoutY="85.0" text="TotalTime" />
+                  <Label layoutX="94.0" layoutY="85.0" text="Total Time:" />
+                  <Label fx:id="totalTimeFive" layoutX="158.0" layoutY="85.0" text="TotalTime" />
+                  <JFXComboBox layoutX="222.0" layoutY="80.0" prefHeight="26.0" prefWidth="75.0" promptText="Intervals" />
                </children>
             </AnchorPane>
             <AnchorPane fx:id="taskSix" prefHeight="136.0" prefWidth="308.0" style="-fx-border-color: #435a9a; -fx-border-width: 2; -fx-border-radius: 11; -fx-background-color: #CFD8DC; -fx-background-radius: 11;" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <children>
-                  <Label layoutX="136.0" layoutY="58.0" text="Client">
+                  <Label layoutX="136.0" layoutY="55.0" text="Client">
                      <font>
                         <Font size="13.0" />
                      </font>
                   </Label>
-                  <Label layoutX="132.0" layoutY="32.0" text="TASK">
+                  <Label layoutX="132.0" layoutY="31.0" text="TASK">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Label fx:id="timeLabelSix" layoutX="76.0" layoutY="85.0" text="00:00:00" />
-                  <Label layoutX="13.0" layoutY="14.0" text="Date" />
-                  <JFXButton layoutX="7.0" layoutY="81.0" onAction="#handleEditTask" text="Edit" />
-                  <JFXButton layoutX="44.0" layoutY="82.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#handlePlay" prefHeight="24.0" prefWidth="28.0" text="Play">
+                  <Label fx:id="timeLabelSix" layoutX="37.0" layoutY="85.0" text="00:00:00" />
+                  <Label layoutX="139.0" layoutY="9.0" text="Date" />
+                  <JFXButton layoutX="7.0" layoutY="5.0" onAction="#handleEditTask" text="Edit" />
+                  <JFXButton layoutX="9.0" layoutY="81.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#handlePlay" prefHeight="24.0" prefWidth="28.0" text="Play">
                      <graphic>
                         <ImageView fitHeight="24.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -252,14 +258,15 @@
                         </ImageView>
                      </graphic>
                   </JFXButton>
-                  <JFXButton layoutX="243.0" layoutY="81.0" onAction="#handleDeleteTask" text="Delete" />
+                  <JFXButton layoutX="37.0" layoutY="5.0" onAction="#handleDeleteTask" text="Delete" />
                   <ImageView fitHeight="30.0" fitWidth="26.0" layoutX="272.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../Icons/Paid.png" />
                      </image>
                   </ImageView>
-                  <Label layoutX="132.0" layoutY="85.0" text="Total Time:" />
-                  <Label fx:id="totalTimeSix" layoutX="198.0" layoutY="85.0" text="TotalTime" />
+                  <Label layoutX="94.0" layoutY="85.0" text="Total Time:" />
+                  <Label fx:id="totalTimeSix" layoutX="158.0" layoutY="85.0" text="TotalTime" />
+                  <JFXComboBox layoutX="222.0" layoutY="80.0" prefHeight="26.0" prefWidth="75.0" promptText="Intervals" />
                </children>
             </AnchorPane>
          </children>
