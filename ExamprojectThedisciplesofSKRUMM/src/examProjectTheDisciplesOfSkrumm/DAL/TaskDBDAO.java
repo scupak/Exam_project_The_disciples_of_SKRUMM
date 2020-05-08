@@ -384,9 +384,10 @@ public class TaskDBDAO implements TaskDBDAOInterface
                 java.sql.Time intervalStartTime = rs.getTime("startTime");
                 java.sql.Time intervalStopTime = rs.getTime("stopTime");
                 int intervalTime = rs.getInt("intervalTime");
+                int isPaid = rs.getInt("isPaid");
 
                 Interval interval = new Interval(intervalStartTime.toLocalTime(), intervalStopTime.toLocalTime(), date.toLocalDate(), intervalTime,
-                        task);
+                        task, isPaid);
 
                 intervals.add(interval);
             }

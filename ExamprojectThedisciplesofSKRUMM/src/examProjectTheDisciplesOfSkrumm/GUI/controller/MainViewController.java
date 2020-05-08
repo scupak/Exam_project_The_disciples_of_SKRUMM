@@ -452,7 +452,7 @@ public class MainViewController implements Initializable
 
                 stopTime = LocalTime.now();
                 currentTask = modelfacade.getTimerutil().getCurrenttask();
-                Interval taskInterval = new Interval(modelfacade.getTimerutil().getStartTime(), stopTime, LocalDate.now(), modelfacade.getTimerutil().getTotalIntervalSec(), currentTask);
+                Interval taskInterval = new Interval(modelfacade.getTimerutil().getStartTime(), stopTime, LocalDate.now(), modelfacade.getTimerutil().getTotalIntervalSec(), currentTask, currentTask.getIsPaid());
 
                 System.out.println(taskInterval);
 
@@ -470,7 +470,7 @@ public class MainViewController implements Initializable
 
                 stopTime = LocalTime.now();
                 currentTask = tasks.get(index);
-                Interval taskInterval = new Interval(modelfacade.getTimerutil().getStartTime(), stopTime, LocalDate.now(), modelfacade.getTimerutil().getTotalIntervalSec(), currentTask);
+                Interval taskInterval = new Interval(modelfacade.getTimerutil().getStartTime(), stopTime, LocalDate.now(), modelfacade.getTimerutil().getTotalIntervalSec(), currentTask, currentTask.getIsPaid());
 
                 System.out.println(taskInterval);
 
