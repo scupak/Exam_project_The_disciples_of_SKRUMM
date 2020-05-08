@@ -345,7 +345,7 @@ public class TaskDBDAO implements TaskDBDAOInterface
         //TODO implement transactions.
         try (Connection con = dbCon.getConnection())
         {
-            String sql = "INSERT INTO [interval] VALUES (?,?,?,?,?)";
+            String sql = "INSERT INTO [interval] VALUES (?,?,?,?,?,?)";
             PreparedStatement ps = con.prepareStatement(sql);
 
             ps.setDate(1, java.sql.Date.valueOf(interval.getCreationDate()));
@@ -353,6 +353,7 @@ public class TaskDBDAO implements TaskDBDAOInterface
             ps.setTime(3, java.sql.Time.valueOf(interval.getStopTime()));
             ps.setInt(4, interval.getIntervalTime());
             ps.setInt(5, interval.getTask().getId());
+            ps.setInt(6, interval.getIsPaid());
 
             ps.executeUpdate();
 
