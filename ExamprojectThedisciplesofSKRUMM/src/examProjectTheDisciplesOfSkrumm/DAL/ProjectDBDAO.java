@@ -18,6 +18,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -105,6 +106,8 @@ public class ProjectDBDAO implements ProjectDBDAOInterface
             {
                 return null;
             }
+            System.out.println(project.getClientName() + " Assigned to " + project.getProjectName());
+            JOptionPane.showMessageDialog(null, project.getProjectName() + " has been created!");
             return project;
         }
         

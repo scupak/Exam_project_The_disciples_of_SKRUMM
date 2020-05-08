@@ -16,6 +16,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Zanaxdk <https://github.com/zanaxdk>
@@ -124,6 +125,8 @@ public class ClientDBDAO implements ClientDBDAOInterface
             } else {
                 return null;
             }
+            System.out.println(client.getClientName() + " created " + clientExist(client));
+            JOptionPane.showMessageDialog(null, client.getClientName() + " has been created!");
             return client;
         }
 
