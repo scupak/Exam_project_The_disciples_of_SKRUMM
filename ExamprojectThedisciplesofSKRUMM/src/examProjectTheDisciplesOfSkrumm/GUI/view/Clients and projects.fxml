@@ -9,27 +9,12 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="355.0" prefWidth="529.0" styleClass="mainFxmlClass" stylesheets="@../css/Graphics.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="examProjectTheDisciplesOfSkrumm.GUI.controller.ClientsAndProjectsController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="355.0" prefWidth="529.0" styleClass="mainFxmlClass" stylesheets="@../css/Graphics.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="examProjectTheDisciplesOfSkrumm.GUI.controller.ClientsAndProjectsController">
    <children>
       <Pane id="loginLabelbackground" layoutX="107.0" layoutY="48.0" prefHeight="87.0" prefWidth="493.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <HBox alignment="CENTER" layoutX="210.0" layoutY="57.0" prefHeight="30.0" prefWidth="332.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="57.0">
          <children>
-            <JFXButton fx:id="taskBtn" onAction="#handletaskView" text="Tasks" textFill="WHITE">
-               <font>
-                  <Font size="13.0" />
-               </font>
-            </JFXButton>
-            <JFXButton onAction="#handleMain" text="main" textFill="WHITE">
-               <font>
-                  <Font size="13.0" />
-               </font>
-            </JFXButton>
-            <JFXButton onAction="#handlecChartView" text="Statistics" textFill="WHITE">
-               <font>
-                  <Font size="13.0" />
-               </font>
-            </JFXButton>
-            <JFXButton fx:id="AdminBtn" onAction="#handlecAdminView" text="Admin" textFill="WHITE">
+            <JFXButton onAction="#handleMain" text="back to main menu" textFill="WHITE">
                <font>
                   <Font size="13.0" />
                </font>

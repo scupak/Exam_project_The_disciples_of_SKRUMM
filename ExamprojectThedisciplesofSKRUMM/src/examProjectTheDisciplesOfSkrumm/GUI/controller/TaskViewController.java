@@ -70,18 +70,12 @@ public class TaskViewController implements Initializable
     @FXML
     private JFXButton homeBtn;
     @FXML
-    private JFXButton clientProjectsBtn;
-    @FXML
-    private JFXButton statisticsBtn;
-    @FXML
     private JFXButton createTaskButton;
     @FXML
     private JFXButton timerButton;
     @FXML
     private TreeTableColumn clientColumn;
-    @FXML
     private Label weekNumberLabel;
-    @FXML
     private Label WeekdayLabel;
     @FXML
     private Label CurrentTaskLabel;
@@ -93,7 +87,6 @@ public class TaskViewController implements Initializable
     private Label timeLabel;
 
     boolean isCurrentDay;
-    Locale locale;
 
     int weekOfYear;
     private int sec = 0;
@@ -107,29 +100,17 @@ public class TaskViewController implements Initializable
     @FXML
     private TreeTableColumn stopTimeColumn;
     @FXML
-    private JFXDatePicker datePicker;
-    @FXML
-    private Label mondayTotalTimeLabel;
-    @FXML
-    private Label thursdayTotalTimeLabel;
-    @FXML
-    private Label wednesdayTotalTimeLabel;
-    @FXML
-    private Label fridayTotalTimeLabel;
-    @FXML
     private JFXButton returnToCurrentDayButton;
     @FXML
     private JFXButton deleteTask;
-    @FXML
-    private Label daytotalTimeLabel;
-    @FXML
-    private Label SaturdaytotalTImeLabel;
-    @FXML
-    private Label SundayTotalTimeLabel;
-    @FXML
-    private Label WeekTotalTimeLabel;
     
-    private long daydurationtotal;
+    private long durationtotal;
+    @FXML
+    private Label totalTimeLabel;
+    @FXML
+    private JFXDatePicker datePickerFrom;
+    @FXML
+    private JFXDatePicker datePickerTo;
     
     
     /**
@@ -147,41 +128,6 @@ public class TaskViewController implements Initializable
             Logger.getLogger(TaskViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-
-        datePicker.setValue(LocalDate.now());
-        locale = Locale.ENGLISH;
-        weekOfYear = datePicker.getValue().get(WeekFields.of(locale).weekOfWeekBasedYear());
-        weekNumberLabel.setText("" + weekOfYear);
-        try {
-            refreshEverything();
-            
-            
-             if(modelfacade.getisTimerRunning()){
-                
-                
-                handleTimerUtilIsRunning();
-                
-            
-            
-            
-            
-            
-            }
-            
-            
-            
-            
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(TaskViewController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        returnToCurrentDayButton.setVisible(false);
-        returnToCurrentDayButton.setDisable(true);
-        isCurrentDay = true;
-        WeekdayLabel.setText(datePicker.getValue().getDayOfWeek().toString().toLowerCase());
-        //Making some mock tasks
-
         //Setting cellValue Factories for TreeTableView 
         TaskColumn.setCellValueFactory(new Callback()
         {
@@ -309,33 +255,24 @@ public class TaskViewController implements Initializable
                 }
             }
         });
+        
+        try 
+        {
+            datePickerFrom.setValue(LocalDate.now());
+            refreshEverything();
+            
+            if(modelfacade.getisTimerRunning())
+            {
+                handleTimerUtilIsRunning();
+            }
+            
+        } catch (SQLException ex) 
+        {
+            Logger.getLogger(TaskViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
-        //Creating the rootNodeTask
-        TreeItem<Task> rootNodeTask = modelfacade.getModel(modelfacade.getCurrentuser(), datePicker.getValue());
-        rootNodeTask.setExpanded(true);
+        
 
-        //Set the model for the TreeTableView
-        TaskTable.setRoot(rootNodeTask);
-
-        // Make the root node invisible
-        TaskTable.setShowRoot(false);
-
-    }
-
-    @FXML
-    private void handlecChartView(ActionEvent event) throws IOException
-    {
-        Stage chartView = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/ChartView.fxml"));
-        Parent root = loader.load();
-        ChartViewController Controller = loader.getController();
-
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.setTitle("View Charts");
-        stage.show();
-        chartView.close();
     }
 
     @FXML
@@ -349,30 +286,11 @@ public class TaskViewController implements Initializable
 
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
-        stage.setTitle("Home view");
+        stage.setTitle("Main menu");
         stage.show();
+        stage.setMinHeight(523);
+        stage.setMinWidth(721);
         chartView.close();
-    }
-
-    /**
-     *
-     * @param event
-     * @throws IOException
-     */
-    @FXML
-    private void handleClientsProject(ActionEvent event) throws IOException
-    {
-        Stage taskView = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/ClientsAndProjects.fxml"));
-        Parent root = loader.load();
-        ClientsAndProjectsController Controller = loader.getController();
-
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.setTitle("Clients and Projects");
-        stage.show();
-        taskView.close();
     }
 
     @FXML
@@ -387,6 +305,8 @@ public class TaskViewController implements Initializable
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.setTitle("Create Task");
+        stage.setMinHeight(200);
+        stage.setMinWidth(364);
         stage.show();
     }
 
@@ -417,6 +337,8 @@ public class TaskViewController implements Initializable
                 controller.setEditTask((Task) selectedItem.getValue());
                 Stage stage = new Stage();
                 stage.setScene(new Scene(root));
+                stage.setMinHeight(230);
+                stage.setMinWidth(364);
                 stage.setTitle("Edit Task");
                 stage.show();
 
@@ -437,86 +359,63 @@ public class TaskViewController implements Initializable
     {   final JDialog dialog = new JDialog();
         dialog.setAlwaysOnTop(true);
         
-         if (modelfacade.getisTimerRunning())
+        if (modelfacade.getisTimerRunning())
         {
-             try {
-                 modelfacade.setIsTimerRunning(false);
-                 modelfacade.getTimerutil().setIsRunning(false);
-                 modelfacade.getExecutorService().shutdownNow();
-                 timerButton.setText("start timer");
+            try 
+            {
+                modelfacade.setIsTimerRunning(false);
+                modelfacade.getTimerutil().setIsRunning(false);
+                modelfacade.getExecutorService().shutdownNow();
+                timerButton.setText("start timer");
                  
-                 Task currentTask = modelfacade.getTimerutil().getCurrenttask();
-                 currentTask.setDuration(modelfacade.getTimerutil().getTotalSec());
-                 LocalTime  stopTime = LocalTime.now();
-                 
-                 
-                 Interval taskInterval = new Interval(modelfacade.getTimerutil().getStartTime(), stopTime, LocalDate.now(), modelfacade.getTimerutil().getTotalIntervalSec(),currentTask, currentTask.getIsPaid());
-                 
-                 modelfacade.newInterval(taskInterval);
-                 refreshEverything();
+                Task currentTask = modelfacade.getTimerutil().getCurrenttask();
+                currentTask.setDuration(modelfacade.getTimerutil().getTotalSec());
+                LocalTime  stopTime = LocalTime.now();
                  
                  
+                Interval taskInterval = new Interval(modelfacade.getTimerutil().getStartTime(), stopTime, LocalDate.now(), modelfacade.getTimerutil().getTotalIntervalSec(),currentTask, currentTask.getIsPaid());
                  
-             } catch (SQLException ex) {
-                 Logger.getLogger(TaskViewController.class.getName()).log(Level.SEVERE, null, ex);
+                modelfacade.newInterval(taskInterval);
+                refreshEverything();
                  
-                 JOptionPane.showMessageDialog(dialog, "an SQLException occurred while trying to make a new interval", "ERROR", JOptionPane.ERROR_MESSAGE);
-             }
-            
-            
+                 
+                 
+            } catch (SQLException ex) 
+            {
+                Logger.getLogger(TaskViewController.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(dialog, "an SQLException occurred while trying to make a new interval", "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
         } 
-        
         else if (!modelfacade.getisTimerRunning())
         {
-            
-            
-            
-        
-
-        if ((TaskTable.getSelectionModel().getSelectedItem() == null))
-        {
-            JOptionPane.showMessageDialog(dialog, "Nothing seems to be selected!\nSelect a task to edit before pressing edit!", "ERROR", JOptionPane.ERROR_MESSAGE);
-        } else
-        {
-
-            TreeItem<Task> selectedItem = (TreeItem<Task>) (TaskTable.getSelectionModel().getSelectedItem());
-
-            if (selectedItem.getValue() instanceof Task)
+            if ((TaskTable.getSelectionModel().getSelectedItem() == null))
             {
-
-                System.err.println("its a task!!!!!!!!!!!!!!!!!!!!");
-                System.out.println(selectedItem.getValue());
-
-                 modelfacade.setIsTimerRunning(true);
-                 modelfacade.setTimerutil(new TimerUtil(null,timeLabel,selectedItem.getValue().getDuration(),selectedItem.getValue(),LocalTime.now() ));
-                 modelfacade.setExecutorService(Executors.newFixedThreadPool(1));
-                 modelfacade.getExecutorService().submit(modelfacade.getTimerutil());
-                 
-                 CurrentTaskLabel.setText(modelfacade.getTimerutil().getCurrenttask().getTitle());
-                 timerButton.setText("stop timer");
-                 
-                 
-                 
-                 
-                 
-
-            } else
+                JOptionPane.showMessageDialog(dialog, "Nothing seems to be selected!\nSelect a task to edit before pressing edit!", "ERROR", JOptionPane.ERROR_MESSAGE);
+            } 
+            else
             {
+                TreeItem<Task> selectedItem = (TreeItem<Task>) (TaskTable.getSelectionModel().getSelectedItem());
 
-                System.err.println("not a task!!!!!!!!!!!!!!!!!!!!");
-                JOptionPane.showMessageDialog(dialog, "Please select a valid task to edit!", "ERROR", JOptionPane.ERROR_MESSAGE);
+                if (selectedItem.getValue() instanceof Task)
+                {
+                    System.err.println("its a task!!!!!!!!!!!!!!!!!!!!");
+                    System.out.println(selectedItem.getValue());
 
+                    modelfacade.setIsTimerRunning(true);
+                    modelfacade.setTimerutil(new TimerUtil(null,timeLabel,selectedItem.getValue().getDuration(),selectedItem.getValue(),LocalTime.now() ));
+                    modelfacade.setExecutorService(Executors.newFixedThreadPool(1));
+                    modelfacade.getExecutorService().submit(modelfacade.getTimerutil());
+                 
+                    CurrentTaskLabel.setText(modelfacade.getTimerutil().getCurrenttask().getTitle());
+                    timerButton.setText("stop timer");
+                } 
+                else
+                {
+                    System.err.println("not a task!!!!!!!!!!!!!!!!!!!!");
+                    JOptionPane.showMessageDialog(dialog, "Please select a valid task to edit!", "ERROR", JOptionPane.ERROR_MESSAGE);
+                } 
             }
-            
-            
-            
-           
-            
         }
-
-       
-
-    }
     }
 
     /**
@@ -525,7 +424,7 @@ public class TaskViewController implements Initializable
     public void RefreshTreeView()
     {
         //Creating the rootNodeTask
-        TreeItem<Task> rootNodeTask = modelfacade.getModel(modelfacade.getCurrentuser(), datePicker.getValue());
+        TreeItem<Task> rootNodeTask = modelfacade.getModel(modelfacade.getCurrentuser(), datePickerFrom.getValue());
         rootNodeTask.setExpanded(true);
 
         //Set the model for the TreeTableView
@@ -534,344 +433,18 @@ public class TaskViewController implements Initializable
         // Make the root node invisible
         TaskTable.setShowRoot(false);
     }
-
-    @FXML
-    private void handlePreviousDay(ActionEvent event) throws SQLException
-    {
-        LocalDate previoday = datePicker.getValue().minusDays(1);
-        datePicker.setValue(previoday);
-        refreshEverything();
-    }
-
-    @FXML
-    private void handleNextDay(ActionEvent event) throws SQLException
-    {
-        LocalDate previoday = datePicker.getValue().plusDays(1);
-        datePicker.setValue(previoday);
-        refreshEverything();
-    }
-
-    @FXML
-    private void handleMonday(ActionEvent event) throws SQLException
-    {
-        switch (datePicker.getValue().getDayOfWeek())
-        {
-            case MONDAY:
-                refreshEverything();
-                break;
-
-            case TUESDAY:
-                datePicker.setValue(datePicker.getValue().minusDays(1));
-                refreshEverything();
-                break;
-
-            case WEDNESDAY:
-                datePicker.setValue(datePicker.getValue().minusDays(2));
-                refreshEverything();
-                break;    
-            
-            case THURSDAY:
-                datePicker.setValue(datePicker.getValue().minusDays(3));
-                refreshEverything();
-                break;
-
-            case FRIDAY:
-                datePicker.setValue(datePicker.getValue().minusDays(4));
-                refreshEverything();
-                break;
-
-            case SATURDAY:
-                datePicker.setValue(datePicker.getValue().minusDays(5));
-                refreshEverything();
-                break;
-
-            case SUNDAY:
-                datePicker.setValue(datePicker.getValue().minusDays(6));
-                refreshEverything();
-                break;
-
-            default:
-                refreshEverything();
-        }
-
-    }
-
-    @FXML
-    private void handleTuesday(ActionEvent event) throws SQLException
-    {
-        switch (datePicker.getValue().getDayOfWeek())
-        {
-            case MONDAY:
-                datePicker.setValue(datePicker.getValue().plusDays(1));
-                refreshEverything();
-                break;
-
-            case TUESDAY:
-                refreshEverything();
-                break;
-
-            case WEDNESDAY:
-                datePicker.setValue(datePicker.getValue().minusDays(1));
-                refreshEverything();
-                break;    
-            
-            case THURSDAY:
-                datePicker.setValue(datePicker.getValue().minusDays(2));
-                refreshEverything();
-                break;
-
-            case FRIDAY:
-                datePicker.setValue(datePicker.getValue().minusDays(3));
-                refreshEverything();
-                break;
-
-            case SATURDAY:
-                datePicker.setValue(datePicker.getValue().minusDays(4));
-                refreshEverything();
-                break;
-
-            case SUNDAY:
-                datePicker.setValue(datePicker.getValue().minusDays(5));
-                refreshEverything();
-                break;
-
-            default:
-                refreshEverything();
-        }
-    }
-
-    @FXML
-    private void handleWednesday(ActionEvent event) throws SQLException
-    {
-        switch (datePicker.getValue().getDayOfWeek())
-        {
-            case MONDAY:
-                datePicker.setValue(datePicker.getValue().plusDays(2));
-                refreshEverything();
-                break;
-
-            case TUESDAY:
-                datePicker.setValue(datePicker.getValue().plusDays(1));
-                refreshEverything();
-                break;
-
-            case WEDNESDAY:
-                refreshEverything();
-                break;    
-            
-            case THURSDAY:
-                datePicker.setValue(datePicker.getValue().minusDays(1));
-                refreshEverything();
-                break;
-
-            case FRIDAY:
-                datePicker.setValue(datePicker.getValue().minusDays(2));
-                refreshEverything();
-                break;
-
-            case SATURDAY:
-                datePicker.setValue(datePicker.getValue().minusDays(3));
-                refreshEverything();
-                break;
-
-            case SUNDAY:
-                datePicker.setValue(datePicker.getValue().minusDays(4));
-                refreshEverything();
-                break;
-
-            default:
-                refreshEverything();
-        }
-
-    }
-
-    @FXML
-    private void handleThursday(ActionEvent event) throws SQLException
-    {
-        switch (datePicker.getValue().getDayOfWeek())
-        {
-            case MONDAY:
-                datePicker.setValue(datePicker.getValue().plusDays(3));
-                refreshEverything();
-                break;
-
-            case TUESDAY:
-                datePicker.setValue(datePicker.getValue().plusDays(2));
-                refreshEverything();
-                break;
-
-            case WEDNESDAY:
-                datePicker.setValue(datePicker.getValue().plusDays(1));
-                refreshEverything();
-                break;    
-            
-            case THURSDAY:
-                refreshEverything();
-                break;
-
-            case FRIDAY:
-                datePicker.setValue(datePicker.getValue().minusDays(1));
-                refreshEverything();
-                break;
-
-            case SATURDAY:
-                datePicker.setValue(datePicker.getValue().minusDays(2));
-                refreshEverything();
-                break;
-
-            case SUNDAY:
-                datePicker.setValue(datePicker.getValue().minusDays(3));
-                refreshEverything();
-                break;
-
-            default:
-                refreshEverything();
-        }
-    }
-
-    @FXML
-    private void handleFriday(ActionEvent event) throws SQLException
-    {
-        switch (datePicker.getValue().getDayOfWeek())
-        {
-            case MONDAY:
-                datePicker.setValue(datePicker.getValue().plusDays(4));
-                refreshEverything();
-                break;
-
-            case TUESDAY:
-                datePicker.setValue(datePicker.getValue().plusDays(3));
-                refreshEverything();
-                break;
-
-            case WEDNESDAY:
-                datePicker.setValue(datePicker.getValue().plusDays(2));
-                refreshEverything();
-                break;    
-            
-            case THURSDAY:
-                datePicker.setValue(datePicker.getValue().plusDays(1));
-                refreshEverything();
-                break;
-
-            case FRIDAY:
-                refreshEverything();
-                break;
-
-            case SATURDAY:
-                datePicker.setValue(datePicker.getValue().minusDays(1));
-                refreshEverything();
-                break;
-
-            case SUNDAY:
-                datePicker.setValue(datePicker.getValue().minusDays(2));
-                refreshEverything();
-                break;
-
-            default:
-                refreshEverything();
-        }
-    }
-
-    @FXML
-    private void handleSaturday(ActionEvent event) throws SQLException
-    {
-        switch (datePicker.getValue().getDayOfWeek())
-        {
-            case MONDAY:
-                datePicker.setValue(datePicker.getValue().plusDays(5));
-                refreshEverything();
-                break;
-
-            case TUESDAY:
-                datePicker.setValue(datePicker.getValue().plusDays(4));
-                refreshEverything();
-                break;
-
-            case WEDNESDAY:
-                datePicker.setValue(datePicker.getValue().plusDays(3));
-                refreshEverything();
-                break;    
-            
-            case THURSDAY:
-                datePicker.setValue(datePicker.getValue().plusDays(2));
-                refreshEverything();
-                break;
-
-            case FRIDAY:
-                datePicker.setValue(datePicker.getValue().plusDays(1));
-                refreshEverything();
-                break;
-
-            case SATURDAY:
-                refreshEverything();
-                break;
-
-            case SUNDAY:
-                datePicker.setValue(datePicker.getValue().minusDays(1));
-                refreshEverything();
-                break;
-
-            default:
-                refreshEverything();
-        }
-    }
-
-    @FXML
-    private void handleSunday(ActionEvent event) throws SQLException
-    {
-        switch (datePicker.getValue().getDayOfWeek())
-        {
-            case MONDAY:
-                datePicker.setValue(datePicker.getValue().plusDays(6));
-                refreshEverything();
-                break;
-
-            case TUESDAY:
-                datePicker.setValue(datePicker.getValue().plusDays(5));
-                refreshEverything();
-                break;
-
-            case WEDNESDAY:
-                datePicker.setValue(datePicker.getValue().plusDays(4));
-                refreshEverything();
-                break;    
-            
-            case THURSDAY:
-                datePicker.setValue(datePicker.getValue().plusDays(3));
-                refreshEverything();
-                break;
-
-            case FRIDAY:
-                datePicker.setValue(datePicker.getValue().plusDays(2));
-                refreshEverything();
-                break;
-
-            case SATURDAY:
-                datePicker.setValue(datePicker.getValue().plusDays(1));
-                refreshEverything();
-                break;
-
-            case SUNDAY:
-                refreshEverything();
-                break;
-
-            default:
-               refreshEverything();
-        }
-    }
-
+    
     @FXML
     private void handlecurrentday(ActionEvent event) throws SQLException
     {
-        datePicker.setValue(LocalDate.now());
+        datePickerFrom.setValue(LocalDate.now());
         refreshEverything();
         
     }
 
     private void checkForCurrentday()
     {
-        LocalDate date = datePicker.getValue();
+        LocalDate date = datePickerFrom.getValue();
         if (!(date.isEqual(LocalDate.now())))
         {
             returnToCurrentDayButton.setVisible(true);
@@ -883,19 +456,7 @@ public class TaskViewController implements Initializable
         }
     }
 
-    @FXML
-    private void handleDatepickerAction(ActionEvent event) throws SQLException
-    {
-        refreshEverything();
-    }
-
-    private void checkWeekNumber()
-    {
-        weekOfYear = datePicker.getValue().get(WeekFields.of(locale).weekOfWeekBasedYear());
-        weekNumberLabel.setText("" + weekOfYear);
-        WeekdayLabel.setText(datePicker.getValue().getDayOfWeek().toString().toLowerCase());
-    }
-
+    
     @FXML
     private void handleDeleteTaskAction(ActionEvent event) throws SQLException
     {
@@ -928,23 +489,23 @@ public class TaskViewController implements Initializable
 
     }
     
-    private void refreshdaytotal() throws SQLException
+    private void refreshtotal() throws SQLException
     {
-        daydurationtotal = 0;
+        durationtotal = 0;
         ArrayList<Task> tasks = new ArrayList<>();
-        tasks.addAll(modelfacade.getTasksForUser(modelfacade.getCurrentuser(), datePicker.getValue()));
+        tasks.addAll(modelfacade.getTasks());
         
         for (Task task : tasks) 
         {
-            daydurationtotal = daydurationtotal + task.getDuration();
+            durationtotal = durationtotal + task.getDuration();
             
         }
         
-        long hour = TimeUnit.SECONDS.toHours(daydurationtotal);
-        long min = TimeUnit.SECONDS.toMinutes(daydurationtotal) - TimeUnit.HOURS.toMinutes(hour);
-        Long sec = daydurationtotal - TimeUnit.MINUTES.toSeconds(min);
+        long hour = TimeUnit.SECONDS.toHours(durationtotal);
+        long min = TimeUnit.SECONDS.toMinutes(durationtotal) - TimeUnit.HOURS.toMinutes(hour);
+        Long sec = durationtotal - TimeUnit.MINUTES.toSeconds(min);
         
-        daytotalTimeLabel.setText(String.format("%d:%d:%d", hour, min, sec));
+        totalTimeLabel.setText(String.format("%d:%d:%d", hour, min, sec));
         
     }
     
@@ -952,10 +513,10 @@ public class TaskViewController implements Initializable
     
     private void refreshEverything() throws SQLException
     {
-        refreshdaytotal();
-        checkForCurrentday();
-        checkWeekNumber();
         RefreshTreeView();
+        refreshtotal();
+        checkForCurrentday();
+        
     }
 
     /**
@@ -965,10 +526,20 @@ public class TaskViewController implements Initializable
         
         modelfacade.getTimerutil().setTotalTimeLabel(timeLabel);
         CurrentTaskLabel.setText(modelfacade.getTimerutil().getCurrenttask().getTitle());
-        timerButton.setText("stop timer");
-        
-        
-        
+        timerButton.setText("stop timer"); 
+    }
+
+
+    @FXML
+    private void handleDatepickerFromAction(ActionEvent event) throws SQLException 
+    {
+        refreshEverything();
+    }
+
+    @FXML
+    private void handleDatepickerToAction(ActionEvent event) throws SQLException 
+    {
+        refreshEverything();
     }
 }
 

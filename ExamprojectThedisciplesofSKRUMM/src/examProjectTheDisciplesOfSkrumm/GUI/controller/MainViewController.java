@@ -226,9 +226,9 @@ public class MainViewController implements Initializable
 
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
-        stage.setMinHeight(423);
+        stage.setMinHeight(523);
         stage.setMinWidth(721);
-        stage.setTitle("TimeTracker");
+        stage.setTitle("Statistics");
         stage.show();
         mainView.close();
 
@@ -245,9 +245,9 @@ public class MainViewController implements Initializable
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
-            stage.setMinHeight(423);
-            stage.setMinWidth(721);
-            stage.setTitle("TimeTracker");
+            stage.setMinHeight(492);
+            stage.setMinWidth(804);
+            stage.setTitle("Admin");
             stage.show();
 
         } else
@@ -271,9 +271,9 @@ public class MainViewController implements Initializable
 
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
-        stage.setMinHeight(423);
-        stage.setMinWidth(721);
-        stage.setTitle("TimeTracker");
+        stage.setMinHeight(525);
+        stage.setMinWidth(726);
+        stage.setTitle("Tasks");
         stage.show();
         mainView.close();
 
@@ -290,9 +290,9 @@ public class MainViewController implements Initializable
 
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
-        stage.setMinHeight(423);
-        stage.setMinWidth(355);
-        stage.setTitle("TimeTracker");
+        stage.setMinHeight(355);
+        stage.setMinWidth(529);
+        stage.setTitle("Clients and Projects");
         stage.show();
         mainView.close();
     }
@@ -614,7 +614,7 @@ public class MainViewController implements Initializable
         stage.setScene(new Scene(root));
         stage.setMinHeight(200);
         stage.setMinWidth(300);
-        stage.setTitle("TimeTracker");
+        stage.setTitle("Login");
         stage.show();
         mainView.close();
     }

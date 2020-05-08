@@ -29,6 +29,12 @@ and open the template in the editor.
     
 }
 
+#ReturnButton
+{
+    -fx-background-color: white;
+    -fx-text-fill: black;
+}
+
 
 
 
@@ -70,9 +76,7 @@ and open the template in the editor.
 .Label
 {
     -fx-text-fill: white;
-    -fx-background-color: #435a9a;
-    -fx-border-radius: 5 5 5 5;
-    -fx-background-radius: 5 5 5 5;
+    -fx-background-color: #435a9a; 
 }
 
 .Column
