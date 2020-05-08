@@ -23,6 +23,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -32,6 +33,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -326,7 +328,16 @@ public class MainViewController implements Initializable
         List<Label> labels = new ArrayList();
         List<JFXButton> buttonChildren = new ArrayList();
         JFXButton playButton = new JFXButton();
-
+        
+        ObservableList<Interval> intervals = FXCollections.observableArrayList();
+        intervals.setAll(task.getIntervals());
+        
+        Comparator<Interval> byDate = Comparator
+                                        .comparing(Interval::getCreationDate)
+                                        .thenComparing(Interval::getStartTime).reversed();
+                
+        intervals.sort(byDate);
+        
         ImageView Play = new ImageView("/examProjectTheDisciplesOfSkrumm/GUI/Icons/Playbutton.png");
         Play.setFitHeight(24);
         Play.setFitWidth(28);
@@ -369,6 +380,14 @@ public class MainViewController implements Initializable
                     button.setContentDisplay(ContentDisplay.CENTER);
                 }
             }
+            
+            if (child instanceof JFXComboBox)
+            {
+                JFXComboBox<Interval> comboBox = (JFXComboBox) child;
+                comboBox.getItems().setAll(intervals);
+                System.out.println(comboBox.getItems());
+            }
+            
         }
 
         System.out.println(children);
@@ -413,6 +432,7 @@ public class MainViewController implements Initializable
     private void handlePlay(ActionEvent event) throws SQLException
     {
         Task currentTask;
+        JFXComboBox<Interval> combo = new JFXComboBox();
 
         ImageView Play = new ImageView("/examProjectTheDisciplesOfSkrumm/GUI/Icons/Playbutton.png");
         ImageView Pause = new ImageView("/examProjectTheDisciplesOfSkrumm/GUI/Icons/PauseBtn.png");
@@ -434,6 +454,14 @@ public class MainViewController implements Initializable
                 index = panes.indexOf(pane);
                 intervalLabel = timeLabels.get(index);
                 totaltimelabel = totalTimeLabels.get(index);
+                
+                for (Node child : pane.getChildren())
+                {
+                    if(child instanceof JFXComboBox)
+                    {
+                        combo = (JFXComboBox) child;
+                    }
+                }
             }
         }
 
@@ -487,8 +515,13 @@ public class MainViewController implements Initializable
                     }
                 }
 
-                Interval taskInterval = new Interval(modelfacade.getTimerutil().getStartTime(), stopTime, LocalDate.now(), modelfacade.getTimerutil().getTotalIntervalSec(), currentTask, isPaid);
+                Interval taskInterval = new Interval(modelfacade.getTimerutil().getStartTime().withNano(0), stopTime.withNano(0), LocalDate.now(), modelfacade.getTimerutil().getTotalIntervalSec(), currentTask, isPaid);
 
+                combo.getItems().add(taskInterval);
+                combo.getItems().sort(Comparator
+                                        .comparing(Interval::getCreationDate)
+                                        .thenComparing(Interval::getStartTime).reversed());
+                
                 System.out.println(taskInterval);
 
                 currentTask.setDuration(modelfacade.getTimerutil().getTotalSec());
@@ -537,8 +570,13 @@ public class MainViewController implements Initializable
                     }
                 }
                 
-                Interval taskInterval = new Interval(modelfacade.getTimerutil().getStartTime(), stopTime, LocalDate.now(), modelfacade.getTimerutil().getTotalIntervalSec(), currentTask, isPaid);
+                Interval taskInterval = new Interval(modelfacade.getTimerutil().getStartTime().withNano(0), stopTime.withNano(0), LocalDate.now(), modelfacade.getTimerutil().getTotalIntervalSec(), currentTask, isPaid);
 
+                combo.getItems().add(taskInterval);
+                combo.getItems().sort(Comparator
+                                        .comparing(Interval::getCreationDate)
+                                        .thenComparing(Interval::getStartTime).reversed());
+                
                 System.out.println(taskInterval);
 
                 currentTask.setDuration(modelfacade.getTimerutil().getTotalSec());
