@@ -75,6 +75,11 @@ public class UserModel implements UserModelInterface
     public void setCurrentuser(User currentuser) {
         this.currentuser = currentuser;
     }
+
+    @Override
+    public boolean updateUser(User oldUser, User newUser) throws SQLServerException, SQLException {
+        return bllFacade.updateUser(oldUser, newUser);
+    }
     
     
 }

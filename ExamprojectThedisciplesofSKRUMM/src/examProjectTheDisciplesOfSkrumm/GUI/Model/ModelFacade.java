@@ -282,6 +282,11 @@ public class ModelFacade implements ModelFacadeInterface
     public boolean deleteClient(Client client) throws SQLException {
         return clientmodel.deleteClient(client);
     }
+
+    @Override
+    public boolean updateUser(User oldUser, User newUser) throws SQLServerException, SQLException {
+        return userModel.updateUser(oldUser, newUser);
+    }
     
     
     

@@ -190,5 +190,10 @@ public class DALFacade implements DALFacadeInterface
     public boolean deleteClient(Client client) throws SQLException {
         return clientDBDAO.deleteClient(client);
     }
+
+    @Override
+    public boolean updateUser(User oldUser, User newUser) throws SQLServerException, SQLException {
+        return userDBDAO.updateUser(oldUser, newUser);
+    }
     
 }
