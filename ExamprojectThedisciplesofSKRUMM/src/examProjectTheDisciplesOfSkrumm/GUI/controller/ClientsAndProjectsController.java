@@ -39,10 +39,6 @@ public class ClientsAndProjectsController implements Initializable {
 
     ModelFacadeInterface modelfacade;
     @FXML
-    private JFXButton taskBtn;
-    @FXML
-    private JFXButton AdminBtn;
-    @FXML
     private TableView<Project> ClientList;
     @FXML
     private TableColumn<Project, String> projectNameColumn;
@@ -79,58 +75,6 @@ public class ClientsAndProjectsController implements Initializable {
        ClientList.setItems(modelfacade.getProjects());
     }   
     
-    
-
-    @FXML
-    private void handletaskView(ActionEvent event) throws IOException
-    {
-         Stage clientsAndProjects = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/TaskView.fxml"));
-        Parent root = loader.load();
-        TaskViewController controller = loader.getController();
-
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.setMinHeight(423);
-        stage.setMinWidth(721);
-        stage.setTitle("TimeTracker");
-        stage.show();
-        clientsAndProjects.close();
-    }
-
-    @FXML
-    private void handlecChartView(ActionEvent event) throws IOException
-    {
-        Stage clientsAndProjects = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/ChartView.fxml"));
-        Parent root = loader.load();
-        ChartViewController controller = loader.getController();
-
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.setMinHeight(423);
-        stage.setMinWidth(721);
-        stage.setTitle("TimeTracker");
-        stage.show();
-        clientsAndProjects.close();
-    }
-
-    @FXML
-    private void handlecAdminView(ActionEvent event) throws IOException
-    {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/AdminView.fxml"));
-        Parent root = loader.load();
-        AdminViewController controller = loader.getController();
-
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.setMinHeight(423);
-        stage.setMinWidth(721);
-        stage.setTitle("TimeTracker");
-        stage.show(); 
-    }
    @FXML
     private void handleMain(ActionEvent event) throws IOException
     {
@@ -142,11 +86,12 @@ public class ClientsAndProjectsController implements Initializable {
 
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
-        stage.setMinHeight(423);
-        stage.setMinWidth(721);
-        stage.setTitle("TimeTracker");
+        stage.setMinHeight(525);
+        stage.setMinWidth(726);
+        stage.setTitle("Main menu");
         stage.show();
         clientsAndProjects.close();
     }
+
     
 }

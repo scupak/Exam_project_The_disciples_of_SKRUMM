@@ -73,6 +73,9 @@ public class Exam_project_The_disciples_of_SKRUMM extends Application
 //        stage.setMinHeight(525);
 //        stage.setMinWidth(726);
         stage.setScene(scene); 
+        stage.setTitle("Login");
+        stage.setMinHeight(200);
+        stage.setMinWidth(300);
         stage.show();
        
     }

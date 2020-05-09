@@ -273,7 +273,12 @@ public class TaskDBDAO implements TaskDBDAOInterface
                 LocalTime stopTime = rs.getTime("stopTime").toLocalTime();
                 String userEmail = rs.getString("userEmail");
                 User user1 = userDBDAO.getUser(new User(userEmail, "22", "22", title, false));
-                tasks.add(new Task(id, title, project, duration, lastUsed, creationDate, startTime, stopTime, user1));
+                
+                ArrayList<Interval> intervals = new ArrayList<>();
+                
+                intervals.addAll(getIntervals(new Task(id, title, project, duration, lastUsed, creationDate, startTime, stopTime, user, intervals)));
+                
+                tasks.add(new Task(id, title, project, duration, lastUsed, creationDate, startTime, stopTime, user1, intervals));
 
             }
             if (tasks.isEmpty())
@@ -345,7 +350,7 @@ public class TaskDBDAO implements TaskDBDAOInterface
         //TODO implement transactions.
         try (Connection con = dbCon.getConnection())
         {
-            String sql = "INSERT INTO [interval] VALUES (?,?,?,?,?)";
+            String sql = "INSERT INTO [interval] VALUES (?,?,?,?,?,?)";
             PreparedStatement ps = con.prepareStatement(sql);
 
             ps.setDate(1, java.sql.Date.valueOf(interval.getCreationDate()));
@@ -353,6 +358,7 @@ public class TaskDBDAO implements TaskDBDAOInterface
             ps.setTime(3, java.sql.Time.valueOf(interval.getStopTime()));
             ps.setInt(4, interval.getIntervalTime());
             ps.setInt(5, interval.getTask().getId());
+            ps.setInt(6, interval.getIsPaid());
 
             ps.executeUpdate();
 
@@ -384,9 +390,10 @@ public class TaskDBDAO implements TaskDBDAOInterface
                 java.sql.Time intervalStartTime = rs.getTime("startTime");
                 java.sql.Time intervalStopTime = rs.getTime("stopTime");
                 int intervalTime = rs.getInt("intervalTime");
+                int isPaid = rs.getInt("isPaid");
 
                 Interval interval = new Interval(intervalStartTime.toLocalTime(), intervalStopTime.toLocalTime(), date.toLocalDate(), intervalTime,
-                        task);
+                        task, isPaid);
 
                 intervals.add(interval);
             }

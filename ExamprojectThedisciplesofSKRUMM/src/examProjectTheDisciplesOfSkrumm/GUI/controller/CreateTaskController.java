@@ -56,8 +56,6 @@ public class CreateTaskController implements Initializable
     @FXML
     private JFXTextField titleTextField;
     @FXML
-    private JFXTextField timeTextField;
-    @FXML
     private JFXComboBox<Project> projectCombobox;
     
     private  TaskViewController taskViewController; 
@@ -82,13 +80,13 @@ public class CreateTaskController implements Initializable
     @FXML
     private void createTask(ActionEvent event) throws IOException
     {
-        if(!titleTextField.getText().isEmpty() && !(projectCombobox.getValue() == null) && !timeTextField.getText().isEmpty())
+        if(!titleTextField.getText().isEmpty() && !(projectCombobox.getValue() == null))
         {
             try
             {
                 String title = titleTextField.getText();
                 Project project = projectCombobox.getValue();
-                int duration = Integer.parseInt(timeTextField.getText());
+                int duration = 0;
                 LocalDateTime lastUsed = LocalDateTime.now();
                 LocalDate creationDate = LocalDate.now();
                 LocalTime startTime = LocalTime.MIN;
@@ -113,7 +111,7 @@ public class CreateTaskController implements Initializable
             }
             
         }
-        else if(!titleTextField.getText().isEmpty() && !(projectCombobox.getValue() == null) && timeTextField.getText().isEmpty())
+        else if(!titleTextField.getText().isEmpty() && !(projectCombobox.getValue() == null))
         {
             try
             {

@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="492.0" prefWidth="804.0" stylesheets="@../css/Graphics.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="examProjectTheDisciplesOfSkrumm.GUI.controller.AdminViewController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="492.0" prefWidth="804.0" stylesheets="@../css/Graphics.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="examProjectTheDisciplesOfSkrumm.GUI.controller.AdminViewController">
    <children>
       <Pane id="loginLabelbackground" layoutY="-7.0" prefHeight="87.0" prefWidth="804.0" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <Label fx:id="AdminLabel" alignment="TOP_CENTER" layoutX="341.0" layoutY="19.0" text="Hello, Admin_Name" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="19.0">
@@ -63,7 +63,7 @@
       <JFXButton fx:id="AdminAddUsrBtn" layoutX="402.0" layoutY="427.0" onAction="#addUser" text="Add User" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="338.0" />
       <JFXButton fx:id="AdminEditUsrBtn" layoutX="467.0" layoutY="427.0" onAction="#editUser" text="Edit User" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="273.0" />
       <JFXButton fx:id="AdminDeleteUsrBtn" layoutX="531.0" layoutY="427.0" onAction="#deleteUser" text="Delete User" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="194.0" />
-      <JFXButton fx:id="AdminMakeAdminBtn" layoutX="687.0" layoutY="452.0" prefHeight="25.0" prefWidth="102.0" text="Make Admin" AnchorPane.bottomAnchor="14.399999999999977" AnchorPane.rightAnchor="14.600000000000023" />
-      <JFXButton fx:id="AdminRemoveAdminBtn" layoutX="687.0" layoutY="426.0" prefHeight="25.0" prefWidth="102.0" text="Remove Admin" AnchorPane.bottomAnchor="40.39999999999998" AnchorPane.rightAnchor="14.600000000000023" />
+      <JFXButton fx:id="AdminMakeAdminBtn" layoutX="687.0" layoutY="452.0" onAction="#handleMakeAdmin" prefHeight="25.0" prefWidth="102.0" text="Make Admin" AnchorPane.bottomAnchor="14.399999999999977" AnchorPane.rightAnchor="14.600000000000023" />
+      <JFXButton fx:id="AdminRemoveAdminBtn" layoutX="687.0" layoutY="426.0" onAction="#HandleRemoveAdmin" prefHeight="25.0" prefWidth="102.0" text="Remove Admin" AnchorPane.bottomAnchor="40.39999999999998" AnchorPane.rightAnchor="14.600000000000023" />
    </children>
 </AnchorPane>

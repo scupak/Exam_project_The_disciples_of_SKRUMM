@@ -233,5 +233,19 @@ public class AdminViewController implements Initializable
         }
     }
 
+    @FXML
+    private void handleMakeAdmin(ActionEvent event) 
+    {
+        //System.out.println(User.getName + " is admin " + User.isAdmin(user));
+        //JOptionPane.showMessageDialog(null, UserInfoAdminPane.getSelection,getName(currentlySelectedUser) " has been added as administrator!");
+    }
+
+    @FXML
+    private void HandleRemoveAdmin(ActionEvent event) 
+    {
+        //System.out.println(User.getName + " is admin " + User.isAdmin(user));
+        //JOptionPane.showMessageDialog(null, UserInfoAdminPane.getSelection,getName(currentlySelectedUser) " has been removed as administrator!");
+    }
+
     
 }

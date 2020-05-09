@@ -85,7 +85,7 @@ public class LoginViewController implements Initializable {
         stage.setScene(new Scene(root));
         stage.setMinHeight(525);
         stage.setMinWidth(726);
-        stage.setTitle("TimeTracker");
+        stage.setTitle("Main menu");
         stage.show();
         mainView.close();
         }else
