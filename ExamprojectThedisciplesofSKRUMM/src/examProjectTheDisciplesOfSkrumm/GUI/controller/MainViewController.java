@@ -556,7 +556,7 @@ public class MainViewController implements Initializable
                     }
                 }
 
-                Interval taskInterval = new Interval(modelfacade.getTimerutil().getStartTime().withNano(0), stopTime.withNano(0), LocalDate.now(), modelfacade.getTimerutil().getTotalIntervalSec(), currentTask, isPaid);
+                Interval taskInterval = new Interval(0, modelfacade.getTimerutil().getStartTime().withNano(0), stopTime.withNano(0), LocalDate.now(), modelfacade.getTimerutil().getTotalIntervalSec(), currentTask, isPaid);
 
                 combo.getItems().add(taskInterval);
                 combo.getItems().sort(Comparator
@@ -616,7 +616,7 @@ public class MainViewController implements Initializable
                     }
                 }
 
-                Interval taskInterval = new Interval(modelfacade.getTimerutil().getStartTime().withNano(0), stopTime.withNano(0), LocalDate.now(), modelfacade.getTimerutil().getTotalIntervalSec(), currentTask, isPaid);
+                Interval taskInterval = new Interval(0, modelfacade.getTimerutil().getStartTime().withNano(0), stopTime.withNano(0), LocalDate.now(), modelfacade.getTimerutil().getTotalIntervalSec(), currentTask, isPaid);
 
                 combo.getItems().add(taskInterval);
                 combo.getItems().sort(Comparator

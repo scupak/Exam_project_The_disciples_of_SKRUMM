@@ -15,5 +15,4 @@ import java.sql.SQLException;
  */
 public interface DALFacadeInterface extends UserDBDAOInterface, ClientDBDAOInterface, ProjectDBDAOInterface, TaskDBDAOInterface 
 {
-    public void newInterval(Interval interval) throws SQLServerException, SQLException;
 }

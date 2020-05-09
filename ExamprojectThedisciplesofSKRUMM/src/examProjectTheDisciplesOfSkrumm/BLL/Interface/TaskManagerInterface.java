@@ -5,6 +5,7 @@
  */
 package examProjectTheDisciplesOfSkrumm.BLL.Interface;
 
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 import examProjectTheDisciplesOfSkrumm.BE.Client;
 import examProjectTheDisciplesOfSkrumm.BE.Interval;
 import examProjectTheDisciplesOfSkrumm.BE.Project;
@@ -20,7 +21,7 @@ import java.util.List;
  */
 public interface TaskManagerInterface 
 {
-    public void newInterval(Interval interval) throws SQLException;
+    public Interval newInterval(Interval interval) throws SQLException;
     
     public List<Task> getSixTasks(User user) throws SQLException;
     
@@ -41,4 +42,6 @@ public interface TaskManagerInterface
     public boolean deleteTask(Task task) throws SQLException;
     
     public boolean clearTask(Task task) throws SQLException;
+    
+    public void updateInterval(Interval interval) throws SQLServerException, SQLException;
 }

@@ -412,7 +412,7 @@ public class TaskViewController implements Initializable
                 LocalTime  stopTime = LocalTime.now();
                  
                  
-                Interval taskInterval = new Interval(modelfacade.getTimerutil().getStartTime(), stopTime, LocalDate.now(), modelfacade.getTimerutil().getTotalIntervalSec(),currentTask, currentTask.getIsPaid());
+                Interval taskInterval = new Interval(0, modelfacade.getTimerutil().getStartTime(), stopTime, LocalDate.now(), modelfacade.getTimerutil().getTotalIntervalSec(),currentTask, currentTask.getIsPaid());
                 
                 if(currentTask.getIntervals().isEmpty())
                 {

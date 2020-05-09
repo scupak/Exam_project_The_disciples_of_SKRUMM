@@ -344,14 +344,13 @@ public class TaskDBDAO implements TaskDBDAOInterface
     }
 
     @Override
-    public void newInterval(Interval interval) throws SQLServerException, SQLException
+    public Interval newInterval(Interval interval) throws SQLServerException, SQLException
     {
         //set last used in the task
         //TODO implement transactions.
         try (Connection con = dbCon.getConnection())
         {
-            String sql = "INSERT INTO [interval] VALUES (?,?,?,?,?,?)";
-            PreparedStatement ps = con.prepareStatement(sql);
+            PreparedStatement ps = con.prepareStatement("INSERT INTO [interval] VALUES (?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
 
             ps.setDate(1, java.sql.Date.valueOf(interval.getCreationDate()));
             ps.setTime(2, java.sql.Time.valueOf(interval.getStartTime()));
@@ -359,9 +358,21 @@ public class TaskDBDAO implements TaskDBDAOInterface
             ps.setInt(4, interval.getIntervalTime());
             ps.setInt(5, interval.getTask().getId());
             ps.setInt(6, interval.getIsPaid());
-
             ps.executeUpdate();
+            
+            ResultSet rs = ps.getGeneratedKeys();
+            
+            int id = 0;
+            
+            while(rs.next())
+            {
+                id = rs.getInt("intervalId");
+            }
+            
+            Interval i = new Interval(id, interval.getStartTime(), interval.getStopTime(), 
+                    interval.getCreationDate(), interval.getIntervalTime(), interval.getTask(), interval.getIsPaid());
 
+            
             String updateLastUsed = "UPDATE [task] SET lastUsed = ?, duration = ? WHERE id = ?";
             PreparedStatement ps2 = con.prepareStatement(updateLastUsed);
 
@@ -370,6 +381,28 @@ public class TaskDBDAO implements TaskDBDAOInterface
             ps2.setInt(3, interval.getTask().getId());
 
             ps2.executeUpdate();
+            
+            
+            return i;
+        }
+    }
+    
+    @Override
+    public void updateInterval(Interval interval) throws SQLServerException, SQLException
+    {
+        try (Connection con = dbCon.getConnection())
+        {
+            String sql = "UPDATE [interval] SET creationDate = ?, startTime = ?, stopTime = ?, intervalTime = ?, isPaid = ? WHERE intervalId = ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            
+            ps.setDate(1, java.sql.Date.valueOf(interval.getCreationDate()));
+            ps.setTime(2, java.sql.Time.valueOf(interval.getStartTime()));
+            ps.setTime(3, java.sql.Time.valueOf(interval.getStopTime()));
+            ps.setInt(4, interval.getIntervalTime());
+            ps.setInt(5, interval.getIsPaid());
+            ps.setInt(6, interval.getId());
+            
+            ps.executeUpdate();
         }
     }
 
@@ -391,8 +424,9 @@ public class TaskDBDAO implements TaskDBDAOInterface
                 java.sql.Time intervalStopTime = rs.getTime("stopTime");
                 int intervalTime = rs.getInt("intervalTime");
                 int isPaid = rs.getInt("isPaid");
+                int id = rs.getInt("intervalId");
 
-                Interval interval = new Interval(intervalStartTime.toLocalTime(), intervalStopTime.toLocalTime(), date.toLocalDate(), intervalTime,
+                Interval interval = new Interval(id, intervalStartTime.toLocalTime(), intervalStopTime.toLocalTime(), date.toLocalDate(), intervalTime,
                         task, isPaid);
 
                 intervals.add(interval);
