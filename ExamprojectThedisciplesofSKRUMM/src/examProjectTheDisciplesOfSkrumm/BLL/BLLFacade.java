@@ -218,4 +218,9 @@ public class BLLFacade implements BLLFacadeInterface
        return clientmanager.deleteClient(client);
     }
 
+    @Override
+    public boolean updateUser(User oldUser, User newUser) throws SQLServerException, SQLException {
+        return userManager.updateUser(oldUser, newUser);
+    }
+
 }

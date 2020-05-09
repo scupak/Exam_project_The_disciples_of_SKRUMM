@@ -32,4 +32,6 @@ public interface UserModelInterface
     public User getCurrentuser();
     
     public void setCurrentuser(User currentuser);
+    
+    public boolean updateUser(User oldUser, User newUser) throws SQLServerException, SQLException;
 }
