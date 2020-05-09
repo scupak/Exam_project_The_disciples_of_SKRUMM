@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import java.net.URL?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="525.0" prefWidth="726.0" style="-fx-border-color: #435a9a; -fx-border-width: 90 3 3 3;" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="examProjectTheDisciplesOfSkrumm.GUI.controller.AdminClientsAndProjectsController">
+    <stylesheets>
+        <URL value="@/examProjectTheDisciplesOfSkrumm/GUI/css/Graphics.css" />
+    </stylesheets>
+   <children>
+      <Label layoutX="246.0" layoutY="27.0" text="Clients &amp; Projects" textFill="WHITE">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Label>
+      <JFXButton layoutX="14.0" layoutY="15.0" text="Back" textFill="WHITE" />
+      <TableView fx:id="clientTableView" layoutX="34.0" layoutY="99.0" prefHeight="358.0" prefWidth="203.0" stylesheets="@../css/Graphics.css">
+        <columns>
+          <TableColumn prefWidth="106.39999008178711" text="Client" />
+          <TableColumn prefWidth="96.0" text="hours" />
+        </columns>
+      </TableView>
+      <TableView fx:id="projectTableView" layoutX="363.0" layoutY="99.0" prefHeight="358.0" prefWidth="333.0" stylesheets="@../css/Graphics.css">
+        <columns>
+          <TableColumn prefWidth="124.79998779296875" text="Project" />
+          <TableColumn prefWidth="93.60003662109375" text="Client" />
+            <TableColumn prefWidth="60.79998779296875" text="Hours" />
+            <TableColumn prefWidth="55.20001220703125" text="Is Paid" />
+        </columns>
+      </TableView>
+      <JFXButton fx:id="createClientBtn" layoutX="34.0" layoutY="457.0" onAction="#handleCreateClient" stylesheets="@../css/Graphics.css" text="Create Client" />
+      <JFXButton fx:id="editClientBtn" layoutX="120.0" layoutY="457.0" onAction="#handleEditClient" stylesheets="@../css/Graphics.css" text="Edit Client" />
+      <JFXButton fx:id="deleteClientBtn" layoutX="192.0" layoutY="457.0" onAction="#handleDeleteClient" stylesheets="@../css/Graphics.css" text="Delete Client" />
+      <JFXButton fx:id="createProjectBtn" layoutX="363.0" layoutY="457.0" onAction="#handleCreateProject" stylesheets="@../css/Graphics.css" text="Create Project" />
+      <JFXButton fx:id="editProjectBtn" layoutX="455.0" layoutY="457.0" onAction="#handleEditProject" stylesheets="@../css/Graphics.css" text="Edit Project" />
+      <JFXButton fx:id="deleteProjectBtn" layoutX="533.0" layoutY="457.0" onAction="#handleDeleteProject" stylesheets="@../css/Graphics.css" text="Delete Project" />
+   </children>
+</AnchorPane>

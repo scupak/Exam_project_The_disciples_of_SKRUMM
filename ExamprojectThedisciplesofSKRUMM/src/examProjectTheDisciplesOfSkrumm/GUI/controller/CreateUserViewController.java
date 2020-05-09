@@ -76,9 +76,9 @@ public class CreateUserViewController implements Initializable
                 String email = emailTextField.getText();
                 String firstName = firstNameTextField.getText();
                 String lastName = lastNameTextField.getText();
-                String password = passwordTextField.getText();
+                String password =  modelfacade.hashPassword(passwordTextField.getText());
                 boolean admin = adminRadioButton.isSelected();
-                User user = new User(email, firstName, lastName, password, admin);
+                User user = new User(email, firstName, lastName,password, admin);
                 modelfacade.createUser(user);
                 adminviewcontroller.RefreshTableView();
                 Stage createUserView = (Stage) ((Node) event.getSource()).getScene().getWindow();
