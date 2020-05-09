@@ -272,7 +272,7 @@ public class MainViewController implements Initializable
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.setMinHeight(525);
-        stage.setMinWidth(726);
+        stage.setMinWidth(943);
         stage.setTitle("Tasks");
         stage.show();
         mainView.close();
@@ -532,6 +532,13 @@ public class MainViewController implements Initializable
                 System.out.println(taskInterval);
 
                 currentTask.setDuration(modelfacade.getTimerutil().getTotalSec());
+                
+                if(currentTask.getIntervals().isEmpty())
+                {
+                    currentTask.setStartTime(modelfacade.getTimerutil().getStartTime());
+                }
+                currentTask.setStopTime(stopTime);
+                modelfacade.updateTask(currentTask);
 
                 modelfacade.newInterval(taskInterval);
 
@@ -585,6 +592,13 @@ public class MainViewController implements Initializable
                 System.out.println(taskInterval);
 
                 currentTask.setDuration(modelfacade.getTimerutil().getTotalSec());
+                
+                if(currentTask.getIntervals().isEmpty())
+                {
+                    currentTask.setStartTime(modelfacade.getTimerutil().getStartTime());
+                }
+                currentTask.setStopTime(stopTime);
+                modelfacade.updateTask(currentTask);
 
                 modelfacade.newInterval(taskInterval);
             }

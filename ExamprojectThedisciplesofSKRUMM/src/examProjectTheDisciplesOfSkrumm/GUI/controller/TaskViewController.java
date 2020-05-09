@@ -111,6 +111,10 @@ public class TaskViewController implements Initializable
     private JFXDatePicker datePickerFrom;
     @FXML
     private JFXDatePicker datePickerTo;
+    @FXML
+    private TreeTableColumn CreationDateColumn;
+    @FXML
+    private TreeTableColumn LastUsedColumn;
     
     
     /**
@@ -180,6 +184,41 @@ public class TaskViewController implements Initializable
                     return null;
                 }
 
+            }
+        });
+        
+        LastUsedColumn.setCellValueFactory(new Callback() 
+        {
+            @Override
+            public Object call(Object obj) 
+            {
+                final Object dataObj = ((TreeTableColumn.CellDataFeatures) obj).getValue().getValue();
+                if (dataObj instanceof Task)
+                {
+                    return new ReadOnlyStringWrapper(((Task) dataObj).getFormatedLastUsed());
+                } else
+                {
+                    return null;
+                }
+            }
+        });
+        
+        CreationDateColumn.setCellValueFactory(new Callback() 
+        {
+            @Override
+            public Object call(Object obj) 
+            {
+               final Object dataObj = ((TreeTableColumn.CellDataFeatures) obj).getValue().getValue();
+                if (dataObj instanceof Interval)
+                {
+                  return new ReadOnlyStringWrapper(((Interval) dataObj).getCreationDate().toString());
+                } else if (dataObj instanceof Task)
+                {
+                    return new ReadOnlyStringWrapper(((Task) dataObj).getCreationDate().toString());
+                } else
+                {
+                    return null;
+                }
             }
         });
 
@@ -374,7 +413,13 @@ public class TaskViewController implements Initializable
                  
                  
                 Interval taskInterval = new Interval(modelfacade.getTimerutil().getStartTime(), stopTime, LocalDate.now(), modelfacade.getTimerutil().getTotalIntervalSec(),currentTask, currentTask.getIsPaid());
-                 
+                
+                if(currentTask.getIntervals().isEmpty())
+                {
+                    currentTask.setStartTime(modelfacade.getTimerutil().getStartTime());
+                }
+                currentTask.setStopTime(stopTime);
+                modelfacade.updateTask(currentTask);
                 modelfacade.newInterval(taskInterval);
                 refreshEverything();
                  
