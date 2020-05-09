@@ -14,6 +14,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TreeItem;
 
@@ -49,13 +50,21 @@ public class TreeTableUtil implements TreeTableUtilInterface
            TreeItem treeitem = new TreeItem(task);
            if(!task.getIntervals().isEmpty())
            {
-               ArrayList<TreeItem> intervals = new ArrayList();
+               ArrayList<Interval> intervals = new ArrayList();
+               intervals.addAll(task.getIntervals());
+               Comparator<Interval> byDate = Comparator
+                .comparing(Interval::getCreationDate)
+                .thenComparing(Interval::getStartTime).reversed();
+               intervals.sort(byDate);
                
-               for (Interval interval : task.getIntervals()) 
+               ArrayList<TreeItem> treeintervals = new ArrayList();
+               
+               for (Interval interval : intervals) 
                {
-                    intervals.add(new TreeItem(interval));
+                    treeintervals.add(new TreeItem(interval));
                }
-               treeitem.getChildren().addAll(intervals);
+               
+               treeitem.getChildren().addAll(treeintervals);
            }
            treeItems.add(treeitem);
         }
