@@ -216,12 +216,54 @@ public class UserDBDAO implements UserDBDAOInterface
     public static void main(String[] args) throws IOException, SQLException
     {
         UserDBDAO userDb = new UserDBDAO();
-        User test1 = new User("standard@user.now", "Mads", "Jensen", "nemt", false);
-        User test2 = new User("admin@user.now", "Jakob", "Grumsen", "nemt", true);
-        userDb.createUser(test1);
-        userDb.createUser(test2);
+       // User test1 = new User("standard@user.now", "Mads", "Jensen", "nemt", false);
+        //User test2 = new User("admin@user.now", "Jakob", "Grumsen", "nemt", true);
+        User test67 = new User("not@user.now", "No", "Yes", "ok", true);
+        //userDb.createUser(test1);
+        //userDb.createUser(test2);
+        userDb.createUser(test67);
+        System.out.println("User67 is " + userDb.userExist(test67));
+        System.out.println("User67 was " + userDb.getUser(test67));
         //userDb.updateUserPassword(test);
+        userDb.updateUser(test67, new User("email@email.email", "firstName", "lastName", "pass", false));
+        System.out.println("User67 is now " + userDb.getUser(test67));
        
 
+    }
+
+    @Override
+    public boolean updateUser(User oldUser, User newUser) throws SQLServerException, SQLException {
+        if (!userExist(oldUser))
+        {
+            return false;
+        }
+
+        try (Connection con = dbCon.getConnection())
+        {
+
+            PreparedStatement ps = con.prepareStatement("UPDATE [user] SET password = ?, email =?, firstname =?, lastname =?, isadmin =? WHERE email = ?");
+
+            ps.setString(1, newUser.getPassword());
+            ps.setString(2, newUser.getEmail());
+            ps.setString(3, newUser.getFirstName());
+            ps.setString(4, newUser.getLastName());
+            
+            byte isAdmin;
+            if (newUser.getIsAdmin() == true)
+            {
+                isAdmin = 1;
+            } 
+            else
+            {
+                isAdmin = 0;
+            }
+            ps.setByte(5, isAdmin);
+            ps.setString(6, oldUser.getEmail());
+            
+            int updatedRows = ps.executeUpdate();
+
+            return updatedRows > 0;
+
+        }
     }
 }
