@@ -240,7 +240,7 @@ public class MainViewController implements Initializable
         if (modelfacade.getCurrentuser().getIsAdmin() == true)
         {
             Stage mainView = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/AdminMainView.fxml"));
             Parent root = loader.load();
             AdminMainViewController controller = loader.getController();
@@ -395,9 +395,40 @@ public class MainViewController implements Initializable
                     @Override
                     public void handle(ActionEvent event)
                     {
-                        comboBox.getSelectionModel().getSelectedItem();
+                        try
+                        {
+                            Interval interval = comboBox.getSelectionModel().getSelectedItem();
+                            
+                            //Stage mainView = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                            
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/EditIntervalView.fxml"));
+                            Parent root = loader.load();
+                            EditIntervalViewController controller = loader.getController();
+                            controller.fillView(interval);
+                            
+                            Stage stage = new Stage();
+                            stage.setScene(new Scene(root));
+                            stage.setMinHeight(260);
+                            stage.setMinWidth(318);
+                            stage.setTitle("Edit Interval");
+                            stage.setAlwaysOnTop(true);
+                            stage.show();
+                            
+                            
+                        } catch (IOException ex)
+                        {
+                            Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        
+                        //comboBox.getSelectionModel().clearSelection();
+                        comboBox.getSelectionModel().clearSelection();
+                        comboBox.setValue(null);
+                        
+                        System.out.println(comboBox.getSelectionModel().getSelectedItem());
                     }
                 });
+                
+                
             }
 
         }
