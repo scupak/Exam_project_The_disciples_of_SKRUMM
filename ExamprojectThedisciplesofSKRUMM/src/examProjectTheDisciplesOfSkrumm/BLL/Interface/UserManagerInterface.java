@@ -28,5 +28,6 @@ public interface UserManagerInterface
     
     public User createUser(User user) throws SQLException;
     
+    public boolean updateUser(User oldUser, User newUser) throws SQLServerException, SQLException;
     
 }

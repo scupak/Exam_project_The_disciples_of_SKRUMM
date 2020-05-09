@@ -257,6 +257,7 @@ public class UserDBDAO implements UserDBDAOInterface
             {
                 isAdmin = 0;
             }
+            
             ps.setByte(5, isAdmin);
             ps.setString(6, oldUser.getEmail());
             
