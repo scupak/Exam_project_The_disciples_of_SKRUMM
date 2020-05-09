@@ -239,9 +239,11 @@ public class MainViewController implements Initializable
     {
         if (modelfacade.getCurrentuser().getIsAdmin() == true)
         {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/AdminView.fxml"));
+            Stage mainView = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/AdminMainView.fxml"));
             Parent root = loader.load();
-            AdminViewController controller = loader.getController();
+            AdminMainViewController controller = loader.getController();
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
@@ -249,6 +251,7 @@ public class MainViewController implements Initializable
             stage.setMinWidth(804);
             stage.setTitle("Admin");
             stage.show();
+            mainView.close();
 
         } else
         {
