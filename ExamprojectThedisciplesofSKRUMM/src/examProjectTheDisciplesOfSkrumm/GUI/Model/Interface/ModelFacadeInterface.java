@@ -14,5 +14,4 @@ import java.sql.SQLException;
  */
 public interface ModelFacadeInterface extends TaskModelInterface, ProjectModelInterface, ClientModelInterface, UserModelInterface
 {
-    public void newInterval(Interval interval) throws SQLException;
 }

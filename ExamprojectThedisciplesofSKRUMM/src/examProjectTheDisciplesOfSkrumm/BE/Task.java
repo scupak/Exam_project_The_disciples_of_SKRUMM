@@ -161,6 +161,13 @@ public class Task
         this.formatedDuration.set(formatedDuration);
     }
     
+    public String getFormatedLastUsed()
+    {
+        String date = lastUsed.toLocalDate().toString();
+        String time = lastUsed.toLocalTime().toString();
+        time = time.substring(0, 5);
+        return String.format("%s  %s", date, time);
+    }
     
     
 

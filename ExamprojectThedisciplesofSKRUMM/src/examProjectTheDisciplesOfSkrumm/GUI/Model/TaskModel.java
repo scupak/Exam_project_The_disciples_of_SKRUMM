@@ -89,10 +89,15 @@ public class TaskModel implements TaskModelInterface
     }
     
     @Override
-    public void newInterval(Interval interval) throws SQLServerException, SQLException
+    public Interval newInterval(Interval interval) throws SQLServerException, SQLException
     {
-        System.out.println(interval.getStartTime() + "!!!!!");
-        bllfacade.newInterval(interval);
+        return bllfacade.newInterval(interval);
+    }
+    
+    @Override
+    public void updateInterval(Interval interval) throws SQLServerException, SQLException
+    {
+        bllfacade.updateInterval(interval);
     }
     
     @Override

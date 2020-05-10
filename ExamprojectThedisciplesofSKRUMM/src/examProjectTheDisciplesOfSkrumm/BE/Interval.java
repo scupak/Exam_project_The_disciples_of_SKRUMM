@@ -25,9 +25,11 @@ public class Interval
     private int intervalTime;
     private Task task;
     private int isPaid;
+    private final int id;
     
-    public Interval(LocalTime startTime, LocalTime stopTime, LocalDate creationDate, int intervalTime, Task task, int isPaid)
+    public Interval(int id, LocalTime startTime, LocalTime stopTime, LocalDate creationDate, int intervalTime, Task task, int isPaid)
     {
+        this.id = id;
         this.startTime = startTime;
         this.stopTime = stopTime;
         this.creationDate = creationDate;
@@ -35,7 +37,12 @@ public class Interval
         this.task = task;
         this.isPaid = isPaid;
     }
-
+    
+    public int getId()
+    {
+        return id;
+    }
+    
     public int getIsPaid()
     {
         return isPaid;

@@ -5,6 +5,7 @@
  */
 package examProjectTheDisciplesOfSkrumm.BLL;
 
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 import examProjectTheDisciplesOfSkrumm.BE.Client;
 import examProjectTheDisciplesOfSkrumm.BE.Interval;
 import examProjectTheDisciplesOfSkrumm.BE.Project;
@@ -36,15 +37,17 @@ public class TaskManager implements TaskManagerInterface
     
     
     @Override
-    public void newInterval(Interval interval)
+    public Interval newInterval(Interval interval) throws SQLException
     {
-        try
-        {
-            dal.newInterval(interval);
-        } catch (SQLException ex)
-        {
-            Logger.getLogger(TaskManager.class.getName()).log(Level.SEVERE, null, ex);
-        }
+       
+        return dal.newInterval(interval);
+        
+    }
+    
+    @Override
+    public void updateInterval(Interval interval) throws SQLServerException, SQLException
+    {
+        dal.updateInterval(interval);
     }
     
     @Override
