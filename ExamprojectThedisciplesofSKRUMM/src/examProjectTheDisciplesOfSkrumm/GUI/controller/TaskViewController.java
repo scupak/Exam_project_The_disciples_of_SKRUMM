@@ -379,6 +379,7 @@ public class TaskViewController implements Initializable
                 Parent root = loader.load();
                 EditTaskController controller = loader.getController();
                 controller.setEditTask((Task) selectedItem.getValue());
+                controller.settaskViewController(this);
                 Stage stage = new Stage();
                 stage.setScene(new Scene(root));
                 stage.setMinHeight(230);

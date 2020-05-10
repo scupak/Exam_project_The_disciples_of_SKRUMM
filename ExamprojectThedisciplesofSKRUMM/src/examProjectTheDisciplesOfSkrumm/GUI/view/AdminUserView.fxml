@@ -15,7 +15,7 @@
          </font>
       </Label>
       <JFXButton fx:id="backBtn" layoutX="14.0" layoutY="24.0" onAction="#handleBack" stylesheets="@../css/Graphics.css" text="Back" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="-75.0" />
-      <TableView layoutX="37.0" layoutY="101.0" prefHeight="314.0" prefWidth="658.0">
+      <TableView fx:id="UserTableView" layoutX="37.0" layoutY="101.0" prefHeight="314.0" prefWidth="658.0">
         <columns>
           <TableColumn prefWidth="157.60000228881836" text="First Name" />
           <TableColumn prefWidth="170.40003967285156" text="Last Name" />
