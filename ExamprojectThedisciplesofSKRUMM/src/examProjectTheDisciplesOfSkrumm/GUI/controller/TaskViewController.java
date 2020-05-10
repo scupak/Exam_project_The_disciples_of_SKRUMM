@@ -285,10 +285,15 @@ public class TaskViewController implements Initializable
             public Object call(Object obj)
             {
                 final Object dataObj = ((TreeTableColumn.CellDataFeatures) obj).getValue().getValue();
-                if (dataObj instanceof Task)
+                if (dataObj instanceof Interval)
+                {
+                    return new ReadOnlyStringWrapper(((Interval) dataObj).paidOrNot());
+                   
+                } else if(dataObj instanceof Task)
                 {
                     return new ReadOnlyStringWrapper(((Task) dataObj).getIsPaidBoolean());
-                } else
+                }
+                else 
                 {
                     return null;
                 }
