@@ -18,11 +18,11 @@
             <Font size="30.0" />
          </font>
       </Label>
-      <JFXButton layoutX="14.0" layoutY="15.0" text="Back" textFill="WHITE" />
+      <JFXButton fx:id="backBtn" layoutX="14.0" layoutY="15.0" onAction="#handleBack" text="Back" textFill="WHITE" />
       <TableView fx:id="clientTableView" layoutX="34.0" layoutY="99.0" prefHeight="358.0" prefWidth="203.0" stylesheets="@../css/Graphics.css">
         <columns>
-          <TableColumn prefWidth="106.39999008178711" text="Client" />
-          <TableColumn prefWidth="96.0" text="hours" />
+          <TableColumn fx:id="clientNameColumn" prefWidth="106.39999008178711" text="Client" />
+          <TableColumn fx:id="clientHoursColumn" prefWidth="96.0" text="hours" />
         </columns>
       </TableView>
       <TableView fx:id="projectTableView" layoutX="363.0" layoutY="99.0" prefHeight="358.0" prefWidth="333.0" stylesheets="@../css/Graphics.css">
