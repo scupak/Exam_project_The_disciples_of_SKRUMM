@@ -7,15 +7,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="525.0" prefWidth="726.0" style="-fx-border-color: #435a9a; -fx-border-width: 90 3 3 3;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="examProjectTheDisciplesOfSkrumm.GUI.controller.AdminUserViewController">
+<AnchorPane id="AnchorPane" prefHeight="525.0" prefWidth="726.0" style="-fx-border-color: #435a9a; -fx-border-width: 90 3 3 3;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="examProjectTheDisciplesOfSkrumm.GUI.controller.AdminUserViewController">
    <children>
       <Label alignment="CENTER" layoutX="333.0" layoutY="27.0" prefHeight="46.0" prefWidth="79.0" text="Users" textFill="WHITE" AnchorPane.leftAnchor="262.0" AnchorPane.rightAnchor="263.0">
          <font>
             <Font size="30.0" />
          </font>
       </Label>
-      <JFXButton layoutX="14.0" layoutY="24.0" stylesheets="@../css/Graphics.css" text="Back" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="-75.0" />
+      <JFXButton fx:id="backBtn" layoutX="14.0" layoutY="24.0" onAction="#handleBack" stylesheets="@../css/Graphics.css" text="Back" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="-75.0" />
       <TableView layoutX="37.0" layoutY="101.0" prefHeight="314.0" prefWidth="658.0">
         <columns>
           <TableColumn prefWidth="157.60000228881836" text="First Name" />
