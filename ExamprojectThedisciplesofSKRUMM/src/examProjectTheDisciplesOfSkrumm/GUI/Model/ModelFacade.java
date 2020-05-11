@@ -185,9 +185,9 @@ public class ModelFacade implements ModelFacadeInterface
     }
     
     @Override
-    public Interval newInterval(Interval interval) throws SQLException
+    public void newInterval(Interval interval) throws SQLException
     {
-        return taskmodel.newInterval(interval);
+        taskmodel.newInterval(interval);
     }
     
     @Override
@@ -297,6 +297,11 @@ public class ModelFacade implements ModelFacadeInterface
     @Override
     public boolean deleteInterval(Interval interval) throws SQLException {
         return taskmodel.deleteInterval(interval);
+    }
+    
+    @Override
+    public boolean deleteUser(User user) throws SQLServerException, SQLException {
+        return userModel.deleteUser(user);
     }
     
     

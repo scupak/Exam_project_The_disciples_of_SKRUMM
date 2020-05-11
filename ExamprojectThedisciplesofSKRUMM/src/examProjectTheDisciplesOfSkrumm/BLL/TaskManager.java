@@ -37,10 +37,10 @@ public class TaskManager implements TaskManagerInterface
     
     
     @Override
-    public Interval newInterval(Interval interval) throws SQLException
+    public void newInterval(Interval interval) throws SQLException
     {
        
-        return dal.newInterval(interval);
+        dal.newInterval(interval);
         
     }
     

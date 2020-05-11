@@ -30,4 +30,6 @@ public interface UserManagerInterface
     
     public boolean updateUser(User oldUser, User newUser) throws SQLServerException, SQLException;
     
+    public boolean deleteUser(User user) throws SQLException;
+    
 }

@@ -267,4 +267,20 @@ public class UserDBDAO implements UserDBDAOInterface
 
         }
     }
+
+    @Override
+    public boolean deleteUser(User user) throws SQLException {
+        try(Connection con = dbCon.getConnection())
+        {
+
+            PreparedStatement ps = con.prepareStatement("DELETE FROM [user] WHERE email = ?");
+            ps.setString(1, user.getEmail());
+            
+            int updatedRows = ps.executeUpdate();
+            
+            return updatedRows > 0;
+            
+        }
+        
+    }
 }

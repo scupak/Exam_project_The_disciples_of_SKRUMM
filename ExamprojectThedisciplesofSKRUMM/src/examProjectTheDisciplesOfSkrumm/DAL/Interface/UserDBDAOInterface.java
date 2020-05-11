@@ -27,4 +27,6 @@ public interface UserDBDAOInterface
     public boolean updateUserPassword(User user) throws SQLServerException, SQLException;
     
     public boolean updateUser(User oldUser, User newUser) throws SQLServerException, SQLException;
+    
+    public boolean deleteUser(User user) throws SQLException;
 }

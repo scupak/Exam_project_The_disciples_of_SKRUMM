@@ -21,7 +21,7 @@ import java.util.List;
  */
 public interface TaskManagerInterface 
 {
-    public Interval newInterval(Interval interval) throws SQLException;
+    public void newInterval(Interval interval) throws SQLException;
     
     public List<Task> getSixTasks(User user) throws SQLException;
     

@@ -147,9 +147,9 @@ public class DALFacade implements DALFacadeInterface
     }
 
     @Override
-    public Interval newInterval(Interval interval) throws SQLServerException, SQLException
+    public void newInterval(Interval interval) throws SQLServerException, SQLException
     {
-        return taskDBDAO.newInterval(interval);
+        taskDBDAO.newInterval(interval);
     }
     
     @Override
@@ -205,6 +205,11 @@ public class DALFacade implements DALFacadeInterface
     @Override
     public boolean deleteInterval(Interval interval) throws SQLException {
        return taskDBDAO.deleteInterval(interval);
+    }
+    
+    @Override
+    public boolean deleteUser(User user) throws SQLServerException, SQLException {
+        return userDBDAO.deleteUser(user);
     }
     
 }
