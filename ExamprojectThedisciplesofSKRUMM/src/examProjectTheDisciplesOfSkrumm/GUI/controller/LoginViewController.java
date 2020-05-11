@@ -61,7 +61,7 @@ public class LoginViewController implements Initializable {
     @FXML
     private void handelLogIn(ActionEvent event) throws IOException, SQLException
     {
-        String email = enterEmailTextField.getText();
+        String email = enterEmailTextField.getText().trim();
         String password = model.hashPassword(enterPasswordTextField.getText());
         
         User user = new User(email, "hello", "friend", password, false);
