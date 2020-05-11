@@ -294,6 +294,16 @@ public class ModelFacade implements ModelFacadeInterface
     public boolean updateUser(User oldUser, User newUser) throws SQLServerException, SQLException {
         return userModel.updateUser(oldUser, newUser);
     }
+
+    @Override
+    public List<Project> getAllProjects() throws SQLServerException, SQLException
+    {
+        return projectmodel.getAllProjects();
+    }
+    
+    public boolean deleteInterval(Interval interval) throws SQLException {
+        return taskmodel.deleteInterval(interval);
+    }
     
     @Override
     public boolean deleteUser(User user) throws SQLServerException, SQLException {

@@ -234,4 +234,20 @@ public class BLLFacade implements BLLFacadeInterface
        return userManager.deleteUser(user);
     }
 
+    @Override
+    public boolean deleteInterval(Interval interval) throws SQLException 
+    {
+        return taskmanager.deleteInterval(interval);
+    }
+    
+    @Override
+    public boolean updateClient(Client client) throws SQLServerException, SQLException {
+        return clientmanager.updateClient(client);
+    }
+
+    @Override
+    public boolean updateProject(Project project) throws SQLServerException, SQLException {
+        return projectmanager.updateProject(project);
+    }
+
 }

@@ -41,4 +41,6 @@ public interface TaskDBDAOInterface
     public boolean clearTask(Task task) throws SQLException;
     
     public void updateInterval(Interval interval) throws SQLServerException, SQLException;
+    
+    public boolean deleteInterval(Interval interval) throws SQLException;
 }

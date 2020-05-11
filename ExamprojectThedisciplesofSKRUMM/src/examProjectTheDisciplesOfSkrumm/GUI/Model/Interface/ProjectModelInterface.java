@@ -5,9 +5,11 @@
  */
 package examProjectTheDisciplesOfSkrumm.GUI.Model.Interface;
 
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 import examProjectTheDisciplesOfSkrumm.BE.Client;
 import examProjectTheDisciplesOfSkrumm.BE.Project;
 import java.sql.SQLException;
+import java.util.List;
 import javafx.collections.ObservableList;
 
 /**
@@ -24,6 +26,8 @@ public interface ProjectModelInterface
     
     public boolean deleteProject(Project project) throws SQLException;
     
+    public List<Project> getAllProjects() throws SQLServerException, SQLException;
     
+    public boolean updateProject(Project project) throws SQLServerException, SQLException;
     
 }

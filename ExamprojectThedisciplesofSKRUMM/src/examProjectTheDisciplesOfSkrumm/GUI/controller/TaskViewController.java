@@ -520,12 +520,13 @@ public class TaskViewController implements Initializable
         } else
         {
 
-            TreeItem<Task> selectedItem = (TreeItem<Task>) (TaskTable.getSelectionModel().getSelectedItem());
+            TreeItem selectedTreeItem =(TreeItem) TaskTable.getSelectionModel().getSelectedItem();
 
-            if (selectedItem.getValue() instanceof Task)
+            if (selectedTreeItem.getValue() instanceof Task)
             {
+                TreeItem<Task> selectedTask = (TreeItem<Task>) selectedTreeItem;
 
-                Task task = selectedItem.getValue();
+                Task task = selectedTask.getValue();
                 int input = JOptionPane.showConfirmDialog(null, "delete task?", "Select an Option...",
                         JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
 
@@ -535,6 +536,21 @@ public class TaskViewController implements Initializable
                     RefreshTreeView();
                 }
 
+            }
+            else if(selectedTreeItem.getValue() instanceof Interval)
+            {
+                TreeItem<Interval> selectedTask = (TreeItem<Interval>) selectedTreeItem;
+
+                Interval interval = selectedTask.getValue();
+                int input = JOptionPane.showConfirmDialog(null, "delete interval?", "Select an Option...",
+                        JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+
+                if (input == JOptionPane.YES_OPTION)
+                {
+                    modelfacade.deleteInterval(interval);
+                    RefreshTreeView();
+                }
+                
             }
         }
 

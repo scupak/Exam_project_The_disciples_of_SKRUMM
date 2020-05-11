@@ -7,9 +7,17 @@ package examProjectTheDisciplesOfSkrumm.GUI.controller;
 
 import com.jfoenix.controls.JFXButton;
 import examProjectTheDisciplesOfSkrumm.BE.Client;
+import examProjectTheDisciplesOfSkrumm.BE.Project;
+import examProjectTheDisciplesOfSkrumm.BE.Task;
+import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.ModelFacadeInterface;
+import examProjectTheDisciplesOfSkrumm.GUI.Model.ModelFacade;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalTime;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,8 +25,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TreeTableColumn;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 /**
  * FXML Controller class
@@ -31,7 +43,19 @@ public class AdminClientsAndProjectsController implements Initializable
     @FXML
     private TableView<Client> clientTableView;
     @FXML
-    private TableView<?> projectTableView;
+    private TableColumn<Client, String> clientNameColumn;
+    @FXML
+    private TableColumn<Client, Integer> clientProjectsColumn;
+    @FXML
+    private TableView<Project> projectTableView;
+    @FXML
+    private TableColumn<Project, String> projectNameColumn;
+    @FXML
+    private TableColumn<Project, String> projectClientColumn;
+    @FXML
+    private TableColumn<Project, Integer> projectHoursColumn;
+    @FXML
+    private TableColumn<Project, Integer> projectIsPaidColumn;
     @FXML
     private JFXButton createClientBtn;
     @FXML
@@ -47,19 +71,71 @@ public class AdminClientsAndProjectsController implements Initializable
     @FXML
     private JFXButton backBtn;
 
+    ModelFacadeInterface modelfacade;
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        // TODO
-    }    
+        try
+        {
+            modelfacade = ModelFacade.getInstance();
+        } catch (Exception ex)
+        {
+            Logger.getLogger(CreateTaskController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //set up clientTable
+        clientNameColumn.setCellValueFactory(new PropertyValueFactory<>("clientName"));
+        clientProjectsColumn.setCellValueFactory(new Callback()
+        {
+            @Override
+            public Object call(Object obj)
+            {
+                final Object dataObj = ((TableColumn.CellDataFeatures) obj).getValue();
+                if (dataObj instanceof Client)
+                {
+                    return new ReadOnlyStringWrapper(((Client) dataObj).getnumberOfProjects() + "");
+                } else
+                {
+                    return null;
+                }
+            }
+
+        });
+
+        clientTableView.setItems(modelfacade.getClients());
+
+        //set projectTable
+        projectNameColumn.setCellValueFactory(new PropertyValueFactory<>("projectName"));
+        projectClientColumn.setCellValueFactory(new Callback()
+        {
+            @Override
+            public Object call(Object obj)
+            {
+                final Object dataObj = ((TableColumn.CellDataFeatures) obj).getValue();
+                if (dataObj instanceof Project)
+                {
+                    return new ReadOnlyStringWrapper(((Project) dataObj).getClientName());
+                } else
+                {
+                    return null;
+                }
+            }
+
+        });
+        //projectHoursColumn.setCellValueFactory(value);
+        projectIsPaidColumn.setCellValueFactory(new PropertyValueFactory<>("isPaid"));
+
+        projectTableView.setItems(modelfacade.getProjects());
+        
+    }
 
     @FXML
     private void handleCreateClient(ActionEvent event) throws IOException
     {
-     FXMLLoader loader = new FXMLLoader(getClass().
+        FXMLLoader loader = new FXMLLoader(getClass().
                 getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/AddClient.fxml"));
         Parent root = loader.load();
         AddClientController controller = loader.getController();
@@ -67,13 +143,22 @@ public class AdminClientsAndProjectsController implements Initializable
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.setTitle("Create Client");
-        stage.show();   
+        stage.show();
     }
 
     @FXML
-    private void handleEditClient(ActionEvent event)
+    private void handleEditClient(ActionEvent event) throws IOException
     {
-        
+         FXMLLoader loader = new FXMLLoader(getClass().
+                getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/EditClient.fxml"));
+        Parent root = loader.load();
+        EditClientController controller = loader.getController();
+
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.setTitle("Edit Client");
+        stage.show();
+
     }
 
     @FXML
@@ -114,5 +199,5 @@ public class AdminClientsAndProjectsController implements Initializable
         stage.show();
         adminClientsAndProjectsView.close();
     }
-    
+
 }
