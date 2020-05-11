@@ -435,6 +435,59 @@ public class TaskDBDAO implements TaskDBDAOInterface
             return intervals;
         }
     }
+    
+    
+        public List<Task> getTasksForUserbetween2Dates(User user, LocalDate fromdate, LocalDate todate) throws SQLException
+    {
+        ArrayList<Task> tasks = new ArrayList<>();
+        String sqlString;
+        PreparedStatement ps;
+
+        try (Connection con = dbCon.getConnection())
+        {
+
+            
+                sqlString = "SELECT DISTINCT  interval.taskId, task.id , task.creationDate,task.duration, task.lastUsed , task.projectID , task.startTime, task.stopTime, task.title, task.userEmail "
+                        + "FROM interval "
+                        + "INNER JOIN task on interval.taskId = task.id "
+                        + "WHERE  task.userEmail = ? AND interval.creationDate > ? AND interval.creationDate < ? ";
+                ps = con.prepareStatement(sqlString);
+                
+                ps.setString(1, user.getEmail());
+                ps.setDate(2, java.sql.Date.valueOf(fromdate));
+                ps.setDate(2, java.sql.Date.valueOf(todate));
+            
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next())
+            {
+                int id = rs.getInt("id");
+                String title = rs.getString("title");
+                Project project = projectDBDAO.getProject(new Project(rs.getInt("ProjectID"), title, new Client(id, title, id,
+                        id), id));
+                int duration = rs.getInt("duration");
+                LocalDateTime lastUsed = rs.getTimestamp("lastUsed").toLocalDateTime();
+                LocalDate creationDate = rs.getDate("creationDate").toLocalDate();
+                LocalTime startTime = rs.getTime("startTime").toLocalTime();
+                LocalTime stopTime = rs.getTime("stopTime").toLocalTime();
+                ArrayList<Interval> intervals = getIntervals(new Task(id, title, project, duration, lastUsed, 
+                        creationDate, startTime, stopTime, user));
+                String userEmail = rs.getString("userEmail");
+                User user1 = userDBDAO.getUser(new User(userEmail, "22", "22", title, false));
+                tasks.add(new Task(id, title, project, duration, lastUsed, creationDate, startTime, 
+                        stopTime, user1, intervals));
+
+            }
+
+            return tasks;
+        }
+
+    }
+    
+    
+    
+    
 
     public static void main(String[] args) throws IOException, SQLException
     {
