@@ -5,6 +5,7 @@
  */
 package examProjectTheDisciplesOfSkrumm.GUI.Model;
 
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 import examProjectTheDisciplesOfSkrumm.BE.Client;
 import examProjectTheDisciplesOfSkrumm.BE.Project;
 import examProjectTheDisciplesOfSkrumm.BLL.BLLFacade;
@@ -12,6 +13,7 @@ import examProjectTheDisciplesOfSkrumm.BLL.Interface.BLLFacadeInterface;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.ProjectModelInterface;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
@@ -65,6 +67,11 @@ public class ProjectModel implements ProjectModelInterface
     @Override
     public boolean deleteProject(Project project) throws SQLException {
        return bllfacade.deleteProject(project);
+    }
+    
+    public List<Project> getAllProjects() throws SQLServerException, SQLException
+    {
+        return bllfacade.getAllProjects();
     }
     
     

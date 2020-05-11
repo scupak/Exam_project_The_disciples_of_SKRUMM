@@ -5,6 +5,7 @@
  */
 package examProjectTheDisciplesOfSkrumm.BE;
 
+import java.util.ArrayList;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -19,6 +20,8 @@ public class Client
     private SimpleStringProperty ClientName;
     private SimpleIntegerProperty ClientRate;
     private IntegerProperty isPaid;
+    private ArrayList<Project> projects;
+    private IntegerProperty numberOfProjects;
 
     public Client(int id, String ClientName, int ClientRate, int isPaid) 
     {
@@ -26,8 +29,10 @@ public class Client
         this.ClientName = new SimpleStringProperty(ClientName);
         this.ClientRate = new SimpleIntegerProperty(ClientRate);
         this.isPaid =  new SimpleIntegerProperty(isPaid);
-        
+        this.projects = new ArrayList<>();
+        this.numberOfProjects = new SimpleIntegerProperty(projects.size());        
     }
+   
 
      public int getId()
     {
@@ -62,6 +67,29 @@ public class Client
     public void setIsPaid(int isPaid) {
         this.isPaid.set(isPaid);
     }
+
+    public ArrayList<Project> getProjects()
+    {
+        
+        return projects;
+    }
+
+    public void setProjects(ArrayList<Project> projects)
+    {
+        this.projects = projects;
+    }
+
+    public int getnumberOfProjects()
+    {
+        numberOfProjects.set(projects.size());
+        return numberOfProjects.get();
+    }
+
+    public void setNumberOfProject(int numberOfProject)
+    {
+        this.numberOfProjects.set(numberOfProject);
+    }
+    
     
 
     @Override

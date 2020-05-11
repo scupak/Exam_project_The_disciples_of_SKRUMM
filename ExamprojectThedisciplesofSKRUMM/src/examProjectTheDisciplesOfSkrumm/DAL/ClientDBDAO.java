@@ -138,13 +138,13 @@ public class ClientDBDAO implements ClientDBDAOInterface
         ArrayList<Client> clients = new ArrayList<>();
         clients.addAll(clientDb.getAllClients());
         
-//        for (Client client : clients)
-//        {
-//          System.out.println(client);
-//        }
+        for (Client client : clients)
+        {
+          System.out.println(client);
+        }
         
-        Client steve = new Client(3, "Test", 0, 0);
-        clientDb.createClient(steve);
+//        Client steve = new Client(3, "Test", 0, 0);
+//        clientDb.createClient(steve);
 //        System.out.println(clientDb.clientExist(steve));
 //       System.out.println(clientDb.getClient(steve));
 //        clientDb.createClient(steve);

@@ -148,13 +148,42 @@ public class ProjectDBDAO implements ProjectDBDAOInterface
         
     }
     
+    public List<Project> getProjectsForClient(Client client) throws SQLException
+    {
+        ArrayList<Project> projects = new ArrayList<>();
+        
+        if(!clientdb.clientExist(client)) return null;
+        
+        try(Connection con = dbcon.getConnection())
+        {
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM [project] where clientId = ?");
+            ps.setInt(1, client.getId());
+            
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next())
+            {
+                int id = rs.getInt("id");
+                String projectName = rs.getString("projectName").trim();
+                int projectrate = rs.getInt("projectrate");
+                Project p = new Project(id, projectName, client, projectrate);
+                projects.add(p);
+            }
+        }
+        
+        
+        
+        return projects;
+    }
+    
     public static void main(String[] args) throws IOException, SQLException
     {   
        
         ClientDBDAO clientdb = new ClientDBDAO();
         ProjectDBDAO projectDb = new ProjectDBDAO();
         ArrayList<Project> projects = new ArrayList<>();
-        projects.addAll(projectDb.getAllProjects());
+        Client client = new Client(6, "Dick", 0, 0);
+        projects.addAll(projectDb.getProjectsForClient(client));
         
         for (Project project : projects)
         {

@@ -56,6 +56,7 @@ public class ClientsAndProjectsController implements Initializable {
         } catch (Exception ex) {
             Logger.getLogger(CreateTaskController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
         //set up the columns in the table
         projectNameColumn.setCellValueFactory(new PropertyValueFactory<Project, String>("projectName"));
         clientNameColumn.setCellValueFactory(new PropertyValueFactory<Project, String>("clientName"));

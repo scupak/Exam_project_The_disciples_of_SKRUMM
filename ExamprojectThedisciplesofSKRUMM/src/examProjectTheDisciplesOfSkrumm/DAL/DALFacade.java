@@ -201,5 +201,11 @@ public class DALFacade implements DALFacadeInterface
     public boolean updateUser(User oldUser, User newUser) throws SQLServerException, SQLException {
         return userDBDAO.updateUser(oldUser, newUser);
     }
+
+    @Override
+    public List<Project> getProjectsForClient(Client client) throws SQLException
+    {
+        return projecDBDAO.getProjectsForClient(client);
+    }
     
 }
