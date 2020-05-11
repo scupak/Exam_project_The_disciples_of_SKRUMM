@@ -147,9 +147,9 @@ public class DALFacade implements DALFacadeInterface
     }
 
     @Override
-    public Interval newInterval(Interval interval) throws SQLServerException, SQLException
+    public void newInterval(Interval interval) throws SQLServerException, SQLException
     {
-        return taskDBDAO.newInterval(interval);
+        taskDBDAO.newInterval(interval);
     }
     
     @Override

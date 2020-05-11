@@ -35,7 +35,7 @@ public interface TaskModelInterface
     
     public void setTasks(ObservableList<Task> tasks);
 
-    public Interval newInterval(Interval interval) throws SQLException, SQLServerException;
+    public void newInterval(Interval interval) throws SQLException, SQLServerException;
     
     public ObservableList<Task> getSixTasks(User user) throws SQLException;
     

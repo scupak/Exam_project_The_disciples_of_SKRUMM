@@ -185,9 +185,9 @@ public class ModelFacade implements ModelFacadeInterface
     }
     
     @Override
-    public Interval newInterval(Interval interval) throws SQLException
+    public void newInterval(Interval interval) throws SQLException
     {
-        return taskmodel.newInterval(interval);
+        taskmodel.newInterval(interval);
     }
     
     @Override
