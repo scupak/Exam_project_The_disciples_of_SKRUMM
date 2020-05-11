@@ -81,5 +81,10 @@ public class UserModel implements UserModelInterface
         return bllFacade.updateUser(oldUser, newUser);
     }
     
+    @Override
+    public boolean deleteUser(User user) throws SQLException {
+       return bllFacade.deleteUser(user);
+    }
+    
     
 }
