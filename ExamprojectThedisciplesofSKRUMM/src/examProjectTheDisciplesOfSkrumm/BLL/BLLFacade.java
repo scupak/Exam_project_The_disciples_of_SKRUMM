@@ -229,4 +229,10 @@ public class BLLFacade implements BLLFacadeInterface
         taskmanager.updateInterval(interval);
     }
 
+    @Override
+    public boolean deleteInterval(Interval interval) throws SQLException 
+    {
+        return taskmanager.deleteInterval(interval);
+    }
+
 }

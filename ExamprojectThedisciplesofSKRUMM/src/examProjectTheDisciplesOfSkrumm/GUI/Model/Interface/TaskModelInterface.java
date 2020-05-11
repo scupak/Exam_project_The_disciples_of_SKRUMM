@@ -68,6 +68,8 @@ public interface TaskModelInterface
     public void setExecutorService(ExecutorService executorService);
     
     public void updateInterval(Interval interval) throws SQLServerException, SQLException; 
+    
+    public boolean deleteInterval(Interval interval) throws SQLException;
    
     
 }

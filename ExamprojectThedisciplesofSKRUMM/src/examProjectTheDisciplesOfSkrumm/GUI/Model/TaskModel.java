@@ -186,6 +186,11 @@ public class TaskModel implements TaskModelInterface
     public void setExecutorService(ExecutorService executorService) {
         this.executorService = executorService;
     }
+
+    @Override
+    public boolean deleteInterval(Interval interval) throws SQLException {
+        return bllfacade.deleteInterval(interval);
+    }
     
     
     

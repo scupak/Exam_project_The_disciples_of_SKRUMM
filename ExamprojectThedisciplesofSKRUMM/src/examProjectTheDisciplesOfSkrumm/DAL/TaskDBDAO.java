@@ -435,17 +435,42 @@ public class TaskDBDAO implements TaskDBDAOInterface
             return intervals;
         }
     }
+    
+    @Override
+    public boolean deleteInterval(Interval interval) throws SQLException 
+    {
+        try(Connection con = dbCon.getConnection())
+        { 
+            PreparedStatement ps = con.prepareStatement("DELETE FROM [interval] WHERE intervalId = ?");
+            ps.setInt(1, interval.getId());
+            
+            int updatedRows = ps.executeUpdate();
+            
+            return updatedRows > 0;
+        }
+        
+        
+        
+    }
 
     public static void main(String[] args) throws IOException, SQLException
     {
         TaskDBDAO taskDBDAO = new TaskDBDAO();
 
-        Client client = new Client(1, "why", 0, 0);
-        Project project = new Project(1, "reeeeeeee", client, 0);
-        User user = taskDBDAO.userDBDAO.getUser(new User("standard@user.now", "kof", "kof", "fok", true));
-        ArrayList<Interval> intervals = new ArrayList<>();
-        Task task = new Task(3, "rjo", project, 50, LocalDateTime.now(), LocalDate.now(), LocalTime.now(), LocalTime.now(), user, intervals);
-        Task task2 = taskDBDAO.getTask(task);
+          User user = new User("Kok", "kok", "kok", "kok", true);
+          ArrayList<Interval> intervals = new ArrayList<>();
+          Client client = new Client(1, "why", 0, 0);
+          Project project = new Project(1, "reeeeeeee", client, 0);
+          Task task = new Task(3, "rjo", project, 50, LocalDateTime.now(), LocalDate.now(), LocalTime.now(), LocalTime.now(), user, intervals);
+          Interval interval = new Interval(15, LocalTime.MIN, LocalTime.MIN, LocalDate.MIN, 0, task, 0);
+          taskDBDAO.deleteInterval(interval);
+          
+//        Client client = new Client(1, "why", 0, 0);
+//        Project project = new Project(1, "reeeeeeee", client, 0);
+//        User user = taskDBDAO.userDBDAO.getUser(new User("standard@user.now", "kof", "kof", "fok", true));
+//        ArrayList<Interval> intervals = new ArrayList<>();
+//        Task task = new Task(3, "rjo", project, 50, LocalDateTime.now(), LocalDate.now(), LocalTime.now(), LocalTime.now(), user, intervals);
+//        Task task2 = taskDBDAO.getTask(task);
 
         //taskDBDAO.updateTask(task);
 //        ArrayList<Task> t = new ArrayList<>();
@@ -459,7 +484,7 @@ public class TaskDBDAO implements TaskDBDAOInterface
 //        task3.setDuration(666);
 //        taskDBDAO.updateTask(task3);
         
-        taskDBDAO.deleteTask(task);
+//        taskDBDAO.deleteTask(task);
 //        ArrayList<Task> six = new ArrayList<>();
 //        six.addAll(taskDBDAO.getSixTasks(user));
 //       
@@ -479,5 +504,7 @@ public class TaskDBDAO implements TaskDBDAOInterface
         //Interval interval = new Interval(LocalTime.now(),LocalTime.now(), 600, 50, task);
         //taskDBDAO.newInterval(interval);
     }
+
+    
 
 }

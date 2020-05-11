@@ -143,6 +143,12 @@ public class TaskManager implements TaskManagerInterface
     {
         return dal.clearTask(task);
     }
+
+    @Override
+    public boolean deleteInterval(Interval interval) throws SQLException 
+    {
+       return dal.deleteInterval(interval);
+    }
   
    
     

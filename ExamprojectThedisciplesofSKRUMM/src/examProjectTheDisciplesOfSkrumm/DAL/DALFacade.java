@@ -201,5 +201,10 @@ public class DALFacade implements DALFacadeInterface
     public boolean updateUser(User oldUser, User newUser) throws SQLServerException, SQLException {
         return userDBDAO.updateUser(oldUser, newUser);
     }
+
+    @Override
+    public boolean deleteInterval(Interval interval) throws SQLException {
+       return taskDBDAO.deleteInterval(interval);
+    }
     
 }
