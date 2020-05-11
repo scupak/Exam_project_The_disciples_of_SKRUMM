@@ -10,18 +10,25 @@ import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXTimePicker;
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 import examProjectTheDisciplesOfSkrumm.BE.Interval;
 import examProjectTheDisciplesOfSkrumm.BE.Task;
+import examProjectTheDisciplesOfSkrumm.GUI.Model.ModelFacade;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.TaskModel;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.Duration;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
@@ -49,9 +56,9 @@ public class EditIntervalViewController implements Initializable
     private JFXButton saveButton;
     @FXML
     private JFXButton cancelButton;
-    
-    private TaskModel taskmodel;
-    
+
+    private ModelFacade modelfacade;
+
     private Task currentTask;
     private Interval currentInterval;
 
@@ -61,59 +68,63 @@ public class EditIntervalViewController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        
-    }    
-    
+        try
+        {
+            modelfacade = new ModelFacade();
+        } catch (IOException ex)
+        {
+            Logger.getLogger(EditIntervalViewController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex)
+        {
+            Logger.getLogger(EditIntervalViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     public void fillView(Interval interval)
     {
-        currentInterval = interval;
-        
-        System.out.println(interval + "!!!!!!!!");
-        System.out.println(currentInterval + "@@@@@@");
-        
-        if(interval.getIsPaid() == 0)
+        final ToggleGroup group = new ToggleGroup();
+
+        paid.setToggleGroup(group);
+        notPaid.setToggleGroup(group);
+
+        if (interval.getIsPaid() == 0)
         {
             notPaid.setSelected(true);
-        }
-        else if(interval.getIsPaid() == 1)
+        } else if (interval.getIsPaid() == 1)
         {
             paid.setSelected(true);
         }
-        
+
+        currentInterval = interval;
+
         durationField.setText(interval.getFormatedIntervaltime());
         creationDate.setValue(interval.getCreationDate());
         startTime.setValue(interval.getStartTime());
         stopTime.setValue(interval.getStopTime());
-        
+
         currentTask = interval.getTask();
     }
 
     @FXML
-    private void handleSave(ActionEvent event) throws SQLException
+    private void handleSave(ActionEvent event) throws SQLException, SQLServerException
     {
-        String[] time = durationField.getText().split(":");
-        int hours = Integer.parseInt(time[0])*60*60; 
-        int minutes = Integer.parseInt(time[1])*60;
-        int seconds = Integer.parseInt(time[2]);
-        
-        int intervalTime = hours + minutes + seconds;
-        
+        long intervalTime = Duration.between(startTime.getValue(), stopTime.getValue()).getSeconds();
+
         int paidOrNot = 0;
-                
-        if(paid.isSelected())
+
+        if (paid.isSelected())
         {
             paidOrNot = 1;
-        }
-        else if(notPaid.isSelected())
+        } else if (notPaid.isSelected())
         {
             paidOrNot = 0;
         }
+
+        Interval newInterval = new Interval(currentInterval.getId(), startTime.getValue(), stopTime.getValue(),
+                creationDate.getValue(), (int) intervalTime, currentTask, paidOrNot);
         
-        Interval newInterval = new Interval(currentInterval.getId(), startTime.getValue(), stopTime.getValue(), 
-                creationDate.getValue(), intervalTime, currentTask, paidOrNot);
-        
-        taskmodel.updateInterval(newInterval);  
-        
+        modelfacade.updateInterval(newInterval);
+
         Stage stage = (Stage) saveButton.getScene().getWindow();
         stage.close();
     }
@@ -124,5 +135,5 @@ public class EditIntervalViewController implements Initializable
         Stage stage = (Stage) cancelButton.getScene().getWindow();
         stage.close();
     }
-    
+
 }

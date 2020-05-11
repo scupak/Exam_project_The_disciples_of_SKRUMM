@@ -18,6 +18,7 @@ import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.ProjectModelInterface
 import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.TaskModelInterface;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.UserModelInterface;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -39,7 +40,7 @@ public class ModelFacade implements ModelFacadeInterface
     private ClientModelInterface clientmodel;
     private UserModelInterface userModel;
     
-    private ModelFacade() throws IOException, SQLException 
+    public ModelFacade() throws IOException, SQLException 
     {
         taskmodel = new TaskModel();
         projectmodel = new ProjectModel();
