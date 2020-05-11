@@ -228,5 +228,10 @@ public class BLLFacade implements BLLFacadeInterface
     {
         taskmanager.updateInterval(interval);
     }
+    
+    @Override
+    public boolean deleteUser(User user) throws SQLException {
+       return userManager.deleteUser(user);
+    }
 
 }

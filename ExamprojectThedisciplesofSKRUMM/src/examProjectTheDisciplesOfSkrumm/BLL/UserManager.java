@@ -101,5 +101,10 @@ public class UserManager implements UserManagerInterface
     public boolean updateUser(User oldUser, User newUser) throws SQLServerException, SQLException {
         return dal.updateUser(oldUser, newUser);
     }
+
+    @Override
+    public boolean deleteUser(User user) throws SQLException {
+        return dal.deleteUser(user);
+    }
     
 }
