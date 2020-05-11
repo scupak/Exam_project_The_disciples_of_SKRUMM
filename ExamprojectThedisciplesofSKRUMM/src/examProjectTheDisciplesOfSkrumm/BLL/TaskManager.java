@@ -37,10 +37,10 @@ public class TaskManager implements TaskManagerInterface
     
     
     @Override
-    public Interval newInterval(Interval interval) throws SQLException
+    public void newInterval(Interval interval) throws SQLException
     {
        
-        return dal.newInterval(interval);
+        dal.newInterval(interval);
         
     }
     
@@ -142,6 +142,12 @@ public class TaskManager implements TaskManagerInterface
     public boolean clearTask(Task task) throws SQLException
     {
         return dal.clearTask(task);
+    }
+
+    @Override
+    public boolean deleteInterval(Interval interval) throws SQLException 
+    {
+       return dal.deleteInterval(interval);
     }
   
    

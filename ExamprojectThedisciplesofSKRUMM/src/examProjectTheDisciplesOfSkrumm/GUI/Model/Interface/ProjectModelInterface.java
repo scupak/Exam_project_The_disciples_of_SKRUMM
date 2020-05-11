@@ -28,5 +28,6 @@ public interface ProjectModelInterface
     
     public List<Project> getAllProjects() throws SQLServerException, SQLException;
     
+    public boolean updateProject(Project project) throws SQLServerException, SQLException;
     
 }

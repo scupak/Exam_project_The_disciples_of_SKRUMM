@@ -30,7 +30,7 @@ public interface TaskDBDAOInterface
 
     public Task getTask(Task task) throws SQLException;
 
-    public Interval newInterval(Interval interval) throws SQLServerException, SQLException;
+    public void newInterval(Interval interval) throws SQLServerException, SQLException;
 
     public List<Task> getSixTasks(User user) throws SQLException;
     
@@ -41,4 +41,6 @@ public interface TaskDBDAOInterface
     public boolean clearTask(Task task) throws SQLException;
     
     public void updateInterval(Interval interval) throws SQLServerException, SQLException;
+    
+    public boolean deleteInterval(Interval interval) throws SQLException;
 }

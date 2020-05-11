@@ -26,4 +26,6 @@ public interface ClientManagerInterface
      
      public boolean deleteClient(Client client) throws SQLException;
      
+     public boolean updateClient(Client client) throws SQLException;
+  
 }

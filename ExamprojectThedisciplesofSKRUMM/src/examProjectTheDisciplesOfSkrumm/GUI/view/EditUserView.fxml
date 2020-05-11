@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="288.0" prefWidth="346.0" style="-fx-border-color: #435a9a; -fx-border-width: 60 2 2 2;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="examProjectTheDisciplesOfSkrumm.GUI.controller.CreateUserViewController">
+<AnchorPane id="AnchorPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="288.0" prefWidth="346.0" style="-fx-border-color: #435a9a; -fx-border-width: 60 2 2 2;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="examProjectTheDisciplesOfSkrumm.GUI.controller.EditUserController">
    <children>
       <HBox layoutX="142.0" layoutY="68.0" prefHeight="20.0" prefWidth="66.0" spacing="15.0">
          <children>
@@ -23,7 +23,7 @@
             </RadioButton>
          </children>
       </HBox>
-      <Label layoutX="88.0" layoutY="14.0" text="Create new user" textFill="WHITE">
+      <Label layoutX="129.0" layoutY="14.0" text="Edit user" textFill="WHITE">
          <font>
             <Font size="24.0" />
          </font>
@@ -63,7 +63,7 @@
             <JFXPasswordField fx:id="passwordTextField" promptText="Password" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
-      <JFXButton fx:id="createBtn" layoutX="118.0" layoutY="238.0" onAction="#handleCreateUser" style="-fx-background-color: #435a9a;" text="Create" textFill="WHITE" />
-      <JFXButton fx:id="cancelBtn" layoutX="175.0" layoutY="238.0" onAction="#handleCancel" style="-fx-background-color: #435a9a;" text="Cancel" textFill="WHITE" />
+      <JFXButton fx:id="createBtn" layoutX="118.0" layoutY="238.0" onAction="#handleCreateUser" style="-fx-background-color: #435a9a;" text="Confirm" textFill="WHITE" />
+      <JFXButton fx:id="cancelBtn" layoutX="182.0" layoutY="238.0" onAction="#handleCancel" style="-fx-background-color: #435a9a;" text="Cancel" textFill="WHITE" />
    </children>
 </AnchorPane>

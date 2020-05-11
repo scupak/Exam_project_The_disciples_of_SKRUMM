@@ -96,7 +96,7 @@ public class Interval
 //        return "Interval{" + "startTime=" + startTime + ", stopTime=" + stopTime + ", creationDate=" + creationDate + ", totalTime=" + totalTime + ", intervalTime=" + intervalTime + ", task=" + task + '}';
 //    }
     
-    private String paidOrNot()
+    public String paidOrNot()
     {
         if(isPaid == 0)
         {

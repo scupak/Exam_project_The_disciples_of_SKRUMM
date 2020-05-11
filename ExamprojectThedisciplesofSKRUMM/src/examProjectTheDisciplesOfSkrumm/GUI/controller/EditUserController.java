@@ -32,9 +32,13 @@ import javafx.stage.Stage;
  *
  * @author Christina
  */
-public class CreateUserViewController implements Initializable
+public class EditUserController implements Initializable
 {
     private ModelFacadeInterface modelfacade;
+    
+    private User oldUser;
+    
+    private User newUser;
 
     @FXML
     private JFXButton createBtn;
@@ -51,7 +55,8 @@ public class CreateUserViewController implements Initializable
     @FXML
     private JFXTextField lastNameTextField;
     
-    private AdminViewController adminviewcontroller;
+    private AdminUserViewController adminuserviewcontroller;
+   
 
 
     /**
@@ -79,11 +84,28 @@ public class CreateUserViewController implements Initializable
                 String lastName = lastNameTextField.getText();
                 String password =  modelfacade.hashPassword(passwordTextField.getText());
                 boolean admin = adminRadioButton.isSelected();
-                User user = new User(email, firstName, lastName,password, admin);
-                modelfacade.createUser(user);
-                adminviewcontroller.RefreshTableView();
-                Stage createUserView = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                createUserView.close();
+                User newUser = new User(email, firstName, lastName,password, admin);
+                modelfacade.updateUser(oldUser, newUser);
+                adminuserviewcontroller.refreshTableview();
+                Stage editUserView = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                editUserView.close();
+            }
+               
+        }
+        else if(!emailTextField.getText().isEmpty() && passwordTextField.getText().isEmpty() && !firstNameTextField.getText().isEmpty() && !lastNameTextField.getText().isEmpty())
+        {
+            if(validateInput(emailTextField.getText()) == true)
+            {
+                String email = emailTextField.getText();
+                String firstName = firstNameTextField.getText();
+                String lastName = lastNameTextField.getText();
+                String password =  oldUser.getPassword();
+                boolean admin = adminRadioButton.isSelected();
+                User newUser = new User(email, firstName, lastName,password, admin);
+                modelfacade.updateUser(oldUser, newUser);
+                adminuserviewcontroller.refreshTableview();
+                Stage editUserView = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                editUserView.close();
             }
             else 
             {
@@ -112,9 +134,9 @@ public class CreateUserViewController implements Initializable
          createUserView.close();
     }
     
-     void setAdminViewController(AdminViewController adminviewcontroller)
+    public void setAdminUserViewController(AdminUserViewController adminuserviewcontroller)
     {
-        this.adminviewcontroller = adminviewcontroller;
+        this.adminuserviewcontroller = adminuserviewcontroller;
     }
      
      public boolean validateInput(String input) {
@@ -128,6 +150,20 @@ public class CreateUserViewController implements Initializable
             return false;
         }
     }
+     
+     public void setEditUser(User user)
+     {  
+        oldUser = user;
+        emailTextField.setText(oldUser.getEmail());
+        firstNameTextField.setText(oldUser.getFirstName());
+        lastNameTextField.setText(oldUser.getLastName());
+        if(oldUser.getIsAdmin())
+        {
+            adminRadioButton.setSelected(true);
+        }
+         
+     }
     
     
 }
+

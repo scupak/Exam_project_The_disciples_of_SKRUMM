@@ -89,9 +89,9 @@ public class TaskModel implements TaskModelInterface
     }
     
     @Override
-    public Interval newInterval(Interval interval) throws SQLServerException, SQLException
+    public void newInterval(Interval interval) throws SQLServerException, SQLException
     {
-        return bllfacade.newInterval(interval);
+        bllfacade.newInterval(interval);
     }
     
     @Override
@@ -185,6 +185,11 @@ public class TaskModel implements TaskModelInterface
     @Override
     public void setExecutorService(ExecutorService executorService) {
         this.executorService = executorService;
+    }
+
+    @Override
+    public boolean deleteInterval(Interval interval) throws SQLException {
+        return bllfacade.deleteInterval(interval);
     }
     
     

@@ -5,6 +5,7 @@
  */
 package examProjectTheDisciplesOfSkrumm.GUI.Model;
 
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 import examProjectTheDisciplesOfSkrumm.BE.Client;
 import examProjectTheDisciplesOfSkrumm.BE.Project;
 import examProjectTheDisciplesOfSkrumm.BLL.BLLFacade;
@@ -62,6 +63,11 @@ public class ClientModel implements ClientModelInterface
     @Override
     public boolean deleteClient(Client client) throws SQLException {
         return bllfacade.deleteClient(client);
+    }
+
+    @Override
+    public boolean updateClient(Client client) throws SQLServerException, SQLException {
+        return bllfacade.updateClient(client);
     }
     
 }

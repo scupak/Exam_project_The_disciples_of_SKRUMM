@@ -16,15 +16,15 @@
    <children>
       <TreeTableView fx:id="TaskTable" layoutX="23.0" layoutY="198.0" prefHeight="274.0" prefWidth="682.0" styleClass="table-view" AnchorPane.bottomAnchor="54.0" AnchorPane.leftAnchor="22.0" AnchorPane.rightAnchor="22.0" AnchorPane.topAnchor="197.0">
         <columns>
-          <TreeTableColumn fx:id="TaskColumn" prefWidth="202.0" resizable="false" text="Task" />
-          <TreeTableColumn fx:id="ProjectColumn" prefWidth="114.0" resizable="false" text="Project" />
-            <TreeTableColumn fx:id="clientColumn" prefWidth="92.0" resizable="false" text="Client" />
-            <TreeTableColumn fx:id="LastUsedColumn" prefWidth="116.0" resizable="false" text="Last used" />
-            <TreeTableColumn fx:id="CreationDateColumn" prefWidth="95.0" resizable="false" text="Creation date" />
-            <TreeTableColumn fx:id="TimeColumn" prefWidth="75.0" resizable="false" text="Duration" />
-            <TreeTableColumn fx:id="startTimeColumn" resizable="false" text="StartTime" />
-            <TreeTableColumn fx:id="stopTimeColumn" prefWidth="77.0" resizable="false" text="StopTime" />
-            <TreeTableColumn fx:id="IsPaidColumn" prefWidth="45.0" resizable="false" text="IsPaid" />
+          <TreeTableColumn fx:id="TaskColumn" prefWidth="182.0" resizable="false" text="Task" />
+          <TreeTableColumn fx:id="ProjectColumn" prefWidth="115.0" resizable="false" text="Project" />
+            <TreeTableColumn fx:id="clientColumn" prefWidth="101.0" resizable="false" text="Client" />
+            <TreeTableColumn fx:id="LastUsedColumn" prefWidth="108.0" resizable="false" text="Last used" />
+            <TreeTableColumn fx:id="CreationDateColumn" prefWidth="101.0" resizable="false" text="Creation date" />
+            <TreeTableColumn fx:id="TimeColumn" prefWidth="77.0" resizable="false" text="Duration" />
+            <TreeTableColumn fx:id="startTimeColumn" prefWidth="73.0" resizable="false" text="StartTime" />
+            <TreeTableColumn fx:id="stopTimeColumn" prefWidth="69.0" resizable="false" text="StopTime" />
+            <TreeTableColumn fx:id="IsPaidColumn" prefWidth="70.0" resizable="false" text="IsPaid" />
         </columns>
          <columnResizePolicy>
             <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -102,8 +102,8 @@
       <HBox layoutX="21.0" layoutY="475.0" prefHeight="25.0" prefWidth="272.0" spacing="5.0" translateX="1.0" AnchorPane.bottomAnchor="29.0" AnchorPane.leftAnchor="21.0">
          <children>
             <JFXButton fx:id="createTaskButton" onAction="#createTask" prefHeight="6.0" prefWidth="102.0" text="Create new task" />
-            <JFXButton onAction="#handleEditTaskAction" prefHeight="25.0" prefWidth="67.0" text="Edit task" />
-            <JFXButton fx:id="deleteTask" onAction="#handleDeleteTaskAction" prefHeight="17.0" prefWidth="79.0" text="Delete task" />
+            <JFXButton onAction="#handleEditTaskAction" prefHeight="25.0" prefWidth="67.0" text="Edit" />
+            <JFXButton fx:id="deleteTask" onAction="#handleDeleteTaskAction" prefHeight="17.0" prefWidth="79.0" text="Delete" />
          </children>
       </HBox>
       <JFXButton fx:id="returnToCurrentDayButton" layoutX="20.0" layoutY="87.0" onAction="#handlecurrentday" prefHeight="17.0" prefWidth="131.0" text="Return to current day" translateX="5.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="87.0" />

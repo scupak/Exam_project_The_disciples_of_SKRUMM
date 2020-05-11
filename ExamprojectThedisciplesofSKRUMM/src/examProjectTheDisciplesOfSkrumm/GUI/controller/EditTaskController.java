@@ -47,6 +47,8 @@ public class EditTaskController implements Initializable
     private JFXTextField editTimeTextField;
     @FXML
     private JFXComboBox<Project> editProjectCombobox;
+    
+    private  TaskViewController taskViewController; 
 
     /**
      * Initializes the controller class.
@@ -192,5 +194,11 @@ public class EditTaskController implements Initializable
         editTitleTextField.setText(editTask.getTitle()); 
         editTimeTextField.setText(Integer.toString(editTask.getDuration()));
         editProjectCombobox.getSelectionModel().select(editTask.getProject());
+    }
+    
+    void settaskViewController( TaskViewController taskViewController) {
+     this.taskViewController = taskViewController;
+     
+        //System.out.println(taskViewController);
     }
 }

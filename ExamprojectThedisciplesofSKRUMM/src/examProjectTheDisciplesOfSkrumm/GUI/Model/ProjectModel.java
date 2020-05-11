@@ -68,6 +68,11 @@ public class ProjectModel implements ProjectModelInterface
     public boolean deleteProject(Project project) throws SQLException {
        return bllfacade.deleteProject(project);
     }
+
+    @Override
+    public boolean updateProject(Project project) throws SQLServerException, SQLException {
+        return bllfacade.updateProject(project);
+    }
     
     public List<Project> getAllProjects() throws SQLServerException, SQLException
     {

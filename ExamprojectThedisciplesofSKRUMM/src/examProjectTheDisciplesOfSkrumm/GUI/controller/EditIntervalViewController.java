@@ -13,6 +13,7 @@ import com.jfoenix.controls.JFXTimePicker;
 import examProjectTheDisciplesOfSkrumm.BE.Interval;
 import examProjectTheDisciplesOfSkrumm.BE.Task;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.TaskModel;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.List;
@@ -52,6 +53,7 @@ public class EditIntervalViewController implements Initializable
     private TaskModel taskmodel;
     
     private Task currentTask;
+    private Interval currentInterval;
 
     /**
      * Initializes the controller class.
@@ -64,6 +66,11 @@ public class EditIntervalViewController implements Initializable
     
     public void fillView(Interval interval)
     {
+        currentInterval = interval;
+        
+        System.out.println(interval + "!!!!!!!!");
+        System.out.println(currentInterval + "@@@@@@");
+        
         if(interval.getIsPaid() == 0)
         {
             notPaid.setSelected(true);
@@ -102,10 +109,10 @@ public class EditIntervalViewController implements Initializable
             paidOrNot = 0;
         }
         
-        Interval newInterval = taskmodel.newInterval(new Interval(0, startTime.getValue(), stopTime.getValue(), 
-                creationDate.getValue(), intervalTime, currentTask, paidOrNot));
+        Interval newInterval = new Interval(currentInterval.getId(), startTime.getValue(), stopTime.getValue(), 
+                creationDate.getValue(), intervalTime, currentTask, paidOrNot);
         
-        taskmodel.updateInterval(newInterval);
+        taskmodel.updateInterval(newInterval);  
         
         Stage stage = (Stage) saveButton.getScene().getWindow();
         stage.close();
