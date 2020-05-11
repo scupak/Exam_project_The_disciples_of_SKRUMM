@@ -219,5 +219,32 @@ public class ProjectDBDAO implements ProjectDBDAOInterface
             return true;
         }
     }
+
+    @Override
+    public boolean updateProject(Project project) throws SQLServerException, SQLException {
+        if (!projectExist(project))
+        {
+            return false;
+        }
+
+        System.err.println(project);
+
+        try (Connection con = dbcon.getConnection())
+        {
+            PreparedStatement ps = con.prepareStatement("UPDATE [project] "
+                    + "SET projectName = ?,"
+                    + " projectrate = ?, clientID = ?"
+                    + " WHERE id = ?");
+            ps.setString(1, project.getProjectName());
+            ps.setInt(2, project.getProjectRate());
+            ps.setInt(3, project.getClient().getId());
+            ps.setInt(4, project.getId());
+
+            int updatedRows = ps.executeUpdate();
+
+            return updatedRows > 0;
+
+        }
+    }
     
 }

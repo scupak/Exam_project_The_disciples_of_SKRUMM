@@ -197,5 +197,32 @@ public class ClientDBDAO implements ClientDBDAOInterface
             return true;
         }
     }
+
+    @Override
+    public boolean updateClient(Client client) throws SQLServerException, SQLException {
+        if (!clientExist(client))
+        {
+            return false;
+        }
+
+        System.err.println(client);
+
+        try (Connection con = dbCon.getConnection())
+        {
+            PreparedStatement ps = con.prepareStatement("UPDATE [client] "
+                    + "SET name = ?,"
+                    + " rate = ?, isPaid = ?"
+                    + " WHERE id = ?");
+            ps.setString(1, client.getClientName());
+            ps.setInt(2, client.getClientRate());
+            ps.setInt(3, client.getIsPaid());
+            ps.setInt(4, client.getId());
+
+            int updatedRows = ps.executeUpdate();
+
+            return updatedRows > 0;
+
+        }
+    }
     
 }

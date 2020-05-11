@@ -5,6 +5,7 @@
  */
 package examProjectTheDisciplesOfSkrumm.GUI.Model;
 
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 import examProjectTheDisciplesOfSkrumm.BE.Client;
 import examProjectTheDisciplesOfSkrumm.BE.Project;
 import examProjectTheDisciplesOfSkrumm.BLL.BLLFacade;
@@ -65,6 +66,11 @@ public class ProjectModel implements ProjectModelInterface
     @Override
     public boolean deleteProject(Project project) throws SQLException {
        return bllfacade.deleteProject(project);
+    }
+
+    @Override
+    public boolean updateProject(Project project) throws SQLServerException, SQLException {
+        return bllfacade.updateProject(project);
     }
     
     

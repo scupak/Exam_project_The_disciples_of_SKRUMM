@@ -56,5 +56,10 @@ public class ClientManager implements ClientManagerInterface
     public boolean deleteClient(Client client) throws SQLException {
        return dalfacade.deleteClient(client);
     }
+
+    @Override
+    public boolean updateClient(Client client) throws SQLException {
+        return dalfacade.updateClient(client);
+    }
     
 }

@@ -28,7 +28,7 @@ public interface ProjectDBDAOInterface
     
     public boolean clearProject(Project project) throws SQLException;
     
-    
+    public boolean updateProject(Project project) throws SQLServerException, SQLException;
     
     
 }
