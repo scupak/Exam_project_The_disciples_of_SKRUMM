@@ -123,7 +123,7 @@ public class EditIntervalViewController implements Initializable
         Interval newInterval = new Interval(currentInterval.getId(), startTime.getValue(), stopTime.getValue(),
                 creationDate.getValue(), (int) intervalTime, currentTask, paidOrNot);
         
-        modelfacade.updateInterval(newInterval);
+        modelfacade.updateInterval(currentInterval, newInterval);
 
         Stage stage = (Stage) saveButton.getScene().getWindow();
         stage.close();

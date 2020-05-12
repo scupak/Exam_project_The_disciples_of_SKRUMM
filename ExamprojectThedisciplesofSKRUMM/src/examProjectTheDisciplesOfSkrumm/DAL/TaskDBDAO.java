@@ -375,8 +375,12 @@ public class TaskDBDAO implements TaskDBDAOInterface
     }
     
     @Override
-    public void updateInterval(Interval interval) throws SQLServerException, SQLException
+    public boolean updateInterval( Interval oldInterval, Interval newInterval) throws SQLServerException, SQLException
     {
+        if(!intervalExist(oldInterval))
+        {
+            return false;
+        }
         
         
         try (Connection con = dbCon.getConnection())
@@ -384,14 +388,27 @@ public class TaskDBDAO implements TaskDBDAOInterface
             String sql = "UPDATE [interval] SET creationDate = ?, startTime = ?, stopTime = ?, intervalTime = ?, isPaid = ? WHERE intervalId = ?";
             PreparedStatement ps = con.prepareStatement(sql);
             
-            ps.setDate(1, java.sql.Date.valueOf(interval.getCreationDate()));
-            ps.setTime(2, java.sql.Time.valueOf(interval.getStartTime()));
-            ps.setTime(3, java.sql.Time.valueOf(interval.getStopTime()));
-            ps.setInt(4, interval.getIntervalTime());
-            ps.setInt(5, interval.getIsPaid());
-            ps.setInt(6, interval.getId());
+            ps.setDate(1, java.sql.Date.valueOf(newInterval.getCreationDate()));
+            ps.setTime(2, java.sql.Time.valueOf(newInterval.getStartTime()));
+            ps.setTime(3, java.sql.Time.valueOf(newInterval.getStopTime()));
+            ps.setInt(4, newInterval.getIntervalTime());
+            ps.setInt(5, newInterval.getIsPaid());
+            ps.setInt(6, newInterval.getId());
             
             ps.executeUpdate();
+            
+            String updateLastUsed = "UPDATE [task] SET lastUsed = ?, duration = ? WHERE id = ?";
+            PreparedStatement ps2 = con.prepareStatement(updateLastUsed);
+
+            ps2.setTimestamp(1, java.sql.Timestamp.valueOf(LocalDateTime.now()));
+            ps2.setInt(2, newInterval.getTask().getDuration() - oldInterval.getIntervalTime() + newInterval.getIntervalTime());
+            ps2.setInt(3, newInterval.getTask().getId());
+
+            
+            
+            int updatedRows = ps2.executeUpdate();
+
+            return updatedRows > 0;
         }
     }
 
@@ -448,7 +465,7 @@ public class TaskDBDAO implements TaskDBDAOInterface
     {
         try(Connection con = dbCon.getConnection())
         { 
-            PreparedStatement ps = con.prepareStatement("SELECT FROM [interval] WHERE intervalId = ?");
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM [interval] WHERE intervalId = ?");
             ps.setInt(1, interval.getId());
             
             ResultSet rs = ps.executeQuery();
