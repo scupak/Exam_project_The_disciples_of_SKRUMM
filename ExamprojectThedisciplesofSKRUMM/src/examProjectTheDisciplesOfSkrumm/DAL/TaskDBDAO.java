@@ -480,7 +480,7 @@ public class TaskDBDAO implements TaskDBDAOInterface
                 
                 ps.setString(1, user.getEmail());
                 ps.setDate(2, java.sql.Date.valueOf(fromdate));
-                ps.setDate(2, java.sql.Date.valueOf(todate));
+                ps.setDate(3, java.sql.Date.valueOf(todate));
             
 
             ResultSet rs = ps.executeQuery();
@@ -497,8 +497,8 @@ public class TaskDBDAO implements TaskDBDAOInterface
                 LocalTime startTime = rs.getTime("startTime").toLocalTime();
                 LocalTime stopTime = rs.getTime("stopTime").toLocalTime();
                 //make the from date to date dal method work for intervals
-                ArrayList<Interval> intervals = getIntervals(new Task(id, title, project, duration, lastUsed, 
-                        creationDate, startTime, stopTime, user));
+                ArrayList<Interval> intervals = getIntervalsbetween2Dates(new Task(id, title, project, duration, lastUsed, 
+                        creationDate, startTime, stopTime, user),fromdate,todate);
                 
                 String userEmail = rs.getString("userEmail");
                 
@@ -516,16 +516,20 @@ public class TaskDBDAO implements TaskDBDAOInterface
         
         
         //make the from date to date dal method work for intervals
-        private ArrayList<Interval> getIntervalsbetween2Dates(Task task) throws SQLException
+        private ArrayList<Interval> getIntervalsbetween2Dates(Task task, LocalDate fromdate, LocalDate todate) throws SQLException
     {
         try (Connection con = dbCon.getConnection())
         {
             ArrayList<Interval> intervals = new ArrayList<>();
 
             PreparedStatement ps = con.prepareStatement("SELECT interval.creationDate,interval.intervalId,interval.intervalTime,interval.isPaid, interval.startTime,interval.stopTime,interval.taskId,  task.id , task.userEmail ,task.title "
-                                                      + "");
+                                                      + "FROM interval "
+                                                      + "INNER JOIN task on interval.taskId = task.id "
+                                                      + "WHERE  task.id = ? AND interval.creationDate > ? AND interval.creationDate < ? ");
 
             ps.setInt(1, task.getId());
+            ps.setDate(2,  java.sql.Date.valueOf(fromdate));
+            ps.setDate(3, java.sql.Date.valueOf(todate));
 
             ResultSet rs = ps.executeQuery();
             while (rs.next())
@@ -557,14 +561,57 @@ public class TaskDBDAO implements TaskDBDAOInterface
     {
         TaskDBDAO taskDBDAO = new TaskDBDAO();
 
-          User user = new User("Kok", "kok", "kok", "kok", true);
+          User user = new User("standard@user.now", "kok", "kok", "kok", true);
           ArrayList<Interval> intervals = new ArrayList<>();
           Client client = new Client(1, "why", 0, 0);
           Project project = new Project(1, "reeeeeeee", client, 0);
-          Task task = new Task(3, "rjo", project, 50, LocalDateTime.now(), LocalDate.now(), LocalTime.now(), LocalTime.now(), user, intervals);
-          Interval interval = new Interval(15, LocalTime.MIN, LocalTime.MIN, LocalDate.MIN, 0, task, 0);
-          taskDBDAO.deleteInterval(interval);
-          
+          Task task = new Task(2, "rjo", project, 50, LocalDateTime.now(), LocalDate.now(), LocalTime.now(), LocalTime.now(), user, intervals);
+         // Interval interval = new Interval(15, LocalTime.MIN, LocalTime.MIN, LocalDate.MIN, 0, task, 0);
+         // taskDBDAO.deleteInterval(interval);
+         
+         for (Task tasksForUserbetween2Date : taskDBDAO.getTasksForUserbetween2Dates(user, LocalDate.of(2020, Month.MAY, 2), LocalDate.of(2020, Month.MAY, 6))) {
+            
+             int i = 1;
+             System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++");
+             
+             for (Interval interval : tasksForUserbetween2Date.getIntervals()) {
+                 
+                 
+                 System.out.println( i + "  " + interval + "  " + interval.getTask() );
+                 
+                 
+                 i++;
+                 
+             }
+             
+        }
+         
+         
+         
+         /*
+         int i = 1;
+         
+         
+         
+         
+         
+         
+         
+         for (Interval intervalsbetween2Date : taskDBDAO.getIntervalsbetween2Dates(task, LocalDate.of(2020, Month.MAY, 3), LocalDate.of(2020, Month.MAY, 6))) {
+            
+             
+             System.out.println(intervalsbetween2Date + " " + i);
+             
+             i++;
+        }
+         
+         
+         
+         
+         
+         
+         
+          */
 //        Client client = new Client(1, "why", 0, 0);
 //        Project project = new Project(1, "reeeeeeee", client, 0);
 //        User user = taskDBDAO.userDBDAO.getUser(new User("standard@user.now", "kof", "kof", "fok", true));
