@@ -48,7 +48,11 @@ public class AddClientController implements Initializable
     private JFXTextField ClientRateTextField;
     @FXML
     private ImageView IspaidImageView;
+    
     private int isPaidNum;
+    
+    private AdminClientsAndProjectsController adminClientsAndProjectsController;
+    
 
     /**
      * Initializes the controller class.
@@ -78,7 +82,14 @@ public class AddClientController implements Initializable
         
                 Client client = new Client(id, ClientName, ClientRate, isPaid);
                 modelfacade.createClient(client);
-                addprojectviewcontroller.refreshClientComboBox();
+                if(addprojectviewcontroller != null) 
+                {
+                    addprojectviewcontroller.refreshClientComboBox();
+                }
+                if(adminClientsAndProjectsController != null)
+                {
+                adminClientsAndProjectsController.RefreshTableView();
+                }
                 Stage addClientView = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 addClientView.close();
             }catch (NumberFormatException ex)
@@ -102,7 +113,14 @@ public class AddClientController implements Initializable
         
                 Client client = new Client(id, ClientName, ClientRate, isPaid);
                 modelfacade.createClient(client);
+                if(addprojectviewcontroller != null)
+                {
                 addprojectviewcontroller.refreshClientComboBox();
+                }
+                if(adminClientsAndProjectsController != null)
+                {
+                adminClientsAndProjectsController.RefreshTableView();
+                }
                 Stage addClientView = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 addClientView.close();
             }catch (NumberFormatException ex)
@@ -157,6 +175,16 @@ public class AddClientController implements Initializable
             isPaidNum = 0;
             IspaidImageView.setImage(NotPaid);
         }
+    }
+
+    public AdminClientsAndProjectsController getAdminClientsAndProjectsController()
+    {
+        return adminClientsAndProjectsController;
+    }
+
+    public void setAdminClientsAndProjectsController(AdminClientsAndProjectsController adminClientsAndProjectsController)
+    {
+        this.adminClientsAndProjectsController = adminClientsAndProjectsController;
     }
 
 }

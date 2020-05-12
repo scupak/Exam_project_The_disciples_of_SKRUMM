@@ -139,6 +139,7 @@ public class AdminClientsAndProjectsController implements Initializable
                 getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/AddClient.fxml"));
         Parent root = loader.load();
         AddClientController controller = loader.getController();
+        controller.setAdminClientsAndProjectsController(this);
 
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
@@ -200,4 +201,11 @@ public class AdminClientsAndProjectsController implements Initializable
         adminClientsAndProjectsView.close();
     }
 
+    public void RefreshTableView()
+    {
+        clientTableView.setItems(modelfacade.getClients());
+       
+        projectTableView.setItems(modelfacade.getProjects());
+
+    }
 }
