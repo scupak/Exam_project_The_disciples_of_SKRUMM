@@ -309,6 +309,18 @@ public class ModelFacade implements ModelFacadeInterface
     public boolean deleteUser(User user) throws SQLServerException, SQLException {
         return userModel.deleteUser(user);
     }
+
+    @Override
+    public boolean updateProject(Project project) throws SQLServerException, SQLException
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean updateClient(Client client) throws SQLServerException, SQLException
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     
     

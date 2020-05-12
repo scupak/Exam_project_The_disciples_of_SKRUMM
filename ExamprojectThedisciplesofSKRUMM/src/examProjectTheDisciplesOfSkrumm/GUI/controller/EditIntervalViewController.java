@@ -44,7 +44,6 @@ public class EditIntervalViewController implements Initializable
     private JFXRadioButton paid;
     @FXML
     private JFXRadioButton notPaid;
-    @FXML
     private JFXTextField durationField;
     @FXML
     private JFXDatePicker creationDate;
@@ -61,6 +60,8 @@ public class EditIntervalViewController implements Initializable
 
     private Task currentTask;
     private Interval currentInterval;
+    @FXML
+    private JFXButton deleteButton;
 
     /**
      * Initializes the controller class.
@@ -96,8 +97,7 @@ public class EditIntervalViewController implements Initializable
         }
 
         currentInterval = interval;
-
-        durationField.setText(interval.getFormatedIntervaltime());
+        
         creationDate.setValue(interval.getCreationDate());
         startTime.setValue(interval.getStartTime());
         stopTime.setValue(interval.getStopTime());
@@ -133,6 +133,13 @@ public class EditIntervalViewController implements Initializable
     private void handleCancel(ActionEvent event)
     {
         Stage stage = (Stage) cancelButton.getScene().getWindow();
+        stage.close();
+    }
+
+    @FXML
+    private void handleDelete(ActionEvent event)
+    {
+        Stage stage = (Stage) deleteButton.getScene().getWindow();
         stage.close();
     }
 
