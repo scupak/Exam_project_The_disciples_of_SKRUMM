@@ -146,13 +146,16 @@ public class AdminUserViewController implements Initializable
         
         try{
         if(user == null){
-            JOptionPane.showMessageDialog(dialog, "Nothing seems to be selected!\nSelect a user to delete before pressing delete!", "ERROR", JOptionPane.ERROR_MESSAGE); 
+            JOptionPane.showMessageDialog(dialog, "Nothing seems to be selected!\nSelect a user to delete before pressing delete!", "ERROR", JOptionPane.ERROR_MESSAGE);
+            refreshTableview();
         }
         else if(modelfacade.userExist(modelfacade.getUser(user)) != true){
             JOptionPane.showMessageDialog(dialog, "User does not seem to exist!\nSelect an already existing user to delete before pressing delete!", "ERROR", JOptionPane.ERROR_MESSAGE);
+            refreshTableview();
         }
         else if(user.getEmail().equals(modelfacade.getCurrentuser().getEmail())){
             JOptionPane.showMessageDialog(dialog, "You can not delete yourself!\nselect another user that is not you!", "ERROR", JOptionPane.ERROR_MESSAGE);
+            refreshTableview();
         }
         else{
             modelfacade.deleteUser(user);
