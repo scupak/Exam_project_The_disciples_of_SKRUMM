@@ -48,6 +48,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
@@ -390,6 +391,7 @@ public class MainViewController implements Initializable
                 JFXComboBox<Interval> comboBox = (JFXComboBox) child;
                 comboBox.getItems().setAll(intervals);
 
+
                 comboBox.setOnAction(new EventHandler<ActionEvent>()
                 {
                     @Override
@@ -398,37 +400,33 @@ public class MainViewController implements Initializable
                         try
                         {
                             Interval interval = comboBox.getSelectionModel().getSelectedItem();
-                            
+
+                            if (interval != null)
+                            {
+                                FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/EditIntervalView.fxml"));
+                                Parent root = loader.load();
+                                EditIntervalViewController controller = loader.getController();
+                                controller.fillView(interval);
+
+                                Stage stage = new Stage();
+                                stage.setScene(new Scene(root));
+                                stage.setMinHeight(260);
+                                stage.setMinWidth(318);
+                                stage.setTitle("Edit Interval");
+                                stage.setAlwaysOnTop(true);
+                                stage.show();
+                            }
                             //Stage mainView = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                            
-                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/EditIntervalView.fxml"));
-                            Parent root = loader.load();
-                            EditIntervalViewController controller = loader.getController();
-                            controller.fillView(interval);
-                            
-                            Stage stage = new Stage();
-                            stage.setScene(new Scene(root));
-                            stage.setMinHeight(260);
-                            stage.setMinWidth(318);
-                            stage.setTitle("Edit Interval");
-                            stage.setAlwaysOnTop(true);
-                            stage.show();
-                            
-                            
+
                         } catch (IOException ex)
                         {
                             Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
                         }
-                        
-                        //comboBox.getSelectionModel().clearSelection();
-                        comboBox.getSelectionModel().clearSelection();
-                        comboBox.setValue(null);
-                        
-                        System.out.println(comboBox.getSelectionModel().getSelectedItem());
+
                     }
+
                 });
-                
-                
+
             }
 
         }
@@ -566,8 +564,8 @@ public class MainViewController implements Initializable
                 System.out.println(taskInterval);
 
                 currentTask.setDuration(modelfacade.getTimerutil().getTotalSec());
-                
-                if(currentTask.getIntervals().isEmpty())
+
+                if (currentTask.getIntervals().isEmpty())
                 {
                     currentTask.setStartTime(modelfacade.getTimerutil().getStartTime());
                 }
@@ -626,8 +624,8 @@ public class MainViewController implements Initializable
                 System.out.println(taskInterval);
 
                 currentTask.setDuration(modelfacade.getTimerutil().getTotalSec());
-                
-                if(currentTask.getIntervals().isEmpty())
+
+                if (currentTask.getIntervals().isEmpty())
                 {
                     currentTask.setStartTime(modelfacade.getTimerutil().getStartTime());
                 }

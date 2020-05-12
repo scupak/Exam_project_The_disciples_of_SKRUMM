@@ -25,4 +25,6 @@ public interface ClientDBDAOInterface
     public Client createClient(Client client) throws SQLException;
      
     public boolean deleteClient(Client client) throws SQLException;
+    
+    public boolean updateClient(Client client) throws SQLServerException, SQLException;
 }

@@ -80,7 +80,7 @@ public class AdminUserViewController implements Initializable
 
         if ((UserTableView.getSelectionModel().getSelectedItem() == null))
         {
-            JOptionPane.showMessageDialog(dialog, "Nothing seems to be selected!\nSelect a task to edit before pressing edit!", "ERROR", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(dialog, "Nothing seems to be selected!\nSelect a user to edit before pressing edit!", "ERROR", JOptionPane.ERROR_MESSAGE);
         } else
         {
 

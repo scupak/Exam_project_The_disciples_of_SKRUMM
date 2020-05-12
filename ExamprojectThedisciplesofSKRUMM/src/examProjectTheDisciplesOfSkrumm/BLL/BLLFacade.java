@@ -101,9 +101,9 @@ public class BLLFacade implements BLLFacadeInterface
     }
 
     @Override
-    public Interval newInterval(Interval interval) throws SQLException
+    public void newInterval(Interval interval) throws SQLException
     {
-        return taskmanager.newInterval(interval);
+        taskmanager.newInterval(interval);
     }
 
     @Override
@@ -232,6 +232,22 @@ public class BLLFacade implements BLLFacadeInterface
     @Override
     public boolean deleteUser(User user) throws SQLException {
        return userManager.deleteUser(user);
+    }
+
+    @Override
+    public boolean deleteInterval(Interval interval) throws SQLException 
+    {
+        return taskmanager.deleteInterval(interval);
+    }
+    
+    @Override
+    public boolean updateClient(Client client) throws SQLServerException, SQLException {
+        return clientmanager.updateClient(client);
+    }
+
+    @Override
+    public boolean updateProject(Project project) throws SQLServerException, SQLException {
+        return projectmanager.updateProject(project);
     }
 
 }

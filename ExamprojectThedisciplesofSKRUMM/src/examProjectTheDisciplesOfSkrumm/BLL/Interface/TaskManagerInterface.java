@@ -21,7 +21,7 @@ import java.util.List;
  */
 public interface TaskManagerInterface 
 {
-    public Interval newInterval(Interval interval) throws SQLException;
+    public void newInterval(Interval interval) throws SQLException;
     
     public List<Task> getSixTasks(User user) throws SQLException;
     
@@ -44,4 +44,6 @@ public interface TaskManagerInterface
     public boolean clearTask(Task task) throws SQLException;
     
     public void updateInterval(Interval interval) throws SQLServerException, SQLException;
+    
+    public boolean deleteInterval(Interval interval) throws SQLException;
 }

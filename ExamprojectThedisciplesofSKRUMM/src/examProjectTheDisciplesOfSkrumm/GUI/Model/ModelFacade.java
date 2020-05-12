@@ -18,6 +18,7 @@ import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.ProjectModelInterface
 import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.TaskModelInterface;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.UserModelInterface;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -39,7 +40,7 @@ public class ModelFacade implements ModelFacadeInterface
     private ClientModelInterface clientmodel;
     private UserModelInterface userModel;
     
-    private ModelFacade() throws IOException, SQLException 
+    public ModelFacade() throws IOException, SQLException 
     {
         taskmodel = new TaskModel();
         projectmodel = new ProjectModel();
@@ -185,9 +186,9 @@ public class ModelFacade implements ModelFacadeInterface
     }
     
     @Override
-    public Interval newInterval(Interval interval) throws SQLException
+    public void newInterval(Interval interval) throws SQLException
     {
-        return taskmodel.newInterval(interval);
+        taskmodel.newInterval(interval);
     }
     
     @Override
@@ -292,6 +293,16 @@ public class ModelFacade implements ModelFacadeInterface
     @Override
     public boolean updateUser(User oldUser, User newUser) throws SQLServerException, SQLException {
         return userModel.updateUser(oldUser, newUser);
+    }
+
+    @Override
+    public List<Project> getAllProjects() throws SQLServerException, SQLException
+    {
+        return projectmodel.getAllProjects();
+    }
+    
+    public boolean deleteInterval(Interval interval) throws SQLException {
+        return taskmodel.deleteInterval(interval);
     }
     
     @Override

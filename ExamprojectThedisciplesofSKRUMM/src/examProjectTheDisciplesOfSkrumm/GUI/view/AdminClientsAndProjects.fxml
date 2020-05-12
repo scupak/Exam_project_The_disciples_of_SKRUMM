@@ -22,15 +22,15 @@
       <TableView fx:id="clientTableView" layoutX="34.0" layoutY="99.0" prefHeight="358.0" prefWidth="203.0" stylesheets="@../css/Graphics.css">
         <columns>
           <TableColumn fx:id="clientNameColumn" prefWidth="106.39999008178711" text="Client" />
-          <TableColumn fx:id="clientHoursColumn" prefWidth="96.0" text="hours" />
+          <TableColumn fx:id="clientProjectsColumn" prefWidth="96.0" text="Projects" />
         </columns>
       </TableView>
       <TableView fx:id="projectTableView" layoutX="363.0" layoutY="99.0" prefHeight="358.0" prefWidth="333.0" stylesheets="@../css/Graphics.css">
         <columns>
-          <TableColumn prefWidth="124.79998779296875" text="Project" />
-          <TableColumn prefWidth="93.60003662109375" text="Client" />
-            <TableColumn prefWidth="60.79998779296875" text="Hours" />
-            <TableColumn prefWidth="55.20001220703125" text="Is Paid" />
+          <TableColumn fx:id="projectNameColumn" prefWidth="124.79998779296875" text="Project" />
+          <TableColumn fx:id="projectClientColumn" prefWidth="93.60003662109375" text="Client" />
+            <TableColumn fx:id="projectHoursColumn" prefWidth="60.79998779296875" text="Hours" />
+            <TableColumn fx:id="projectIsPaidColumn" prefWidth="55.20001220703125" text="Is Paid" />
         </columns>
       </TableView>
       <JFXButton fx:id="createClientBtn" layoutX="34.0" layoutY="457.0" onAction="#handleCreateClient" stylesheets="@../css/Graphics.css" text="Create Client" />

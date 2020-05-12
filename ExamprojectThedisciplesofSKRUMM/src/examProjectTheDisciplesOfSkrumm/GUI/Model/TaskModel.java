@@ -27,6 +27,7 @@ import java.sql.SQLException;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import examProjectTheDisciplesOfSkrumm.BE.User;
 import examProjectTheDisciplesOfSkrumm.BLL.Util.TimerUtil;
+import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -89,9 +90,9 @@ public class TaskModel implements TaskModelInterface
     }
     
     @Override
-    public Interval newInterval(Interval interval) throws SQLServerException, SQLException
+    public void newInterval(Interval interval) throws SQLServerException, SQLException
     {
-        return bllfacade.newInterval(interval);
+        bllfacade.newInterval(interval);
     }
     
     @Override
@@ -185,6 +186,11 @@ public class TaskModel implements TaskModelInterface
     @Override
     public void setExecutorService(ExecutorService executorService) {
         this.executorService = executorService;
+    }
+
+    @Override
+    public boolean deleteInterval(Interval interval) throws SQLException {
+        return bllfacade.deleteInterval(interval);
     }
     
     

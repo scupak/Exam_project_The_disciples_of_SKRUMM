@@ -138,13 +138,13 @@ public class ClientDBDAO implements ClientDBDAOInterface
         ArrayList<Client> clients = new ArrayList<>();
         clients.addAll(clientDb.getAllClients());
         
-//        for (Client client : clients)
-//        {
-//          System.out.println(client);
-//        }
+        for (Client client : clients)
+        {
+          System.out.println(client);
+        }
         
-        Client steve = new Client(3, "Test", 0, 0);
-        clientDb.createClient(steve);
+//        Client steve = new Client(3, "Test", 0, 0);
+//        clientDb.createClient(steve);
 //        System.out.println(clientDb.clientExist(steve));
 //       System.out.println(clientDb.getClient(steve));
 //        clientDb.createClient(steve);
@@ -195,6 +195,33 @@ public class ClientDBDAO implements ClientDBDAOInterface
             }
             
             return true;
+        }
+    }
+
+    @Override
+    public boolean updateClient(Client client) throws SQLServerException, SQLException {
+        if (!clientExist(client))
+        {
+            return false;
+        }
+
+        System.err.println(client);
+
+        try (Connection con = dbCon.getConnection())
+        {
+            PreparedStatement ps = con.prepareStatement("UPDATE [client] "
+                    + "SET name = ?,"
+                    + " rate = ?, isPaid = ?"
+                    + " WHERE id = ?");
+            ps.setString(1, client.getClientName());
+            ps.setInt(2, client.getClientRate());
+            ps.setInt(3, client.getIsPaid());
+            ps.setInt(4, client.getId());
+
+            int updatedRows = ps.executeUpdate();
+
+            return updatedRows > 0;
+
         }
     }
     

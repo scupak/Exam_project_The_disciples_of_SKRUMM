@@ -27,5 +27,6 @@ public interface ProjectManagerInterface
     
     public boolean deleteProject(Project project) throws SQLException;
     
+    public boolean updateProject(Project project) throws SQLException;
    
 }

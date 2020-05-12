@@ -12,6 +12,7 @@ import examProjectTheDisciplesOfSkrumm.DAL.DALFacade;
 import examProjectTheDisciplesOfSkrumm.DAL.Interface.DALFacadeInterface;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,13 +32,27 @@ public class ClientManager implements ClientManagerInterface
     @Override
     public Client getClient(Client client) throws SQLException 
     {
-       return dalfacade.getClient(client);
+        Client newClient = dalfacade.getClient(client);
+       newClient.getProjects().addAll(dalfacade.getProjectsForClient(newClient));
+       return newClient;
     }
 
     @Override
     public List<Client> getAllClients() throws SQLServerException, SQLException 
     {
-       return dalfacade.getAllClients();
+        ArrayList<Client> clients = new ArrayList<>();
+        clients.addAll(dalfacade.getAllClients());
+        for (Client client : clients)
+        {
+            
+            if(dalfacade.getProjectsForClient(client) != null && !dalfacade.getProjectsForClient(client).isEmpty())
+            {
+               client.getProjects().addAll(dalfacade.getProjectsForClient(client));
+            }
+            
+        }
+        
+       return clients;
     }
 
     @Override
@@ -55,6 +70,11 @@ public class ClientManager implements ClientManagerInterface
     @Override
     public boolean deleteClient(Client client) throws SQLException {
        return dalfacade.deleteClient(client);
+    }
+
+    @Override
+    public boolean updateClient(Client client) throws SQLException {
+        return dalfacade.updateClient(client);
     }
     
 }
