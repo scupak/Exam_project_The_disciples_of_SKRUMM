@@ -36,7 +36,7 @@ public class UserModel implements UserModelInterface
      public boolean checkUser(User user) throws SQLException
      {
         user.setIsAdmin(bllFacade.getUser(user).getIsAdmin());
-         return bllFacade.checkUser(user);
+        return bllFacade.checkUser(user);
      }
      
      public String hashPassword(String password)

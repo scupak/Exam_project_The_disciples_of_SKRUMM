@@ -377,6 +377,8 @@ public class TaskDBDAO implements TaskDBDAOInterface
     @Override
     public void updateInterval(Interval interval) throws SQLServerException, SQLException
     {
+        
+        
         try (Connection con = dbCon.getConnection())
         {
             String sql = "UPDATE [interval] SET creationDate = ?, startTime = ?, stopTime = ?, intervalTime = ?, isPaid = ? WHERE intervalId = ?";
@@ -426,6 +428,11 @@ public class TaskDBDAO implements TaskDBDAOInterface
     @Override
     public boolean deleteInterval(Interval interval) throws SQLException 
     {
+        if(!intervalExist(interval))
+        {
+            return false;
+        }
+        
         try(Connection con = dbCon.getConnection())
         { 
             PreparedStatement ps = con.prepareStatement("DELETE FROM [interval] WHERE intervalId = ?");
@@ -435,9 +442,24 @@ public class TaskDBDAO implements TaskDBDAOInterface
             
             return updatedRows > 0;
         }
+    }
         
-        
-        
+    public boolean intervalExist(Interval interval) throws SQLException 
+    {
+        try(Connection con = dbCon.getConnection())
+        { 
+            PreparedStatement ps = con.prepareStatement("SELECT FROM [interval] WHERE intervalId = ?");
+            ps.setInt(1, interval.getId());
+            
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next())
+            {
+                return true;
+            }
+
+            return false;
+        }  
     }
     
         public List<Task> getTasksForUserbetween2Dates(User user, LocalDate fromdate, LocalDate todate) throws SQLException
@@ -524,6 +546,8 @@ public class TaskDBDAO implements TaskDBDAOInterface
             return intervals;
         }
     }
+        
+        
     
     
     
