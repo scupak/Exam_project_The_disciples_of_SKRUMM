@@ -12,6 +12,7 @@ import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.ModelFacadeInterface;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.ModelFacade;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,8 +23,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TreeItem;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
@@ -50,6 +53,14 @@ public class AdminUserViewController implements Initializable
     private TableView<User> UserTableView;
     
     ModelFacadeInterface modelfacade;
+    @FXML
+    private TableColumn<User, String> firstNameColumn;
+    @FXML
+    private TableColumn<User, String> lastNameColumn;
+    @FXML
+    private TableColumn<User, String> emailColumn;
+    @FXML
+    private TableColumn<User, String> adminColumn;
 
     /**
      * Initializes the controller class.
@@ -64,6 +75,25 @@ public class AdminUserViewController implements Initializable
         } catch (Exception ex)
         {
             Logger.getLogger(TaskViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        firstNameColumn.setCellValueFactory(
+        new PropertyValueFactory<User, String>("firstName")
+        );
+        
+        lastNameColumn.setCellValueFactory(
+        new PropertyValueFactory<User, String>("lastName"));
+        
+        emailColumn.setCellValueFactory(
+        new PropertyValueFactory<User, String>("email"));
+        
+        adminColumn.setCellValueFactory(
+        new PropertyValueFactory<User, String>("isAdmin"));
+        
+        try {
+            refreshTableview();
+        } catch (SQLException ex) {
+            Logger.getLogger(AdminUserViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }    
 
@@ -110,6 +140,32 @@ public class AdminUserViewController implements Initializable
     @FXML
     private void handleDeleteUser(ActionEvent event)
     {
+        User user = UserTableView.getSelectionModel().getSelectedItem();
+        final JDialog dialog = new JDialog();
+        dialog.setAlwaysOnTop(true);
+        
+        try{
+        if(user == null){
+            JOptionPane.showMessageDialog(dialog, "Nothing seems to be selected!\nSelect a user to delete before pressing delete!", "ERROR", JOptionPane.ERROR_MESSAGE);
+            refreshTableview();
+        }
+        else if(modelfacade.userExist(modelfacade.getUser(user)) != true){
+            JOptionPane.showMessageDialog(dialog, "User does not seem to exist!\nSelect an already existing user to delete before pressing delete!", "ERROR", JOptionPane.ERROR_MESSAGE);
+            refreshTableview();
+        }
+        else if(user.getEmail().equals(modelfacade.getCurrentuser().getEmail())){
+            JOptionPane.showMessageDialog(dialog, "You can not delete yourself!\nselect another user that is not you!", "ERROR", JOptionPane.ERROR_MESSAGE);
+            refreshTableview();
+        }
+        else{
+            modelfacade.deleteUser(user);
+            refreshTableview();
+        }
+        }
+        catch(SQLException karl){
+            karl.printStackTrace();
+            JOptionPane.showMessageDialog(dialog, "Database connection error\n Error code; Karl\n" + karl, "Karl", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     @FXML
@@ -136,9 +192,9 @@ public class AdminUserViewController implements Initializable
         adminClientsAndProjectsView.close();
     }
     
-    public void refreshTableview()
+    public void refreshTableview() throws SQLException
     {
-        
+        UserTableView.setItems(modelfacade.getAllUsers());
     }
     
 }

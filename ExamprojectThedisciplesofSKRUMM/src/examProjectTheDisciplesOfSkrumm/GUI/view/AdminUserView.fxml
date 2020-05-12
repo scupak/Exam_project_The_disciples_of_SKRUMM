@@ -5,27 +5,36 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="525.0" prefWidth="726.0" style="-fx-border-color: #435a9a; -fx-border-width: 90 3 3 3;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="examProjectTheDisciplesOfSkrumm.GUI.controller.AdminUserViewController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="525.0" prefWidth="726.0" style="-fx-border-color: #435a9a; -fx-border-width: 90 3 3 3;" stylesheets="@../css/Graphics.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="examProjectTheDisciplesOfSkrumm.GUI.controller.AdminUserViewController">
    <children>
-      <Label alignment="CENTER" layoutX="333.0" layoutY="27.0" prefHeight="46.0" prefWidth="79.0" text="Users" textFill="WHITE" AnchorPane.leftAnchor="262.0" AnchorPane.rightAnchor="263.0">
+      <Label alignment="CENTER" layoutX="266.0" layoutY="5.0" prefHeight="46.0" prefWidth="79.0" text="Users" textFill="WHITE" AnchorPane.leftAnchor="266.0" AnchorPane.rightAnchor="265.0">
          <font>
             <Font size="30.0" />
          </font>
       </Label>
-      <JFXButton fx:id="backBtn" layoutX="14.0" layoutY="24.0" onAction="#handleBack" stylesheets="@../css/Graphics.css" text="Back" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="-75.0" />
-      <TableView fx:id="UserTableView" layoutX="37.0" layoutY="101.0" prefHeight="314.0" prefWidth="658.0">
+      <TableView fx:id="UserTableView" layoutX="37.0" layoutY="101.0" prefHeight="381.0" prefWidth="658.0">
         <columns>
-          <TableColumn prefWidth="157.60000228881836" text="First Name" />
-          <TableColumn prefWidth="170.40003967285156" text="Last Name" />
-            <TableColumn prefWidth="181.5999755859375" text="Email" />
-            <TableColumn prefWidth="151.199951171875" text="Admin" />
+          <TableColumn fx:id="firstNameColumn" prefWidth="157.60000228881836" text="First Name" />
+          <TableColumn fx:id="lastNameColumn" prefWidth="170.40003967285156" text="Last Name" />
+            <TableColumn fx:id="emailColumn" prefWidth="181.5999755859375" text="Email" />
+            <TableColumn fx:id="adminColumn" prefWidth="151.199951171875" text="Admin" />
         </columns>
       </TableView>
-      <JFXButton fx:id="createUserBtn" layoutX="37.0" layoutY="423.0" onAction="#handleCreateUser" stylesheets="@../css/Graphics.css" text="Create" />
-      <JFXButton fx:id="editBtn" layoutX="88.0" layoutY="423.0" onAction="#handleEditUser" stylesheets="@../css/Graphics.css" text="Edit" />
-      <JFXButton fx:id="deleteUser" layoutX="126.0" layoutY="423.0" onAction="#handleDeleteUser" stylesheets="@../css/Graphics.css" text="Delete" />
-      <JFXButton fx:id="adminBtn" layoutX="633.0" layoutY="423.0" onAction="#handleMakeAdmin" stylesheets="@../css/Graphics.css" text="Admin" />
+      <JFXButton fx:id="adminBtn" layoutX="644.0" layoutY="482.0" onAction="#handleMakeAdmin" stylesheets="@../css/Graphics.css" text="Admin" />
+      <HBox layoutX="301.0" layoutY="51.0" prefHeight="25.0" prefWidth="124.0">
+         <children>
+            <JFXButton fx:id="backBtn" onAction="#handleBack" stylesheets="@../css/Graphics.css" text="Back to admin menu" />
+         </children>
+      </HBox>
+      <HBox layoutX="37.0" layoutY="482.0" prefHeight="25.0" prefWidth="149.0" spacing="2.0">
+         <children>
+            <JFXButton fx:id="createUserBtn" onAction="#handleCreateUser" stylesheets="@../css/Graphics.css" text="Create" />
+            <JFXButton fx:id="editBtn" onAction="#handleEditUser" stylesheets="@../css/Graphics.css" text="Edit" />
+            <JFXButton fx:id="deleteUser" onAction="#handleDeleteUser" stylesheets="@../css/Graphics.css" text="Delete" />
+         </children>
+      </HBox>
    </children>
 </AnchorPane>
