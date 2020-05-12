@@ -140,6 +140,29 @@ public class AdminUserViewController implements Initializable
     @FXML
     private void handleDeleteUser(ActionEvent event)
     {
+        User user = UserTableView.getSelectionModel().getSelectedItem();
+        final JDialog dialog = new JDialog();
+        dialog.setAlwaysOnTop(true);
+        
+        try{
+        if(user == null){
+            JOptionPane.showMessageDialog(dialog, "Nothing seems to be selected!\nSelect a user to delete before pressing delete!", "ERROR", JOptionPane.ERROR_MESSAGE); 
+        }
+        else if(modelfacade.userExist(modelfacade.getUser(user)) != true){
+            JOptionPane.showMessageDialog(dialog, "User does not seem to exist!\nSelect an already existing user to delete before pressing delete!", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+        else if(user.getEmail().equals(modelfacade.getCurrentuser().getEmail())){
+            JOptionPane.showMessageDialog(dialog, "You can not delete yourself!\nselect another user that is not you!", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+        else{
+            modelfacade.deleteUser(user);
+            refreshTableview();
+        }
+        }
+        catch(SQLException karl){
+            karl.printStackTrace();
+            JOptionPane.showMessageDialog(dialog, "Database connection error\n Error code; Karl\n" + karl, "Karl", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     @FXML
