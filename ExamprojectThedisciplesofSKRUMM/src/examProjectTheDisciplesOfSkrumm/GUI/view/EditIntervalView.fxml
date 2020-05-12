@@ -40,9 +40,9 @@
             <Label text="Start Time" GridPane.rowIndex="1" />
             <Label text="Stop Time" GridPane.rowIndex="2" />
             <Label text="Creation Date" />
-            <JFXDatePicker fx:id="creationDate" GridPane.columnIndex="1" />
-            <JFXTimePicker fx:id="startTime" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <JFXTimePicker fx:id="stopTime" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <JFXDatePicker fx:id="creationDate" defaultColor="#435a9a" GridPane.columnIndex="1" />
+            <JFXTimePicker fx:id="startTime" defaultColor="#435a9a" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <JFXTimePicker fx:id="stopTime" defaultColor="#435a9a" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
       </GridPane>
       <JFXButton fx:id="saveButton" layoutX="117.0" layoutY="221.0" onAction="#handleSave" style="-fx-background-color: #435a9a;" text="Save" textFill="WHITE" />

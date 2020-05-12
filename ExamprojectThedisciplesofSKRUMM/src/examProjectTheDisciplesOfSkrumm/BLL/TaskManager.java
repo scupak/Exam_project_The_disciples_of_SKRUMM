@@ -45,9 +45,9 @@ public class TaskManager implements TaskManagerInterface
     }
     
     @Override
-    public void updateInterval(Interval interval) throws SQLServerException, SQLException
+    public boolean updateInterval( Interval oldInterval, Interval newInterval) throws SQLServerException, SQLException
     {
-        dal.updateInterval(interval);
+        return dal.updateInterval(oldInterval, newInterval);
     }
     
     @Override
