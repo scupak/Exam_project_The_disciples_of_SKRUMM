@@ -474,10 +474,14 @@ public class TaskDBDAO implements TaskDBDAOInterface
                 LocalDate creationDate = rs.getDate("creationDate").toLocalDate();
                 LocalTime startTime = rs.getTime("startTime").toLocalTime();
                 LocalTime stopTime = rs.getTime("stopTime").toLocalTime();
+                //make the from date to date dal method work for intervals
                 ArrayList<Interval> intervals = getIntervals(new Task(id, title, project, duration, lastUsed, 
                         creationDate, startTime, stopTime, user));
+                
                 String userEmail = rs.getString("userEmail");
+                
                 User user1 = userDBDAO.getUser(new User(userEmail, "22", "22", title, false));
+                
                 tasks.add(new Task(id, title, project, duration, lastUsed, creationDate, startTime, 
                         stopTime, user1, intervals));
 
@@ -486,6 +490,39 @@ public class TaskDBDAO implements TaskDBDAOInterface
             return tasks;
         }
 
+    }
+        
+        
+        //make the from date to date dal method work for intervals
+        private ArrayList<Interval> getIntervalsbetween2Dates(Task task) throws SQLException
+    {
+        try (Connection con = dbCon.getConnection())
+        {
+            ArrayList<Interval> intervals = new ArrayList<>();
+
+            PreparedStatement ps = con.prepareStatement("SELECT interval.creationDate,interval.intervalId,interval.intervalTime,interval.isPaid, interval.startTime,interval.stopTime,interval.taskId,  task.id , task.userEmail ,task.title "
+                                                      + "");
+
+            ps.setInt(1, task.getId());
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next())
+            {
+                Date date = rs.getDate("creationDate");
+                java.sql.Time intervalStartTime = rs.getTime("startTime");
+                java.sql.Time intervalStopTime = rs.getTime("stopTime");
+                int intervalTime = rs.getInt("intervalTime");
+                int isPaid = rs.getInt("isPaid");
+                int id = rs.getInt("intervalId");
+
+                Interval interval = new Interval(id, intervalStartTime.toLocalTime(), intervalStopTime.toLocalTime(), date.toLocalDate(), intervalTime,
+                        task, isPaid);
+
+                intervals.add(interval);
+            }
+
+            return intervals;
+        }
     }
     
     
