@@ -149,6 +149,11 @@ public class TaskManager implements TaskManagerInterface
     {
        return dal.deleteInterval(interval);
     }
+
+    @Override
+    public List<Task> getTasksForUserbetween2Dates(User user, LocalDate fromdate, LocalDate todate) throws SQLException {
+       return dal.getTasksForUserbetween2Dates(user, fromdate, todate);
+    }
   
    
     

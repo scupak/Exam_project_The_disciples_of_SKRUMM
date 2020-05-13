@@ -241,5 +241,10 @@ public class DALFacade implements DALFacadeInterface
     public boolean deleteProjectFromUser(User user, Project project) throws SQLServerException, SQLException {
         return userDBDAO.deleteProjectFromUser(user, project);
     }
+
+    @Override
+    public List<Task> getTasksForUserbetween2Dates(User user, LocalDate fromdate, LocalDate todate) throws SQLException {
+        return taskDBDAO.getTasksForUserbetween2Dates(user, fromdate, todate);
+    }
     
 }

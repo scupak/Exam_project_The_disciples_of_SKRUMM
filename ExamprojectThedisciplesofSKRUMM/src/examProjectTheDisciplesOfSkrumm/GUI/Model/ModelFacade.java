@@ -342,5 +342,10 @@ public class ModelFacade implements ModelFacadeInterface
     public boolean deleteProjectFromUser(User user, Project project) throws SQLServerException, SQLException {
         return userModel.deleteProjectFromUser(user, project);
     }
+
+    @Override
+    public List<Task> getTasksForUserbetween2Dates(User user, LocalDate fromdate, LocalDate todate) throws SQLException {
+        return taskmodel.getTasksForUserbetween2Dates(user, fromdate, todate);
+    }
     
 }

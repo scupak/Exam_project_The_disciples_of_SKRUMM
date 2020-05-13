@@ -43,4 +43,6 @@ public interface TaskDBDAOInterface
     public boolean updateInterval( Interval oldInterval, Interval newInterval) throws SQLServerException, SQLException;
     
     public boolean deleteInterval(Interval interval) throws SQLException;
+    
+    public List<Task> getTasksForUserbetween2Dates(User user, LocalDate fromdate, LocalDate todate) throws SQLException;
 }

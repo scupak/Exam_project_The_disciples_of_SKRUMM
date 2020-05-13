@@ -488,6 +488,7 @@ public class TaskDBDAO implements TaskDBDAOInterface
         }  
     }
     
+    @Override
     public List<Task> getTasksForUserbetween2Dates(User user, LocalDate fromdate, LocalDate todate) throws SQLException
     {
         ArrayList<Task> tasks = new ArrayList<>();

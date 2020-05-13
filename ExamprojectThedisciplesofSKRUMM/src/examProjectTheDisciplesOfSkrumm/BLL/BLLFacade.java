@@ -271,4 +271,9 @@ public class BLLFacade implements BLLFacadeInterface
          return userManager.deleteProjectFromUser(user, project);
     }
 
+    @Override
+    public List<Task> getTasksForUserbetween2Dates(User user, LocalDate fromdate, LocalDate todate) throws SQLException {
+      return taskmanager.getTasksForUserbetween2Dates(user, fromdate, todate);
+    }
+
 }
