@@ -142,15 +142,30 @@ public class EditIntervalViewController implements Initializable
     {
         try
         {
-            modelfacade.deleteInterval(currentInterval);
-            Stage stage = (Stage) deleteButton.getScene().getWindow();
-            stage.close();
+            if(modelfacade.getTask(currentTask).getIntervals().size() > 1)
+            {
+                modelfacade.deleteInterval(currentInterval);
+                Stage stage = (Stage) deleteButton.getScene().getWindow();
+                stage.close();
+            }
+            else
+            {
+                Stage stage = (Stage) deleteButton.getScene().getWindow();
+                stage.setAlwaysOnTop(false);
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warining");
+                alert.setHeaderText("You cant delete a tasks last interval, sorry.");
+                alert.setContentText("Please try again");
+                alert.showAndWait(); 
+                stage.setAlwaysOnTop(true);
+            }
+            
         }
         catch(SQLException e)
         {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
-            alert.setHeaderText("your email or password may be incorect\n" + e);
+            alert.setHeaderText("Could delete interval\n" + e);
             alert.setContentText("Please try again");
             alert.showAndWait();
             
