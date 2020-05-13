@@ -255,4 +255,9 @@ public class BLLFacade implements BLLFacadeInterface
       return userManager.getAllUserProjects(user);
     }
 
+    @Override
+    public boolean addUserToProject(User user, Project project) throws SQLServerException, SQLException {
+       return userManager.addUserToProject(user, project);
+    }
+
 }

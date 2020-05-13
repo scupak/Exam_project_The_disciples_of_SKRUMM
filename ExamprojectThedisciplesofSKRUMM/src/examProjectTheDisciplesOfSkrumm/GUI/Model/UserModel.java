@@ -91,6 +91,11 @@ public class UserModel implements UserModelInterface
     public List<Project> getAllUserProjects(User user) throws SQLServerException, SQLException {
         return bllFacade.getAllUserProjects(user);
     }
+
+    @Override
+    public boolean addUserToProject(User user, Project project) throws SQLServerException, SQLException {
+        return bllFacade.addUserToProject(user, project);
+    }
     
     
 }

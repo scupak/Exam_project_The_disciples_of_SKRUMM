@@ -221,6 +221,10 @@ public class UserDBDAO implements UserDBDAOInterface
        // User test1 = new User("standard@user.now", "Mads", "Jensen", "nemt", false);
         //User test2 = new User("admin@user.now", "Jakob", "Grumsen", "nemt", true);
         User test67 = new User("standard@user.now", "No", "Yes", "ok", true);
+        Project p = new Project(3, "projectName", new Client(1, "ClientName", 0, 0), 0);
+        
+        //userDb.addUserToProject(test67, p);
+        
         //userDb.createUser(test1);
         //userDb.createUser(test2);
        /* userDb.createUser(test67);
