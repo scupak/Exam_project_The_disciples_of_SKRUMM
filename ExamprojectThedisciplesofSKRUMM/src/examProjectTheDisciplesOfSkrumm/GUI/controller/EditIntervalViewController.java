@@ -27,6 +27,7 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.HBox;
@@ -137,10 +138,24 @@ public class EditIntervalViewController implements Initializable
     }
 
     @FXML
-    private void handleDelete(ActionEvent event)
+    private void handleDelete(ActionEvent event) 
     {
-        Stage stage = (Stage) deleteButton.getScene().getWindow();
-        stage.close();
+        try
+        {
+            modelfacade.deleteInterval(currentInterval);
+            Stage stage = (Stage) deleteButton.getScene().getWindow();
+            stage.close();
+        }
+        catch(SQLException e)
+        {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("your email or password may be incorect\n" + e);
+            alert.setContentText("Please try again");
+            alert.showAndWait();
+            
+        }
+        
     }
 
 }
