@@ -58,7 +58,11 @@ public class ProjectManager implements ProjectManagerInterface
     public boolean updateProject(Project project) throws SQLException {
         return dalfacade.updateProject(project);
     }
-
+    
+    public List<Project> getProjectsForClient(Client client) throws SQLException
+    {
+        return dalfacade.getProjectsForClient(client);
+    }
     
     
 }

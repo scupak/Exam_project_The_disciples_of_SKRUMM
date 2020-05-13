@@ -13,6 +13,7 @@ import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.ModelFacadeInterface;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.ModelFacade;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.time.LocalTime;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -29,8 +30,11 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 
 /**
  * FXML Controller class
@@ -47,6 +51,8 @@ public class AdminClientsAndProjectsController implements Initializable
     @FXML
     private TableColumn<Client, Integer> clientProjectsColumn;
     @FXML
+    private TableColumn<Client, Integer> clientRateColumn;
+    @FXML
     private TableView<Project> projectTableView;
     @FXML
     private TableColumn<Project, String> projectNameColumn;
@@ -56,6 +62,8 @@ public class AdminClientsAndProjectsController implements Initializable
     private TableColumn<Project, Integer> projectHoursColumn;
     @FXML
     private TableColumn<Project, Integer> projectIsPaidColumn;
+    @FXML
+    private TableColumn<Project, ?> projectCreationColumn;
     @FXML
     private JFXButton createClientBtn;
     @FXML
@@ -71,7 +79,9 @@ public class AdminClientsAndProjectsController implements Initializable
     @FXML
     private JFXButton backBtn;
 
-    ModelFacadeInterface modelfacade;
+        ModelFacadeInterface modelfacade;
+    
+   
 
     /**
      * Initializes the controller class.
@@ -104,6 +114,7 @@ public class AdminClientsAndProjectsController implements Initializable
             }
 
         });
+        clientRateColumn.setCellValueFactory(new PropertyValueFactory<>("ClientRate"));
 
         clientTableView.setItems(modelfacade.getClients());
 
@@ -127,6 +138,7 @@ public class AdminClientsAndProjectsController implements Initializable
         });
         //projectHoursColumn.setCellValueFactory(value);
         projectIsPaidColumn.setCellValueFactory(new PropertyValueFactory<>("isPaid"));
+        //projectCreationColumn.setCellValueFactory(new PropertyValueFactory<>("creationDate"));
 
         projectTableView.setItems(modelfacade.getProjects());
         
@@ -154,6 +166,8 @@ public class AdminClientsAndProjectsController implements Initializable
                 getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/EditClient.fxml"));
         Parent root = loader.load();
         EditClientController controller = loader.getController();
+            controller.setClient(clientTableView.getSelectionModel().getSelectedItem());
+             controller.setAdminClientsAndProjectsController(this);
 
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
@@ -163,23 +177,77 @@ public class AdminClientsAndProjectsController implements Initializable
     }
 
     @FXML
-    private void handleDeleteClient(ActionEvent event)
+    private void handleDeleteClient(ActionEvent event) throws SQLException
     {
+        final JDialog dialog = new JDialog();
+        dialog.setAlwaysOnTop(true);
+        
+        if(clientTableView.getSelectionModel().getSelectedItem() == null)
+        {
+            JOptionPane.showMessageDialog(dialog, "Nothing seems to be selected!\nSelect a client to delete before pressing delete!", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        Client client = clientTableView.getSelectionModel().getSelectedItem();
+        int input = JOptionPane.showConfirmDialog(null, "delete client: " + client.getClientName() + "?", "Select an Option...",
+                        JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+        if(input == JOptionPane.YES_OPTION)
+        {
+            modelfacade.deleteClient(client);
+            RefreshTableView();
+        }
+        
     }
 
     @FXML
-    private void handleCreateProject(ActionEvent event)
+    private void handleCreateProject(ActionEvent event) throws IOException
     {
+        FXMLLoader loader = new FXMLLoader(getClass().
+                getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/AddProjectView.fxml"));
+        Parent root = loader.load();
+        AddProjectViewController controller = loader.getController();
+        controller.setAdminClientsAndProjectsController(this);
+
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.setTitle("Create Client");
+        stage.show();
     }
 
     @FXML
-    private void handleEditProject(ActionEvent event)
+    private void handleEditProject(ActionEvent event) throws IOException
     {
+        FXMLLoader loader = new FXMLLoader(getClass().
+                getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/EditProjectView.fxml"));
+        Parent root = loader.load();
+        EditProjectViewController controller = loader.getController();
+            controller.setProject(projectTableView.getSelectionModel().getSelectedItem());
+             controller.setAdminClientsAndProjectsController(this);
+
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.setTitle("Edit Client");
+        stage.show();
     }
 
     @FXML
-    private void handleDeleteProject(ActionEvent event)
+    private void handleDeleteProject(ActionEvent event) throws SQLException
     {
+        final JDialog dialog = new JDialog();
+        dialog.setAlwaysOnTop(true);
+        
+        if(projectTableView.getSelectionModel().getSelectedItem() == null)
+        {
+            JOptionPane.showMessageDialog(dialog, "Nothing seems to be selected!\nSelect a project to delete before pressing delete!", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        Project project = projectTableView.getSelectionModel().getSelectedItem();
+        int input = JOptionPane.showConfirmDialog(null, "delete project: " + project.getProjectName() + "?", "Select an Option...",
+                        JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+        if(input == JOptionPane.YES_OPTION)
+        {
+            modelfacade.deleteProject(project);
+            RefreshTableView();
+        }
     }
 
     @FXML
@@ -207,5 +275,15 @@ public class AdminClientsAndProjectsController implements Initializable
        
         projectTableView.setItems(modelfacade.getProjects());
 
+    }
+
+    @FXML
+    private void handleSelectedClient(MouseEvent event) throws SQLException
+    {
+        if(clientTableView.getSelectionModel().getSelectedItem() != null)
+        {
+            projectTableView.setItems(modelfacade.getProjectsForClient(
+                    clientTableView.getSelectionModel().getSelectedItem()));
+        }
     }
 }
