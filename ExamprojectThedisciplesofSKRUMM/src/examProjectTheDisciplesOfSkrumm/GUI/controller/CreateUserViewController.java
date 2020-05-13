@@ -51,7 +51,7 @@ public class CreateUserViewController implements Initializable
     @FXML
     private JFXTextField lastNameTextField;
     
-    private AdminViewController adminviewcontroller;
+    private AdminUserViewController adminuserviewcontroller;
 
 
     /**
@@ -81,7 +81,7 @@ public class CreateUserViewController implements Initializable
                 boolean admin = adminRadioButton.isSelected();
                 User user = new User(email, firstName, lastName,password, admin);
                 modelfacade.createUser(user);
-                adminviewcontroller.RefreshTableView();
+                adminuserviewcontroller.refreshTableview();
                 Stage createUserView = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 createUserView.close();
             }
@@ -112,9 +112,9 @@ public class CreateUserViewController implements Initializable
          createUserView.close();
     }
     
-     void setAdminViewController(AdminViewController adminviewcontroller)
+     void setAdminUserViewController(AdminUserViewController adminuserviewcontroller)
     {
-        this.adminviewcontroller = adminviewcontroller;
+        this.adminuserviewcontroller = adminuserviewcontroller;
     }
      
      public boolean validateInput(String input) {

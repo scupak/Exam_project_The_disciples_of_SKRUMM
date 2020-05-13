@@ -23,6 +23,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TreeItem;
@@ -100,6 +101,28 @@ public class AdminUserViewController implements Initializable
     @FXML
     private void handleCreateUser(ActionEvent event)
     {
+        try 
+        {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/CreateUserView.fxml"));
+        Parent root;
+        root = loader.load();
+        CreateUserViewController controller = loader.getController();
+        controller.setAdminUserViewController(this);
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.setTitle("Create user");
+        stage.setMinHeight(288);
+        stage.setMinWidth(346);
+        stage.show();
+        } 
+        catch (IOException ex) 
+        {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Could not load \n" + ex);
+            alert.setContentText("Please try again");
+            alert.showAndWait(); ;
+        }
     }
 
     @FXML

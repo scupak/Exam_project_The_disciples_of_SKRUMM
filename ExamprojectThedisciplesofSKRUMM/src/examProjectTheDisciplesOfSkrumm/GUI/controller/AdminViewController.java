@@ -140,7 +140,7 @@ public class AdminViewController implements Initializable
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/CreateUserView.fxml"));
         Parent root = loader.load();
         CreateUserViewController controller = loader.getController();
-        controller.setAdminViewController(this);
+//        controller.setAdminViewController(this);
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.setTitle("TimeTracker");
