@@ -324,4 +324,28 @@ public class UserDBDAO implements UserDBDAOInterface
         }
         return projects;
     }
+
+    @Override
+    public boolean addUserToProject(User user, Project project) throws SQLServerException, SQLException {
+        try (Connection con = dbCon.getConnection()) {
+            PreparedStatement ps = con.prepareStatement("INSERT INTO UserProjectTable "
+                    + "(userId, projectId) VALUES (?,?)");
+            ps.setString(1, user.getEmail());
+            ps.setInt(2, project.getId());
+
+            return ps.executeUpdate() > 0;
+
+        } 
+        
+        catch (SQLServerException ex) 
+        {
+             throw new SQLServerException("could not add to project!", ex);
+             
+        }
+        
+        catch (SQLException ex) 
+        {
+             throw new SQLException("could not add to project!", ex);
+        }
+    }
 }
