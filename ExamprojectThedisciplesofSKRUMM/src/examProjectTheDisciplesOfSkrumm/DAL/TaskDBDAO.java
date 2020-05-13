@@ -457,6 +457,15 @@ public class TaskDBDAO implements TaskDBDAOInterface
             
             int updatedRows = ps.executeUpdate();
             
+            String updateLastUsed = "UPDATE [task] SET lastUsed = ?, duration = ? WHERE id = ?";
+            PreparedStatement ps2 = con.prepareStatement(updateLastUsed);
+
+            ps2.setTimestamp(1, java.sql.Timestamp.valueOf(LocalDateTime.now()));
+            ps2.setInt(2, interval.getTask().getDuration() - interval.getIntervalTime());
+            ps2.setInt(3, interval.getTask().getId());
+
+            ps2.executeUpdate();
+            
             return updatedRows > 0;
         }
     }
