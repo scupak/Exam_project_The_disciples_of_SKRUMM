@@ -87,9 +87,9 @@ public class AdminTasksViewController implements Initializable
             public Object call(Object obj)
             {
                 final Object dataObj = ((TableColumn.CellDataFeatures) obj).getValue();
-                if (dataObj instanceof User)
+                if (dataObj instanceof Task)
                 {
-                    return new ReadOnlyStringWrapper(((User) dataObj).getEmail());
+                    return new ReadOnlyStringWrapper(((Task) dataObj).getUserEmail());
                 } else
                 {
                     return null;
