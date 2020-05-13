@@ -33,5 +33,6 @@ public interface ProjectDBDAOInterface
         
     public boolean updateProject(Project project) throws SQLServerException, SQLException;
     
+    public List<Project> getAllUserProjects() throws SQLServerException, SQLException;
     
 }
