@@ -31,6 +31,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 /**
@@ -80,6 +81,10 @@ public class EditIntervalViewController implements Initializable
         {
             Logger.getLogger(EditIntervalViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        paid.selectedColorProperty().set(Color.rgb(67, 90, 154));
+        paid.setUnSelectedColor(Color.rgb(67, 90, 154));
+        notPaid.selectedColorProperty().set(Color.rgb(67, 90, 154));
+        notPaid.setUnSelectedColor(Color.rgb(67, 90, 154));
     }
 
     public void fillView(Interval interval)
