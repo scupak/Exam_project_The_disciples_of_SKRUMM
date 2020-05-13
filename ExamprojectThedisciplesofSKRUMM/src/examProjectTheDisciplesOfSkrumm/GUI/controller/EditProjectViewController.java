@@ -7,12 +7,13 @@ package examProjectTheDisciplesOfSkrumm.GUI.controller;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
-import examProjectTheDisciplesOfSkrumm.BE.Client;
-import examProjectTheDisciplesOfSkrumm.BE.Project;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.ModelFacadeInterface;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.ModelFacade;
+import examProjectTheDisciplesOfSkrumm.BE.Client;
+import examProjectTheDisciplesOfSkrumm.BE.Project;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,12 +31,10 @@ import javafx.stage.Stage;
 /**
  * FXML Controller class
  *
- * @author Christina
+ * @author lumby
  */
-public class AddProjectViewController implements Initializable
+public class EditProjectViewController implements Initializable
 {
-
-    private ModelFacadeInterface modelfacade;
 
     @FXML
     private JFXButton AddProjectOkBtn;
@@ -47,16 +46,17 @@ public class AddProjectViewController implements Initializable
     private JFXTextField ProjectRateTextField;
     @FXML
     private JFXButton addClientButton;
-
-    private AdminViewController adminviewcontroller;
     @FXML
     private ComboBox<Client> clientComboBox;
     
+    private ModelFacadeInterface modelfacade;
+    
     private AdminClientsAndProjectsController adminClientsAndProjectsController;
     
-    
+     private AdminViewController adminviewcontroller;
+     
+     private Project project;
 
-    
     /**
      * Initializes the controller class.
      */
@@ -68,26 +68,31 @@ public class AddProjectViewController implements Initializable
             modelfacade = ModelFacade.getInstance();
         } catch (Exception ex)
         {
-            Logger.getLogger(CreateTaskController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EditProjectViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
         clientComboBox.getItems().addAll(modelfacade.getClients());
-    }
+    }    
 
     @FXML
-    private void HandleAddProjectOkBtn(ActionEvent event)
+    private void HandleEditProjectOkBtn(ActionEvent event) throws SQLException
     {
-
-        if (!ProjectNameTextField.getText().isEmpty() && !ProjectRateTextField.getText().isEmpty() && !(clientComboBox.getValue() == null) && clientComboBox.getValue().getIsPaid() == 1)
+        Project sameProject = new Project(project.getId(), project.getProjectName(), project.getClient(), project.getProjectRate());
+        
+        if(project == sameProject)
+        {
+         Stage addClientView = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        addClientView.close();   
+        }
+     if (!ProjectNameTextField.getText().isEmpty() && !ProjectRateTextField.getText().isEmpty() && !(clientComboBox.getValue() == null) && clientComboBox.getValue().getIsPaid() == 1)
         {
             try
             {
-                int id = 1;
+                int id = project.getId();
                 String projectName = ProjectNameTextField.getText();
                 Client client = clientComboBox.getValue();
                 int projectRate = Integer.parseInt(ProjectRateTextField.getText());
                 Project newproject = new Project(id, projectName, client, projectRate);
-                modelfacade.CreateProject(newproject);
-                adminviewcontroller.RefreshTableView();
+                modelfacade.updateProject(newproject);
                 adminClientsAndProjectsController.RefreshTableView();
                 Stage createUserView = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 createUserView.close();
@@ -103,13 +108,12 @@ public class AddProjectViewController implements Initializable
         {
             try
             {
-                int id = 1;
+                int id = project.getId();
                 String projectName = ProjectNameTextField.getText();
                 Client client = clientComboBox.getValue();
                 int projectRate = clientComboBox.getValue().getClientRate();
                 Project newproject = new Project(id, projectName, client, projectRate);
-                modelfacade.CreateProject(newproject);
-                adminviewcontroller.RefreshTableView();
+                modelfacade.updateProject(newproject);
                 adminClientsAndProjectsController.RefreshTableView();
                 Stage createUserView = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 createUserView.close();
@@ -125,13 +129,12 @@ public class AddProjectViewController implements Initializable
         {
             try
             {
-                int id = 1;
+                int id = project.getId();
                 String projectName = ProjectNameTextField.getText();
                 Client client = clientComboBox.getValue();
                 int projectRate = 0;
                 Project newproject = new Project(id, projectName, client, projectRate);
                 modelfacade.CreateProject(newproject);
-                adminviewcontroller.RefreshTableView();
                 adminClientsAndProjectsController.RefreshTableView();
                 Stage createUserView = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 createUserView.close();
@@ -150,23 +153,23 @@ public class AddProjectViewController implements Initializable
             alert.setHeaderText("Incorrect input");
             alert.setContentText("You didnt write a correct project name or didnt select a client");
             alert.showAndWait();
-        }
+        }   
     }
 
     @FXML
     private void HandleAddProjectCancelBtn(ActionEvent event)
     {
-        Stage createUserView = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        createUserView.close();
+        Stage addClientView = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        addClientView.close();
     }
 
     @FXML
     private void handleAddClient(ActionEvent event) throws IOException
     {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/AddClient.fxml"));
+           FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/AddClient.fxml"));
         Parent root = loader.load();
         AddClientController controller = loader.getController();
-        controller.setAddProjectController(this);
+        controller.setEditProjectViewController(this);
         controller.setAdminClientsAndProjectsController(adminClientsAndProjectsController);
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
@@ -176,21 +179,10 @@ public class AddProjectViewController implements Initializable
         stage.show();
     }
 
-    void setAdminViewController(AdminViewController adminviewcontroller)
-    {
-        this.adminviewcontroller = adminviewcontroller;
-    }
-
-    public void refreshClientComboBox()
-    {
-        clientComboBox.getItems().clear();
-        clientComboBox.getItems().addAll(modelfacade.getClients());
-    }
-
     @FXML
     private void handleCombobox(ActionEvent event)
     {
-        if (clientComboBox.getValue().getIsPaid() == 0)
+         if (clientComboBox.getValue().getIsPaid() == 0)
         {
             ProjectRateTextField.setDisable(true);
         } else if (clientComboBox.getValue().getIsPaid() == 1)
@@ -208,4 +200,27 @@ public class AddProjectViewController implements Initializable
     {
         this.adminClientsAndProjectsController = adminClientsAndProjectsController;
     }
+
+    public void refreshClientComboBox()
+    {
+        clientComboBox.getItems().clear();
+        clientComboBox.getItems().addAll(modelfacade.getClients());
+    }
+
+    public Project getProject()
+    {
+        return project;
+    }
+
+    public void setProject(Project project)
+    {
+        this.project = project;
+        
+        ProjectNameTextField.setText(project.getProjectName());
+        ProjectRateTextField.setText(project.getProjectRate() + "");
+        clientComboBox.setValue(project.getClient());
+        
+    }
+    
+    
 }

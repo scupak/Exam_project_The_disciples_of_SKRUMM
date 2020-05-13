@@ -148,6 +148,7 @@ public class ProjectDBDAO implements ProjectDBDAOInterface
         
     }
     
+    @Override
     public List<Project> getProjectsForClient(Client client) throws SQLException
     {
         ArrayList<Project> projects = new ArrayList<>();
