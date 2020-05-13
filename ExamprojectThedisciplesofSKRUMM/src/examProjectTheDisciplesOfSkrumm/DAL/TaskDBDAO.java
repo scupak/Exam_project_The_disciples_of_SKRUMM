@@ -488,7 +488,7 @@ public class TaskDBDAO implements TaskDBDAOInterface
         }  
     }
     
-        public List<Task> getTasksForUserbetween2Dates(User user, LocalDate fromdate, LocalDate todate) throws SQLException
+    public List<Task> getTasksForUserbetween2Dates(User user, LocalDate fromdate, LocalDate todate) throws SQLException
     {
         ArrayList<Task> tasks = new ArrayList<>();
         String sqlString;
@@ -542,7 +542,7 @@ public class TaskDBDAO implements TaskDBDAOInterface
         
         
         //make the from date to date dal method work for intervals
-        private ArrayList<Interval> getIntervalsbetween2Dates(Task task, LocalDate fromdate, LocalDate todate) throws SQLException
+    private ArrayList<Interval> getIntervalsbetween2Dates(Task task, LocalDate fromdate, LocalDate todate) throws SQLException
     {
         try (Connection con = dbCon.getConnection())
         {
