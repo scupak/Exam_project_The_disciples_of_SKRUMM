@@ -150,11 +150,29 @@ public class Task
     }
 
     public String getFormatedDuration() {
-        long hour = TimeUnit.SECONDS.toHours(duration.get());
-        long min = TimeUnit.SECONDS.toMinutes(duration.get()) - TimeUnit.HOURS.toMinutes(hour);
-        Long sec = duration.get() - TimeUnit.MINUTES.toSeconds(min);
+      
+        int totalSec = duration.get();
+        int hour = 0;
+        int min = 0; 
+        int sec = 0;
         
-       return String.format("%d:%d:%d", hour, min, sec);
+    
+         while(totalSec >= 3600){
+        totalSec  = totalSec - 3600;
+        hour++;
+        System.out.println("added one to hours...");
+        }
+        
+        while(totalSec >= 60){
+        totalSec = totalSec - 60;
+        min++;
+        System.out.println("added one to min...");
+        }
+        
+        sec = totalSec;
+        System.out.println("added rest of seconds to sec...");
+        
+        return(String.format("%02d", hour) + ":" + String.format("%02d", min) + ":" + String.format("%02d", sec));
     }
 
     public void setFormatedDuration(String formatedDuration) {

@@ -30,10 +30,10 @@
             <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TreeTableView>
-      <HBox alignment="CENTER" layoutX="610.0" layoutY="465.0" prefHeight="25.0" prefWidth="102.0" spacing="5.0" styleClass="Label" translateX="-8.0" translateY="5.0" AnchorPane.bottomAnchor="35.0" AnchorPane.rightAnchor="14.0">
+      <HBox alignment="CENTER" layoutX="827.0" layoutY="465.0" prefHeight="25.0" prefWidth="102.0" spacing="5.0" styleClass="Label" translateX="-8.0" translateY="5.0" AnchorPane.bottomAnchor="35.0" AnchorPane.rightAnchor="14.0">
          <children>
             <Label alignment="TOP_RIGHT" prefHeight="17.0" prefWidth="31.0" styleClass="Label" text="Total:" />
-            <Label fx:id="totalTimeLabel" alignment="TOP_LEFT" prefHeight="17.0" prefWidth="35.0" styleClass="Label" text="0:00" />
+            <Label fx:id="totalTimeLabel" alignment="TOP_LEFT" contentDisplay="CENTER" prefHeight="17.0" prefWidth="62.0" styleClass="Label" text="00:00:00" />
          </children>
       </HBox>
       <StackPane alignment="BOTTOM_CENTER" layoutX="3.0" layoutY="2.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0" prefWidth="722.0" styleClass="chart-bar" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">

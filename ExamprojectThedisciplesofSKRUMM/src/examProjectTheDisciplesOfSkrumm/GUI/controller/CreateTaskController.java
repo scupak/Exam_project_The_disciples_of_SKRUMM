@@ -17,6 +17,7 @@ import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.ModelFacadeInterface;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.ModelFacade;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -97,7 +98,7 @@ public class CreateTaskController implements Initializable
         
                 Task newtask = new Task(1, title, project, duration, lastUsed, creationDate, startTime, stopTime, user, intervals);
                 modelfacade.createTask(newtask);
-                taskViewController.RefreshTreeView();
+                taskViewController.refreshEverything();
                 Stage createTaskView = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 createTaskView.close();
             }
@@ -105,9 +106,15 @@ public class CreateTaskController implements Initializable
             {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Oops");
-                alert.setHeaderText("Incorrect input");
+                alert.setHeaderText("Incorrect input\n" + ex);
                 alert.setContentText("You wrote a letter in duration, it needs a number.");
                 alert.showAndWait();
+            } catch (SQLException ex) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Could connect to database\n" + ex);
+                alert.setContentText("Please try again");
+                alert.showAndWait(); 
             }
             
         }
@@ -128,7 +135,7 @@ public class CreateTaskController implements Initializable
         
                 Task newtask = new Task(1, title, project, duration, lastUsed, creationDate, startTime, stopTime, user, intervals);
                 modelfacade.createTask(newtask);
-                taskViewController.RefreshTreeView();
+                taskViewController.refreshEverything();
                 Stage createTaskView = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 createTaskView.close();
             }
@@ -136,9 +143,16 @@ public class CreateTaskController implements Initializable
             {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Oops");
-                alert.setHeaderText("Incorrect input");
+                alert.setHeaderText("Incorrect input\n" + ex);
                 alert.setContentText("You wrote a letter in duration, it needs a number.");
                 alert.showAndWait();
+            } catch (SQLException ex) 
+            {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Could connect to database\n" + ex);
+                alert.setContentText("Please try again");
+                alert.showAndWait(); 
             }
             
         }

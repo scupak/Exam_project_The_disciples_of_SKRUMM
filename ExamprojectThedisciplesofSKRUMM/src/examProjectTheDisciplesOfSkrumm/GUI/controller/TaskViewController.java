@@ -104,7 +104,7 @@ public class TaskViewController implements Initializable
     @FXML
     private JFXButton deleteTask;
     
-    private long durationtotal;
+    private int durationtotal;
     @FXML
     private Label totalTimeLabel;
     @FXML
@@ -367,7 +367,7 @@ public class TaskViewController implements Initializable
         } else
         {
 
-            TreeItem<Task> selectedItem = (TreeItem<Task>) (TaskTable.getSelectionModel().getSelectedItem());
+            TreeItem selectedItem = (TreeItem) (TaskTable.getSelectionModel().getSelectedItem());
 
             if (selectedItem.getValue() instanceof Task)
             {
@@ -387,12 +387,26 @@ public class TaskViewController implements Initializable
                 stage.setTitle("Edit Task");
                 stage.show();
 
-            } else
+            } 
+            else if(selectedItem.getValue() instanceof Interval)
             {
-
-                System.err.println("not a task!!!!!!!!!!!!!!!!!!!!");
-                JOptionPane.showMessageDialog(dialog, "Please select a valid task to edit!", "ERROR", JOptionPane.ERROR_MESSAGE);
-
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/EditIntervalViewInTaskview.fxml"));
+                Parent root = loader.load();
+                EditIntervalViewInTaskViewController controller = loader.getController();
+                controller.fillView((Interval) selectedItem.getValue());
+                controller.settaskViewController(this);
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.setMinHeight(260);
+                stage.setMinWidth(318);
+                stage.setTitle("Edit Interval");
+                stage.setAlwaysOnTop(true);
+                stage.show(); 
+            }
+            else
+            {
+                System.err.println("Error");
+                JOptionPane.showMessageDialog(dialog, "Please select a valid task or interval to edit!", "ERROR", JOptionPane.ERROR_MESSAGE);
             }
 
         }
@@ -568,17 +582,15 @@ public class TaskViewController implements Initializable
             
         }
         
-        long hour = TimeUnit.SECONDS.toHours(durationtotal);
-        long min = TimeUnit.SECONDS.toMinutes(durationtotal) - TimeUnit.HOURS.toMinutes(hour);
-        Long sec = durationtotal - TimeUnit.MINUTES.toSeconds(min);
         
-        totalTimeLabel.setText(String.format("%d:%d:%d", hour, min, sec));
+        
+        totalTimeLabel.setText(modelfacade.convertSecToTimeString(durationtotal));
         
     }
     
     
     
-    private void refreshEverything() throws SQLException
+    public void refreshEverything() throws SQLException
     {
         RefreshTreeView();
         refreshtotal();
