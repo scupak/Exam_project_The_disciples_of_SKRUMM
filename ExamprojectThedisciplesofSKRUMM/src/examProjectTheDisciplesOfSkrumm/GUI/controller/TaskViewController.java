@@ -303,6 +303,7 @@ public class TaskViewController implements Initializable
         try 
         {
             datePickerFrom.setValue(LocalDate.now());
+            datePickerTo.setValue(LocalDate.now());
             refreshEverything();
             
             if(modelfacade.getisTimerRunning())
@@ -502,6 +503,7 @@ public class TaskViewController implements Initializable
     @FXML
     private void handlecurrentday(ActionEvent event) throws SQLException
     {
+        datePickerTo.setValue(LocalDate.now());
         datePickerFrom.setValue(LocalDate.now());
         refreshEverything();
         
@@ -509,12 +511,13 @@ public class TaskViewController implements Initializable
 
     private void checkForCurrentday()
     {
-        LocalDate date = datePickerFrom.getValue();
-        if (!(date.isEqual(LocalDate.now())))
+        LocalDate date1 = datePickerFrom.getValue();
+        LocalDate date2 = datePickerTo.getValue();
+        if (!(date1.isEqual(LocalDate.now())) || !(date2.isEqual(LocalDate.now())))
         {
             returnToCurrentDayButton.setVisible(true);
             returnToCurrentDayButton.setDisable(false);
-        } else if (date.isEqual(LocalDate.now()))
+        } else if (date1.isEqual(LocalDate.now()) || date2.isEqual(LocalDate.now()))
         {
             returnToCurrentDayButton.setVisible(false);
             returnToCurrentDayButton.setDisable(true);
