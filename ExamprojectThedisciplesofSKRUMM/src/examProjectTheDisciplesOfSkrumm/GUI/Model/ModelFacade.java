@@ -332,6 +332,9 @@ public class ModelFacade implements ModelFacadeInterface
        return userModel.addUserToProject(user, project);
     }
     
-    
+    public ObservableList<Project> getProjectsForClient(Client client) throws SQLException
+    {
+        return projectmodel.getProjectsForClient(client);
+    }
     
 }

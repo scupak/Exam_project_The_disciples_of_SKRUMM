@@ -30,4 +30,6 @@ public interface ProjectModelInterface
     
     public boolean updateProject(Project project) throws SQLServerException, SQLException;
     
+    public ObservableList<Project> getProjectsForClient(Client client) throws SQLException;
+    
 }
