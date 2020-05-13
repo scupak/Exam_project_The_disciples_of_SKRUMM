@@ -260,7 +260,8 @@ public class Task
         hash = 71 * hash + Objects.hashCode(this.id);
         return hash;
     }
-
+    
+   
     @Override
     public String toString()
     {

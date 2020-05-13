@@ -117,9 +117,11 @@ public class TaskModel implements TaskModelInterface
     }
 
     @Override
-    public List<Task> getAllTasks() throws SQLException
+    public ObservableList<Task> getAllTasks() throws SQLException
     {
-        return bllfacade.getAllTasks();
+        ObservableList<Task> allTasks = FXCollections.observableArrayList();
+        allTasks.addAll(bllfacade.getAllTasks());
+        return allTasks;
     }
 
     @Override

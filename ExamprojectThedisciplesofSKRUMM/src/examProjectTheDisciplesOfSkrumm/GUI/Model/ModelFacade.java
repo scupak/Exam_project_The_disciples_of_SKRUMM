@@ -210,7 +210,7 @@ public class ModelFacade implements ModelFacadeInterface
     }
 
     @Override
-    public List<Task> getAllTasks() throws SQLException
+    public ObservableList<Task> getAllTasks() throws SQLException
     {
         return taskmodel.getAllTasks();
     }

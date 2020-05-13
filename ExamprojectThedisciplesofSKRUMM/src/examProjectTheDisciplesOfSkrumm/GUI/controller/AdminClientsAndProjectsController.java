@@ -79,7 +79,7 @@ public class AdminClientsAndProjectsController implements Initializable
     @FXML
     private JFXButton backBtn;
 
-        ModelFacadeInterface modelfacade;
+    private ModelFacadeInterface modelfacade;
     
    
 

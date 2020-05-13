@@ -42,7 +42,7 @@ public interface TaskModelInterface
     
     public List<Task> getTasksForUser(User user, LocalDate date) throws SQLException;
     
-    public List<Task> getAllTasks() throws SQLException;
+    public ObservableList<Task> getAllTasks() throws SQLException;
 
     public boolean taskExist(Task task) throws SQLException;
 
