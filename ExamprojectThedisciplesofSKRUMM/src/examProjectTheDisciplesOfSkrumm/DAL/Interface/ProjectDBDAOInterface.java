@@ -8,6 +8,7 @@ package examProjectTheDisciplesOfSkrumm.DAL.Interface;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import examProjectTheDisciplesOfSkrumm.BE.Client;
 import examProjectTheDisciplesOfSkrumm.BE.Project;
+import examProjectTheDisciplesOfSkrumm.BE.User;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -33,6 +34,6 @@ public interface ProjectDBDAOInterface
         
     public boolean updateProject(Project project) throws SQLServerException, SQLException;
     
-    public List<Project> getAllUserProjects() throws SQLServerException, SQLException;
+  
     
 }

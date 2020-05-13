@@ -6,6 +6,7 @@
 package examProjectTheDisciplesOfSkrumm.GUI.Model;
 
 import com.microsoft.sqlserver.jdbc.SQLServerException;
+import examProjectTheDisciplesOfSkrumm.BE.Project;
 import examProjectTheDisciplesOfSkrumm.BE.User;
 import examProjectTheDisciplesOfSkrumm.BLL.BLLFacade;
 import examProjectTheDisciplesOfSkrumm.BLL.Interface.BLLFacadeInterface;
@@ -84,6 +85,11 @@ public class UserModel implements UserModelInterface
     @Override
     public boolean deleteUser(User user) throws SQLException {
        return bllFacade.deleteUser(user);
+    }
+
+    @Override
+    public List<Project> getAllUserProjects(User user) throws SQLServerException, SQLException {
+        return bllFacade.getAllUserProjects(user);
     }
     
     

@@ -6,6 +6,7 @@
 package examProjectTheDisciplesOfSkrumm.BLL.Interface;
 
 import com.microsoft.sqlserver.jdbc.SQLServerException;
+import examProjectTheDisciplesOfSkrumm.BE.Project;
 import examProjectTheDisciplesOfSkrumm.BE.User;
 import java.sql.SQLException;
 import java.util.List;
@@ -31,5 +32,7 @@ public interface UserManagerInterface
     public boolean updateUser(User oldUser, User newUser) throws SQLServerException, SQLException;
     
     public boolean deleteUser(User user) throws SQLException;
+    
+    public List<Project> getAllUserProjects(User user) throws SQLServerException, SQLException;
     
 }

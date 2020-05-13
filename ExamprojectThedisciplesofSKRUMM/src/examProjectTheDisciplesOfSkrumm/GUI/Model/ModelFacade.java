@@ -321,6 +321,11 @@ public class ModelFacade implements ModelFacadeInterface
     {
       return clientmodel.updateClient(client);
     }
+
+    @Override
+    public List<Project> getAllUserProjects(User user) throws SQLServerException, SQLException {
+        return userModel.getAllUserProjects(user);
+    }
     
     
     

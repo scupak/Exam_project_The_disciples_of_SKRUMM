@@ -250,4 +250,9 @@ public class BLLFacade implements BLLFacadeInterface
         return projectmanager.updateProject(project);
     }
 
+    @Override
+    public List<Project> getAllUserProjects(User user) throws SQLServerException, SQLException {
+      return userManager.getAllUserProjects(user);
+    }
+
 }
