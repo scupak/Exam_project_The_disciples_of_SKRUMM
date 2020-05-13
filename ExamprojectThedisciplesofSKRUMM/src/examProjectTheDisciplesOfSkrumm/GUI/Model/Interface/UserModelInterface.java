@@ -39,4 +39,6 @@ public interface UserModelInterface
     public boolean deleteUser(User user) throws SQLException;
     
     public List<Project> getAllUserProjects(User user) throws SQLServerException, SQLException;
+    
+    public boolean addUserToProject(User user, Project project) throws SQLServerException, SQLException;
 }

@@ -326,6 +326,11 @@ public class ModelFacade implements ModelFacadeInterface
     public List<Project> getAllUserProjects(User user) throws SQLServerException, SQLException {
         return userModel.getAllUserProjects(user);
     }
+
+    @Override
+    public boolean addUserToProject(User user, Project project) throws SQLServerException, SQLException {
+       return userModel.addUserToProject(user, project);
+    }
     
     public ObservableList<Project> getProjectsForClient(Client client) throws SQLException
     {

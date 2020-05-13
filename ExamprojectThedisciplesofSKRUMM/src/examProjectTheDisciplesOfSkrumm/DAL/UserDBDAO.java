@@ -221,6 +221,10 @@ public class UserDBDAO implements UserDBDAOInterface
        // User test1 = new User("standard@user.now", "Mads", "Jensen", "nemt", false);
         //User test2 = new User("admin@user.now", "Jakob", "Grumsen", "nemt", true);
         User test67 = new User("standard@user.now", "No", "Yes", "ok", true);
+        Project p = new Project(3, "projectName", new Client(1, "ClientName", 0, 0), 0);
+        
+        //userDb.addUserToProject(test67, p);
+        
         //userDb.createUser(test1);
         //userDb.createUser(test2);
        /* userDb.createUser(test67);
@@ -347,5 +351,29 @@ public class UserDBDAO implements UserDBDAOInterface
         {
              throw new SQLException("could not add to project!", ex);
         }
+    }
+
+    @Override
+    public boolean deleteProjectFromUser(User user, Project project) throws SQLServerException, SQLException {
+        try ( Connection con = dbCon.getConnection()) {
+            PreparedStatement ps = con.prepareStatement(
+                    "DELETE FROM UserProjectTable WHERE projectId = ? "
+                    + "AND userId = ? ");
+            ps.setString(1, user.getEmail());
+            ps.setInt(2, project.getId());
+
+            int updatedRows = ps.executeUpdate();
+
+            if (updatedRows > 0) return true;
+
+        } 
+        catch (SQLServerException ex) {
+            throw new SQLServerException("could not clear user from project", ex);
+        } 
+        catch (SQLException ex) {
+            throw new SQLException("could not clear user from project", ex);
+        }
+
+        return false;
     }
 }

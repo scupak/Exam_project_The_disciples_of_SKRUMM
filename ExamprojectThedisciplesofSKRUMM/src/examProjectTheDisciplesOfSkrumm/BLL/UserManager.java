@@ -112,5 +112,10 @@ public class UserManager implements UserManagerInterface
     public List<Project> getAllUserProjects(User user) throws SQLServerException, SQLException {
          return  dal.getAllUserProjects(user);
     }
+
+    @Override
+    public boolean addUserToProject(User user, Project project) throws SQLServerException, SQLException {
+      return  dal.addUserToProject(user, project);
+    }
     
 }
