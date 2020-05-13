@@ -21,6 +21,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import javax.swing.JOptionPane;
 
@@ -134,7 +135,8 @@ public class EditTaskController implements Initializable
             System.out.println(blank);
         }
             
-          /*  editTime = editTimeTextField.getText();
+        try {
+            /*  editTime = editTimeTextField.getText();
             
             if(editTime != null && !editTime.isEmpty()){
     
@@ -142,40 +144,48 @@ public class EditTaskController implements Initializable
             intTime = Integer.parseInt(editTime);
             }
             catch(NumberFormatException e){
-                
-                JOptionPane.showMessageDialog(null, "New task duration has to be a whole number!");
-                editTimeTextField.setText("EDIT ME");
-                blank = true;
-                System.out.println(blank);
-                
+            
+            JOptionPane.showMessageDialog(null, "New task duration has to be a whole number!");
+            editTimeTextField.setText("EDIT ME");
+            blank = true;
+            System.out.println(blank);
+            
             
             }
             
             blank = false;
             System.out.println(blank);
-        }
+            }
             
             else{
             JOptionPane.showMessageDialog(null, "New task duration can not be blank!\n Task duration must be an integer!");
             editTimeTextField.setText("EDIT ME");
             blank = true;
             System.out.println(blank);
-        }
+            }
             if(blank == false){
             editTask.setTitle(editTitle);
             editTask.setDuration(intTime);
             editTask.setProject(editProjectCombobox.getValue());
-                try
-                {
-                    System.out.println(modelfacade.updateTask(editTask) + "  " +"update");
-                }
-                catch (SQLException ex)
-                {
-                    JOptionPane.showMessageDialog(null, "Unknown SQL exception ocurred!");
-                }
-                
+            try
+            {
+            System.out.println(modelfacade.updateTask(editTask) + "  " +"update");
+            }
+            catch (SQLException ex)
+            {
+            JOptionPane.showMessageDialog(null, "Unknown SQL exception ocurred!");
+            }
+            
             }*/
-          
+            taskViewController.refreshEverything();
+        } catch (SQLException ex) 
+        {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Could connect to database\n" + ex);
+            alert.setContentText("Please try again");
+            alert.showAndWait();
+        }
           Stage stage = (Stage) editTaskBtn.getScene().getWindow();
           stage.close();
     
@@ -196,7 +206,7 @@ public class EditTaskController implements Initializable
         editProjectCombobox.getSelectionModel().select(editTask.getProject());
     }
     
-    void settaskViewController( TaskViewController taskViewController) {
+    public void settaskViewController( TaskViewController taskViewController) {
      this.taskViewController = taskViewController;
      
         //System.out.println(taskViewController);
