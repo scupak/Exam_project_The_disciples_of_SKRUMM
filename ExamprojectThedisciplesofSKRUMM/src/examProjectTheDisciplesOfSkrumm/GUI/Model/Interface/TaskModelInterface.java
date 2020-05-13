@@ -28,7 +28,7 @@ import java.util.concurrent.ExecutorService;
 public interface TaskModelInterface 
 {
     
-    public TreeItem<Task> getModel(User user, LocalDate date);
+    public TreeItem<Task> getModel(User user, LocalDate fromdate, LocalDate todate);
     
     public void createTask(Task task);
     

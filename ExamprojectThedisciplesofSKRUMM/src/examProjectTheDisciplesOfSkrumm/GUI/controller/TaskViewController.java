@@ -490,7 +490,7 @@ public class TaskViewController implements Initializable
     public void RefreshTreeView()
     {
         //Creating the rootNodeTask
-        TreeItem<Task> rootNodeTask = modelfacade.getModel(modelfacade.getCurrentuser(), datePickerFrom.getValue());
+        TreeItem<Task> rootNodeTask = modelfacade.getModel(modelfacade.getCurrentuser(), datePickerFrom.getValue(), datePickerTo.getValue());
         rootNodeTask.setExpanded(true);
 
         //Set the model for the TreeTableView

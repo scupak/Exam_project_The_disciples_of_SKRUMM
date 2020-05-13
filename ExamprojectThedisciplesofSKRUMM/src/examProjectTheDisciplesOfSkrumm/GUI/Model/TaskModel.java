@@ -31,6 +31,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
+import javafx.scene.control.Alert;
 
 /**
  *
@@ -56,13 +57,17 @@ public class TaskModel implements TaskModelInterface
     
     
     @Override
-    public TreeItem<Task> getModel(User user, LocalDate date) 
+    public TreeItem<Task> getModel(User user, LocalDate fromdate, LocalDate todate) 
     {
         try {
             tasks.clear();
-            tasks.addAll(bllfacade.getTasksForUser(user, date));
+            tasks.addAll(getTasksForUserbetween2Dates(user, fromdate, todate));
         } catch (SQLException ex) {
-            Logger.getLogger(TaskModel.class.getName()).log(Level.SEVERE, null, ex);
+           Alert alert = new Alert(Alert.AlertType.ERROR);
+           alert.setTitle("Error");
+           alert.setHeaderText("Could connect to database\n" + ex);
+           alert.setContentText("Please try again");
+           alert.showAndWait(); 
         }
         return bllfacade.getModel(tasks);
     }

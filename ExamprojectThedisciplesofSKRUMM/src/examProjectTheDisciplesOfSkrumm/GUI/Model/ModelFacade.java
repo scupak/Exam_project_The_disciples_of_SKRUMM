@@ -84,8 +84,8 @@ public class ModelFacade implements ModelFacadeInterface
    
 
     @Override
-    public TreeItem<Task> getModel(User user, LocalDate date) {
-        return taskmodel.getModel( user, date);
+    public TreeItem<Task> getModel(User user, LocalDate fromdate, LocalDate todate) {
+        return taskmodel.getModel( user, fromdate, todate);
     }
 
     @Override
