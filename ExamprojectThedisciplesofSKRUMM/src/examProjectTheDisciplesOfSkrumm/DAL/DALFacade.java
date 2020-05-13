@@ -228,9 +228,8 @@ public class DALFacade implements DALFacadeInterface
     }
 
     @Override
-    public List<Project> getAllUserProjects() throws SQLServerException, SQLException 
-    {
-        return projecDBDAO.getAllUserProjects();
+    public List<Project> getAllUserProjects(User user) throws SQLServerException, SQLException {
+        return userDBDAO.getAllUserProjects(user);
     }
     
 }

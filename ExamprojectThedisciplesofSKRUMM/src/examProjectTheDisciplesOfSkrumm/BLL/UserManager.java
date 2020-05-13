@@ -6,6 +6,7 @@
 package examProjectTheDisciplesOfSkrumm.BLL;
 
 import com.microsoft.sqlserver.jdbc.SQLServerException;
+import examProjectTheDisciplesOfSkrumm.BE.Project;
 import examProjectTheDisciplesOfSkrumm.BE.User;
 import examProjectTheDisciplesOfSkrumm.BLL.Interface.SecurityManagerInterface;
 import examProjectTheDisciplesOfSkrumm.BLL.Interface.UserManagerInterface;
@@ -105,6 +106,11 @@ public class UserManager implements UserManagerInterface
     @Override
     public boolean deleteUser(User user) throws SQLException {
         return dal.deleteUser(user);
+    }
+
+    @Override
+    public List<Project> getAllUserProjects(User user) throws SQLServerException, SQLException {
+         return  dal.getAllUserProjects(user);
     }
     
 }

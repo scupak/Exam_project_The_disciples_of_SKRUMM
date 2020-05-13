@@ -276,28 +276,6 @@ public class ProjectDBDAO implements ProjectDBDAOInterface
         }
     }
 
-    @Override
-    public List<Project> getAllUserProjects() throws SQLServerException, SQLException {
-        ArrayList<Project> projects = new ArrayList<>();
-        
-        try (Connection con = dbcon.getConnection())
-        {
-            PreparedStatement ps = con.prepareStatement("SELECT UserProjectTable.userId, UserProjectTable.projectId, " + 
-                    "client.id AS Cid, client.name, client.rate, client.isPaid, " + 
-                    "project.id, project.projectName, project.clientID, project.projectrate " + 
-                    "FROM UserProjectTable INNER JOIN project ON UserProjectTable.projectId = project.id INNER JOIN client ON project.clientID = client.id WHERE UserProjectTable.userId = ?");
-            ResultSet rs = ps.executeQuery();
-            
-            while (rs.next())
-            {
-
-                Client client = new Client(rs.getInt("Cid"), rs.getString("name"), rs.getInt("rate"), rs.getInt("isPaid"));
-                Project project = new Project(rs.getInt("id"), rs.getString("projectName"), client, rs.getInt("projectrate"));
-                projects.add(project);
-                
-            }
-        }
-        return projects;
-    }
+    
     
 }

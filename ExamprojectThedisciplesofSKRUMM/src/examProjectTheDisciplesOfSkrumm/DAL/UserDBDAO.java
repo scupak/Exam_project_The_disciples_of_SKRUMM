@@ -6,6 +6,8 @@
 package examProjectTheDisciplesOfSkrumm.DAL;
 
 import com.microsoft.sqlserver.jdbc.SQLServerException;
+import examProjectTheDisciplesOfSkrumm.BE.Client;
+import examProjectTheDisciplesOfSkrumm.BE.Project;
 import examProjectTheDisciplesOfSkrumm.BE.User;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -218,16 +220,23 @@ public class UserDBDAO implements UserDBDAOInterface
         UserDBDAO userDb = new UserDBDAO();
        // User test1 = new User("standard@user.now", "Mads", "Jensen", "nemt", false);
         //User test2 = new User("admin@user.now", "Jakob", "Grumsen", "nemt", true);
-        User test67 = new User("not@user.now", "No", "Yes", "ok", true);
+        User test67 = new User("standard@user.now", "No", "Yes", "ok", true);
         //userDb.createUser(test1);
         //userDb.createUser(test2);
-        userDb.createUser(test67);
+       /* userDb.createUser(test67);
         System.out.println("User67 is " + userDb.userExist(test67));
         System.out.println("User67 was " + userDb.getUser(test67));
         //userDb.updateUserPassword(test);
         userDb.updateUser(test67, new User("email@email.email", "firstName", "lastName", "pass", false));
-        System.out.println("User67 is now " + userDb.getUser(test67));
+        System.out.println("User67 is now " + userDb.getUser(test67));*/
        
+       /*
+        for (Project allUserProject : userDb.getAllUserProjects(test67)) {
+            
+            System.out.println(allUserProject);
+            
+        }
+       */
 
     }
 
@@ -282,5 +291,37 @@ public class UserDBDAO implements UserDBDAOInterface
             
         }
         
+    }
+     @Override
+    public List<Project> getAllUserProjects(User user) throws SQLServerException, SQLException {
+        
+        if (!userExist(user))
+        {
+            return null;
+        }
+        
+         
+        ArrayList<Project> projects = new ArrayList<>();
+        
+        try (Connection con = dbCon.getConnection())
+        {
+            PreparedStatement ps = con.prepareStatement("SELECT UserProjectTable.userId, UserProjectTable.projectId, " + 
+                    "client.id AS Cid, client.name, client.rate, client.isPaid, " + 
+                    "project.id, project.projectName, project.clientID, project.projectrate " + 
+                    "FROM UserProjectTable INNER JOIN project ON UserProjectTable.projectId = project.id INNER JOIN client ON project.clientID = client.id WHERE UserProjectTable.userId = ?");
+            
+            ps.setString(1, user.getEmail());
+            ResultSet rs = ps.executeQuery();
+            
+            while (rs.next())
+            {
+
+                Client client = new Client(rs.getInt("Cid"), rs.getString("name"), rs.getInt("rate"), rs.getInt("isPaid"));
+                Project project = new Project(rs.getInt("id"), rs.getString("projectName"), client, rs.getInt("projectrate"));
+                projects.add(project);
+                
+            }
+        }
+        return projects;
     }
 }
