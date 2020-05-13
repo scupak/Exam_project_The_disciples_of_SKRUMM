@@ -332,9 +332,15 @@ public class ModelFacade implements ModelFacadeInterface
        return userModel.addUserToProject(user, project);
     }
     
+    @Override
     public ObservableList<Project> getProjectsForClient(Client client) throws SQLException
     {
         return projectmodel.getProjectsForClient(client);
+    }
+
+    @Override
+    public boolean deleteProjectFromUser(User user, Project project) throws SQLServerException, SQLException {
+        return userModel.deleteProjectFromUser(user, project);
     }
     
 }
