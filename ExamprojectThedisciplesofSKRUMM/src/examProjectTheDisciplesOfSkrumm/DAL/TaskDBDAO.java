@@ -679,6 +679,63 @@ public class TaskDBDAO implements TaskDBDAOInterface
         //taskDBDAO.newInterval(interval);
     }
 
+    @Override
+    public List<Task> getAllTasks4Project(Project project) throws SQLServerException, SQLException {
+                ArrayList<Task> returntasks = new ArrayList<>();
+
+        try (Connection con = dbCon.getConnection())
+        {
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM [task] WHERE ProjectID = ?");
+            ps.setInt(1, project.getId());
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next())
+            {
+                int id = rs.getInt("id");
+                String title = rs.getString("title");
+                Project projectoid = projectDBDAO.getProject(new Project(rs.getInt("ProjectID"), title, new Client(id, title, id, id), id));
+                int duration = rs.getInt("duration");
+                String clientName = project.getClientName();
+                LocalDateTime lastUsed = rs.getTimestamp("lastUsed").toLocalDateTime();
+                LocalDate creationDate = rs.getDate("creationDate").toLocalDate();
+                LocalTime startTime = rs.getTime("startTime").toLocalTime();
+                LocalTime stopTime = rs.getTime("stopTime").toLocalTime();
+
+                ArrayList<Interval> intervals = new ArrayList<Interval>();
+
+                String userEmail = rs.getString("userEmail");
+
+                User user = userDBDAO.getUser(new User(userEmail, clientName, clientName, title, false));
+
+                intervals.addAll(getIntervals(new Task(id, title, project, duration, lastUsed, creationDate, startTime, stopTime, user, intervals)));
+
+                returntasks.add(new Task(id, title, project, duration, lastUsed, creationDate, startTime, stopTime, user, intervals));
+            }
+
+            return returntasks;
+
+        }
+    }
+
+    @Override
+    public int getDurationFromTasks(Project project) throws SQLServerException, SQLException {
+        int time = 0;
+         try (Connection con = dbCon.getConnection())
+        {
+            PreparedStatement ps = con.prepareStatement("SELECT SUM(task.duration) AS 'sumDuration' FROM [task] WHERE ProjectID = ?");
+            ps.setInt(1, project.getId());
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next())
+            {
+                time = rs.getInt("sumDuration") + time;
+            }
+
+            return time;
+
+        }
+    }
+
     
 
 }
