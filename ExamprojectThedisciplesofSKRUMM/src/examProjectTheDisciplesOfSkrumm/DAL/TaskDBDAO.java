@@ -502,12 +502,14 @@ public class TaskDBDAO implements TaskDBDAOInterface
                 sqlString = "SELECT DISTINCT  interval.taskId, task.id , task.creationDate,task.duration, task.lastUsed , task.projectID , task.startTime, task.stopTime, task.title, task.userEmail "
                         + "FROM interval "
                         + "INNER JOIN task on interval.taskId = task.id "
-                        + "WHERE  task.userEmail = ? AND interval.creationDate >= ? AND interval.creationDate <= ? ";
+                        + "WHERE  task.userEmail = ? AND interval.creationDate >= ? AND interval.creationDate <= ? OR task.creationDate >= ? AND task.creationDate <= ? ";
                 ps = con.prepareStatement(sqlString);
                 
                 ps.setString(1, user.getEmail());
                 ps.setDate(2, java.sql.Date.valueOf(fromdate));
                 ps.setDate(3, java.sql.Date.valueOf(todate));
+                ps.setDate(4, java.sql.Date.valueOf(fromdate));
+                ps.setDate(5, java.sql.Date.valueOf(todate));
             
 
             ResultSet rs = ps.executeQuery();
@@ -599,11 +601,11 @@ public class TaskDBDAO implements TaskDBDAOInterface
           
          // Interval interval = new Interval(15, LocalTime.MIN, LocalTime.MIN, LocalDate.MIN, 0, task, 0);
          // taskDBDAO.deleteInterval(interval);
-         /*
-         for (Task tasksForUserbetween2Date : taskDBDAO.getTasksForUserbetween2Dates(user, LocalDate.of(2020, Month.MAY, 2), LocalDate.of(2020, Month.MAY, 6))) {
+         
+         for (Task tasksForUserbetween2Date : taskDBDAO.getTasksForUserbetween2Dates(user, LocalDate.of(2020, Month.MAY, 1), LocalDate.of(2020, Month.MAY, 14))) {
             
              int i = 1;
-             System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++");
+             System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++" + " " + tasksForUserbetween2Date);
              
              for (Interval interval : tasksForUserbetween2Date.getIntervals()) {
                  
@@ -617,7 +619,7 @@ public class TaskDBDAO implements TaskDBDAOInterface
              
         }
          
-         */
+         
          
          /*
          int i = 1;
