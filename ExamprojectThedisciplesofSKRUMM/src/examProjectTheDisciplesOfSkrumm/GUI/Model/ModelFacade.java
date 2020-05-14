@@ -332,7 +332,7 @@ public class ModelFacade implements ModelFacadeInterface
         return taskmodel.getAllTasks4Project(project);
     }
 
-    @override
+    @Override
     public boolean addUserToProject(User user, Project project) throws SQLServerException, SQLException {
        return userModel.addUserToProject(user, project);
     }
