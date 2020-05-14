@@ -591,11 +591,15 @@ public class TaskDBDAO implements TaskDBDAOInterface
           User user = new User("standard@user.now", "kok", "kok", "kok", true);
           ArrayList<Interval> intervals = new ArrayList<>();
           Client client = new Client(1, "why", 0, 0);
-          Project project = new Project(1, "reeeeeeee", client, 0);
+          Project project = new Project(2, "reeeeeeee", client, 0);
           Task task = new Task(2, "rjo", project, 50, LocalDateTime.now(), LocalDate.now(), LocalTime.now(), LocalTime.now(), user, intervals);
+          
+          
+          System.out.println(taskDBDAO.getDurationFromTasks(project));
+          
          // Interval interval = new Interval(15, LocalTime.MIN, LocalTime.MIN, LocalDate.MIN, 0, task, 0);
          // taskDBDAO.deleteInterval(interval);
-         
+         /*
          for (Task tasksForUserbetween2Date : taskDBDAO.getTasksForUserbetween2Dates(user, LocalDate.of(2020, Month.MAY, 2), LocalDate.of(2020, Month.MAY, 6))) {
             
              int i = 1;
@@ -613,7 +617,7 @@ public class TaskDBDAO implements TaskDBDAOInterface
              
         }
          
-         
+         */
          
          /*
          int i = 1;
