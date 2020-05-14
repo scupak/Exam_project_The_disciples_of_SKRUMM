@@ -500,9 +500,11 @@ public class TaskDBDAO implements TaskDBDAOInterface
 
             
                 sqlString = "SELECT DISTINCT  interval.taskId, task.id , task.creationDate,task.duration, task.lastUsed , task.projectID , task.startTime, task.stopTime, task.title, task.userEmail "
-                        + "FROM interval "
-                        + "INNER JOIN task on interval.taskId = task.id "
-                        + "WHERE  task.userEmail = ? AND interval.creationDate >= ? AND interval.creationDate <= ? OR task.creationDate >= ? AND task.creationDate <= ? ";
+                        + "FROM task "
+                        + "LEFT OUTER JOIN interval on interval.taskId = task.id "
+                        + "WHERE  task.userEmail = ? AND interval.creationDate >= ? AND interval.creationDate <= ? OR task.creationDate >= ? AND task.creationDate <= ? "
+                        + "ORDER BY task.creationDate DESC ";
+                
                 ps = con.prepareStatement(sqlString);
                 
                 ps.setString(1, user.getEmail());
