@@ -717,6 +717,25 @@ public class TaskDBDAO implements TaskDBDAOInterface
         }
     }
 
+    @Override
+    public int getDurationFromTasks(Project project) throws SQLServerException, SQLException {
+        int time = 0;
+         try (Connection con = dbCon.getConnection())
+        {
+            PreparedStatement ps = con.prepareStatement("SELECT SUM(task.duration) AS 'sumDuration' FROM [task] WHERE ProjectID = ?");
+            ps.setInt(1, project.getId());
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next())
+            {
+                time = rs.getInt("sumDuration") + time;
+            }
+
+            return time;
+
+        }
+    }
+
     
 
 }

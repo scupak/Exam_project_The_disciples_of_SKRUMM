@@ -281,4 +281,9 @@ public class BLLFacade implements BLLFacadeInterface
       return taskmanager.getTasksForUserbetween2Dates(user, fromdate, todate);
     }
 
+    @Override
+    public int getDurationFromTasks(Project project) throws SQLServerException, SQLException {
+        return taskmanager.getDurationFromTasks(project);
+    }
+
 }

@@ -51,4 +51,6 @@ public interface TaskManagerInterface
 
     public List<Task> getTasksForUserbetween2Dates(User user, LocalDate fromdate, LocalDate todate) throws SQLException;
     
+    public int getDurationFromTasks(Project project) throws SQLServerException, SQLException;
+    
 }
