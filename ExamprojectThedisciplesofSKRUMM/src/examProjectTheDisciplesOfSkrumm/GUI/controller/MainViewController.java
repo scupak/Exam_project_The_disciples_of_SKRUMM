@@ -106,6 +106,8 @@ public class MainViewController implements Initializable
     private List<AnchorPane> panes = new ArrayList<>();
     private List<Label> timeLabels = new ArrayList<>();
     private List<Label> totalTimeLabels = new ArrayList<>();
+    private List<Label> labels;
+    private List<String> labelNames;
 
     @FXML
     private Label timeLabelOne;
@@ -194,6 +196,8 @@ public class MainViewController implements Initializable
                 handleTimerUtilIsRunning();
 
             }
+            
+            taskGrid = new GridPane();
 
             // anchorPane00.setUserData(new Task("title", "projectName", "clientName", 0) );
         } catch (SQLException ex)
@@ -305,6 +309,7 @@ public class MainViewController implements Initializable
     {
         int anchorPaneNumber = 0;
         tasks = modelfacade.getSixTasks(modelfacade.getCurrentuser());
+        labelNames = new ArrayList<String>();
 
         for (Task task : tasks)
         {
@@ -330,9 +335,7 @@ public class MainViewController implements Initializable
     private void overwriteTasks(AnchorPane pane, Task task)
     {
         List children = pane.getChildren();
-        List<Label> labels = new ArrayList();
-        List<JFXButton> buttonChildren = new ArrayList();
-        JFXButton playButton = new JFXButton();
+        labels = new ArrayList();
 
         ObservableList<Interval> intervals = FXCollections.observableArrayList();
         intervals.setAll(task.getIntervals());
@@ -356,7 +359,8 @@ public class MainViewController implements Initializable
             if (child instanceof Label)
             {
                 Label label = (Label) child;
-
+                
+                labelNames.add(label.getText());
                 labels.add(label);
             }
 
@@ -415,6 +419,12 @@ public class MainViewController implements Initializable
                                 stage.setTitle("Edit Interval");
                                 stage.setAlwaysOnTop(true);
                                 stage.show();
+                                
+                                
+                                comboBox.getItems().setAll(intervals);
+                                
+                                comboBox.getSelectionModel().clearSelection();
+                                comboBox.setValue(null);
                             }
                             //Stage mainView = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
@@ -772,10 +782,9 @@ public class MainViewController implements Initializable
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.setTitle("Edit Task");
-        stage.show();
+        stage.showAndWait();
 
-        fillGrid();
-
+        updateMainView();
     }
 
     @FXML
@@ -802,7 +811,37 @@ public class MainViewController implements Initializable
         {
             modelfacade.deleteTask(thisTask);
             tasks.remove(thisTask);
-            fillGrid();
+            
+            updateMainView();
         }
+    }
+    
+    private void updateMainView() throws SQLException
+    {
+        List<Label> mainViewLabels = new ArrayList<>();
+        
+        for (AnchorPane pane : panes)
+        {
+            List children = pane.getChildren();
+            
+            for (Object child : children)
+            {
+                if(child instanceof Label)
+                {
+                    Label label = (Label) child;
+                    
+                    mainViewLabels.add(label);
+                }
+                    
+            }
+        }
+        
+        for (Label mainViewLabel : mainViewLabels)
+        {
+            int index = mainViewLabels.indexOf(mainViewLabel);
+            mainViewLabel.setText(labelNames.get(index));
+        }
+        
+        fillGrid();
     }
 }

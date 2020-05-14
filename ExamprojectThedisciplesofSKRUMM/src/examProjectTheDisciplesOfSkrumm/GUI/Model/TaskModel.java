@@ -44,6 +44,7 @@ public class TaskModel implements TaskModelInterface
     private boolean isTimerRunning;
     private TimerUtil timerutil = null;
     private ExecutorService executorService;
+    ObservableList<Task> sixTasks;
 
     TaskModel() throws IOException
     {
@@ -110,7 +111,7 @@ public class TaskModel implements TaskModelInterface
     public ObservableList<Task> getSixTasks(User user) throws SQLException
     {
         //ArrayList<Task> sixTasks = (ArrayList<Task>) bllfacade.getSixTasks(user);
-        ObservableList<Task> sixTasks = FXCollections.observableArrayList();
+        sixTasks = FXCollections.observableArrayList();
         sixTasks.addAll(bllfacade.getSixTasks(user));
         return sixTasks;
     }
@@ -138,6 +139,16 @@ public class TaskModel implements TaskModelInterface
     @Override
     public Boolean updateTask(Task task) throws SQLException
     {
+        for (Task tasks : sixTasks)
+        {
+            if(tasks.getId() == task.getId())
+            {
+                tasks.setDuration(task.getDuration());
+                tasks.setProject(task.getProject());
+                tasks.setTitle(task.getTitle());
+            }
+                     
+        }
         return bllfacade.updateTask(task);
     }
 

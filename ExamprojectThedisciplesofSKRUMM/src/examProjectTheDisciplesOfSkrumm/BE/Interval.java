@@ -38,6 +38,26 @@ public class Interval
         this.isPaid = isPaid;
     }
     
+    public void setStartTime(LocalTime startTime)
+    {
+        this.startTime = startTime;
+    }
+
+    public void setStopTime(LocalTime stopTime)
+    {
+        this.stopTime = stopTime;
+    }
+
+    public void setCreationDate(LocalDate creationDate)
+    {
+        this.creationDate = creationDate;
+    }
+
+    public void setIntervalTime(int intervalTime)
+    {
+        this.intervalTime = intervalTime;
+    }
+    
     public int getId()
     {
         return id;
