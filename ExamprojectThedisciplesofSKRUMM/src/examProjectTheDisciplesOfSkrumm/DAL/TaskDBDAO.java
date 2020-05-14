@@ -503,7 +503,7 @@ public class TaskDBDAO implements TaskDBDAOInterface
                         + "FROM task "
                         + "LEFT OUTER JOIN interval on interval.taskId = task.id "
                         + "WHERE  task.userEmail = ? AND interval.creationDate >= ? AND interval.creationDate <= ? OR task.creationDate >= ? AND task.creationDate <= ? "
-                        + "ORDER BY task.creationDate DESC ";
+                        + "ORDER BY task.lastUsed DESC ";
                 
                 ps = con.prepareStatement(sqlString);
                 
@@ -517,7 +517,7 @@ public class TaskDBDAO implements TaskDBDAOInterface
             ResultSet rs = ps.executeQuery();
 
             while (rs.next())
-            {
+            {                                                                  
                 int id = rs.getInt("id");
                 String title = rs.getString("title");
                 Project project = projectDBDAO.getProject(new Project(rs.getInt("ProjectID"), title, new Client(id, title, id,
