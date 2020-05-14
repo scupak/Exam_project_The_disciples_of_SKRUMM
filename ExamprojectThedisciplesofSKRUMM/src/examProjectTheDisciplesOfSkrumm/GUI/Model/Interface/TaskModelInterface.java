@@ -28,7 +28,7 @@ import java.util.concurrent.ExecutorService;
 public interface TaskModelInterface 
 {
     
-    public TreeItem<Task> getModel(User user, LocalDate date);
+    public TreeItem<Task> getModel(User user, LocalDate fromdate, LocalDate todate);
     
     public void createTask(Task task);
     
@@ -42,7 +42,7 @@ public interface TaskModelInterface
     
     public List<Task> getTasksForUser(User user, LocalDate date) throws SQLException;
     
-    public List<Task> getAllTasks() throws SQLException;
+    public ObservableList<Task> getAllTasks() throws SQLException;
 
     public boolean taskExist(Task task) throws SQLException;
 
@@ -73,5 +73,8 @@ public interface TaskModelInterface
     public boolean deleteInterval(Interval interval) throws SQLException;
     
     public List<Task> getAllTasks4Project(Project project) throws SQLServerException, SQLException;
+
+    public List<Task> getTasksForUserbetween2Dates(User user, LocalDate fromdate, LocalDate todate) throws SQLException;
+   
     
 }

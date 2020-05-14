@@ -35,13 +35,10 @@ public class TaskManager implements TaskManagerInterface
         dal = new DALFacade();
     }
     
-    
     @Override
     public void newInterval(Interval interval) throws SQLException
     {
-       
         dal.newInterval(interval);
-        
     }
     
     @Override
@@ -85,22 +82,12 @@ public class TaskManager implements TaskManagerInterface
         System.out.println("added rest of seconds to sec...");
         
         return(String.format("%02d", hour) + ":" + String.format("%02d", min) + ":" + String.format("%02d", sec));
-        
-    
     }
-    
-    
     
     public static void main(String[] args)
     {
-        DALFacade dal;
-        
-        
+        DALFacade dal;                
     }
-    
-    
-    
-    
 
     @Override
     public List<Task> getAllTasks() throws SQLException
@@ -154,8 +141,8 @@ public class TaskManager implements TaskManagerInterface
     public List<Task> getAllTasks4Project(Project project) throws SQLServerException, SQLException {
         return dal.getAllTasks4Project(project);
     }
-  
-   
-    
-    
+
+    public List<Task> getTasksForUserbetween2Dates(User user, LocalDate fromdate, LocalDate todate) throws SQLException {
+       return dal.getTasksForUserbetween2Dates(user, fromdate, todate);
+    }   
 }

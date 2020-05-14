@@ -135,7 +135,7 @@ public class EditTaskController implements Initializable
             System.out.println(blank);
         }
             
-        try {
+        //try {
             /*  editTime = editTimeTextField.getText();
             
             if(editTime != null && !editTime.isEmpty()){
@@ -177,15 +177,16 @@ public class EditTaskController implements Initializable
             }
             
             }*/
-            taskViewController.refreshEverything();
-        } catch (SQLException ex) 
-        {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("Could connect to database\n" + ex);
-            alert.setContentText("Please try again");
-            alert.showAndWait();
-        }
+            //taskViewController.refreshEverything();
+//        }
+//        catch (SQLException ex) 
+//        {
+//            Alert alert = new Alert(Alert.AlertType.ERROR);
+//            alert.setTitle("Error");
+//            alert.setHeaderText("Could connect to database\n" + ex);
+//            alert.setContentText("Please try again");
+//            alert.showAndWait();
+//        }
           Stage stage = (Stage) editTaskBtn.getScene().getWindow();
           stage.close();
     

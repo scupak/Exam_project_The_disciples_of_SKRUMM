@@ -38,6 +38,26 @@ public class Interval
         this.isPaid = isPaid;
     }
     
+    public void setStartTime(LocalTime startTime)
+    {
+        this.startTime = startTime;
+    }
+
+    public void setStopTime(LocalTime stopTime)
+    {
+        this.stopTime = stopTime;
+    }
+
+    public void setCreationDate(LocalDate creationDate)
+    {
+        this.creationDate = creationDate;
+    }
+
+    public void setIntervalTime(int intervalTime)
+    {
+        this.intervalTime = intervalTime;
+    }
+    
     public int getId()
     {
         return id;
@@ -81,6 +101,13 @@ public class Interval
     public LocalDate getCreationDate()
     {
         return creationDate;
+    }
+    
+    public String getFormatedCreationDate()
+    {
+        
+        return getCreationDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+    
     }
     
     public String getFormatedIntervaltime() {

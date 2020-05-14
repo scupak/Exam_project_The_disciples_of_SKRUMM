@@ -31,6 +31,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 /**
@@ -80,6 +81,10 @@ public class EditIntervalViewController implements Initializable
         {
             Logger.getLogger(EditIntervalViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        paid.selectedColorProperty().set(Color.rgb(67, 90, 154));
+        paid.setUnSelectedColor(Color.rgb(67, 90, 154));
+        notPaid.selectedColorProperty().set(Color.rgb(67, 90, 154));
+        notPaid.setUnSelectedColor(Color.rgb(67, 90, 154));
     }
 
     public void fillView(Interval interval)
@@ -124,6 +129,20 @@ public class EditIntervalViewController implements Initializable
         Interval newInterval = new Interval(currentInterval.getId(), startTime.getValue(), stopTime.getValue(),
                 creationDate.getValue(), (int) intervalTime, currentTask, paidOrNot);
         
+        
+        List<Interval> taskIntervals = currentTask.getIntervals();
+        for (Interval taskInterval : taskIntervals)
+        {
+            if(taskInterval.getId() == newInterval.getId())
+            {
+                taskInterval.setCreationDate(creationDate.getValue());
+                taskInterval.setStartTime(startTime.getValue());
+                taskInterval.setStopTime(stopTime.getValue());
+                taskInterval.setIntervalTime((int) intervalTime);
+                taskInterval.setIsPaid(paidOrNot);
+            }
+        }
+        
         modelfacade.updateInterval(currentInterval, newInterval);
 
         Stage stage = (Stage) saveButton.getScene().getWindow();
@@ -142,15 +161,30 @@ public class EditIntervalViewController implements Initializable
     {
         try
         {
-            modelfacade.deleteInterval(currentInterval);
-            Stage stage = (Stage) deleteButton.getScene().getWindow();
-            stage.close();
+            if(modelfacade.getTask(currentTask).getIntervals().size() > 1)
+            {
+                modelfacade.deleteInterval(currentInterval);
+                Stage stage = (Stage) deleteButton.getScene().getWindow();
+                stage.close();
+            }
+            else
+            {
+                Stage stage = (Stage) deleteButton.getScene().getWindow();
+                stage.setAlwaysOnTop(false);
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warining");
+                alert.setHeaderText("You cant delete a tasks last interval, sorry.");
+                alert.setContentText("Please try again");
+                alert.showAndWait(); 
+                stage.setAlwaysOnTop(true);
+            }
+            
         }
         catch(SQLException e)
         {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
-            alert.setHeaderText("your email or password may be incorect\n" + e);
+            alert.setHeaderText("Could delete interval\n" + e);
             alert.setContentText("Please try again");
             alert.showAndWait();
             

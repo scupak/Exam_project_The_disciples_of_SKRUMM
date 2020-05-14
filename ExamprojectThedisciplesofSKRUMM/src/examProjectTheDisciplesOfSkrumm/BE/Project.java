@@ -5,6 +5,7 @@
  */
 package examProjectTheDisciplesOfSkrumm.BE;
 
+import java.time.LocalDate;
 import java.util.Objects;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -22,6 +23,7 @@ public class Project
     private SimpleStringProperty clientName;
     private SimpleIntegerProperty ProjectRate;
     private SimpleIntegerProperty isPaid;
+    private LocalDate creationDate;
 
     public Project(int id, String projectName, Client client, int projectrate) 
     {

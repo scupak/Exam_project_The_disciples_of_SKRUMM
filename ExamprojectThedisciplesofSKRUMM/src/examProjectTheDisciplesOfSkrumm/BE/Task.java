@@ -8,6 +8,7 @@ package examProjectTheDisciplesOfSkrumm.BE;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
@@ -181,10 +182,17 @@ public class Task
     
     public String getFormatedLastUsed()
     {
-        String date = lastUsed.toLocalDate().toString();
+        String date = lastUsed.toLocalDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
         String time = lastUsed.toLocalTime().toString();
         time = time.substring(0, 5);
         return String.format("%s  %s", date, time);
+    }
+    
+    public String getFormatedCreationDate()
+    {
+        
+        return getCreationDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+    
     }
     
     
@@ -260,7 +268,8 @@ public class Task
         hash = 71 * hash + Objects.hashCode(this.id);
         return hash;
     }
-
+    
+   
     @Override
     public String toString()
     {

@@ -488,7 +488,8 @@ public class TaskDBDAO implements TaskDBDAOInterface
         }  
     }
     
-        public List<Task> getTasksForUserbetween2Dates(User user, LocalDate fromdate, LocalDate todate) throws SQLException
+    @Override
+    public List<Task> getTasksForUserbetween2Dates(User user, LocalDate fromdate, LocalDate todate) throws SQLException
     {
         ArrayList<Task> tasks = new ArrayList<>();
         String sqlString;
@@ -501,7 +502,7 @@ public class TaskDBDAO implements TaskDBDAOInterface
                 sqlString = "SELECT DISTINCT  interval.taskId, task.id , task.creationDate,task.duration, task.lastUsed , task.projectID , task.startTime, task.stopTime, task.title, task.userEmail "
                         + "FROM interval "
                         + "INNER JOIN task on interval.taskId = task.id "
-                        + "WHERE  task.userEmail = ? AND interval.creationDate > ? AND interval.creationDate < ? ";
+                        + "WHERE  task.userEmail = ? AND interval.creationDate >= ? AND interval.creationDate <= ? ";
                 ps = con.prepareStatement(sqlString);
                 
                 ps.setString(1, user.getEmail());
@@ -542,7 +543,7 @@ public class TaskDBDAO implements TaskDBDAOInterface
         
         
         //make the from date to date dal method work for intervals
-        private ArrayList<Interval> getIntervalsbetween2Dates(Task task, LocalDate fromdate, LocalDate todate) throws SQLException
+    private ArrayList<Interval> getIntervalsbetween2Dates(Task task, LocalDate fromdate, LocalDate todate) throws SQLException
     {
         try (Connection con = dbCon.getConnection())
         {
@@ -551,7 +552,7 @@ public class TaskDBDAO implements TaskDBDAOInterface
             PreparedStatement ps = con.prepareStatement("SELECT interval.creationDate,interval.intervalId,interval.intervalTime,interval.isPaid, interval.startTime,interval.stopTime,interval.taskId,  task.id , task.userEmail ,task.title "
                                                       + "FROM interval "
                                                       + "INNER JOIN task on interval.taskId = task.id "
-                                                      + "WHERE  task.id = ? AND interval.creationDate > ? AND interval.creationDate < ? ");
+                                                      + "WHERE  task.id = ? AND interval.creationDate >= ? AND interval.creationDate <= ? ");
 
             ps.setInt(1, task.getId());
             ps.setDate(2,  java.sql.Date.valueOf(fromdate));

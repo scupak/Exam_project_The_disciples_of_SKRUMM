@@ -221,6 +221,10 @@ public class UserDBDAO implements UserDBDAOInterface
        // User test1 = new User("standard@user.now", "Mads", "Jensen", "nemt", false);
         //User test2 = new User("admin@user.now", "Jakob", "Grumsen", "nemt", true);
         User test67 = new User("standard@user.now", "No", "Yes", "ok", true);
+        Project p = new Project(3, "projectName", new Client(1, "ClientName", 0, 0), 0);
+        
+        userDb.deleteProjectFromUser(test67, p);
+        
         //userDb.createUser(test1);
         //userDb.createUser(test2);
        /* userDb.createUser(test67);
@@ -354,10 +358,10 @@ public class UserDBDAO implements UserDBDAOInterface
         try ( Connection con = dbCon.getConnection()) {
             PreparedStatement ps = con.prepareStatement(
                     "DELETE FROM UserProjectTable WHERE projectId = ? "
-                    + "AND userId = ? ");
-            ps.setString(1, user.getEmail());
-            ps.setInt(2, project.getId());
-
+                    + "AND userId = ? "); 
+            ps.setInt(1, project.getId());
+            ps.setString(2, user.getEmail());
+            
             int updatedRows = ps.executeUpdate();
 
             if (updatedRows > 0) return true;

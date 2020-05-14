@@ -260,4 +260,25 @@ public class BLLFacade implements BLLFacadeInterface
         return taskmanager.getAllTasks4Project(project);
     }
 
+    @override
+    public List<Project> getProjectsForClient(Client client) throws SQLException
+    {
+        return projectmanager.getProjectsForClient(client);
+    }
+    
+    @Override
+    public boolean addUserToProject(User user, Project project) throws SQLServerException, SQLException {
+       return userManager.addUserToProject(user, project);
+    }
+
+    @Override
+    public boolean deleteProjectFromUser(User user, Project project) throws SQLServerException, SQLException {
+         return userManager.deleteProjectFromUser(user, project);
+    }
+
+    @Override
+    public List<Task> getTasksForUserbetween2Dates(User user, LocalDate fromdate, LocalDate todate) throws SQLException {
+      return taskmanager.getTasksForUserbetween2Dates(user, fromdate, todate);
+    }
+
 }

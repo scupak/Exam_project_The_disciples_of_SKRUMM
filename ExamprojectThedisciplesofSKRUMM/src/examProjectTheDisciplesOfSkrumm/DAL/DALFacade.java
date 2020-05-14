@@ -246,5 +246,9 @@ public class DALFacade implements DALFacadeInterface
     public List<Task> getAllTasks4Project(Project project) throws SQLServerException, SQLException {
         return taskDBDAO.getAllTasks4Project(project);
     }
+
+    public List<Task> getTasksForUserbetween2Dates(User user, LocalDate fromdate, LocalDate todate) throws SQLException {
+        return taskDBDAO.getTasksForUserbetween2Dates(user, fromdate, todate);
+    }
     
 }

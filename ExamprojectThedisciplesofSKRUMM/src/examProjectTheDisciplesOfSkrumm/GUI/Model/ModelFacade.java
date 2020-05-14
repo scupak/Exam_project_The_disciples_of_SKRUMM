@@ -84,8 +84,8 @@ public class ModelFacade implements ModelFacadeInterface
    
 
     @Override
-    public TreeItem<Task> getModel(User user, LocalDate date) {
-        return taskmodel.getModel( user, date);
+    public TreeItem<Task> getModel(User user, LocalDate fromdate, LocalDate todate) {
+        return taskmodel.getModel( user, fromdate, todate);
     }
 
     @Override
@@ -210,7 +210,7 @@ public class ModelFacade implements ModelFacadeInterface
     }
 
     @Override
-    public List<Task> getAllTasks() throws SQLException
+    public ObservableList<Task> getAllTasks() throws SQLException
     {
         return taskmodel.getAllTasks();
     }
@@ -331,7 +331,26 @@ public class ModelFacade implements ModelFacadeInterface
     public List<Task> getAllTasks4Project(Project project) throws SQLServerException, SQLException {
         return taskmodel.getAllTasks4Project(project);
     }
+
+    @override
+    public boolean addUserToProject(User user, Project project) throws SQLServerException, SQLException {
+       return userModel.addUserToProject(user, project);
+    }
     
-    
+    @Override
+    public ObservableList<Project> getProjectsForClient(Client client) throws SQLException
+    {
+        return projectmodel.getProjectsForClient(client);
+    }
+
+    @Override
+    public boolean deleteProjectFromUser(User user, Project project) throws SQLServerException, SQLException {
+        return userModel.deleteProjectFromUser(user, project);
+    }
+
+    @Override
+    public List<Task> getTasksForUserbetween2Dates(User user, LocalDate fromdate, LocalDate todate) throws SQLException {
+        return taskmodel.getTasksForUserbetween2Dates(user, fromdate, todate);
+    }
     
 }

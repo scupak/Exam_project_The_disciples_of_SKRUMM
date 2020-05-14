@@ -211,11 +211,13 @@ public class TaskViewController implements Initializable
                final Object dataObj = ((TreeTableColumn.CellDataFeatures) obj).getValue().getValue();
                 if (dataObj instanceof Interval)
                 {
-                  return new ReadOnlyStringWrapper(((Interval) dataObj).getCreationDate().toString());
-                } else if (dataObj instanceof Task)
+                  return new ReadOnlyStringWrapper(((Interval) dataObj).getFormatedCreationDate());
+                } 
+                else if (dataObj instanceof Task)
                 {
-                    return new ReadOnlyStringWrapper(((Task) dataObj).getCreationDate().toString());
-                } else
+                    return new ReadOnlyStringWrapper(((Task) dataObj).getFormatedCreationDate());
+                } 
+                else
                 {
                     return null;
                 }
@@ -303,6 +305,7 @@ public class TaskViewController implements Initializable
         try 
         {
             datePickerFrom.setValue(LocalDate.now());
+            datePickerTo.setValue(LocalDate.now());
             refreshEverything();
             
             if(modelfacade.getisTimerRunning())
@@ -489,7 +492,7 @@ public class TaskViewController implements Initializable
     public void RefreshTreeView()
     {
         //Creating the rootNodeTask
-        TreeItem<Task> rootNodeTask = modelfacade.getModel(modelfacade.getCurrentuser(), datePickerFrom.getValue());
+        TreeItem<Task> rootNodeTask = modelfacade.getModel(modelfacade.getCurrentuser(), datePickerFrom.getValue(), datePickerTo.getValue());
         rootNodeTask.setExpanded(true);
 
         //Set the model for the TreeTableView
@@ -502,6 +505,7 @@ public class TaskViewController implements Initializable
     @FXML
     private void handlecurrentday(ActionEvent event) throws SQLException
     {
+        datePickerTo.setValue(LocalDate.now());
         datePickerFrom.setValue(LocalDate.now());
         refreshEverything();
         
@@ -509,12 +513,13 @@ public class TaskViewController implements Initializable
 
     private void checkForCurrentday()
     {
-        LocalDate date = datePickerFrom.getValue();
-        if (!(date.isEqual(LocalDate.now())))
+        LocalDate date1 = datePickerFrom.getValue();
+        LocalDate date2 = datePickerTo.getValue();
+        if (!(date1.isEqual(LocalDate.now())) || !(date2.isEqual(LocalDate.now())))
         {
             returnToCurrentDayButton.setVisible(true);
             returnToCurrentDayButton.setDisable(false);
-        } else if (date.isEqual(LocalDate.now()))
+        } else if (date1.isEqual(LocalDate.now()) || date2.isEqual(LocalDate.now()))
         {
             returnToCurrentDayButton.setVisible(false);
             returnToCurrentDayButton.setDisable(true);
@@ -561,13 +566,24 @@ public class TaskViewController implements Initializable
 
                 if (input == JOptionPane.YES_OPTION)
                 {
-                    modelfacade.deleteInterval(interval);
-                    RefreshTreeView();
-                }
-                
+                    System.out.println(interval.getTask());
+                    if(modelfacade.getTask(interval.getTask()).getIntervals().size() > 1)
+                    {
+                        modelfacade.deleteInterval(interval);
+                        RefreshTreeView();
+                    }
+                    else
+                    {
+                        Alert alert = new Alert(Alert.AlertType.WARNING);
+                        alert.setTitle("Warining");
+                        alert.setHeaderText("You cant delete a tasks last interval, sorry.");
+                        alert.setContentText("Please try again");
+                        alert.showAndWait(); 
+                    }
+                    
+                }  
             }
         }
-
     }
     
     private void refreshtotal() throws SQLException

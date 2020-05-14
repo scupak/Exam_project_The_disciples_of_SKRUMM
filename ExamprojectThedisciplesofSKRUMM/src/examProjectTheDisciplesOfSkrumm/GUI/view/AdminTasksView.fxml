@@ -21,12 +21,12 @@
       <JFXButton fx:id="backBtn" layoutX="14.0" layoutY="14.0" onAction="#handleBack" stylesheets="@../css/Graphics.css" text="Back" />
       <TableView fx:id="taskTableView" layoutX="34.0" layoutY="96.0" prefHeight="322.0" prefWidth="650.0" stylesheets="@../css/Graphics.css">
         <columns>
-          <TableColumn prefWidth="137.60000228881836" text="Task" />
-          <TableColumn prefWidth="136.00001525878906" text="Project" />
-            <TableColumn minWidth="6.4000396728515625" prefWidth="108.0" text="Client" />
-            <TableColumn prefWidth="130.39996337890625" text="User" />
-            <TableColumn prefWidth="75.2000732421875" text="Duration" />
-            <TableColumn prefWidth="59.2000732421875" text="Is Paid" />
+          <TableColumn fx:id="taskNameColumn" prefWidth="137.60000228881836" text="Task" />
+          <TableColumn fx:id="taskProjectColumn" prefWidth="136.00001525878906" text="Project" />
+            <TableColumn fx:id="taskClientColumn" minWidth="6.4000396728515625" prefWidth="108.0" text="Client" />
+            <TableColumn fx:id="taskUserColumn" prefWidth="130.39996337890625" text="User" />
+            <TableColumn fx:id="taskDurationColumn" prefWidth="75.2000732421875" text="Duration" />
+            <TableColumn fx:id="taskIsPaidColumn" prefWidth="59.2000732421875" text="Is Paid" />
         </columns>
       </TableView>
       <JFXButton fx:id="deleteBtn" layoutX="35.0" layoutY="425.0" onAction="#handleDeleteTask" stylesheets="@../css/Graphics.css" text="Delete" />

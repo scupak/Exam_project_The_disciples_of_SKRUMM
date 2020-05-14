@@ -31,6 +31,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
+import javafx.scene.control.Alert;
 
 /**
  *
@@ -43,6 +44,7 @@ public class TaskModel implements TaskModelInterface
     private boolean isTimerRunning;
     private TimerUtil timerutil = null;
     private ExecutorService executorService;
+    ObservableList<Task> sixTasks;
 
     TaskModel() throws IOException
     {
@@ -56,13 +58,17 @@ public class TaskModel implements TaskModelInterface
     
     
     @Override
-    public TreeItem<Task> getModel(User user, LocalDate date) 
+    public TreeItem<Task> getModel(User user, LocalDate fromdate, LocalDate todate) 
     {
         try {
             tasks.clear();
-            tasks.addAll(bllfacade.getTasksForUser(user, date));
+            tasks.addAll(getTasksForUserbetween2Dates(user, fromdate, todate));
         } catch (SQLException ex) {
-            Logger.getLogger(TaskModel.class.getName()).log(Level.SEVERE, null, ex);
+           Alert alert = new Alert(Alert.AlertType.ERROR);
+           alert.setTitle("Error");
+           alert.setHeaderText("Could connect to database\n" + ex);
+           alert.setContentText("Please try again");
+           alert.showAndWait(); 
         }
         return bllfacade.getModel(tasks);
     }
@@ -105,7 +111,7 @@ public class TaskModel implements TaskModelInterface
     public ObservableList<Task> getSixTasks(User user) throws SQLException
     {
         //ArrayList<Task> sixTasks = (ArrayList<Task>) bllfacade.getSixTasks(user);
-        ObservableList<Task> sixTasks = FXCollections.observableArrayList();
+        sixTasks = FXCollections.observableArrayList();
         sixTasks.addAll(bllfacade.getSixTasks(user));
         return sixTasks;
     }
@@ -117,9 +123,11 @@ public class TaskModel implements TaskModelInterface
     }
 
     @Override
-    public List<Task> getAllTasks() throws SQLException
+    public ObservableList<Task> getAllTasks() throws SQLException
     {
-        return bllfacade.getAllTasks();
+        ObservableList<Task> allTasks = FXCollections.observableArrayList();
+        allTasks.addAll(bllfacade.getAllTasks());
+        return allTasks;
     }
 
     @Override
@@ -131,6 +139,16 @@ public class TaskModel implements TaskModelInterface
     @Override
     public Boolean updateTask(Task task) throws SQLException
     {
+        for (Task tasks : sixTasks)
+        {
+            if(tasks.getId() == task.getId())
+            {
+                tasks.setDuration(task.getDuration());
+                tasks.setProject(task.getProject());
+                tasks.setTitle(task.getTitle());
+            }
+                     
+        }
         return bllfacade.updateTask(task);
     }
 
@@ -196,6 +214,11 @@ public class TaskModel implements TaskModelInterface
     @Override
     public List<Task> getAllTasks4Project(Project project) throws SQLServerException, SQLException {
         return bllfacade.getAllTasks4Project(project);
+    }
+
+    @override
+    public List<Task> getTasksForUserbetween2Dates(User user, LocalDate fromdate, LocalDate todate) throws SQLException {
+        return bllfacade.getTasksForUserbetween2Dates(user, fromdate, todate);
     }
     
     
