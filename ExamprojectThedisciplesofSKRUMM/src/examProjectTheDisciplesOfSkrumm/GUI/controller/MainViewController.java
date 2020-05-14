@@ -418,13 +418,21 @@ public class MainViewController implements Initializable
                                 stage.setMinWidth(318);
                                 stage.setTitle("Edit Interval");
                                 stage.setAlwaysOnTop(true);
-                                stage.show();
+                                stage.showAndWait();
                                 
                                 
                                 comboBox.getItems().setAll(intervals);
                                 
                                 comboBox.getSelectionModel().clearSelection();
                                 comboBox.setValue(null);
+                                
+                                try
+                                {
+                                    updateMainView();
+                                } catch (SQLException ex)
+                                {
+                                    Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
+                                }
                             }
                             //Stage mainView = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
