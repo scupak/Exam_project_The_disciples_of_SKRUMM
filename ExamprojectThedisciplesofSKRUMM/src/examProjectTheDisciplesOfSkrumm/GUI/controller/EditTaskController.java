@@ -49,7 +49,6 @@ public class EditTaskController implements Initializable
     @FXML
     private JFXComboBox<Project> editProjectCombobox;
     
-    private  TaskViewController taskViewController; 
 
     /**
      * Initializes the controller class.
@@ -207,9 +206,5 @@ public class EditTaskController implements Initializable
         editProjectCombobox.getSelectionModel().select(editTask.getProject());
     }
     
-    public void settaskViewController( TaskViewController taskViewController) {
-     this.taskViewController = taskViewController;
-     
-        //System.out.println(taskViewController);
-    }
+   
 }

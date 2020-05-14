@@ -41,7 +41,6 @@ public class EditClientController implements Initializable
     
     private Client client;
     private ModelFacadeInterface modelfacade;
-    private AdminClientsAndProjectsController adminClientsAndProjectsController;
      
 
     /**
@@ -86,10 +85,7 @@ public class EditClientController implements Initializable
         {
             throw new NullPointerException();
         }
-         if(adminClientsAndProjectsController != null)
-                {
-                adminClientsAndProjectsController.RefreshTableView();
-                }
+         
          Stage editClientView = (Stage) ((Node) event.getSource()).getScene().getWindow();
         editClientView.close();
         }catch(NullPointerException e)
@@ -124,13 +120,5 @@ public class EditClientController implements Initializable
      ClientEditRateTextField.setText(client.getClientRate() + "");
     }
 
-     public AdminClientsAndProjectsController getAdminClientsAndProjectsController()
-    {
-        return adminClientsAndProjectsController;
-    }
-
-    public void setAdminClientsAndProjectsController(AdminClientsAndProjectsController adminClientsAndProjectsController)
-    {
-        this.adminClientsAndProjectsController = adminClientsAndProjectsController;
-    }
+    
 }

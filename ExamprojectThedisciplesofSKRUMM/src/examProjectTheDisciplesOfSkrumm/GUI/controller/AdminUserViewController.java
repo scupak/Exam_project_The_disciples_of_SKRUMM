@@ -107,13 +107,13 @@ public class AdminUserViewController implements Initializable
         Parent root;
         root = loader.load();
         CreateUserViewController controller = loader.getController();
-        controller.setAdminUserViewController(this);
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.setTitle("Create user");
         stage.setMinHeight(288);
         stage.setMinWidth(346);
-        stage.show();
+        stage.showAndWait();
+        refreshTableview();
         } 
         catch (IOException ex) 
         {
@@ -121,7 +121,14 @@ public class AdminUserViewController implements Initializable
             alert.setTitle("Error");
             alert.setHeaderText("Could not load \n" + ex);
             alert.setContentText("Please try again");
-            alert.showAndWait(); ;
+            alert.showAndWait();
+            
+        } catch (SQLException ex) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Could not load \n" + ex);
+            alert.setContentText("Please try again");
+            alert.showAndWait();
         }
     }
 
@@ -147,13 +154,23 @@ public class AdminUserViewController implements Initializable
                 Parent root = loader.load();
                 EditUserController controller = loader.getController();
                 controller.setEditUser(selectedUser);
-                controller.setAdminUserViewController(this);
                 Stage stage = new Stage();
                 stage.setScene(new Scene(root));
                 stage.setMinHeight(288);
                 stage.setMinWidth(346);
                 stage.setTitle("Edit User");
-                stage.show();
+                stage.showAndWait();
+             try 
+             {
+                 refreshTableview();
+             } catch (SQLException ex)
+             {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Error");
+                alert.setHeaderText("Cant refresh" + ex);
+                alert.setContentText("Please try again");
+                alert.showAndWait();
+             }
 
             
 

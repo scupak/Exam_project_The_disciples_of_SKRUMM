@@ -12,7 +12,7 @@
    <children>
       <StackPane prefHeight="56.0" prefWidth="320.0" styleClass="chart-bar" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label styleClass="Label" text="Create new project">
+            <Label styleClass="Label" text="Edit project">
                <font>
                   <Font size="18.0" />
                </font>
