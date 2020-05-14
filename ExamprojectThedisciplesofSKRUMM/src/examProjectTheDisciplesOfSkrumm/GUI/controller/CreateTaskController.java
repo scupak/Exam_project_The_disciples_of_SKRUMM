@@ -41,6 +41,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.util.converter.LocalDateTimeStringConverter;
 import javafx.util.converter.LocalTimeStringConverter;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -67,10 +69,17 @@ public class CreateTaskController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb) 
     {
+        
+        
         try {
             modelfacade = ModelFacade.getInstance();
-        } catch (Exception ex) {
-            Logger.getLogger(CreateTaskController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) 
+        {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Couldn't get model");
+            alert.setContentText("" + ex);
+            alert.showAndWait();   
         }
         projectCombobox.getItems().addAll(modelfacade.getProjects());
         
@@ -83,74 +92,25 @@ public class CreateTaskController implements Initializable
     {
         if(!titleTextField.getText().isEmpty() && !(projectCombobox.getValue() == null))
         {
-            try
-            {
-                String title = titleTextField.getText();
-                Project project = projectCombobox.getValue();
-                int duration = 0;
-                LocalDateTime lastUsed = LocalDateTime.now();
-                LocalDate creationDate = LocalDate.now();
-                LocalTime startTime = LocalTime.MIN;
-                LocalTime stopTime = LocalTime.MIN;
-                ArrayList<Interval> intervals = new ArrayList<Interval>();
-                User user = modelfacade.getCurrentuser();
+            String title = titleTextField.getText();
+            Project project = projectCombobox.getValue();
+            int duration = 0;
+            LocalDateTime lastUsed = LocalDateTime.now();
+            LocalDate creationDate = LocalDate.now();
+            LocalTime startTime = LocalTime.MIN;
+            LocalTime stopTime = LocalTime.MIN;
+            ArrayList<Interval> intervals = new ArrayList<Interval>();
+            User user = modelfacade.getCurrentuser();
        
         
-                Task newtask = new Task(1, title, project, duration, lastUsed, creationDate, startTime, stopTime, user, intervals);
+            Task newtask = new Task(1, title, project, duration, lastUsed, creationDate, startTime, stopTime, user, intervals);
                 
-                //Create task should return the task it created
-                modelfacade.createTask(newtask);
-                
-                Task task = modelfacade.getTask(newtask);
-                Interval interval = new Interval(0, LocalTime.now(), LocalTime.now(), creationDate, 0, task, task.getIsPaid());
-                modelfacade.newInterval(interval);
-                Stage createTaskView = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                createTaskView.close();
-            }
-            catch (NumberFormatException ex)
-            {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Oops");
-                alert.setHeaderText("Incorrect input\n" + ex);
-                alert.setContentText("You wrote a letter in duration, it needs a number.");
-                alert.showAndWait();
-            } catch (SQLException ex) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText("Could connect to database\n" + ex);
-                alert.setContentText("Please try again");
-                alert.showAndWait(); 
-            }
+            //Create task should return the task it created
+            modelfacade.createTask(newtask);
+            Stage createTaskView = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            createTaskView.close();
             
-        }
-        else if(!titleTextField.getText().isEmpty() && !(projectCombobox.getValue() == null))
-        {
-            try
-            {
-                String title = titleTextField.getText();
-                Project project = projectCombobox.getValue();
-                int duration = 0;
-                LocalDateTime lastUsed = LocalDateTime.now();
-                LocalDate creationDate = LocalDate.now();
-                LocalTime startTime = LocalTime.MIN;
-                LocalTime stopTime = LocalTime.MIN;
-                ArrayList<Interval> intervals = new ArrayList<Interval>();
-                User user = modelfacade.getCurrentuser();
-       
-        
-                Task newtask = new Task(1, title, project, duration, lastUsed, creationDate, startTime, stopTime, user, intervals);
-                modelfacade.createTask(newtask);
-                Stage createTaskView = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                createTaskView.close();
-            }
-            catch (NumberFormatException ex)
-            {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Oops");
-                alert.setHeaderText("Incorrect input\n" + ex);
-                alert.setContentText("You wrote a letter in duration, it needs a number.");
-                alert.showAndWait();
-            }
+             
             
         }
         else 
@@ -180,6 +140,7 @@ public class CreateTaskController implements Initializable
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.setTitle("TimeTracker");
-        stage.show();
+        stage.showAndWait();
+        projectCombobox.getItems().addAll(modelfacade.getProjects());
     }  
 }

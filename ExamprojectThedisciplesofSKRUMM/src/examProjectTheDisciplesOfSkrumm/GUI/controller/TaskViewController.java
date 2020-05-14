@@ -624,21 +624,8 @@ public class TaskViewController implements Initializable
 
                 if (input == JOptionPane.YES_OPTION)
                 {
-                    System.out.println(interval.getTask());
-                    if(modelfacade.getTask(interval.getTask()).getIntervals().size() > 1)
-                    {
-                        modelfacade.deleteInterval(interval);
-                        RefreshTreeView();
-                    }
-                    else
-                    {
-                        Alert alert = new Alert(Alert.AlertType.WARNING);
-                        alert.setTitle("Warining");
-                        alert.setHeaderText("You cant delete a tasks last interval, sorry.");
-                        alert.setContentText("Please try again");
-                        alert.showAndWait(); 
-                    }
-                    
+                    modelfacade.deleteInterval(interval);
+                    RefreshTreeView(); 
                 }  
             }
         }
