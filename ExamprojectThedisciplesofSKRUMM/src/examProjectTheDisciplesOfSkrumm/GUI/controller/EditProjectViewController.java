@@ -50,12 +50,8 @@ public class EditProjectViewController implements Initializable
     private ComboBox<Client> clientComboBox;
     
     private ModelFacadeInterface modelfacade;
-    
-    private AdminClientsAndProjectsController adminClientsAndProjectsController;
-    
-     private AdminViewController adminviewcontroller;
      
-     private Project project;
+    private Project project;
 
     /**
      * Initializes the controller class.
@@ -93,7 +89,6 @@ public class EditProjectViewController implements Initializable
                 int projectRate = Integer.parseInt(ProjectRateTextField.getText());
                 Project newproject = new Project(id, projectName, client, projectRate);
                 modelfacade.updateProject(newproject);
-                adminClientsAndProjectsController.RefreshTableView();
                 Stage createUserView = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 createUserView.close();
             } catch (NumberFormatException ex)
@@ -114,7 +109,6 @@ public class EditProjectViewController implements Initializable
                 int projectRate = clientComboBox.getValue().getClientRate();
                 Project newproject = new Project(id, projectName, client, projectRate);
                 modelfacade.updateProject(newproject);
-                adminClientsAndProjectsController.RefreshTableView();
                 Stage createUserView = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 createUserView.close();
             } catch (NumberFormatException ex)
@@ -134,8 +128,7 @@ public class EditProjectViewController implements Initializable
                 Client client = clientComboBox.getValue();
                 int projectRate = 0;
                 Project newproject = new Project(id, projectName, client, projectRate);
-                modelfacade.CreateProject(newproject);
-                adminClientsAndProjectsController.RefreshTableView();
+                modelfacade.updateProject(newproject);
                 Stage createUserView = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 createUserView.close();
             } catch (NumberFormatException ex)
@@ -169,20 +162,19 @@ public class EditProjectViewController implements Initializable
            FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/AddClient.fxml"));
         Parent root = loader.load();
         AddClientController controller = loader.getController();
-        controller.setEditProjectViewController(this);
-        controller.setAdminClientsAndProjectsController(adminClientsAndProjectsController);
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.setMinHeight(200);
         stage.setMinWidth(300);
         stage.setTitle("TimeTracker");
-        stage.show();
+        stage.showAndWait();
+        refreshClientComboBox();
     }
 
     @FXML
     private void handleCombobox(ActionEvent event)
     {
-         if (clientComboBox.getValue().getIsPaid() == 0)
+        if (clientComboBox.getValue().getIsPaid() == 0)
         {
             ProjectRateTextField.setDisable(true);
         } else if (clientComboBox.getValue().getIsPaid() == 1)
@@ -191,15 +183,7 @@ public class EditProjectViewController implements Initializable
         }
     }
 
-    public AdminClientsAndProjectsController getAdminClientsAndProjectsController()
-    {
-        return adminClientsAndProjectsController;
-    }
-
-    public void setAdminClientsAndProjectsController(AdminClientsAndProjectsController adminClientsAndProjectsController)
-    {
-        this.adminClientsAndProjectsController = adminClientsAndProjectsController;
-    }
+    
 
     public void refreshClientComboBox()
     {

@@ -173,11 +173,11 @@ public class AdminViewController implements Initializable
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/AddProjectView.fxml"));
         Parent root = loader.load();
         AddProjectViewController controller = loader.getController();
-        controller.setAdminViewController(this);
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.setTitle("TimeTracker");
-        stage.show();
+        stage.showAndWait();
+        RefreshTableView();
     }
 
     @FXML

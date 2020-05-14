@@ -59,7 +59,7 @@ public class CreateTaskController implements Initializable
     @FXML
     private JFXComboBox<Project> projectCombobox;
     
-    private  TaskViewController taskViewController; 
+
    
     
     
@@ -104,8 +104,6 @@ public class CreateTaskController implements Initializable
                 Task task = modelfacade.getTask(newtask);
                 Interval interval = new Interval(0, LocalTime.now(), LocalTime.now(), creationDate, 0, task, task.getIsPaid());
                 modelfacade.newInterval(interval);
-                
-                taskViewController.refreshEverything();
                 Stage createTaskView = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 createTaskView.close();
             }
@@ -142,7 +140,6 @@ public class CreateTaskController implements Initializable
         
                 Task newtask = new Task(1, title, project, duration, lastUsed, creationDate, startTime, stopTime, user, intervals);
                 modelfacade.createTask(newtask);
-                taskViewController.refreshEverything();
                 Stage createTaskView = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 createTaskView.close();
             }
@@ -153,13 +150,6 @@ public class CreateTaskController implements Initializable
                 alert.setHeaderText("Incorrect input\n" + ex);
                 alert.setContentText("You wrote a letter in duration, it needs a number.");
                 alert.showAndWait();
-            } catch (SQLException ex) 
-            {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText("Could connect to database\n" + ex);
-                alert.setContentText("Please try again");
-                alert.showAndWait(); 
             }
             
         }
@@ -191,19 +181,5 @@ public class CreateTaskController implements Initializable
         stage.setScene(new Scene(root));
         stage.setTitle("TimeTracker");
         stage.show();
-    }
-
-    void settaskViewController( TaskViewController taskViewController) {
-     this.taskViewController = taskViewController;
-     
-        //System.out.println(taskViewController);
-    }
-
-    
-
-    
-    
-    
-    
-    
+    }  
 }
