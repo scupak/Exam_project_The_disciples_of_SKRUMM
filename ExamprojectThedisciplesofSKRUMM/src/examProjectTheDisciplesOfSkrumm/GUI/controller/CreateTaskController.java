@@ -97,7 +97,14 @@ public class CreateTaskController implements Initializable
        
         
                 Task newtask = new Task(1, title, project, duration, lastUsed, creationDate, startTime, stopTime, user, intervals);
+                
+                //Create task should return the task it created
                 modelfacade.createTask(newtask);
+                
+                Task task = modelfacade.getTask(newtask);
+                Interval interval = new Interval(0, LocalTime.now(), LocalTime.now(), creationDate, 0, task, task.getIsPaid());
+                modelfacade.newInterval(interval);
+                
                 taskViewController.refreshEverything();
                 Stage createTaskView = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 createTaskView.close();

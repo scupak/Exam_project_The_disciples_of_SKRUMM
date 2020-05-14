@@ -211,11 +211,13 @@ public class TaskViewController implements Initializable
                final Object dataObj = ((TreeTableColumn.CellDataFeatures) obj).getValue().getValue();
                 if (dataObj instanceof Interval)
                 {
-                  return new ReadOnlyStringWrapper(((Interval) dataObj).getCreationDate().toString());
-                } else if (dataObj instanceof Task)
+                  return new ReadOnlyStringWrapper(((Interval) dataObj).getFormatedCreationDate());
+                } 
+                else if (dataObj instanceof Task)
                 {
-                    return new ReadOnlyStringWrapper(((Task) dataObj).getCreationDate().toString());
-                } else
+                    return new ReadOnlyStringWrapper(((Task) dataObj).getFormatedCreationDate());
+                } 
+                else
                 {
                     return null;
                 }
@@ -564,13 +566,24 @@ public class TaskViewController implements Initializable
 
                 if (input == JOptionPane.YES_OPTION)
                 {
-                    modelfacade.deleteInterval(interval);
-                    RefreshTreeView();
-                }
-                
+                    System.out.println(interval.getTask());
+                    if(modelfacade.getTask(interval.getTask()).getIntervals().size() > 1)
+                    {
+                        modelfacade.deleteInterval(interval);
+                        RefreshTreeView();
+                    }
+                    else
+                    {
+                        Alert alert = new Alert(Alert.AlertType.WARNING);
+                        alert.setTitle("Warining");
+                        alert.setHeaderText("You cant delete a tasks last interval, sorry.");
+                        alert.setContentText("Please try again");
+                        alert.showAndWait(); 
+                    }
+                    
+                }  
             }
         }
-
     }
     
     private void refreshtotal() throws SQLException

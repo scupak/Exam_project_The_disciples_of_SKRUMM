@@ -103,6 +103,13 @@ public class Interval
         return creationDate;
     }
     
+    public String getFormatedCreationDate()
+    {
+        
+        return getCreationDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+    
+    }
+    
     public String getFormatedIntervaltime() {
         int totalSec = intervalTime;
         int hour = 0;
