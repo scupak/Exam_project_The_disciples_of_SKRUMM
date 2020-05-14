@@ -192,6 +192,11 @@ public class TaskModel implements TaskModelInterface
     public boolean deleteInterval(Interval interval) throws SQLException {
         return bllfacade.deleteInterval(interval);
     }
+
+    @Override
+    public List<Task> getAllTasks4Project(Project project) throws SQLServerException, SQLException {
+        return bllfacade.getAllTasks4Project(project);
+    }
     
     
     

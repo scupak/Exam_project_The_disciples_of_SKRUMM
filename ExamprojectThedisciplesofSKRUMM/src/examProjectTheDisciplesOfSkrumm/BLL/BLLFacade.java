@@ -255,4 +255,9 @@ public class BLLFacade implements BLLFacadeInterface
       return userManager.getAllUserProjects(user);
     }
 
+    @Override
+    public List<Task> getAllTasks4Project(Project project) throws SQLServerException, SQLException {
+        return taskmanager.getAllTasks4Project(project);
+    }
+
 }

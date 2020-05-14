@@ -149,6 +149,11 @@ public class TaskManager implements TaskManagerInterface
     {
        return dal.deleteInterval(interval);
     }
+
+    @Override
+    public List<Task> getAllTasks4Project(Project project) throws SQLServerException, SQLException {
+        return dal.getAllTasks4Project(project);
+    }
   
    
     

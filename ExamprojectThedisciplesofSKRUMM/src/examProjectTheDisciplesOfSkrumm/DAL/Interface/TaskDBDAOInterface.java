@@ -7,6 +7,7 @@ package examProjectTheDisciplesOfSkrumm.DAL.Interface;
 
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import examProjectTheDisciplesOfSkrumm.BE.Interval;
+import examProjectTheDisciplesOfSkrumm.BE.Project;
 import examProjectTheDisciplesOfSkrumm.BE.Task;
 import examProjectTheDisciplesOfSkrumm.BE.User;
 import java.sql.SQLException;
@@ -43,4 +44,6 @@ public interface TaskDBDAOInterface
     public boolean updateInterval( Interval oldInterval, Interval newInterval) throws SQLServerException, SQLException;
     
     public boolean deleteInterval(Interval interval) throws SQLException;
+    
+    public List<Task> getAllTasks4Project(Project project) throws SQLServerException, SQLException;
 }

@@ -46,4 +46,6 @@ public interface TaskManagerInterface
     public boolean updateInterval( Interval oldInterval, Interval newInterval) throws SQLServerException, SQLException;
     
     public boolean deleteInterval(Interval interval) throws SQLException;
+    
+    public List<Task> getAllTasks4Project(Project project) throws SQLServerException, SQLException;
 }
