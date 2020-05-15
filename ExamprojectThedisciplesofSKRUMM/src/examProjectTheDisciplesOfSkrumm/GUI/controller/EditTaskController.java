@@ -66,11 +66,6 @@ public class EditTaskController implements Initializable
             alert.setContentText("" + ex);
             alert.showAndWait();   
         }
-      
-       
-        
-
-        
     }    
 
 

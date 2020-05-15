@@ -473,7 +473,7 @@ public class MainViewController implements Initializable
 
             if (label.getText().equals("Date"))
             {
-                label.setText(task.getLastUsed().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).substring(0, 10));
+                label.setText(task.getCreationDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).substring(0, 10));
                 label.setMaxWidth(Double.MAX_VALUE);
                 pane.setLeftAnchor(label, 0.0);
                 pane.setRightAnchor(label, 0.0);
