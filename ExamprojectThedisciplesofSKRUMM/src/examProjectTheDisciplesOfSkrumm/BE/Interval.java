@@ -144,18 +144,19 @@ public class Interval
     {
         if(isPaid == 0)
         {
-            return "Not Paid";
+            return "unpaid";
         }
         else 
         {
-            return "Paid";
+            return "paid";
         }
     }
     
     
     
     @Override
-    public String toString() {
+    public String toString()
+    {
         return creationDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + "  |  " + startTime + " to " + stopTime + "  |  " + getFormatedIntervaltime() + "  |  " + paidOrNot();
     }
     

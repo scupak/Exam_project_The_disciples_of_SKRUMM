@@ -151,12 +151,12 @@ public class AdminClientsAndProjectsController implements Initializable
                 getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/AddClient.fxml"));
         Parent root = loader.load();
         AddClientController controller = loader.getController();
-        controller.setAdminClientsAndProjectsController(this);
 
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.setTitle("Create Client");
-        stage.show();
+        stage.showAndWait();
+        RefreshTableView();
     }
 
     @FXML
@@ -166,13 +166,13 @@ public class AdminClientsAndProjectsController implements Initializable
                 getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/EditClient.fxml"));
         Parent root = loader.load();
         EditClientController controller = loader.getController();
-            controller.setClient(clientTableView.getSelectionModel().getSelectedItem());
-             controller.setAdminClientsAndProjectsController(this);
+        controller.setClient(clientTableView.getSelectionModel().getSelectedItem());
 
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.setTitle("Edit Client");
-        stage.show();
+        stage.showAndWait();
+        RefreshTableView();
 
     }
 
@@ -205,12 +205,12 @@ public class AdminClientsAndProjectsController implements Initializable
                 getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/AddProjectView.fxml"));
         Parent root = loader.load();
         AddProjectViewController controller = loader.getController();
-        controller.setAdminClientsAndProjectsController(this);
-
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.setTitle("Create Client");
-        stage.show();
+        stage.showAndWait();
+        RefreshTableView();
+        
     }
 
     @FXML
@@ -220,13 +220,13 @@ public class AdminClientsAndProjectsController implements Initializable
                 getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/EditProjectView.fxml"));
         Parent root = loader.load();
         EditProjectViewController controller = loader.getController();
-            controller.setProject(projectTableView.getSelectionModel().getSelectedItem());
-             controller.setAdminClientsAndProjectsController(this);
+        controller.setProject(projectTableView.getSelectionModel().getSelectedItem());
 
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
-        stage.setTitle("Edit Client");
-        stage.show();
+        stage.setTitle("Edit Project");
+        stage.showAndWait();
+        RefreshTableView();
     }
 
     @FXML

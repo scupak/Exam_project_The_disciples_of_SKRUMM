@@ -67,19 +67,11 @@ import javax.swing.JOptionPane;
  */
 public class MainViewController implements Initializable
 {
-
-    ModelFacadeInterface modelfacade;
-
-    DateTimeFormatter formatter;
     @FXML
-    private JFXButton AdminBtn;
-    private GridPane taskGrid;
-    @FXML
-    private JFXButton taskBtn;
-
-    private boolean adminCheck;
-    @FXML
-    private JFXButton clientsProjectBtn;
+    private Label welcomeLabel;
+    
+    
+    //AnchorPanes inside the GridPane
     @FXML
     private AnchorPane taskOne;
     @FXML
@@ -93,23 +85,7 @@ public class MainViewController implements Initializable
     @FXML
     private AnchorPane taskTwo;
 
-    private int sec = 0;
-    private int min = 0;
-    private int hour = 0;
-    private boolean running = false;
-    private int totalsec = 0;
-
-    private Label intervalLabel;
-    private Label totaltimelabel;
-
-    //private TimerUtil timer;
-    private List<JFXButton> buttons = new ArrayList();
-    private List<AnchorPane> panes = new ArrayList<>();
-    private List<Label> timeLabels = new ArrayList<>();
-    private List<Label> totalTimeLabels = new ArrayList<>();
-    private List<Label> labels;
-    private List<String> labelNames;
-
+    //Interval counter labels
     @FXML
     private Label timeLabelOne;
     @FXML
@@ -122,6 +98,8 @@ public class MainViewController implements Initializable
     private Label timeLabelFive;
     @FXML
     private Label timeLabelSix;
+    
+    //Total time counter labels
     @FXML
     private Label totalTimeOne;
     @FXML
@@ -134,18 +112,27 @@ public class MainViewController implements Initializable
     private Label totalTimeFive;
     @FXML
     private Label totalTimeSix;
-    //ExecutorService executorService;
-    //TimerUtil timerutil;
-    JFXButton previousbutton = null;
-
+    
+    private List<JFXButton> buttons = new ArrayList();
+    private List<AnchorPane> panes = new ArrayList<>();
+    private List<Label> timeLabels = new ArrayList<>();
+    private List<Label> totalTimeLabels = new ArrayList<>();
+    private List<Label> labels;
+    private List<String> labelNames = new ArrayList<>();
+    private ObservableList<Task> tasks;
+    
+    private Label intervalLabel;
+    private Label totaltimelabel;
+    private JFXButton previousbutton = null;
+    
     private LocalTime startTime;
     private LocalTime stopTime;
-    private int interval;
-    private int totalTime;
-
-    private ObservableList<Task> tasks;
-    @FXML
-    private Label welcomeLabel;
+    
+    private boolean adminCheck;
+    private boolean running;
+    
+    private ModelFacadeInterface modelfacade;
+    private DateTimeFormatter formatter;
 
     /**
      * Initializes the controller class.
@@ -155,19 +142,18 @@ public class MainViewController implements Initializable
     {
         try
         {
-            /*
-            ColumnConstraints halfConstraint = new ColumnConstraints(50);
-            taskGrid.getColumnConstraints().addAll(halfConstraint,halfConstraint);
-             */
             modelfacade = ModelFacade.getInstance();
-        } catch (Exception ex)
+        } 
+        catch (Exception ex)
         {
             Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
         try
         {
             welcomeLabel.setText("Welcome" + " " + modelfacade.getCurrentuser().getFirstName());
-
+            
+            //Adding the anchorpanes to the panes list
             panes.add(taskOne);
             panes.add(taskTwo);
             panes.add(taskThree);
@@ -175,6 +161,7 @@ public class MainViewController implements Initializable
             panes.add(taskFive);
             panes.add(taskSix);
 
+            //Adding the interval time labels to the timeLabels list
             timeLabels.add(timeLabelOne);
             timeLabels.add(timeLabelTwo);
             timeLabels.add(timeLabelThree);
@@ -182,6 +169,7 @@ public class MainViewController implements Initializable
             timeLabels.add(timeLabelFive);
             timeLabels.add(timeLabelSix);
 
+            //Adding the total time labels to the totalTimeLabels list
             totalTimeLabels.add(totalTimeOne);
             totalTimeLabels.add(totalTimeTwo);
             totalTimeLabels.add(totalTimeThree);
@@ -197,16 +185,13 @@ public class MainViewController implements Initializable
                 handleTimerUtilIsRunning();
 
             }
-            
-            taskGrid = new GridPane();
 
-            // anchorPane00.setUserData(new Task("title", "projectName", "clientName", 0) );
-        } catch (SQLException ex)
+        } 
+        catch (SQLException ex)
         {
             Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        // anchorPane00.setUserData(new Task("title", "projectName", "clientName", 0) );
         formatter = DateTimeFormatter.ofPattern("dd/MM/YYYY");
 
     }
@@ -265,7 +250,7 @@ public class MainViewController implements Initializable
         {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Oops");
-            alert.setHeaderText("You do not have permision");
+            alert.setHeaderText("You do not have permission");
             alert.setContentText("It looks like you are not an admin user");
             alert.showAndWait();
         }
@@ -308,6 +293,10 @@ public class MainViewController implements Initializable
         mainView.close();
     }
 
+    /**
+     * This method gets the 6 latest used tasks and displays them in the mainview. 
+     * @throws SQLException 
+     */
     private void fillGrid() throws SQLException
     {
         int anchorPaneNumber = 0;
@@ -318,45 +307,55 @@ public class MainViewController implements Initializable
         {
             overwriteTasks(panes.get(anchorPaneNumber), task);
             anchorPaneNumber++;
-
         }
 
-        int tasksSize = tasks.size();
         int i = 0;
         int maxAmountOfTasks = 6;
 
-        for (int amountLeft = maxAmountOfTasks - tasksSize; amountLeft > 0; amountLeft--)
+        //Letting the unused panes be cleared
+        for (int amountLeft = maxAmountOfTasks - tasks.size(); amountLeft > 0; amountLeft--)
         {
-            panes.get(tasksSize + i).getChildren().clear();
+            panes.get(tasks.size() + i).getChildren().clear();
             i++;
         }
 
         i = 0;
         anchorPaneNumber = 0;
+        
     }
 
+    /**
+     * Overwrites the labels in the anchorpane with the data from the task.
+     * @param pane
+     * @param task 
+     */
     private void overwriteTasks(AnchorPane pane, Task task)
     {
-        List children = pane.getChildren();
-        labels = new ArrayList();
+        labels = new ArrayList<>();
 
+        //Getting and sorting the task's intervals
         ObservableList<Interval> intervals = FXCollections.observableArrayList();
         intervals.setAll(task.getIntervals());
-
+        
         Comparator<Interval> byDate = Comparator
                 .comparing(Interval::getCreationDate)
                 .thenComparing(Interval::getStartTime).reversed();
 
         intervals.sort(byDate);
-
+        
+        //Icon for the play/pause button when the program is first started
         ImageView Play = new ImageView("/examProjectTheDisciplesOfSkrumm/GUI/Icons/Playbutton.png");
         Play.setFitHeight(24);
         Play.setFitWidth(28);
-
+        
+        //Icons for if the task is paid or not
         Image Paid = new Image("/examProjectTheDisciplesOfSkrumm/GUI/Icons/Paid.png");
         Image NotPaid = new Image("/examProjectTheDisciplesOfSkrumm/GUI/Icons/NotPaid.png");
         ImageView imgView;
-
+        
+       
+        List children = pane.getChildren();
+        
         for (Object child : children)
         {
             if (child instanceof Label)
@@ -374,7 +373,8 @@ public class MainViewController implements Initializable
                 if (task.getIsPaid() == 1)
                 {
                     imgView.setImage(Paid);
-                } else if (task.getIsPaid() == 0)
+                } 
+                else if (task.getIsPaid() == 0)
                 {
                     imgView.setImage(NotPaid);
                 }
@@ -383,6 +383,7 @@ public class MainViewController implements Initializable
             if (child instanceof JFXButton)
             {
                 JFXButton button = (JFXButton) child;
+                
                 buttons.add(button);
 
                 if (button.getText().equals("Play"))
@@ -397,7 +398,6 @@ public class MainViewController implements Initializable
             {
                 JFXComboBox<Interval> comboBox = (JFXComboBox) child;
                 comboBox.getItems().setAll(intervals);
-
 
                 comboBox.setOnAction(new EventHandler<ActionEvent>()
                 {
@@ -421,13 +421,22 @@ public class MainViewController implements Initializable
                                 stage.setMinWidth(318);
                                 stage.setTitle("Edit Interval");
                                 stage.setAlwaysOnTop(true);
-                                stage.show();
+                                stage.showAndWait();
                                 
                                 
                                 comboBox.getItems().setAll(intervals);
+//                                
+//                                comboBox.getSelectionModel().clearSelection();
+//                                comboBox.setValue(null);
                                 
-                                comboBox.getSelectionModel().clearSelection();
-                                comboBox.setValue(null);
+                                try
+                                {
+                                    updateMainView();
+                                } 
+                                catch (SQLException ex)
+                                {
+                                    Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
+                                }
                             }
                             //Stage mainView = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
@@ -444,8 +453,7 @@ public class MainViewController implements Initializable
 
         }
 
-        System.out.println(children);
-
+        //Getting and setting the different labels to the right information
         for (Label label : labels)
         {
             if (label.getText().equals("TASK"))
@@ -468,7 +476,7 @@ public class MainViewController implements Initializable
 
             if (label.getText().equals("Date"))
             {
-                label.setText(task.getLastUsed().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString().substring(0, 10));
+                label.setText(task.getLastUsed().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).substring(0, 10));
                 label.setMaxWidth(Double.MAX_VALUE);
                 pane.setLeftAnchor(label, 0.0);
                 pane.setRightAnchor(label, 0.0);
@@ -486,20 +494,18 @@ public class MainViewController implements Initializable
     private void handlePlay(ActionEvent event) throws SQLException
     {
         Task currentTask;
-        JFXComboBox<Interval> combo = new JFXComboBox();
+        int index = 0;
+        
 
         ImageView Play = new ImageView("/examProjectTheDisciplesOfSkrumm/GUI/Icons/Playbutton.png");
         ImageView Pause = new ImageView("/examProjectTheDisciplesOfSkrumm/GUI/Icons/PauseBtn.png");
-
         Play.setScaleX(0.3);
         Play.setScaleY(0.3);
         Pause.setScaleX(0.3);
         Pause.setScaleY(0.3);
 
-        int index = 0;
-
+        JFXComboBox<Interval> combo = new JFXComboBox();
         JFXButton button = (JFXButton) event.getSource();
-//        System.out.println(button.getParent().getId());
 
         for (AnchorPane pane : panes)
         {
@@ -532,65 +538,64 @@ public class MainViewController implements Initializable
              */
             if (modelfacade.getTimerutil().getCurrenttask() != null && !tasks.get(index).equals(modelfacade.getTimerutil().getCurrenttask()))
             {
-                System.out.println("difrent button");
+                System.out.println("different button");
                 ImageView view = ((ImageView) previousbutton.getChildrenUnmodifiable().get(1));
                 view.setImage(new Image("/examProjectTheDisciplesOfSkrumm/GUI/Icons/Playbutton.png"));
 
-                stopTime = LocalTime.now();
-                currentTask = modelfacade.getTimerutil().getCurrenttask();
+//                stopTime = LocalTime.now();
+//                currentTask = modelfacade.getTimerutil().getCurrenttask();
+//
+//                String paid = "";
+//                String paid2 = "";
+//                int isPaid = currentTask.getIsPaid();
+//
+//                if (isPaid == 0)
+//                {
+//                    paid = "not paid";
+//                    paid2 = "paid";
+//                } else if (isPaid == 1)
+//                {
+//                    paid = "paid";
+//                    paid2 = "not paid";
+//                }
+//
+//                int input = JOptionPane.showConfirmDialog(null, "This interval is set as " + paid + "," + "\n" + "would you like to change it to " + paid2 + "?", "New interval",
+//                        JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+//
+//                if (input == JOptionPane.YES_OPTION)
+//                {
+//                    if (isPaid == 0)
+//                    {
+//                        isPaid = 1;
+//                    } else if (isPaid == 1)
+//                    {
+//                        isPaid = 0;
+//                    }
+//                }
+//
+//                Interval taskInterval = new Interval(0, modelfacade.getTimerutil().getStartTime().withNano(0), stopTime.withNano(0), LocalDate.now(), modelfacade.getTimerutil().getTotalIntervalSec(), currentTask, isPaid);
+//
+//                combo.getItems().add(taskInterval);
+//                combo.getItems().sort(Comparator
+//                        .comparing(Interval::getCreationDate)
+//                        .thenComparing(Interval::getStartTime).reversed());
+//
+//                System.out.println(taskInterval);
+//
+//                currentTask.setDuration(modelfacade.getTimerutil().getTotalSec());
+//
+//                if (currentTask.getIntervals().isEmpty())
+//                {
+//                    currentTask.setStartTime(modelfacade.getTimerutil().getStartTime());
+//                }
+//                currentTask.setStopTime(stopTime);
+//                modelfacade.updateTask(currentTask);
+//
+//                modelfacade.newInterval(taskInterval);
 
-                String paid = "";
-                String paid2 = "";
-                int isPaid = currentTask.getIsPaid();
-
-                if (isPaid == 0)
-                {
-                    paid = "not paid";
-                    paid2 = "paid";
-                } else if (isPaid == 1)
-                {
-                    paid = "paid";
-                    paid2 = "not paid";
-                }
-
-                int input = JOptionPane.showConfirmDialog(null, "This interval is set as " + paid + "," + "\n" + "would you like to change it to " + paid2 + "?", "New interval",
-                        JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
-
-                if (input == JOptionPane.YES_OPTION)
-                {
-                    if (isPaid == 0)
-                    {
-                        isPaid = 1;
-                    } else if (isPaid == 1)
-                    {
-                        isPaid = 0;
-                    }
-                }
-
-                Interval taskInterval = new Interval(0, modelfacade.getTimerutil().getStartTime().withNano(0), stopTime.withNano(0), LocalDate.now(), modelfacade.getTimerutil().getTotalIntervalSec(), currentTask, isPaid);
-
-                combo.getItems().add(taskInterval);
-                combo.getItems().sort(Comparator
-                        .comparing(Interval::getCreationDate)
-                        .thenComparing(Interval::getStartTime).reversed());
-
-                System.out.println(taskInterval);
-
-                currentTask.setDuration(modelfacade.getTimerutil().getTotalSec());
-
-                if (currentTask.getIntervals().isEmpty())
-                {
-                    currentTask.setStartTime(modelfacade.getTimerutil().getStartTime());
-                }
-                currentTask.setStopTime(stopTime);
-                modelfacade.updateTask(currentTask);
-
-                modelfacade.newInterval(taskInterval);
-
-            } else
+            } 
+            else
             {
-
-                //totalTimeLabels.get(index).setText(ultimateLabel.getText());
                 button.setGraphic(Play);
                 button.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
                 button.setContentDisplay(ContentDisplay.CENTER);
@@ -598,6 +603,7 @@ public class MainViewController implements Initializable
                 stopTime = LocalTime.now();
                 currentTask = tasks.get(index);
 
+                //Making sure paid or unpaid is placed in the right spots in the popup
                 String paid = "";
                 String paid2 = "";
 
@@ -607,12 +613,14 @@ public class MainViewController implements Initializable
                 {
                     paid = "not paid";
                     paid2 = "paid";
-                } else if (isPaid == 1)
+                } 
+                else if (isPaid == 1)
                 {
                     paid = "paid";
                     paid2 = "not paid";
                 }
 
+                //Popup to change interval paid/unpaid
                 int input = JOptionPane.showConfirmDialog(null, "This interval is set as " + paid + "," + "\n" + "would you like to change it to " + paid2 + "?", "New interval",
                         JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
 
@@ -621,21 +629,23 @@ public class MainViewController implements Initializable
                     if (isPaid == 0)
                     {
                         isPaid = 1;
-                    } else if (isPaid == 1)
+                    } 
+                    else if (isPaid == 1)
                     {
                         isPaid = 0;
                     }
                 }
-
+                
                 Interval taskInterval = new Interval(0, modelfacade.getTimerutil().getStartTime().withNano(0), stopTime.withNano(0), LocalDate.now(), modelfacade.getTimerutil().getTotalIntervalSec(), currentTask, isPaid);
-
+                
+                //Sorting the combobox list after both creationfate and starttime
                 combo.getItems().add(taskInterval);
                 combo.getItems().sort(Comparator
                         .comparing(Interval::getCreationDate)
                         .thenComparing(Interval::getStartTime).reversed());
 
-                System.out.println(taskInterval);
-
+                
+                
                 currentTask.setDuration(modelfacade.getTimerutil().getTotalSec());
 
                 if (currentTask.getIntervals().isEmpty())
@@ -643,12 +653,13 @@ public class MainViewController implements Initializable
                     currentTask.setStartTime(modelfacade.getTimerutil().getStartTime());
                 }
                 currentTask.setStopTime(stopTime);
+                
                 modelfacade.updateTask(currentTask);
-
                 modelfacade.newInterval(taskInterval);
             }
 
-        } else
+        } 
+        else
         {
             button.setGraphic(Pause);
             button.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
@@ -656,8 +667,8 @@ public class MainViewController implements Initializable
             startTime = LocalTime.now();
             System.out.println(startTime);
         }
+        
         previousbutton = button;
-
     }
 
     @FXML
@@ -685,13 +696,6 @@ public class MainViewController implements Initializable
 
     private synchronized void handleStart(Label intervalLabel, Label totaltimelabel, JFXButton button, int totalsecfortask, Task currenttask)
     {
-
-        //timerutil = new TimerUtil(label,0);
-        //System.out.println(timerutil.getTimeLabel() +"timerlaber +++++++++++++++++");
-/*
-        System.out.println(System.getProperty("java.version"));
-        System.out.println(System.getProperty("javafx.runtime.version"));*/
-        //System.out.println("start");
         if (modelfacade.getisTimerRunning())
         {
             modelfacade.setIsTimerRunning(false);
@@ -699,7 +703,8 @@ public class MainViewController implements Initializable
             modelfacade.getTimerutil().setIsRunning(false);
             modelfacade.getExecutorService().shutdownNow();
             System.err.println("stopped");
-        } else if (!modelfacade.getisTimerRunning())
+        } 
+        else if (!modelfacade.getisTimerRunning())
         {
             System.out.println("not running");
             running = true;
@@ -812,6 +817,7 @@ public class MainViewController implements Initializable
 
         thisTask = tasks.get(index);
 
+        //Popup when trying to delete a task
         int input = JOptionPane.showConfirmDialog(null, "Are you sure you want to permanently delete the task?", "Deleting task",
                 JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
 
@@ -824,6 +830,11 @@ public class MainViewController implements Initializable
         }
     }
     
+    /**
+     * Method to update the MainView.
+     * It first resets all the labels, and then overwrites them with new data.
+     * @throws SQLException 
+     */
     private void updateMainView() throws SQLException
     {
         List<Label> mainViewLabels = new ArrayList<>();
@@ -839,8 +850,7 @@ public class MainViewController implements Initializable
                     Label label = (Label) child;
                     
                     mainViewLabels.add(label);
-                }
-                    
+                } 
             }
         }
         

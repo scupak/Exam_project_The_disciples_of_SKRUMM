@@ -500,20 +500,24 @@ public class TaskDBDAO implements TaskDBDAOInterface
 
             
                 sqlString = "SELECT DISTINCT  interval.taskId, task.id , task.creationDate,task.duration, task.lastUsed , task.projectID , task.startTime, task.stopTime, task.title, task.userEmail "
-                        + "FROM interval "
-                        + "INNER JOIN task on interval.taskId = task.id "
-                        + "WHERE  task.userEmail = ? AND interval.creationDate >= ? AND interval.creationDate <= ? ";
+                        + "FROM task "
+                        + "LEFT OUTER JOIN interval on interval.taskId = task.id "
+                        + "WHERE  task.userEmail = ? AND interval.creationDate >= ? AND interval.creationDate <= ? OR task.creationDate >= ? AND task.creationDate <= ? "
+                        + "ORDER BY task.lastUsed DESC ";
+                
                 ps = con.prepareStatement(sqlString);
                 
                 ps.setString(1, user.getEmail());
                 ps.setDate(2, java.sql.Date.valueOf(fromdate));
                 ps.setDate(3, java.sql.Date.valueOf(todate));
+                ps.setDate(4, java.sql.Date.valueOf(fromdate));
+                ps.setDate(5, java.sql.Date.valueOf(todate));
             
 
             ResultSet rs = ps.executeQuery();
 
             while (rs.next())
-            {
+            {                                                                  
                 int id = rs.getInt("id");
                 String title = rs.getString("title");
                 Project project = projectDBDAO.getProject(new Project(rs.getInt("ProjectID"), title, new Client(id, title, id,
@@ -591,15 +595,19 @@ public class TaskDBDAO implements TaskDBDAOInterface
           User user = new User("standard@user.now", "kok", "kok", "kok", true);
           ArrayList<Interval> intervals = new ArrayList<>();
           Client client = new Client(1, "why", 0, 0);
-          Project project = new Project(1, "reeeeeeee", client, 0);
+          Project project = new Project(2, "reeeeeeee", client, 0);
           Task task = new Task(2, "rjo", project, 50, LocalDateTime.now(), LocalDate.now(), LocalTime.now(), LocalTime.now(), user, intervals);
+          
+          
+          System.out.println(taskDBDAO.getDurationFromTasks(project));
+          
          // Interval interval = new Interval(15, LocalTime.MIN, LocalTime.MIN, LocalDate.MIN, 0, task, 0);
          // taskDBDAO.deleteInterval(interval);
          
-         for (Task tasksForUserbetween2Date : taskDBDAO.getTasksForUserbetween2Dates(user, LocalDate.of(2020, Month.MAY, 2), LocalDate.of(2020, Month.MAY, 6))) {
+         for (Task tasksForUserbetween2Date : taskDBDAO.getTasksForUserbetween2Dates(user, LocalDate.of(2020, Month.MAY, 1), LocalDate.of(2020, Month.MAY, 14))) {
             
              int i = 1;
-             System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++");
+             System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++" + " " + tasksForUserbetween2Date);
              
              for (Interval interval : tasksForUserbetween2Date.getIntervals()) {
                  
@@ -677,6 +685,63 @@ public class TaskDBDAO implements TaskDBDAOInterface
         // System.out.println(task2);
         //Interval interval = new Interval(LocalTime.now(),LocalTime.now(), 600, 50, task);
         //taskDBDAO.newInterval(interval);
+    }
+
+    @Override
+    public List<Task> getAllTasks4Project(Project project) throws SQLServerException, SQLException {
+                ArrayList<Task> returntasks = new ArrayList<>();
+
+        try (Connection con = dbCon.getConnection())
+        {
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM [task] WHERE ProjectID = ?");
+            ps.setInt(1, project.getId());
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next())
+            {
+                int id = rs.getInt("id");
+                String title = rs.getString("title");
+                Project projectoid = projectDBDAO.getProject(new Project(rs.getInt("ProjectID"), title, new Client(id, title, id, id), id));
+                int duration = rs.getInt("duration");
+                String clientName = project.getClientName();
+                LocalDateTime lastUsed = rs.getTimestamp("lastUsed").toLocalDateTime();
+                LocalDate creationDate = rs.getDate("creationDate").toLocalDate();
+                LocalTime startTime = rs.getTime("startTime").toLocalTime();
+                LocalTime stopTime = rs.getTime("stopTime").toLocalTime();
+
+                ArrayList<Interval> intervals = new ArrayList<Interval>();
+
+                String userEmail = rs.getString("userEmail");
+
+                User user = userDBDAO.getUser(new User(userEmail, clientName, clientName, title, false));
+
+                intervals.addAll(getIntervals(new Task(id, title, project, duration, lastUsed, creationDate, startTime, stopTime, user, intervals)));
+
+                returntasks.add(new Task(id, title, project, duration, lastUsed, creationDate, startTime, stopTime, user, intervals));
+            }
+
+            return returntasks;
+
+        }
+    }
+
+    @Override
+    public int getDurationFromTasks(Project project) throws SQLServerException, SQLException {
+        int time = 0;
+         try (Connection con = dbCon.getConnection())
+        {
+            PreparedStatement ps = con.prepareStatement("SELECT SUM(task.duration) AS 'sumDuration' FROM [task] WHERE ProjectID = ?");
+            ps.setInt(1, project.getId());
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next())
+            {
+                time = rs.getInt("sumDuration") + time;
+            }
+
+            return time;
+
+        }
     }
 
     

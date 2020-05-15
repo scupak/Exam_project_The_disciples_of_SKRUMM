@@ -34,8 +34,6 @@ public class AddClientController implements Initializable
 
     private ModelFacadeInterface modelfacade;
     
-    private AddProjectViewController addprojectviewcontroller;
-    
     @FXML
     private JFXButton AddClientOkBtn;
     @FXML
@@ -51,9 +49,7 @@ public class AddClientController implements Initializable
     
     private int isPaidNum;
     
-    private AdminClientsAndProjectsController adminClientsAndProjectsController;
-    
-    private EditProjectViewController editProjectViewController;
+   
     
 
     /**
@@ -85,18 +81,7 @@ public class AddClientController implements Initializable
                 Client client = new Client(id, ClientName, ClientRate, isPaid);
                 modelfacade.createClient(client);
                 
-                if(addprojectviewcontroller != null) 
-                {
-                    addprojectviewcontroller.refreshClientComboBox();
-                } else if (editProjectViewController != null)
-                {
-                    editProjectViewController.refreshClientComboBox();
-                }
-                
-                if(adminClientsAndProjectsController != null)
-                {
-                adminClientsAndProjectsController.RefreshTableView();
-                }
+               
                 Stage addClientView = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 addClientView.close();
             }catch (NumberFormatException ex)
@@ -120,14 +105,7 @@ public class AddClientController implements Initializable
         
                 Client client = new Client(id, ClientName, ClientRate, isPaid);
                 modelfacade.createClient(client);
-                if(addprojectviewcontroller != null)
-                {
-                addprojectviewcontroller.refreshClientComboBox();
-                }
-                if(adminClientsAndProjectsController != null)
-                {
-                adminClientsAndProjectsController.RefreshTableView();
-                }
+               
                 Stage addClientView = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 addClientView.close();
             }catch (NumberFormatException ex)
@@ -158,10 +136,7 @@ public class AddClientController implements Initializable
         addClientView.close();
     }
     
-    void setAddProjectController( AddProjectViewController addprojectviewcontroller)
-    {
-        this.addprojectviewcontroller = addprojectviewcontroller;
-    }
+   
 
     @FXML
     private void handleIsPaid(MouseEvent event) 
@@ -184,25 +159,7 @@ public class AddClientController implements Initializable
         }
     }
 
-    public AdminClientsAndProjectsController getAdminClientsAndProjectsController()
-    {
-        return adminClientsAndProjectsController;
-    }
-
-    public void setAdminClientsAndProjectsController(AdminClientsAndProjectsController adminClientsAndProjectsController)
-    {
-        this.adminClientsAndProjectsController = adminClientsAndProjectsController;
-    }
-
-    public EditProjectViewController getEditProjectViewController()
-    {
-        return editProjectViewController;
-    }
-
-    public void setEditProjectViewController(EditProjectViewController editProjectViewController)
-    {
-        this.editProjectViewController = editProjectViewController;
-    }
+    
     
     
 

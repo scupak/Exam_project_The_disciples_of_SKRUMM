@@ -47,12 +47,9 @@ public class AddProjectViewController implements Initializable
     private JFXTextField ProjectRateTextField;
     @FXML
     private JFXButton addClientButton;
-
-    private AdminViewController adminviewcontroller;
     @FXML
     private ComboBox<Client> clientComboBox;
-    
-    private AdminClientsAndProjectsController adminClientsAndProjectsController;
+
     
     
 
@@ -87,8 +84,6 @@ public class AddProjectViewController implements Initializable
                 int projectRate = Integer.parseInt(ProjectRateTextField.getText());
                 Project newproject = new Project(id, projectName, client, projectRate);
                 modelfacade.CreateProject(newproject);
-                adminviewcontroller.RefreshTableView();
-                adminClientsAndProjectsController.RefreshTableView();
                 Stage createUserView = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 createUserView.close();
             } catch (NumberFormatException ex)
@@ -109,8 +104,6 @@ public class AddProjectViewController implements Initializable
                 int projectRate = clientComboBox.getValue().getClientRate();
                 Project newproject = new Project(id, projectName, client, projectRate);
                 modelfacade.CreateProject(newproject);
-                adminviewcontroller.RefreshTableView();
-                adminClientsAndProjectsController.RefreshTableView();
                 Stage createUserView = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 createUserView.close();
             } catch (NumberFormatException ex)
@@ -131,8 +124,6 @@ public class AddProjectViewController implements Initializable
                 int projectRate = 0;
                 Project newproject = new Project(id, projectName, client, projectRate);
                 modelfacade.CreateProject(newproject);
-                adminviewcontroller.RefreshTableView();
-                adminClientsAndProjectsController.RefreshTableView();
                 Stage createUserView = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 createUserView.close();
             } catch (NumberFormatException ex)
@@ -166,20 +157,17 @@ public class AddProjectViewController implements Initializable
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/AddClient.fxml"));
         Parent root = loader.load();
         AddClientController controller = loader.getController();
-        controller.setAddProjectController(this);
-        controller.setAdminClientsAndProjectsController(adminClientsAndProjectsController);
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.setMinHeight(200);
         stage.setMinWidth(300);
         stage.setTitle("TimeTracker");
-        stage.show();
+        stage.showAndWait();
+        refreshClientComboBox();
+        
     }
 
-    void setAdminViewController(AdminViewController adminviewcontroller)
-    {
-        this.adminviewcontroller = adminviewcontroller;
-    }
+    
 
     public void refreshClientComboBox()
     {
@@ -199,13 +187,5 @@ public class AddProjectViewController implements Initializable
         }
     }
 
-    public AdminClientsAndProjectsController getAdminClientsAndProjectsController()
-    {
-        return adminClientsAndProjectsController;
-    }
-
-    public void setAdminClientsAndProjectsController(AdminClientsAndProjectsController adminClientsAndProjectsController)
-    {
-        this.adminClientsAndProjectsController = adminClientsAndProjectsController;
-    }
+    
 }

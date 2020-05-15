@@ -7,6 +7,7 @@ package examProjectTheDisciplesOfSkrumm.GUI.controller;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
 import examProjectTheDisciplesOfSkrumm.BE.Project;
 import examProjectTheDisciplesOfSkrumm.BE.Task;
@@ -32,9 +33,6 @@ import javax.swing.JOptionPane;
  */
 public class EditTaskController implements Initializable
 {
-    private String editTitle;
-    private String editTime;
-    private int intTime;
     private boolean blank = true;
     private Task editTask;
     private ModelFacadeInterface modelfacade;
@@ -45,11 +43,10 @@ public class EditTaskController implements Initializable
     @FXML
     private JFXTextField editTitleTextField;
     @FXML
-    private JFXTextField editTimeTextField;
-    @FXML
     private JFXComboBox<Project> editProjectCombobox;
+    @FXML
+    private JFXDatePicker creationDatePicker;
     
-    private  TaskViewController taskViewController; 
 
     /**
      * Initializes the controller class.
@@ -57,13 +54,18 @@ public class EditTaskController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-      try 
-      {
+        try 
+        {
             modelfacade = ModelFacade.getInstance();
-      } 
-            catch (Exception ex) {
-            Logger.getLogger(CreateTaskController.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        } 
+        catch (Exception ex) 
+        {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Couldn't get model");
+            alert.setContentText("" + ex);
+            alert.showAndWait();   
+        }
       
        
         
@@ -82,114 +84,35 @@ public class EditTaskController implements Initializable
     @FXML
     private void editTask(ActionEvent event)
     {
-    editTitle = editTitleTextField.getText(); 
-        
-    if(editTitle != null && !editTitle.isEmpty()){      
-        blank = false;
-        System.out.println(blank);
-        editTime = editTimeTextField.getText();
-
-    if(editTime != null && !editTime.isEmpty()){
-    try{
-        blank = false;
-        System.out.println(blank);
-        intTime = Integer.parseInt(editTime);
-                                            
-    }
-                                            
-    catch(NumberFormatException e){
-        JOptionPane.showMessageDialog(null, "New task duration has to be a whole number!");
-        editTimeTextField.setText("EDIT ME");
-        blank = true;
-        System.out.println(blank);
-        }                                     
-    }
-
-    else{
-        JOptionPane.showMessageDialog(null, "New task duration can not be blank!\n Task duration must be an integer!");
-        editTimeTextField.setText("EDIT ME");
-        blank = true;
-        System.out.println(blank);
-    }
-                                            
-   if(blank == false){
-        editTask.setTitle(editTitle);
-        editTask.setDuration(intTime);
-        editTask.setProject(editProjectCombobox.getValue());
-   
-   try
-   {
-        System.out.println(modelfacade.updateTask(editTask) + "  " +"update");
-   }
-   catch (SQLException ex)
-   {
-        JOptionPane.showMessageDialog(null, "Unknown SQL exception ocurred!");
-   }
-
-   }   
-        }
-            else{
-            JOptionPane.showMessageDialog(null, "New task title can not be blank!");
-            editTitleTextField.setText("EDIT ME");
-            blank = true;
-            System.out.println(blank);
-        }
-            
-        //try {
-            /*  editTime = editTimeTextField.getText();
-            
-            if(editTime != null && !editTime.isEmpty()){
-    
-            try{
-            intTime = Integer.parseInt(editTime);
-            }
-            catch(NumberFormatException e){
-            
-            JOptionPane.showMessageDialog(null, "New task duration has to be a whole number!");
-            editTimeTextField.setText("EDIT ME");
-            blank = true;
-            System.out.println(blank);
-            
-            
-            }
-            
-            blank = false;
-            System.out.println(blank);
-            }
-            
-            else{
-            JOptionPane.showMessageDialog(null, "New task duration can not be blank!\n Task duration must be an integer!");
-            editTimeTextField.setText("EDIT ME");
-            blank = true;
-            System.out.println(blank);
-            }
-            if(blank == false){
-            editTask.setTitle(editTitle);
-            editTask.setDuration(intTime);
-            editTask.setProject(editProjectCombobox.getValue());
+        if(!editTitleTextField.getText().isEmpty() && creationDatePicker.getValue() != null && editProjectCombobox.getValue() != null)
+        {
             try
             {
-            System.out.println(modelfacade.updateTask(editTask) + "  " +"update");
-            }
-            catch (SQLException ex)
-            {
-            JOptionPane.showMessageDialog(null, "Unknown SQL exception ocurred!");
-            }
+                editTask.setTitle(editTitleTextField.getText());
+                editTask.setProject(editProjectCombobox.getValue());
+                editTask.setCreationDate(creationDatePicker.getValue());
             
-            }*/
-            //taskViewController.refreshEverything();
-//        }
-//        catch (SQLException ex) 
-//        {
-//            Alert alert = new Alert(Alert.AlertType.ERROR);
-//            alert.setTitle("Error");
-//            alert.setHeaderText("Could connect to database\n" + ex);
-//            alert.setContentText("Please try again");
-//            alert.showAndWait();
-//        }
-          Stage stage = (Stage) editTaskBtn.getScene().getWindow();
-          stage.close();
-    
+                modelfacade.updateTask(editTask);
+                Stage stage = (Stage) editTaskBtn.getScene().getWindow();
+                stage.close();
+            } 
+            catch (SQLException ex) 
+            {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Could contact the database");
+                alert.setContentText("Something went wrong with the databe" + ex);
+                alert.showAndWait();
+            }
+        }
+        else
+        {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Missing input");
+            alert.setContentText("The input fields can't be blank, provide input.");
+            alert.showAndWait();
+        }
     }
     
     public Task getEditTask()
@@ -203,13 +126,10 @@ public class EditTaskController implements Initializable
         
         editProjectCombobox.getItems().addAll(modelfacade.getProjects());
         editTitleTextField.setText(editTask.getTitle()); 
-        editTimeTextField.setText(Integer.toString(editTask.getDuration()));
+        creationDatePicker.setValue(editTask.getCreationDate());
         editProjectCombobox.getSelectionModel().select(editTask.getProject());
+        editProjectCombobox.setValue(editTask.getProject());
     }
     
-    public void settaskViewController( TaskViewController taskViewController) {
-     this.taskViewController = taskViewController;
-     
-        //System.out.println(taskViewController);
-    }
+   
 }
