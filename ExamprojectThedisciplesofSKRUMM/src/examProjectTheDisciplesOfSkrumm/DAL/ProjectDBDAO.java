@@ -26,11 +26,11 @@ import javax.swing.JOptionPane;
  */
 public class ProjectDBDAO implements ProjectDBDAOInterface
 {
-    private final DatabaseConnector dbcon;
+    private final ConnectionPool conPool;
     private ClientDBDAO clientdb;
 
-    public ProjectDBDAO() throws IOException {
-        dbcon = new DatabaseConnector();
+    public ProjectDBDAO() throws IOException, Exception {
+        this.conPool = ConnectionPool.getInstance();
         clientdb = new ClientDBDAO();
     }
     
@@ -42,7 +42,8 @@ public class ProjectDBDAO implements ProjectDBDAOInterface
     {
         ArrayList<Project> projects = new ArrayList<>();
         
-        try (Connection con = dbcon.getConnection())
+        Connection con = conPool.checkOut();
+        try
         {
             PreparedStatement ps = con.prepareStatement("SELECT e.id, e.projectName, e.clientID, e.projectrate, d.id AS Cid, d.name, d.rate, d.isPaid \n" +
                     "FROM project e \n" +
@@ -59,13 +60,18 @@ public class ProjectDBDAO implements ProjectDBDAOInterface
                 
             }
         }
+        finally
+        {
+            conPool.checkIn(con);
+        }
         return projects;
     }
 
     @Override
     public boolean projectExist(Project project) throws SQLException 
     {
-         try (Connection con = dbcon.getConnection())
+        Connection con = conPool.checkOut();
+        try
         {
             PreparedStatement ps = con.prepareStatement("SELECT * FROM project WHERE id = ?");
             ps.setInt(1, project.getId());
@@ -79,6 +85,10 @@ public class ProjectDBDAO implements ProjectDBDAOInterface
             }
             return false;
         }
+        finally
+        {
+            conPool.checkIn(con);
+        }
        
     }
 
@@ -86,7 +96,8 @@ public class ProjectDBDAO implements ProjectDBDAOInterface
     public Project createProject(Project project) throws SQLException 
     {
         
-        try (Connection con = dbcon.getConnection())
+        Connection con = conPool.checkOut();
+        try
         {
             PreparedStatement ps = con.prepareStatement("INSERT INTO [project]"
                     + "(projectName, clientID, projectrate )"
@@ -110,6 +121,10 @@ public class ProjectDBDAO implements ProjectDBDAOInterface
             JOptionPane.showMessageDialog(null, project.getProjectName() + " has been created!");
             return project;
         }
+        finally
+        {
+            conPool.checkIn(con);
+        }
         
     }
 
@@ -124,7 +139,9 @@ public class ProjectDBDAO implements ProjectDBDAOInterface
         
         Client steve = new Client(1, "Steve", 0, 0);
         Project returnproject = null;
-         try (Connection con = dbcon.getConnection())
+        Connection con = conPool.checkOut();
+        
+        try    
         {
             PreparedStatement ps = con.prepareStatement("SELECT e.id, e.projectName, e.clientID, e.projectrate, d.id AS Cid, d.name, d.rate, d.isPaid \n" +
         "FROM project e \n" +
@@ -145,6 +162,10 @@ public class ProjectDBDAO implements ProjectDBDAOInterface
             }
             return returnproject;
         }
+        finally
+        {
+            conPool.checkIn(con);
+        }
         
     }
     
@@ -155,7 +176,8 @@ public class ProjectDBDAO implements ProjectDBDAOInterface
         
         if(!clientdb.clientExist(client)) return null;
         
-        try(Connection con = dbcon.getConnection())
+        Connection con = conPool.checkOut();
+        try
         {
             PreparedStatement ps = con.prepareStatement("SELECT * FROM [project] where clientId = ?");
             ps.setInt(1, client.getId());
@@ -171,13 +193,17 @@ public class ProjectDBDAO implements ProjectDBDAOInterface
                 projects.add(p);
             }
         }
+        finally
+        {
+            conPool.checkIn(con);
+        }
         
         
         
         return projects;
     }
     
-    public static void main(String[] args) throws IOException, SQLException
+    public static void main(String[] args) throws IOException, SQLException, Exception
     {   
        
         ClientDBDAO clientdb = new ClientDBDAO();
@@ -210,7 +236,9 @@ public class ProjectDBDAO implements ProjectDBDAOInterface
     @Override
     public boolean deleteProject(Project project) throws SQLException 
     {
-        try(Connection con = dbcon.getConnection())
+        Connection con = conPool.checkOut();
+
+        try
         {
             if(clearProject(project))
             {
@@ -223,6 +251,10 @@ public class ProjectDBDAO implements ProjectDBDAOInterface
             }
             
         }
+        finally
+        {
+            conPool.checkIn(con);
+        }
         
         return false;
         
@@ -231,7 +263,8 @@ public class ProjectDBDAO implements ProjectDBDAOInterface
     @Override
     public boolean clearProject(Project project) throws SQLException 
     {
-        try(Connection con = dbcon.getConnection())
+        Connection con = conPool.checkOut();
+        try
         {
             PreparedStatement ps = con.prepareStatement("DELETE FROM [task] WHERE projectID = ?");
             ps.setInt(1, project.getId());
@@ -248,6 +281,10 @@ public class ProjectDBDAO implements ProjectDBDAOInterface
             
             return true;
         }
+        finally
+        {
+            conPool.checkIn(con);
+        }
     }
 
     @Override
@@ -259,7 +296,8 @@ public class ProjectDBDAO implements ProjectDBDAOInterface
 
         System.err.println(project);
 
-        try (Connection con = dbcon.getConnection())
+        Connection con = conPool.checkOut();
+        try
         {
             PreparedStatement ps = con.prepareStatement("UPDATE [project] "
                     + "SET projectName = ?,"
@@ -274,6 +312,10 @@ public class ProjectDBDAO implements ProjectDBDAOInterface
 
             return updatedRows > 0;
 
+        }
+        finally
+        {
+            conPool.checkIn(con);
         }
     }
 

@@ -41,7 +41,7 @@ public class BLLFacade implements BLLFacadeInterface
     private ProjectManagerInterface projectmanager;
     private ClientManagerInterface clientmanager;
 
-    public BLLFacade() throws IOException 
+    public BLLFacade() throws IOException, Exception 
     {
         projectmanager = new ProjectManager();
         treeTableUtil = new TreeTableUtil();

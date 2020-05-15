@@ -28,7 +28,7 @@ public class ProjectModel implements ProjectModelInterface
     ObservableList<Project> projects;
     private final BLLFacadeInterface bllfacade;
 
-    public ProjectModel() throws IOException
+    public ProjectModel() throws IOException, Exception
     {
         bllfacade = new BLLFacade();
         this.projects = FXCollections.observableArrayList();

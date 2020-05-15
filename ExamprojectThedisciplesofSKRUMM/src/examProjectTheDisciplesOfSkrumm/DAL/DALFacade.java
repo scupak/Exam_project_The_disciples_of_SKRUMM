@@ -33,7 +33,7 @@ public class DALFacade implements DALFacadeInterface
     private TaskDBDAOInterface taskDBDAO;
 
 
-    public DALFacade() throws IOException
+    public DALFacade() throws IOException, Exception
     {
         userDBDAO = new UserDBDAO();
         clientDBDAO = new ClientDBDAO();

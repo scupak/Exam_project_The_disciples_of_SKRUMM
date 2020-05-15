@@ -33,13 +33,13 @@ import java.time.Month;
 public class TaskDBDAO implements TaskDBDAOInterface
 {
 
-    private final DatabaseConnector dbCon;
+    private final ConnectionPool conPool;
     private UserDBDAO userDBDAO;
     private ProjectDBDAO projectDBDAO;
 
-    public TaskDBDAO() throws IOException
+    public TaskDBDAO() throws IOException, Exception
     {
-        dbCon = new DatabaseConnector();
+        this.conPool = ConnectionPool.getInstance();
         userDBDAO = new UserDBDAO();
         projectDBDAO = new ProjectDBDAO();
     }
@@ -48,8 +48,9 @@ public class TaskDBDAO implements TaskDBDAOInterface
     public List<Task> getAllTasks() throws SQLException
     {
         ArrayList<Task> returntasks = new ArrayList<>();
+        Connection con = conPool.checkOut();
 
-        try (Connection con = dbCon.getConnection())
+        try
         {
             PreparedStatement ps = con.prepareStatement("SELECT * FROM [task]");
             ResultSet rs = ps.executeQuery();
@@ -76,14 +77,20 @@ public class TaskDBDAO implements TaskDBDAOInterface
 
                 returntasks.add(new Task(id, title, project, duration, lastUsed, creationDate, startTime, stopTime, user, intervals));
             }
+            
 
             return returntasks;
 
         }
+        finally
+        {
+            conPool.checkIn(con);
+        }
     }
     public boolean taskExist(Task task) throws SQLException
     {
-        try (Connection con = dbCon.getConnection())
+        Connection con = conPool.checkOut();
+        try
         {
             PreparedStatement ps = con.prepareStatement("SELECT * FROM [task] WHERE id = ?");
             ps.setInt(1, task.getId());
@@ -97,13 +104,18 @@ public class TaskDBDAO implements TaskDBDAOInterface
 
             return false;
         }
+        finally
+        {
+            conPool.checkIn(con);
+        }
     }
 
     public Task createTask(Task task) throws SQLException
     {
         
 
-        try (Connection con = dbCon.getConnection())
+        Connection con = conPool.checkOut();
+        try
         {
             PreparedStatement ps = con.prepareStatement("INSERT INTO [task]"
                     + "(title, projectID, lastUsed, CreationDate, startTime, stopTime, duration, userEmail)"
@@ -131,12 +143,17 @@ public class TaskDBDAO implements TaskDBDAOInterface
 
             return task;
         }
+        finally
+        {
+            conPool.checkIn(con);
+        }
 
     }
     
     public boolean deleteTask(Task task) throws SQLException
     {
-        try(Connection con = dbCon.getConnection())
+        Connection con = conPool.checkOut();
+        try
         {
             if(clearTask(task))
             {
@@ -149,13 +166,18 @@ public class TaskDBDAO implements TaskDBDAOInterface
             }
             
         }
+        finally
+        {
+            conPool.checkIn(con);
+        }
         
         return false;
     }
     
     public boolean clearTask(Task task) throws SQLException
     {
-        try(Connection con = dbCon.getConnection())
+        Connection con = conPool.checkOut();
+        try
         {
             PreparedStatement ps = con.prepareStatement("DELETE FROM [interval] WHERE taskId = ?");
             ps.setInt(1, task.getId());
@@ -172,6 +194,10 @@ public class TaskDBDAO implements TaskDBDAOInterface
             
             return true;
         }
+        finally
+        {
+            conPool.checkIn(con);
+        }
     }
 
     @Override
@@ -183,8 +209,9 @@ public class TaskDBDAO implements TaskDBDAOInterface
         }
 
         System.err.println(task);
+        Connection con = conPool.checkOut();
 
-        try (Connection con = dbCon.getConnection())
+        try
         {
             PreparedStatement ps = con.prepareStatement("UPDATE [task] "
                     + "SET title = ?, projectID = ?, lastUsed = ?, creationDate = ?,"
@@ -205,6 +232,10 @@ public class TaskDBDAO implements TaskDBDAOInterface
             return updatedRows > 0;
 
         }
+        finally
+        {
+            conPool.checkIn(con);
+        }
 
     }
 
@@ -218,7 +249,8 @@ public class TaskDBDAO implements TaskDBDAOInterface
 
         Task returnTask = null;
         ArrayList<Interval> intervals = new ArrayList<>();
-        try (Connection con = dbCon.getConnection())
+        Connection con = conPool.checkOut();
+        try
         {
             PreparedStatement ps = con.prepareStatement("SELECT * FROM [task] WHERE id = ?");
 
@@ -245,6 +277,10 @@ public class TaskDBDAO implements TaskDBDAOInterface
             }
 
         }
+        finally
+        {
+            conPool.checkIn(con);
+        }
 
         return returnTask;
     }
@@ -254,7 +290,8 @@ public class TaskDBDAO implements TaskDBDAOInterface
     {
         ArrayList<Task> tasks = new ArrayList<>();
 
-        try (Connection con = dbCon.getConnection())
+        Connection con = conPool.checkOut();
+        try
         {
             PreparedStatement ps = con.prepareStatement("SELECT TOP 6 * FROM [task] WHERE userEmail = ? ORDER BY lastUsed DESC");
 
@@ -285,9 +322,15 @@ public class TaskDBDAO implements TaskDBDAOInterface
             {
                 System.out.println("no tasks for this user");
             }
+            
+            
 
             return tasks;
 
+        }
+        finally
+        {
+            conPool.checkIn(con);
         }
     }
 
@@ -298,7 +341,8 @@ public class TaskDBDAO implements TaskDBDAOInterface
         String sqlString;
         PreparedStatement ps;
 
-        try (Connection con = dbCon.getConnection())
+        Connection con = conPool.checkOut();
+        try
         {
 
             if (date == null)
@@ -340,6 +384,10 @@ public class TaskDBDAO implements TaskDBDAOInterface
 
             return tasks;
         }
+        finally
+        {
+            conPool.checkIn(con);
+        }
 
     }
 
@@ -348,7 +396,8 @@ public class TaskDBDAO implements TaskDBDAOInterface
     {
         //set last used in the task
         //TODO implement transactions.
-        try (Connection con = dbCon.getConnection())
+        Connection con = conPool.checkOut();
+        try
         {
             PreparedStatement ps = con.prepareStatement("INSERT INTO [interval] VALUES (?,?,?,?,?,?)");
 
@@ -372,6 +421,10 @@ public class TaskDBDAO implements TaskDBDAOInterface
             ps2.executeUpdate();
             
         }
+        finally
+        {
+            conPool.checkIn(con);
+        }
     }
     
     @Override
@@ -383,7 +436,8 @@ public class TaskDBDAO implements TaskDBDAOInterface
         }
         
         
-        try (Connection con = dbCon.getConnection())
+        Connection con = conPool.checkOut();
+        try
         {
             String sql = "UPDATE [interval] SET creationDate = ?, startTime = ?, stopTime = ?, intervalTime = ?, isPaid = ? WHERE intervalId = ?";
             PreparedStatement ps = con.prepareStatement(sql);
@@ -397,6 +451,11 @@ public class TaskDBDAO implements TaskDBDAOInterface
             
             ps.executeUpdate();
             
+            
+            System.out.println(oldInterval.getIntervalTime());
+            System.out.println(newInterval.getIntervalTime());
+            System.out.println(newInterval.getTask().getDuration());
+            
             String updateLastUsed = "UPDATE [task] SET lastUsed = ?, duration = ? WHERE id = ?";
             PreparedStatement ps2 = con.prepareStatement(updateLastUsed);
 
@@ -404,17 +463,20 @@ public class TaskDBDAO implements TaskDBDAOInterface
             ps2.setInt(2, newInterval.getTask().getDuration() - oldInterval.getIntervalTime() + newInterval.getIntervalTime());
             ps2.setInt(3, newInterval.getTask().getId());
 
-            
-            
             int updatedRows = ps2.executeUpdate();
 
             return updatedRows > 0;
+        }
+        finally
+        {
+            conPool.checkIn(con);
         }
     }
 
     private ArrayList<Interval> getIntervals(Task task) throws SQLException
     {
-        try (Connection con = dbCon.getConnection())
+        Connection con = conPool.checkOut();
+        try
         {
             ArrayList<Interval> intervals = new ArrayList<>();
 
@@ -440,6 +502,10 @@ public class TaskDBDAO implements TaskDBDAOInterface
 
             return intervals;
         }
+        finally
+        {
+            conPool.checkIn(con);
+        }
     }
     
     @Override
@@ -450,7 +516,8 @@ public class TaskDBDAO implements TaskDBDAOInterface
             return false;
         }
         
-        try(Connection con = dbCon.getConnection())
+        Connection con = conPool.checkOut();
+        try
         { 
             PreparedStatement ps = con.prepareStatement("DELETE FROM [interval] WHERE intervalId = ?");
             ps.setInt(1, interval.getId());
@@ -468,11 +535,16 @@ public class TaskDBDAO implements TaskDBDAOInterface
             
             return updatedRows > 0;
         }
+        finally
+        {
+            conPool.checkIn(con);
+        }
     }
         
     public boolean intervalExist(Interval interval) throws SQLException 
     {
-        try(Connection con = dbCon.getConnection())
+        Connection con = conPool.checkOut();
+        try
         { 
             PreparedStatement ps = con.prepareStatement("SELECT * FROM [interval] WHERE intervalId = ?");
             ps.setInt(1, interval.getId());
@@ -485,7 +557,11 @@ public class TaskDBDAO implements TaskDBDAOInterface
             }
 
             return false;
-        }  
+        }
+        finally
+        {
+            conPool.checkIn(con);
+        }
     }
     
     @Override
@@ -495,7 +571,8 @@ public class TaskDBDAO implements TaskDBDAOInterface
         String sqlString;
         PreparedStatement ps;
 
-        try (Connection con = dbCon.getConnection())
+        Connection con = conPool.checkOut();
+        try
         {
 
             
@@ -542,6 +619,10 @@ public class TaskDBDAO implements TaskDBDAOInterface
 
             return tasks;
         }
+        finally
+        {
+            conPool.checkIn(con);
+        }
 
     }
         
@@ -549,7 +630,8 @@ public class TaskDBDAO implements TaskDBDAOInterface
         //make the from date to date dal method work for intervals
     private ArrayList<Interval> getIntervalsbetween2Dates(Task task, LocalDate fromdate, LocalDate todate) throws SQLException
     {
-        try (Connection con = dbCon.getConnection())
+        Connection con = conPool.checkOut();
+        try
         {
             ArrayList<Interval> intervals = new ArrayList<>();
 
@@ -580,6 +662,10 @@ public class TaskDBDAO implements TaskDBDAOInterface
 
             return intervals;
         }
+        finally
+        {
+            conPool.checkIn(con);
+        }
     }
         
         
@@ -588,7 +674,7 @@ public class TaskDBDAO implements TaskDBDAOInterface
     
     
 
-    public static void main(String[] args) throws IOException, SQLException
+    public static void main(String[] args) throws IOException, SQLException, Exception
     {
         TaskDBDAO taskDBDAO = new TaskDBDAO();
 
@@ -691,7 +777,8 @@ public class TaskDBDAO implements TaskDBDAOInterface
     public List<Task> getAllTasks4Project(Project project) throws SQLServerException, SQLException {
                 ArrayList<Task> returntasks = new ArrayList<>();
 
-        try (Connection con = dbCon.getConnection())
+        Connection con = conPool.checkOut();        
+        try
         {
             PreparedStatement ps = con.prepareStatement("SELECT * FROM [task] WHERE ProjectID = ?");
             ps.setInt(1, project.getId());
@@ -723,12 +810,17 @@ public class TaskDBDAO implements TaskDBDAOInterface
             return returntasks;
 
         }
+        finally
+        {
+            conPool.checkIn(con);
+        }
     }
 
     @Override
     public int getDurationFromTasks(Project project) throws SQLServerException, SQLException {
         int time = 0;
-         try (Connection con = dbCon.getConnection())
+        Connection con = conPool.checkOut();
+        try
         {
             PreparedStatement ps = con.prepareStatement("SELECT SUM(task.duration) AS 'sumDuration' FROM [task] WHERE ProjectID = ?");
             ps.setInt(1, project.getId());
@@ -741,6 +833,10 @@ public class TaskDBDAO implements TaskDBDAOInterface
 
             return time;
 
+        }
+        finally
+        {
+            conPool.checkIn(con);
         }
     }
     

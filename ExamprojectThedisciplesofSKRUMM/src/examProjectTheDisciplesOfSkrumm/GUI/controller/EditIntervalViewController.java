@@ -80,6 +80,8 @@ public class EditIntervalViewController implements Initializable
         } catch (SQLException ex)
         {
             Logger.getLogger(EditIntervalViewController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(EditIntervalViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
         paid.selectedColorProperty().set(Color.rgb(67, 90, 154));
         paid.setUnSelectedColor(Color.rgb(67, 90, 154));
@@ -129,6 +131,8 @@ public class EditIntervalViewController implements Initializable
         Interval newInterval = new Interval(currentInterval.getId(), startTime.getValue(), stopTime.getValue(),
                 creationDate.getValue(), (int) intervalTime, currentTask, paidOrNot);
         
+        modelfacade.updateInterval(currentInterval, newInterval);
+        
         
         List<Interval> taskIntervals = currentTask.getIntervals();
         for (Interval taskInterval : taskIntervals)
@@ -143,8 +147,6 @@ public class EditIntervalViewController implements Initializable
             }
         }
         
-        modelfacade.updateInterval(currentInterval, newInterval);
-
         Stage stage = (Stage) saveButton.getScene().getWindow();
         stage.close();
     }

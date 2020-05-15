@@ -13,12 +13,12 @@
         <URL value="@/examProjectTheDisciplesOfSkrumm/GUI/css/Graphics.css" />
     </stylesheets>
    <children>
-      <Label layoutX="328.0" layoutY="26.0" text="Tasks" textFill="WHITE">
+      <Label layoutX="327.0" layoutY="14.0" text="Tasks" textFill="WHITE">
          <font>
             <Font size="30.0" />
          </font>
       </Label>
-      <JFXButton fx:id="backBtn" layoutX="14.0" layoutY="14.0" onAction="#handleBack" stylesheets="@../css/Graphics.css" text="Back" />
+      <JFXButton fx:id="backBtn" layoutX="317.0" layoutY="60.0" onAction="#handleBack" stylesheets="@../css/Graphics.css" text="Back to main" />
       <TableView fx:id="taskTableView" layoutX="34.0" layoutY="96.0" prefHeight="322.0" prefWidth="650.0" stylesheets="@../css/Graphics.css">
         <columns>
           <TableColumn fx:id="taskNameColumn" prefWidth="137.60000228881836" text="Task" />
