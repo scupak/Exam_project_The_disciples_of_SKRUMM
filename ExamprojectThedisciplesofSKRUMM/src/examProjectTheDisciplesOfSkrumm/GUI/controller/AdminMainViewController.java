@@ -6,9 +6,14 @@
 package examProjectTheDisciplesOfSkrumm.GUI.controller;
 
 import com.jfoenix.controls.JFXButton;
+import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.ModelFacadeInterface;
+import examProjectTheDisciplesOfSkrumm.GUI.Model.ModelFacade;
+import examProjectTheDisciplesOfSkrumm.enums.UserMode;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -34,6 +39,8 @@ public class AdminMainViewController implements Initializable
     private JFXButton usersbtn;
     @FXML
     private JFXButton backBtn;
+    
+    private ModelFacadeInterface modelfacade;
 
     /**
      * Initializes the controller class.
@@ -41,7 +48,13 @@ public class AdminMainViewController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        // TODO
+        try
+        {
+            modelfacade = ModelFacade.getInstance();
+        } catch (Exception ex)
+        {
+            Logger.getLogger(AdminMainViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }    
 
     @FXML
@@ -106,6 +119,8 @@ public class AdminMainViewController implements Initializable
     @FXML
     private void handleBackToMain(ActionEvent event) throws IOException
     {
+        modelfacade.setCurrentUserMode(UserMode.STANDARD);
+        
         Stage adminmainView = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
         FXMLLoader loader = new FXMLLoader(getClass().

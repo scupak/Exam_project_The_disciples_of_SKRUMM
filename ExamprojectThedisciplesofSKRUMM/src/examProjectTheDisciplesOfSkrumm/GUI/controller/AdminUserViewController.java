@@ -10,6 +10,7 @@ import examProjectTheDisciplesOfSkrumm.BE.Task;
 import examProjectTheDisciplesOfSkrumm.BE.User;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.ModelFacadeInterface;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.ModelFacade;
+import examProjectTheDisciplesOfSkrumm.enums.UserMode;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -28,6 +29,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
@@ -218,6 +220,32 @@ public class AdminUserViewController implements Initializable
     public void refreshTableview() throws SQLException
     {
         UserTableView.setItems(modelfacade.getAllUsers());
+    }
+
+    @FXML
+    private void handleOpenUserView(MouseEvent event) throws IOException
+    {
+        if(event.getClickCount() == 2)
+        {
+            if(UserTableView.getSelectionModel().getSelectedItem() != null)
+            {
+                User clickedUser = UserTableView.getSelectionModel().getSelectedItem();
+                modelfacade.setCurrentuser(clickedUser);
+                
+                FXMLLoader loader = new FXMLLoader(getClass().
+                getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/MainView.fxml"));
+        Parent root = loader.load();
+        MainViewController controller = loader.getController();
+
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.setMinHeight(523);
+        stage.setMinWidth(721);
+        stage.setTitle("Main Menu");
+        stage.show();
+                
+            }
+        }
     }
     
 }
