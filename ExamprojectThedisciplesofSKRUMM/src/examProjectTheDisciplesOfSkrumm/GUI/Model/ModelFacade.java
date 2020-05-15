@@ -17,6 +17,7 @@ import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.ModelFacadeInterface;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.ProjectModelInterface;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.TaskModelInterface;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.UserModelInterface;
+import examProjectTheDisciplesOfSkrumm.enums.UserMode;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
@@ -351,6 +352,18 @@ public class ModelFacade implements ModelFacadeInterface
     @Override
     public List<Task> getTasksForUserbetween2Dates(User user, LocalDate fromdate, LocalDate todate) throws SQLException {
         return taskmodel.getTasksForUserbetween2Dates(user, fromdate, todate);
+    }
+
+    @Override
+    public void setCurrentUserMode(UserMode userMode)
+    {
+       userModel.setCurrentUserMode(userMode);
+    }
+
+    @Override
+    public UserMode getCurrentUserMode()
+    {
+        return userModel.getCurrentUserMode();
     }
     
 }

@@ -451,6 +451,11 @@ public class TaskDBDAO implements TaskDBDAOInterface
             
             ps.executeUpdate();
             
+            
+            System.out.println(oldInterval.getIntervalTime());
+            System.out.println(newInterval.getIntervalTime());
+            System.out.println(newInterval.getTask().getDuration());
+            
             String updateLastUsed = "UPDATE [task] SET lastUsed = ?, duration = ? WHERE id = ?";
             PreparedStatement ps2 = con.prepareStatement(updateLastUsed);
 
@@ -458,8 +463,6 @@ public class TaskDBDAO implements TaskDBDAOInterface
             ps2.setInt(2, newInterval.getTask().getDuration() - oldInterval.getIntervalTime() + newInterval.getIntervalTime());
             ps2.setInt(3, newInterval.getTask().getId());
 
-            
-            
             int updatedRows = ps2.executeUpdate();
 
             return updatedRows > 0;

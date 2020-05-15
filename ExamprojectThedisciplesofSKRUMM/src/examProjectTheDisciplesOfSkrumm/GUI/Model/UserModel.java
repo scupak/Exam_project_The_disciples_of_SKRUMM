@@ -11,6 +11,7 @@ import examProjectTheDisciplesOfSkrumm.BE.User;
 import examProjectTheDisciplesOfSkrumm.BLL.BLLFacade;
 import examProjectTheDisciplesOfSkrumm.BLL.Interface.BLLFacadeInterface;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.UserModelInterface;
+import examProjectTheDisciplesOfSkrumm.enums.UserMode;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
@@ -26,6 +27,7 @@ public class UserModel implements UserModelInterface
      private final BLLFacadeInterface bllFacade;
      private ObservableList<User> users;
      private User currentuser;
+     private UserMode userMode; 
      
      public UserModel() throws IOException, SQLException, Exception
      {
@@ -102,5 +104,24 @@ public class UserModel implements UserModelInterface
        return  bllFacade.deleteProjectFromUser(user, project);
     }
     
+    /**
+     * Sets the parameter that tells the program if its a teacher or student
+     * using the program.
+     *
+     * @param userMode
+     */
+    public void setCurrentUserMode(UserMode userMode)
+    {
+        this.userMode = userMode;
+    }
     
+     /**
+     * Get the currentuserMode
+     *
+     * @return
+     */
+    public UserMode getCurrentUserMode()
+    {
+        return userMode;
+    }
 }
