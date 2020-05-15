@@ -128,11 +128,18 @@ public class MainViewController implements Initializable
     private LocalTime startTime;
     private LocalTime stopTime;
     
-    private boolean adminCheck;
     private boolean running;
     
     private ModelFacadeInterface modelfacade;
     private DateTimeFormatter formatter;
+    @FXML
+    private JFXButton taskBtn;
+    @FXML
+    private JFXButton clientsProjectBtn;
+    @FXML
+    private JFXButton AdminBtn;
+    @FXML
+    private ImageView logoImgView;
 
     /**
      * Initializes the controller class.
@@ -193,18 +200,11 @@ public class MainViewController implements Initializable
         }
 
         formatter = DateTimeFormatter.ofPattern("dd/MM/YYYY");
+        
+        
 
     }
 
-    public MainViewController()
-    {
-        adminCheck = false;
-    }
-
-    public void setAdminCheck(boolean adminCheck)
-    {
-        this.adminCheck = adminCheck;
-    }
 
     @FXML
     private void handleChartView(ActionEvent event) throws IOException
@@ -240,8 +240,8 @@ public class MainViewController implements Initializable
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
-            stage.setMinHeight(492);
-            stage.setMinWidth(804);
+            stage.setMinHeight(525);
+            stage.setMinWidth(726);
             stage.setTitle("Admin");
             stage.show();
             mainView.close();

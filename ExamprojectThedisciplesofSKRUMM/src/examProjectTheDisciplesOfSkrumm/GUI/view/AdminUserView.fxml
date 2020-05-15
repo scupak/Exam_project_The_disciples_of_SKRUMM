@@ -24,9 +24,9 @@
         </columns>
       </TableView>
       <JFXButton fx:id="adminBtn" layoutX="644.0" layoutY="482.0" onAction="#handleMakeAdmin" stylesheets="@../css/Graphics.css" text="Admin" />
-      <HBox layoutX="301.0" layoutY="51.0" prefHeight="25.0" prefWidth="124.0">
+      <HBox layoutX="301.0" layoutY="51.0" prefHeight="26.0" prefWidth="132.0">
          <children>
-            <JFXButton fx:id="backBtn" onAction="#handleBack" stylesheets="@../css/Graphics.css" text="Back to admin menu" />
+            <JFXButton fx:id="backBtn" onAction="#handleBack" prefHeight="26.0" prefWidth="138.0" stylesheets="@../css/Graphics.css" text="Back to admin menu" />
          </children>
       </HBox>
       <HBox layoutX="37.0" layoutY="482.0" prefHeight="25.0" prefWidth="149.0" spacing="2.0">

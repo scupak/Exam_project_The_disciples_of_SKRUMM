@@ -21,6 +21,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 /**
@@ -41,6 +42,8 @@ public class AdminMainViewController implements Initializable
     private JFXButton backBtn;
     
     private ModelFacadeInterface modelfacade;
+    @FXML
+    private Label titleLabel;
 
     /**
      * Initializes the controller class.
@@ -55,6 +58,10 @@ public class AdminMainViewController implements Initializable
         {
             Logger.getLogger(AdminMainViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        titleLabel.setText("Welcome " + modelfacade.getCurrentuser().getFirstName());
+        
+        
     }    
 
     @FXML
