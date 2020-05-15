@@ -46,7 +46,7 @@ public class TaskModel implements TaskModelInterface
     private ExecutorService executorService;
     ObservableList<Task> sixTasks;
 
-    TaskModel() throws IOException
+    TaskModel() throws IOException, Exception
     {
        bllfacade = new BLLFacade();
        tasks = FXCollections.observableArrayList();

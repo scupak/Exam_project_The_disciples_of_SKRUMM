@@ -24,7 +24,7 @@ public class ProjectManager implements ProjectManagerInterface
 {
     DALFacadeInterface dalfacade;
 
-    public ProjectManager() throws IOException 
+    public ProjectManager() throws IOException, Exception 
     {
         dalfacade = new DALFacade();
     }

@@ -30,7 +30,7 @@ public class TaskManager implements TaskManagerInterface
 {
     private DALFacade dal;
     
-    public TaskManager() throws IOException
+    public TaskManager() throws IOException, Exception
     {
         dal = new DALFacade();
     }

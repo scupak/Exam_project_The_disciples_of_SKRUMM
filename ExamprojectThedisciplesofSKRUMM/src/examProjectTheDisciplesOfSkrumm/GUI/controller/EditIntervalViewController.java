@@ -80,6 +80,8 @@ public class EditIntervalViewController implements Initializable
         } catch (SQLException ex)
         {
             Logger.getLogger(EditIntervalViewController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(EditIntervalViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
         paid.selectedColorProperty().set(Color.rgb(67, 90, 154));
         paid.setUnSelectedColor(Color.rgb(67, 90, 154));
