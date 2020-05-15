@@ -19,7 +19,6 @@ import javafx.beans.property.SimpleStringProperty;
  */
 public class Project 
 {
-    private TaskManager tm;
     private int timeSec;
     private String formatedTime;
     private SimpleIntegerProperty id;
@@ -30,7 +29,7 @@ public class Project
     private SimpleIntegerProperty isPaid;
     private LocalDate creationDate;
 
-    public Project(int id, String projectName, Client client, int projectrate) throws IOException 
+    public Project(int id, String projectName, Client client, int projectrate)
     {
         this.id = new SimpleIntegerProperty(id);
         this.projectName = new SimpleStringProperty(projectName);
@@ -38,7 +37,6 @@ public class Project
         this.clientName = new SimpleStringProperty(client.getClientName());
         this.ProjectRate = new SimpleIntegerProperty(projectrate);
         this.isPaid = new SimpleIntegerProperty(client.getIsPaid());
-        this.tm = new TaskManager();
         this.timeSec = 0;
         this.formatedTime = null;
         
@@ -99,8 +97,29 @@ public class Project
     }
 
     public String getFormatedTime() {
-        formatedTime = tm.convertSecToTimeString(timeSec);
-        return formatedTime;
+         int totalSec = timeSec;
+        int hour = 0;
+        int min = 0; 
+        int sec = 0;
+        
+    
+         while(totalSec >= 3600){
+        totalSec  = totalSec - 3600;
+        hour++;
+        System.out.println("added one to hours...");
+        }
+        
+        while(totalSec >= 60){
+        totalSec = totalSec - 60;
+        min++;
+        System.out.println("added one to min...");
+        }
+        
+        sec = totalSec;
+        System.out.println("added rest of seconds to sec...");
+        
+        return(String.format("%02d", hour) + ":" + String.format("%02d", min) + ":" + String.format("%02d", sec));
+      
     }
 
     public void setFormatedTime(String formatedTime) {
