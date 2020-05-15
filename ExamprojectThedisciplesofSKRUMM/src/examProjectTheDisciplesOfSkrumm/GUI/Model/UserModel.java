@@ -27,7 +27,7 @@ public class UserModel implements UserModelInterface
      private ObservableList<User> users;
      private User currentuser;
      
-     public UserModel() throws IOException, SQLException
+     public UserModel() throws IOException, SQLException, Exception
      {
          bllFacade = new BLLFacade();
          this.users = FXCollections.observableArrayList();

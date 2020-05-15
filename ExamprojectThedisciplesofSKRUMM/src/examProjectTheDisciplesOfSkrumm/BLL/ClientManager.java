@@ -23,7 +23,7 @@ public class ClientManager implements ClientManagerInterface
 {
     DALFacadeInterface dalfacade;
 
-    public ClientManager() throws IOException 
+    public ClientManager() throws IOException, Exception 
     {
         dalfacade = new DALFacade();
     }

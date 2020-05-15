@@ -18,6 +18,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import examProjectTheDisciplesOfSkrumm.DAL.Interface.UserDBDAOInterface;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -26,11 +28,11 @@ import examProjectTheDisciplesOfSkrumm.DAL.Interface.UserDBDAOInterface;
 public class UserDBDAO implements UserDBDAOInterface
 {
 
-    private final DatabaseConnector dbCon;
+    private final ConnectionPool conPool;
 
-    public UserDBDAO() throws IOException
+    public UserDBDAO() throws IOException, Exception
     {
-        dbCon = new DatabaseConnector();
+        this.conPool = ConnectionPool.getInstance();
     }
 
     /**
@@ -44,8 +46,9 @@ public class UserDBDAO implements UserDBDAOInterface
     public List<User> getAllUsers() throws SQLServerException, SQLException
     {
         ArrayList<User> users = new ArrayList<>();
+        Connection con = conPool.checkOut();
 
-        try (Connection con = dbCon.getConnection())
+        try
         {
             PreparedStatement ps = con.prepareStatement("SELECT * FROM [user]");
             ResultSet rs = ps.executeQuery();
@@ -69,6 +72,10 @@ public class UserDBDAO implements UserDBDAOInterface
             }
             return users;
         }
+        finally
+        {
+            conPool.checkIn(con);
+        }
     }
 
     /**
@@ -81,7 +88,9 @@ public class UserDBDAO implements UserDBDAOInterface
     @Override
     public boolean userExist(User user) throws SQLException
     {
-        try (Connection con = dbCon.getConnection())
+        Connection con = conPool.checkOut();
+        
+        try
         {
             PreparedStatement ps = con.prepareStatement("SELECT * FROM [user] WHERE email = ?");
             ps.setString(1, user.getEmail());
@@ -94,6 +103,10 @@ public class UserDBDAO implements UserDBDAOInterface
             }
 
             return false;
+        }
+        finally
+        {
+            conPool.checkIn(con);
         }
     }
 
@@ -111,8 +124,10 @@ public class UserDBDAO implements UserDBDAOInterface
         {
             return null;
         }
+        
+        Connection con = conPool.checkOut();
 
-        try (Connection con = dbCon.getConnection())
+        try
         {
             PreparedStatement ps = con.prepareStatement("INSERT INTO [user]"
                     + "(email, firstName, lastName, password, isAdmin) "
@@ -136,6 +151,10 @@ public class UserDBDAO implements UserDBDAOInterface
 
             return user;
         }
+        finally
+        {
+            conPool.checkIn(con);
+        }
     }
 
     /**
@@ -154,7 +173,8 @@ public class UserDBDAO implements UserDBDAOInterface
         }
 
         User returnUser;
-        try (Connection con = dbCon.getConnection())
+        Connection con = conPool.checkOut();
+        try
         {
             PreparedStatement ps = con.prepareStatement("SELECT * FROM [user] WHERE email = ?");
 
@@ -183,6 +203,10 @@ public class UserDBDAO implements UserDBDAOInterface
             }
             return returnUser;
         }
+        finally
+        {
+            conPool.checkIn(con);
+        }
     }
 
     /**
@@ -200,8 +224,10 @@ public class UserDBDAO implements UserDBDAOInterface
         {
             return false;
         }
+        
+        Connection con = conPool.checkOut();
 
-        try (Connection con = dbCon.getConnection())
+        try
         {
 
             PreparedStatement ps = con.prepareStatement("UPDATE [user] SET password = ? WHERE email = ?");
@@ -213,11 +239,20 @@ public class UserDBDAO implements UserDBDAOInterface
             return updatedRows > 0;
 
         }
+        finally
+        {
+            conPool.checkIn(con);
+        }
     }
 
     public static void main(String[] args) throws IOException, SQLException
     {
-        UserDBDAO userDb = new UserDBDAO();
+        UserDBDAO userDb = null;
+        try {
+            userDb = new UserDBDAO();
+        } catch (Exception ex) {
+            Logger.getLogger(UserDBDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
        // User test1 = new User("standard@user.now", "Mads", "Jensen", "nemt", false);
         //User test2 = new User("admin@user.now", "Jakob", "Grumsen", "nemt", true);
         User test67 = new User("standard@user.now", "No", "Yes", "ok", true);
@@ -250,8 +285,10 @@ public class UserDBDAO implements UserDBDAOInterface
         {
             return false;
         }
+        
+        Connection con = conPool.checkOut();
 
-        try (Connection con = dbCon.getConnection())
+        try
         {
 
             PreparedStatement ps = con.prepareStatement("UPDATE [user] SET password = ?, email =?, firstname =?, lastname =?, isadmin =? WHERE email = ?");
@@ -279,11 +316,17 @@ public class UserDBDAO implements UserDBDAOInterface
             return updatedRows > 0;
 
         }
+        finally
+        {
+            conPool.checkIn(con);
+        }
     }
 
     @Override
     public boolean deleteUser(User user) throws SQLException {
-        try(Connection con = dbCon.getConnection())
+        
+        Connection con = conPool.checkOut();
+        try
         {
 
             PreparedStatement ps = con.prepareStatement("DELETE FROM [user] WHERE email = ?");
@@ -293,6 +336,10 @@ public class UserDBDAO implements UserDBDAOInterface
             
             return updatedRows > 0;
             
+        }
+        finally
+        {
+            conPool.checkIn(con);
         }
         
     }
@@ -307,7 +354,9 @@ public class UserDBDAO implements UserDBDAOInterface
          
         ArrayList<Project> projects = new ArrayList<>();
         
-        try (Connection con = dbCon.getConnection())
+        Connection con = conPool.checkOut();
+        
+        try
         {
             PreparedStatement ps = con.prepareStatement("SELECT UserProjectTable.userId, UserProjectTable.projectId, " + 
                     "client.id AS Cid, client.name, client.rate, client.isPaid, " + 
@@ -326,12 +375,18 @@ public class UserDBDAO implements UserDBDAOInterface
                 
             }
         }
+        finally
+        {
+            conPool.checkIn(con);
+        }
         return projects;
     }
 
     @Override
     public boolean addUserToProject(User user, Project project) throws SQLServerException, SQLException {
-        try (Connection con = dbCon.getConnection()) {
+        Connection con = conPool.checkOut();
+        try  
+        {
             PreparedStatement ps = con.prepareStatement("INSERT INTO UserProjectTable "
                     + "(userId, projectId) VALUES (?,?)");
             ps.setString(1, user.getEmail());
@@ -351,11 +406,19 @@ public class UserDBDAO implements UserDBDAOInterface
         {
              throw new SQLException("could not add to project!", ex);
         }
+        finally
+        {
+            conPool.checkIn(con);
+        }
     }
 
     @Override
     public boolean deleteProjectFromUser(User user, Project project) throws SQLServerException, SQLException {
-        try ( Connection con = dbCon.getConnection()) {
+        
+        Connection con = conPool.checkOut();
+        
+        try 
+        {
             PreparedStatement ps = con.prepareStatement(
                     "DELETE FROM UserProjectTable WHERE projectId = ? "
                     + "AND userId = ? "); 
@@ -372,6 +435,10 @@ public class UserDBDAO implements UserDBDAOInterface
         } 
         catch (SQLException ex) {
             throw new SQLException("could not clear user from project", ex);
+        }
+        finally
+        {
+            conPool.checkIn(con);
         }
 
         return false;

@@ -40,7 +40,7 @@ public class ModelFacade implements ModelFacadeInterface
     private ClientModelInterface clientmodel;
     private UserModelInterface userModel;
     
-    public ModelFacade() throws IOException, SQLException 
+    public ModelFacade() throws IOException, SQLException, Exception 
     {
         taskmodel = new TaskModel();
         projectmodel = new ProjectModel();
