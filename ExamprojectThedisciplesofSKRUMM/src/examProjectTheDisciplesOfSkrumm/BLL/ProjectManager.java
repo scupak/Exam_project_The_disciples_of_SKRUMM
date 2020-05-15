@@ -13,6 +13,7 @@ import examProjectTheDisciplesOfSkrumm.DAL.DALFacade;
 import examProjectTheDisciplesOfSkrumm.DAL.Interface.DALFacadeInterface;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,7 +32,13 @@ public class ProjectManager implements ProjectManagerInterface
 
     @Override
     public List<Project> getAllProjects() throws SQLServerException, SQLException {
-        return dalfacade.getAllProjects();
+        ArrayList<Project> list = new ArrayList();
+        list.addAll(dalfacade.getAllProjects());
+        for (Project project : list) {
+            project.setTimeSec(dalfacade.getDurationFromTasks(project));
+            System.out.println("Added the time " + project.getFormatedTime() + " to the project at " + list.indexOf(project));
+        }
+        return list;
     }
 
     @Override
@@ -46,7 +53,10 @@ public class ProjectManager implements ProjectManagerInterface
 
     @Override
     public Project getProject(Project project) throws SQLException {
-        return dalfacade.getProject(project);
+        Project returnProject = dalfacade.getProject(project);
+        returnProject.setTimeSec(dalfacade.getDurationFromTasks(project));
+        System.out.println("Added time adds together to " + returnProject.getFormatedTime());
+        return returnProject;
     }
 
     @Override
