@@ -14,6 +14,7 @@ import examProjectTheDisciplesOfSkrumm.BE.User;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
+import javafx.scene.chart.XYChart;
 
 /**
  *
@@ -52,5 +53,9 @@ public interface TaskManagerInterface
     public List<Task> getTasksForUserbetween2Dates(User user, LocalDate fromdate, LocalDate todate) throws SQLException;
     
     public int getDurationFromTasks(Project project) throws SQLServerException, SQLException;
+    
+    public int getDurationFromIntervalsbetween2Dates(String userID, int projectID, LocalDate fromdate, LocalDate todate) throws SQLServerException, SQLException;
+    
+    public XYChart.Series handleProjectBarChartData(String userID,LocalDate fromdate, LocalDate todate) throws SQLException;
     
 }

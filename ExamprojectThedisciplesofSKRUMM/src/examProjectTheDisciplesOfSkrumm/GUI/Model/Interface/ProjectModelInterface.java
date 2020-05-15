@@ -9,8 +9,10 @@ import com.microsoft.sqlserver.jdbc.SQLServerException;
 import examProjectTheDisciplesOfSkrumm.BE.Client;
 import examProjectTheDisciplesOfSkrumm.BE.Project;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 import javafx.collections.ObservableList;
+import javafx.scene.chart.XYChart;
 
 /**
  *
@@ -31,5 +33,7 @@ public interface ProjectModelInterface
     public boolean updateProject(Project project) throws SQLServerException, SQLException;
     
     public ObservableList<Project> getProjectsForClient(Client client) throws SQLException;
+    
+     public XYChart.Series handleProjectBarChartData(String userID,LocalDate fromdate, LocalDate todate) throws SQLException;
     
 }

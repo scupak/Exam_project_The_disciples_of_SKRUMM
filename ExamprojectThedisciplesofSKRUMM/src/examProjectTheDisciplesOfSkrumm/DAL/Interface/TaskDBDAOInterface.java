@@ -50,4 +50,6 @@ public interface TaskDBDAOInterface
     public List<Task> getTasksForUserbetween2Dates(User user, LocalDate fromdate, LocalDate todate) throws SQLException;
     
     public int getDurationFromTasks(Project project) throws SQLServerException, SQLException;
+    
+     public int getDurationFromIntervalsbetween2Dates(String userID, int projectID, LocalDate fromdate, LocalDate todate) throws SQLServerException, SQLException;
 }

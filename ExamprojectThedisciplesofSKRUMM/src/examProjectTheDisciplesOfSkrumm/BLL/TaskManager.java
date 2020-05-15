@@ -16,11 +16,14 @@ import examProjectTheDisciplesOfSkrumm.DAL.DALFacade;
 import examProjectTheDisciplesOfSkrumm.DAL.TaskDBDAO;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.scene.chart.XYChart;
 
 /**
  *
@@ -84,11 +87,7 @@ public class TaskManager implements TaskManagerInterface
         return(String.format("%02d", hour) + ":" + String.format("%02d", min) + ":" + String.format("%02d", sec));
     }
     
-    public static void main(String[] args)
-    {
-        DALFacade dal;                
-    }
-
+   
     @Override
     public List<Task> getAllTasks() throws SQLException
     {
@@ -150,4 +149,54 @@ public class TaskManager implements TaskManagerInterface
     public int getDurationFromTasks(Project project) throws SQLServerException, SQLException {
         return dal.getDurationFromTasks(project);
     }
+
+    @Override
+    public int getDurationFromIntervalsbetween2Dates(String userID, int projectID, LocalDate fromdate, LocalDate todate) throws SQLServerException, SQLException {
+      return  dal.getDurationFromIntervalsbetween2Dates(userID, projectID, fromdate, todate);
+    }
+    /**
+     * 
+     * @param userID
+     * @param fromdate
+     * @param todate
+     * @return ProjectBarChartData
+     * @throws SQLException 
+     */
+    @Override
+    public XYChart.Series handleProjectBarChartData(String userID,LocalDate fromdate, LocalDate todate) throws SQLException{
+        ArrayList<Project> allProject = new ArrayList<>();
+        
+        /**get all the projects**/
+        allProject.addAll(dal.getAllProjects());
+        
+        
+     XYChart.Series data = new XYChart.Series();
+        data.setName("Hours spent on projects");
+        
+        
+        for (Project project : allProject) {
+            
+            System.out.println(project.getProjectName() + getDurationFromIntervalsbetween2Dates(userID, project.getId(), fromdate, todate) );
+            /* the group divedes the output of getDurationFromIntervalsbetween2Dates by 3600 to go from seconds to hours */
+             data.getData().add(new XYChart.Data(project.getProjectName(),(getDurationFromIntervalsbetween2Dates(userID, project.getId(), fromdate, todate) / 3600.0) ));
+            
+            
+        }
+        
+        
+        return data;
+    }
+    
+    
+     public static void main(String[] args) throws Exception
+    {
+       TaskManager tm = new TaskManager();
+       
+       
+        System.out.println(tm.handleProjectBarChartData("standard@user.now", LocalDate.of(2020, Month.MAY, 14), LocalDate.of(2020, Month.MAY, 15)).getData());
+        
+        
+    }
+
+    
 }

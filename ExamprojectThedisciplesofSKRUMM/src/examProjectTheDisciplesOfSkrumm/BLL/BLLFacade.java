@@ -26,6 +26,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import javafx.collections.ObservableList;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.TreeItem;
 
 /**
@@ -284,6 +285,16 @@ public class BLLFacade implements BLLFacadeInterface
     @Override
     public int getDurationFromTasks(Project project) throws SQLServerException, SQLException {
         return taskmanager.getDurationFromTasks(project);
+    }
+
+    @Override
+    public int getDurationFromIntervalsbetween2Dates(String userID, int projectID, LocalDate fromdate, LocalDate todate) throws SQLServerException, SQLException {
+       return taskmanager.getDurationFromIntervalsbetween2Dates(userID, projectID, fromdate, todate);
+    }
+
+    @Override
+    public XYChart.Series handleProjectBarChartData(String userID, LocalDate fromdate, LocalDate todate) throws SQLException {
+        return taskmanager.handleProjectBarChartData(userID, fromdate, todate);
     }
 
 }

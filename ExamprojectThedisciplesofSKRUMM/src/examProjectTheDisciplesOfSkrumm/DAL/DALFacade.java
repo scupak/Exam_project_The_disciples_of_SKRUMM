@@ -256,5 +256,10 @@ public class DALFacade implements DALFacadeInterface
     public int getDurationFromTasks(Project project) throws SQLServerException, SQLException {
         return taskDBDAO.getDurationFromTasks(project);
     }
+
+    @Override
+    public int getDurationFromIntervalsbetween2Dates(String userID, int projectID, LocalDate fromdate, LocalDate todate) throws SQLServerException, SQLException {
+       return taskDBDAO.getDurationFromIntervalsbetween2Dates(userID, projectID, fromdate, todate);
+    }
     
 }

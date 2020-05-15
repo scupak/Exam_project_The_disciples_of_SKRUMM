@@ -31,6 +31,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
 
 /**
@@ -220,6 +221,13 @@ public class TaskModel implements TaskModelInterface
     public List<Task> getTasksForUserbetween2Dates(User user, LocalDate fromdate, LocalDate todate) throws SQLException {
         return bllfacade.getTasksForUserbetween2Dates(user, fromdate, todate);
     }
+
+    @Override
+    public int getDurationFromIntervalsbetween2Dates(String userID, int projectID, LocalDate fromdate, LocalDate todate) throws SQLServerException, SQLException {
+        return bllfacade.getDurationFromIntervalsbetween2Dates(userID, projectID, fromdate, todate);
+    }
+
+   
     
     
     

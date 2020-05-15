@@ -686,11 +686,11 @@ public class TaskDBDAO implements TaskDBDAOInterface
           Task task = new Task(2, "rjo", project, 50, LocalDateTime.now(), LocalDate.now(), LocalTime.now(), LocalTime.now(), user, intervals);
           
           
-          System.out.println(taskDBDAO.getDurationFromTasks(project));
+          //System.out.println(taskDBDAO.getDurationFromTasksbetween2Dates("standard@user.now", 4, LocalDate.of(2020, Month.MAY, 1), LocalDate.of(2020, Month.MAY, 14)));
           
          // Interval interval = new Interval(15, LocalTime.MIN, LocalTime.MIN, LocalDate.MIN, 0, task, 0);
          // taskDBDAO.deleteInterval(interval);
-         
+       /*  
          for (Task tasksForUserbetween2Date : taskDBDAO.getTasksForUserbetween2Dates(user, LocalDate.of(2020, Month.MAY, 1), LocalDate.of(2020, Month.MAY, 14))) {
             
              int i = 1;
@@ -708,7 +708,7 @@ public class TaskDBDAO implements TaskDBDAOInterface
              
         }
          
-         
+         */
          
          /*
          int i = 1;
@@ -840,14 +840,31 @@ public class TaskDBDAO implements TaskDBDAOInterface
             conPool.checkIn(con);
         }
     }
-    
-     public int getDurationFromTasksbetween2Dates(User user ,Project project, LocalDate fromdate, LocalDate todate) throws SQLServerException, SQLException {
+    /**
+     * 
+     * @param userID
+     * @param projectID
+     * @param fromdate
+     * @param todate
+     * @return a time integer in seconds for the amount of time on a project 
+     * @throws SQLServerException
+     * @throws SQLException 
+     */
+     public int getDurationFromIntervalsbetween2Dates(String userID, int projectID, LocalDate fromdate, LocalDate todate) throws SQLServerException, SQLException {
         int time = 0;
         Connection con = conPool.checkOut();
          try 
         {
-            PreparedStatement ps = con.prepareStatement("SELECT SUM(task.duration) AS 'sumDuration' FROM [task] WHERE ProjectID = ?");
-            ps.setInt(1, project.getId());
+            PreparedStatement ps = con.prepareStatement( "SELECT  SUM(interval.intervalTime) AS 'sumDuration' "
+                                                       + "FROM interval "
+                                                       + "INNER JOIN task on interval.taskId = task.id "
+                                                       + "INNER JOIN project on project.id = task.projectID "
+                                                       + "WHERE task.userEmail = ? AND projectID = ? AND interval.creationDate >= ? AND interval.creationDate <= ? ");
+            ps.setString(1, userID);
+            ps.setInt(2, projectID);
+            ps.setDate(3,java.sql.Date.valueOf(fromdate));
+            ps.setDate(4,java.sql.Date.valueOf(todate));
+            
             ResultSet rs = ps.executeQuery();
 
             while (rs.next())
