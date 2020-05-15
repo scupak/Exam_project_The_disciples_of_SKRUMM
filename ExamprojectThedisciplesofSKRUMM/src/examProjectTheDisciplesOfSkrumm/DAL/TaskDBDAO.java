@@ -579,7 +579,7 @@ public class TaskDBDAO implements TaskDBDAOInterface
                 sqlString = "SELECT DISTINCT  interval.taskId, task.id , task.creationDate,task.duration, task.lastUsed , task.projectID , task.startTime, task.stopTime, task.title, task.userEmail "
                         + "FROM task "
                         + "LEFT OUTER JOIN interval on interval.taskId = task.id "
-                        + "WHERE  task.userEmail = ? AND interval.creationDate >= ? AND interval.creationDate <= ? OR task.creationDate >= ? AND task.creationDate <= ? "
+                        + "WHERE  task.userEmail = ? AND interval.creationDate >= ? AND interval.creationDate <= ? OR task.userEmail = ? AND task.creationDate >= ? AND task.creationDate <= ? "
                         + "ORDER BY task.lastUsed DESC ";
                 
                 ps = con.prepareStatement(sqlString);
@@ -587,8 +587,9 @@ public class TaskDBDAO implements TaskDBDAOInterface
                 ps.setString(1, user.getEmail());
                 ps.setDate(2, java.sql.Date.valueOf(fromdate));
                 ps.setDate(3, java.sql.Date.valueOf(todate));
-                ps.setDate(4, java.sql.Date.valueOf(fromdate));
-                ps.setDate(5, java.sql.Date.valueOf(todate));
+                ps.setString(4, user.getEmail());
+                ps.setDate(5, java.sql.Date.valueOf(fromdate));
+                ps.setDate(6, java.sql.Date.valueOf(todate));
             
 
             ResultSet rs = ps.executeQuery();
@@ -842,7 +843,8 @@ public class TaskDBDAO implements TaskDBDAOInterface
     
      public int getDurationFromTasksbetween2Dates(User user ,Project project, LocalDate fromdate, LocalDate todate) throws SQLServerException, SQLException {
         int time = 0;
-         try (Connection con = dbCon.getConnection())
+        Connection con = conPool.checkOut();
+         try 
         {
             PreparedStatement ps = con.prepareStatement("SELECT SUM(task.duration) AS 'sumDuration' FROM [task] WHERE ProjectID = ?");
             ps.setInt(1, project.getId());
@@ -855,6 +857,10 @@ public class TaskDBDAO implements TaskDBDAOInterface
 
             return time;
 
+        }
+         finally
+        {
+            conPool.checkIn(con);
         }
     }
 
