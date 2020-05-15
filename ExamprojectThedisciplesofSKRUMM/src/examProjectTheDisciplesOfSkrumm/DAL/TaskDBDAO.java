@@ -743,6 +743,24 @@ public class TaskDBDAO implements TaskDBDAOInterface
 
         }
     }
+    
+     public int getDurationFromTasksbetween2Dates(User user ,Project project, LocalDate fromdate, LocalDate todate) throws SQLServerException, SQLException {
+        int time = 0;
+         try (Connection con = dbCon.getConnection())
+        {
+            PreparedStatement ps = con.prepareStatement("SELECT SUM(task.duration) AS 'sumDuration' FROM [task] WHERE ProjectID = ?");
+            ps.setInt(1, project.getId());
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next())
+            {
+                time = rs.getInt("sumDuration") + time;
+            }
+
+            return time;
+
+        }
+    }
 
     
 
