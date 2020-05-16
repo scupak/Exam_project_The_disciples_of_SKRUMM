@@ -153,7 +153,7 @@ public class ProjectDBDAO implements ProjectDBDAOInterface
         
         try    
         {
-            PreparedStatement ps = con.prepareStatement("SELECT e.id, e.projectName, e.clientID, e.projectrate, d.id AS Cid, d.name, d.rate, d.isPaid \n" +
+            PreparedStatement ps = con.prepareStatement("SELECT e.id, e.projectName, e.clientID, e.projectrate, e.creationDate, d.id AS Cid, d.name, d.rate, d.isPaid  \n" +
         "FROM project e \n" +
         "JOIN client d ON e.clientID = d.id\n" +
         "WHERE e.id = ?"); 
@@ -168,6 +168,7 @@ public class ProjectDBDAO implements ProjectDBDAOInterface
                 Client client = new Client(rs.getInt("Cid"), rs.getString("name"), rs.getInt("rate"), rs.getInt("isPaid"));
                 int projectrate = rs.getInt("projectrate");
                 returnproject = new Project(id, projectName, client, projectrate);
+                returnproject.setCreationDate(rs.getDate("creationDate").toLocalDate());
                 
             }
             return returnproject;
@@ -200,6 +201,7 @@ public class ProjectDBDAO implements ProjectDBDAOInterface
                 String projectName = rs.getString("projectName").trim();
                 int projectrate = rs.getInt("projectrate");
                 Project p = new Project(id, projectName, client, projectrate);
+                p.setCreationDate(rs.getDate("creationDate").toLocalDate());
                 projects.add(p);
             }
         }

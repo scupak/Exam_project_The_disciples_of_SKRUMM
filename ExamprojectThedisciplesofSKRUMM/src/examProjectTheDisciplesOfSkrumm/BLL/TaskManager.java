@@ -187,6 +187,7 @@ public class TaskManager implements TaskManagerInterface
         return data;
     }
     
+    @Override
      public XYChart.Series handleProjectBarChartDataForAdmin(int projectID,LocalDate fromdate, LocalDate todate) throws SQLException{
         ArrayList<User> allUsers = new ArrayList<>();
         
@@ -195,7 +196,7 @@ public class TaskManager implements TaskManagerInterface
         
         
      XYChart.Series data = new XYChart.Series();
-        data.setName("Hours spent on projects");
+        data.setName("Hours this user spent on the project");
         
         
         for (User user : allUsers) {

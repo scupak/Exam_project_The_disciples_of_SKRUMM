@@ -214,6 +214,8 @@ public class MainViewController implements Initializable
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/ChartView.fxml"));
         Parent root = loader.load();
         ChartViewController controller = loader.getController();
+        
+        controller.getNameLabel().setText(modelfacade.getCurrentuser().getEmail() +" "+ "Hours");
 
         Stage stage = new Stage();
         stage.setScene(new Scene(root));

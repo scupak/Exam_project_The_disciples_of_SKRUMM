@@ -381,6 +381,9 @@ public class ModelFacade implements ModelFacadeInterface
     }
 
     @Override
+    public XYChart.Series handleProjectBarChartDataForAdmin(int projectID, LocalDate fromdate, LocalDate todate) throws SQLException {
+        return projectmodel.handleProjectBarChartDataForAdmin(projectID, fromdate, todate);
+    }
     public void setCurrentAdmin(User currentAdmin)
     {
         userModel.setCurrentAdmin(currentAdmin);

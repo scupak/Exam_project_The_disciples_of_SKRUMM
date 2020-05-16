@@ -69,9 +69,17 @@ public class ProjectManager implements ProjectManagerInterface
         return dalfacade.updateProject(project);
     }
     
+    @Override
     public List<Project> getProjectsForClient(Client client) throws SQLException
     {
-        return dalfacade.getProjectsForClient(client);
+
+        ArrayList<Project> list = new ArrayList();
+        list.addAll(dalfacade.getProjectsForClient(client));
+        for (Project project : list) {
+            project.setTimeSec(dalfacade.getDurationFromTasks(project));
+            System.out.println("Added the time " + project.getFormatedTime() + " to the project at " + list.indexOf(project));
+        }
+        return list;
     }
     
     

@@ -18,7 +18,7 @@
          <children>
             <VBox alignment="CENTER" prefHeight="70.0" prefWidth="202.0" styleClass="chart-bar">
                <children>
-                  <Label fx:id="nameLabel" prefHeight="35.0" prefWidth="206.0" text="Username's Hours" textFill="WHITE">
+                  <Label fx:id="nameLabel" alignment="CENTER" prefHeight="35.0" prefWidth="721.0" text="Username's Hours" textFill="WHITE">
                      <font>
                         <Font size="24.0" />
                      </font>
