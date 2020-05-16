@@ -187,13 +187,37 @@ public class TaskManager implements TaskManagerInterface
         return data;
     }
     
+     public XYChart.Series handleProjectBarChartDataForAdmin(int projectID,LocalDate fromdate, LocalDate todate) throws SQLException{
+        ArrayList<User> allUsers = new ArrayList<>();
+        
+        /**get all the projects**/
+        allUsers.addAll(dal.getAllUsers());
+        
+        
+     XYChart.Series data = new XYChart.Series();
+        data.setName("Hours spent on projects");
+        
+        
+        for (User user : allUsers) {
+            
+            System.out.println(user.getEmail() + getDurationFromIntervalsbetween2Dates(user.getEmail(), projectID, fromdate, todate) );
+            /* the group divedes the output of getDurationFromIntervalsbetween2Dates by 3600 to go from seconds to hours */
+             data.getData().add(new XYChart.Data(user.getEmail(),(getDurationFromIntervalsbetween2Dates(user.getEmail(), projectID, fromdate, todate) / 3600.0) ));
+            
+            
+        }
+        
+        
+        return data;
+    }
+    
     
      public static void main(String[] args) throws Exception
     {
        TaskManager tm = new TaskManager();
        
        
-        System.out.println(tm.handleProjectBarChartData("standard@user.now", LocalDate.of(2020, Month.MAY, 14), LocalDate.of(2020, Month.MAY, 15)).getData());
+        System.out.println(tm.handleProjectBarChartDataForAdmin(1, LocalDate.of(2020, Month.MAY, 1), LocalDate.of(2020, Month.MAY, 15)).getData());
         
         
     }
