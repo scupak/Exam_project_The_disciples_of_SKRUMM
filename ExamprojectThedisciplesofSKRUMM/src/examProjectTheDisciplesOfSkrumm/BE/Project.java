@@ -39,6 +39,7 @@ public class Project
         this.isPaid = new SimpleIntegerProperty(client.getIsPaid());
         this.timeSec = 0;
         this.formatedTime = null;
+        this.creationDate = null;
         
     }
 
@@ -95,6 +96,18 @@ public class Project
     public void setTimeSec(int timeSec) {
         this.timeSec = timeSec;
     }
+
+    public LocalDate getCreationDate()
+    {
+        return creationDate;
+    }
+
+    public void setCreationDate(LocalDate creationDate)
+    {
+        this.creationDate = creationDate;
+    }
+    
+    
 
     public String getFormatedTime() {
          int totalSec = timeSec;

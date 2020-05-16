@@ -16,6 +16,7 @@ import examProjectTheDisciplesOfSkrumm.DAL.Interface.ProjectDBDAOInterface;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -45,7 +46,7 @@ public class ProjectDBDAO implements ProjectDBDAOInterface
         Connection con = conPool.checkOut();
         try
         {
-            PreparedStatement ps = con.prepareStatement("SELECT e.id, e.projectName, e.clientID, e.projectrate, d.id AS Cid, d.name, d.rate, d.isPaid \n" +
+            PreparedStatement ps = con.prepareStatement("SELECT e.id, e.projectName, e.clientID, e.projectrate, e.creationDate, d.id AS Cid, d.name, d.rate, d.isPaid \n" +
                     "FROM project e \n" +
                      "JOIN client d ON e.clientID = d.id");
             ResultSet rs = ps.executeQuery();
@@ -56,7 +57,11 @@ public class ProjectDBDAO implements ProjectDBDAOInterface
                 String projectName = rs.getString("projectName").trim();
                 Client client = new Client(rs.getInt("Cid"), rs.getString("name"), rs.getInt("rate"), rs.getInt("isPaid"));
                 int projectrate = rs.getInt("projectrate");
-                projects.add(new Project(id, projectName, client, projectrate));
+                LocalDate creationDate = rs.getDate("creationDate").toLocalDate();
+                Project p = new Project(id, projectName, client, projectrate);
+                p.setCreationDate(creationDate);
+                projects.add(p);
+                
                 
             }
         }
@@ -95,17 +100,22 @@ public class ProjectDBDAO implements ProjectDBDAOInterface
     @Override
     public Project createProject(Project project) throws SQLException 
     {
+        if(project.getCreationDate() != LocalDate.now())
+        {
+        project.setCreationDate(LocalDate.now());
+        }
         
         Connection con = conPool.checkOut();
         try
         {
             PreparedStatement ps = con.prepareStatement("INSERT INTO [project]"
-                    + "(projectName, clientID, projectrate )"
-                    + "VALUES (?,?,?)", Statement.RETURN_GENERATED_KEYS);
+                    + "(projectName, clientID, projectrate, creationDate )"
+                    + "VALUES (?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             
             ps.setString(1, project.getProjectName());
             ps.setInt(2, project.getClient().getId());
             ps.setInt(3, project.getProjectRate());
+            ps.setDate(4, java.sql.Date.valueOf(project.getCreationDate()));
             ps.executeUpdate();
             
             ResultSet rs = ps.getGeneratedKeys();
