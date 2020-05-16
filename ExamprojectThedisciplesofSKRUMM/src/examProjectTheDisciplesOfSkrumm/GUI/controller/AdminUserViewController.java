@@ -264,6 +264,7 @@ public class AdminUserViewController implements Initializable
     @FXML
     private void handleOpenUserView(MouseEvent event) throws IOException
     {
+        Stage adminView = (Stage) ((Node) event.getSource()).getScene().getWindow();
         final JDialog dialog = new JDialog();
         dialog.setAlwaysOnTop(true);
         
@@ -278,6 +279,7 @@ public class AdminUserViewController implements Initializable
                 } else{
 
                 User clickedUser = UserTableView.getSelectionModel().getSelectedItem();
+                modelfacade.setCurrentAdmin(modelfacade.getCurrentuser());
                 modelfacade.setCurrentuser(clickedUser);
 
                 FXMLLoader loader = new FXMLLoader(getClass().
@@ -303,6 +305,7 @@ public class AdminUserViewController implements Initializable
                 stage.setMinWidth(721);
                 stage.setTitle("Main Menu");
                 stage.show();
+                adminView.close();
                 }
 
             }
