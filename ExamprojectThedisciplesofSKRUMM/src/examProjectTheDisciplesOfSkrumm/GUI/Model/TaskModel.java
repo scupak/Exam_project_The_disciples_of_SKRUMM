@@ -227,6 +227,8 @@ public class TaskModel implements TaskModelInterface
         return bllfacade.getDurationFromIntervalsbetween2Dates(userID, projectID, fromdate, todate);
     }
 
+    
+
    
     
     

@@ -7,6 +7,7 @@ package examProjectTheDisciplesOfSkrumm.GUI.controller;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
+import examProjectTheDisciplesOfSkrumm.BE.Project;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.ModelFacadeInterface;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.ModelFacade;
 import java.io.IOException;
@@ -53,7 +54,10 @@ public class ChartViewController implements Initializable
     @FXML
     private AnchorPane anchorPane;
     
-    ModelFacadeInterface modelfacade;
+    private ModelFacadeInterface modelfacade;
+    
+    private Project currentProject;
+    
   
    @Override 
     public void initialize(URL url, ResourceBundle rb) {
@@ -87,6 +91,28 @@ public class ChartViewController implements Initializable
     
     public void handleBarChart()
     {
+        if(currentProject != null){
+            
+            try {
+                hoursChart.getData().clear();
+                hoursChart.getData().add(modelfacade.handleProjectBarChartDataForAdmin(currentProject.getId(),startDate.getValue(),endDate.getValue()));
+            } catch (SQLException ex) {
+                Logger.getLogger(ChartViewController.class.getName()).log(Level.SEVERE, null, ex);
+                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("SQLException");
+                alert.setHeaderText("SQLException");
+                alert.setContentText(ex.toString());
+                alert.showAndWait();
+             }
+            
+        
+        
+        
+        
+        
+        }
+        else{
+        
         try {
             /*
             XYChart.Series data = new XYChart.Series();
@@ -110,7 +136,7 @@ public class ChartViewController implements Initializable
                 alert.setContentText(ex.toString());
                 alert.showAndWait();
         }
-        
+        }
         
     }
 
@@ -119,5 +145,25 @@ public class ChartViewController implements Initializable
     {
         handleBarChart();
     }
+
+    public Project getCurrentProject() {
+        return currentProject;
+    }
+
+    public void setCurrentProject(Project currentProject) {
+        this.currentProject = currentProject;
+        handleBarChart();
+        
+    }
+
+    public JFXButton getBackBtn() {
+        return backBtn;
+    }
+
+    public Label getNameLabel() {
+        return nameLabel;
+    }
+    
+            
     
 }

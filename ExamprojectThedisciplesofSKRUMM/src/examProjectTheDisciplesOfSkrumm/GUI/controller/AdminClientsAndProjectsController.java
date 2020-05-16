@@ -316,4 +316,48 @@ public class AdminClientsAndProjectsController implements Initializable
                     clientTableView.getSelectionModel().getSelectedItem()));
         }
     }
-}
+
+    @FXML
+    private void handleProjectChartPerUser(MouseEvent event) {
+        
+         final JDialog dialog = new JDialog();
+        dialog.setAlwaysOnTop(true);
+        
+        if (event.getClickCount() == 2)
+        {
+            if (projectTableView.getSelectionModel().getSelectedItem() != null)
+            {
+                
+                try {
+                    Project clickedProject = projectTableView.getSelectionModel().getSelectedItem();
+                    
+                    
+                    //Stage currentview = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+                   FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/ChartView.fxml"));
+                   Parent root = loader.load();
+                   ChartViewController controller = loader.getController();
+                   
+                   controller.setCurrentProject(clickedProject);
+                   controller.getBackBtn().setVisible(false);
+                   controller.getBackBtn().setDisable(false);
+                   controller.getNameLabel().setText(clickedProject.getProjectName());
+
+                   Stage stage = new Stage();
+                   stage.setScene(new Scene(root));
+                   stage.setMinHeight(523);
+                   stage.setMinWidth(721);
+                   stage.setTitle("Statistics");
+                   stage.show();
+                   //currentview.close();
+                   
+                } catch (IOException ex) {
+                    Logger.getLogger(AdminClientsAndProjectsController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+
+            }
+        }
+    }
+    }
+

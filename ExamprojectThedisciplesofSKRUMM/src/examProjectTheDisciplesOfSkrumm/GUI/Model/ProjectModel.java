@@ -92,6 +92,11 @@ public class ProjectModel implements ProjectModelInterface
     public XYChart.Series handleProjectBarChartData(String userID, LocalDate fromdate, LocalDate todate) throws SQLException {
       return  bllfacade.handleProjectBarChartData(userID, fromdate, todate);
     }
+
+    @Override
+    public XYChart.Series handleProjectBarChartDataForAdmin(int projectID, LocalDate fromdate, LocalDate todate) throws SQLException {
+       return bllfacade.handleProjectBarChartDataForAdmin(projectID, fromdate, todate);
+    }
     
     
     

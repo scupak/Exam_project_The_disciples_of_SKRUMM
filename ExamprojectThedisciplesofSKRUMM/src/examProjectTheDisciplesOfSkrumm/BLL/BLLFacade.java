@@ -297,4 +297,9 @@ public class BLLFacade implements BLLFacadeInterface
         return taskmanager.handleProjectBarChartData(userID, fromdate, todate);
     }
 
+    @Override
+    public XYChart.Series handleProjectBarChartDataForAdmin(int projectID, LocalDate fromdate, LocalDate todate) throws SQLException {
+        return taskmanager.handleProjectBarChartDataForAdmin(projectID, fromdate, todate);
+    }
+
 }

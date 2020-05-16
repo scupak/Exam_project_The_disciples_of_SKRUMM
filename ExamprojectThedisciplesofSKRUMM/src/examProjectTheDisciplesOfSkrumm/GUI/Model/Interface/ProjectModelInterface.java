@@ -34,6 +34,8 @@ public interface ProjectModelInterface
     
     public ObservableList<Project> getProjectsForClient(Client client) throws SQLException;
     
-     public XYChart.Series handleProjectBarChartData(String userID,LocalDate fromdate, LocalDate todate) throws SQLException;
+    public XYChart.Series handleProjectBarChartData(String userID,LocalDate fromdate, LocalDate todate) throws SQLException;
+     
+    public XYChart.Series handleProjectBarChartDataForAdmin(int projectID,LocalDate fromdate, LocalDate todate) throws SQLException;
     
 }

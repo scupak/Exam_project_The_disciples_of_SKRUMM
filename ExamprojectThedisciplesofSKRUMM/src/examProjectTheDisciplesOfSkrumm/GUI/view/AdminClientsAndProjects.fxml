@@ -26,7 +26,7 @@
             <TableColumn fx:id="clientRateColumn" prefWidth="75.0" text="Rate" />
         </columns>
       </TableView>
-      <TableView fx:id="projectTableView" layoutX="363.0" layoutY="99.0" prefHeight="358.0" prefWidth="542.0" stylesheets="@../css/Graphics.css" AnchorPane.rightAnchor="34.0">
+      <TableView fx:id="projectTableView" layoutX="363.0" layoutY="99.0" onMouseClicked="#handleProjectChartPerUser" prefHeight="358.0" prefWidth="542.0" stylesheets="@../css/Graphics.css" AnchorPane.rightAnchor="34.0">
         <columns>
           <TableColumn fx:id="projectNameColumn" prefWidth="191.99993288516998" text="Project" />
           <TableColumn fx:id="projectClientColumn" prefWidth="78.4000244140625" text="Client" />
