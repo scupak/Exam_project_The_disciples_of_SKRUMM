@@ -209,8 +209,32 @@ public class AdminUserViewController implements Initializable
     }
 
     @FXML
-    private void handleMakeAdmin(ActionEvent event)
+    private void handleMakeAdmin(ActionEvent event) throws SQLException
     {
+         final JDialog dialog = new JDialog();
+        dialog.setAlwaysOnTop(true);
+        
+        User clickedUser = UserTableView.getSelectionModel().getSelectedItem();
+        User unchangeUser = clickedUser;
+        
+        if(clickedUser != null)
+        {
+            if(clickedUser.getEmail().equals(modelfacade.getCurrentuser().getEmail()))
+            {
+                JOptionPane.showMessageDialog(dialog, "You can not change your own admin status!"
+                        + "\nselect another user that is not you!", 
+                        "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
+            else if(clickedUser.getIsAdmin().equals(true))
+            {
+                clickedUser.setIsAdmin(false);
+            }else
+            {
+                clickedUser.setIsAdmin(true);
+            }
+            modelfacade.updateUser(unchangeUser, clickedUser);
+            refreshTableview();
+        }
     }
 
     @FXML
@@ -240,6 +264,7 @@ public class AdminUserViewController implements Initializable
     @FXML
     private void handleOpenUserView(MouseEvent event) throws IOException
     {
+        Stage adminView = (Stage) ((Node) event.getSource()).getScene().getWindow();
         final JDialog dialog = new JDialog();
         dialog.setAlwaysOnTop(true);
         
@@ -254,6 +279,7 @@ public class AdminUserViewController implements Initializable
                 } else{
 
                 User clickedUser = UserTableView.getSelectionModel().getSelectedItem();
+                modelfacade.setCurrentAdmin(modelfacade.getCurrentuser());
                 modelfacade.setCurrentuser(clickedUser);
 
                 FXMLLoader loader = new FXMLLoader(getClass().
@@ -279,6 +305,7 @@ public class AdminUserViewController implements Initializable
                 stage.setMinWidth(721);
                 stage.setTitle("Main Menu");
                 stage.show();
+                adminView.close();
                 }
 
             }

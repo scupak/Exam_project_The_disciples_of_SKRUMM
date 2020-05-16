@@ -48,4 +48,8 @@ public interface UserModelInterface
     public void setCurrentUserMode(UserMode userMode);
     
     public UserMode getCurrentUserMode();
+    
+    public void setCurrentAdmin(User currentAdmin);
+    
+    public User getCurrentAdmin();
 }
