@@ -63,7 +63,7 @@ public class AdminClientsAndProjectsController implements Initializable
     @FXML
     private TableColumn<Project, Integer> projectIsPaidColumn;
     @FXML
-    private TableColumn<Project, ?> projectCreationColumn;
+    private TableColumn<Project, String> projectCreationColumn;
     @FXML
     private JFXButton createClientBtn;
     @FXML
@@ -136,9 +136,39 @@ public class AdminClientsAndProjectsController implements Initializable
             }
 
         });
-        //projectHoursColumn.setCellValueFactory(value);
+        projectHoursColumn.setCellValueFactory(new Callback()
+        {
+            @Override
+            public Object call(Object obj)
+            {
+                final Object dataObj = ((TableColumn.CellDataFeatures) obj).getValue();
+                if (dataObj instanceof Project)
+                {
+                    return new ReadOnlyStringWrapper(((Project) dataObj).getFormatedTime());
+                } else
+                {
+                    return null;
+                }
+            }
+
+        });
         projectIsPaidColumn.setCellValueFactory(new PropertyValueFactory<>("isPaid"));
-        //projectCreationColumn.setCellValueFactory(new PropertyValueFactory<>("creationDate"));
+        projectCreationColumn.setCellValueFactory(new Callback()
+        {
+            @Override
+            public Object call(Object obj)
+            {
+                final Object dataObj = ((TableColumn.CellDataFeatures) obj).getValue();
+                if (dataObj instanceof Project)
+                {                 
+                    return new ReadOnlyStringWrapper(((Project) dataObj).getCreationDate().toString());
+                } else
+                {
+                    return null;
+                }
+            }
+
+        });
 
         projectTableView.setItems(modelfacade.getProjects());
         

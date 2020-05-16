@@ -54,7 +54,7 @@ public class AdminUserViewController implements Initializable
     private JFXButton backBtn;
     @FXML
     private TableView<User> UserTableView;
-    
+
     ModelFacadeInterface modelfacade;
     @FXML
     private TableColumn<User, String> firstNameColumn;
@@ -79,53 +79,55 @@ public class AdminUserViewController implements Initializable
         {
             Logger.getLogger(TaskViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         firstNameColumn.setCellValueFactory(
-        new PropertyValueFactory<User, String>("firstName")
+                new PropertyValueFactory<User, String>("firstName")
         );
-        
+
         lastNameColumn.setCellValueFactory(
-        new PropertyValueFactory<User, String>("lastName"));
-        
+                new PropertyValueFactory<User, String>("lastName"));
+
         emailColumn.setCellValueFactory(
-        new PropertyValueFactory<User, String>("email"));
-        
+                new PropertyValueFactory<User, String>("email"));
+
         adminColumn.setCellValueFactory(
-        new PropertyValueFactory<User, String>("isAdmin"));
-        
-        try {
+                new PropertyValueFactory<User, String>("isAdmin"));
+
+        try
+        {
             refreshTableview();
-        } catch (SQLException ex) {
+        } catch (SQLException ex)
+        {
             Logger.getLogger(AdminUserViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }    
+    }
 
     @FXML
     private void handleCreateUser(ActionEvent event)
     {
-        try 
+        try
         {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/CreateUserView.fxml"));
-        Parent root;
-        root = loader.load();
-        CreateUserViewController controller = loader.getController();
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.setTitle("Create user");
-        stage.setMinHeight(288);
-        stage.setMinWidth(346);
-        stage.showAndWait();
-        refreshTableview();
-        } 
-        catch (IOException ex) 
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/CreateUserView.fxml"));
+            Parent root;
+            root = loader.load();
+            CreateUserViewController controller = loader.getController();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Create user");
+            stage.setMinHeight(288);
+            stage.setMinWidth(346);
+            stage.showAndWait();
+            refreshTableview();
+        } catch (IOException ex)
         {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText("Could not load \n" + ex);
             alert.setContentText("Please try again");
             alert.showAndWait();
-            
-        } catch (SQLException ex) {
+
+        } catch (SQLException ex)
+        {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText("Could not load \n" + ex);
@@ -137,7 +139,7 @@ public class AdminUserViewController implements Initializable
     @FXML
     private void handleEditUser(ActionEvent event) throws IOException
     {
-         final JDialog dialog = new JDialog();
+        final JDialog dialog = new JDialog();
         dialog.setAlwaysOnTop(true);
 
         if ((UserTableView.getSelectionModel().getSelectedItem() == null))
@@ -146,35 +148,29 @@ public class AdminUserViewController implements Initializable
         } else
         {
 
-            User selectedUser =  UserTableView.getSelectionModel().getSelectedItem();
+            User selectedUser = UserTableView.getSelectionModel().getSelectedItem();
 
-            
-
-               
-
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/EditUserView.fxml"));
-                Parent root = loader.load();
-                EditUserController controller = loader.getController();
-                controller.setEditUser(selectedUser);
-                Stage stage = new Stage();
-                stage.setScene(new Scene(root));
-                stage.setMinHeight(288);
-                stage.setMinWidth(346);
-                stage.setTitle("Edit User");
-                stage.showAndWait();
-             try 
-             {
-                 refreshTableview();
-             } catch (SQLException ex)
-             {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/EditUserView.fxml"));
+            Parent root = loader.load();
+            EditUserController controller = loader.getController();
+            controller.setEditUser(selectedUser);
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setMinHeight(288);
+            stage.setMinWidth(346);
+            stage.setTitle("Edit User");
+            stage.showAndWait();
+            try
+            {
+                refreshTableview();
+            } catch (SQLException ex)
+            {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Error");
                 alert.setHeaderText("Cant refresh" + ex);
                 alert.setContentText("Please try again");
                 alert.showAndWait();
-             }
-
-            
+            }
 
         }
     }
@@ -185,34 +181,60 @@ public class AdminUserViewController implements Initializable
         User user = UserTableView.getSelectionModel().getSelectedItem();
         final JDialog dialog = new JDialog();
         dialog.setAlwaysOnTop(true);
-        
-        try{
-        if(user == null){
-            JOptionPane.showMessageDialog(dialog, "Nothing seems to be selected!\nSelect a user to delete before pressing delete!", "ERROR", JOptionPane.ERROR_MESSAGE);
-            refreshTableview();
-        }
-        else if(modelfacade.userExist(modelfacade.getUser(user)) != true){
-            JOptionPane.showMessageDialog(dialog, "User does not seem to exist!\nSelect an already existing user to delete before pressing delete!", "ERROR", JOptionPane.ERROR_MESSAGE);
-            refreshTableview();
-        }
-        else if(user.getEmail().equals(modelfacade.getCurrentuser().getEmail())){
-            JOptionPane.showMessageDialog(dialog, "You can not delete yourself!\nselect another user that is not you!", "ERROR", JOptionPane.ERROR_MESSAGE);
-            refreshTableview();
-        }
-        else{
-            modelfacade.deleteUser(user);
-            refreshTableview();
-        }
-        }
-        catch(SQLException karl){
+
+        try
+        {
+            if (user == null)
+            {
+                JOptionPane.showMessageDialog(dialog, "Nothing seems to be selected!\nSelect a user to delete before pressing delete!", "ERROR", JOptionPane.ERROR_MESSAGE);
+                refreshTableview();
+            } else if (modelfacade.userExist(modelfacade.getUser(user)) != true)
+            {
+                JOptionPane.showMessageDialog(dialog, "User does not seem to exist!\nSelect an already existing user to delete before pressing delete!", "ERROR", JOptionPane.ERROR_MESSAGE);
+                refreshTableview();
+            } else if (user.getEmail().equals(modelfacade.getCurrentuser().getEmail()))
+            {
+                JOptionPane.showMessageDialog(dialog, "You can not delete yourself!\nselect another user that is not you!", "ERROR", JOptionPane.ERROR_MESSAGE);
+                refreshTableview();
+            } else
+            {
+                modelfacade.deleteUser(user);
+                refreshTableview();
+            }
+        } catch (SQLException karl)
+        {
             karl.printStackTrace();
             JOptionPane.showMessageDialog(dialog, "Database connection error\n Error code; Karl\n" + karl, "Karl", JOptionPane.ERROR_MESSAGE);
         }
     }
 
     @FXML
-    private void handleMakeAdmin(ActionEvent event)
+    private void handleMakeAdmin(ActionEvent event) throws SQLException
     {
+         final JDialog dialog = new JDialog();
+        dialog.setAlwaysOnTop(true);
+        
+        User clickedUser = UserTableView.getSelectionModel().getSelectedItem();
+        User unchangeUser = clickedUser;
+        
+        if(clickedUser != null)
+        {
+            if(clickedUser.getEmail().equals(modelfacade.getCurrentuser().getEmail()))
+            {
+                JOptionPane.showMessageDialog(dialog, "You can not change your own admin status!"
+                        + "\nselect another user that is not you!", 
+                        "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
+            else if(clickedUser.getIsAdmin().equals(true))
+            {
+                clickedUser.setIsAdmin(false);
+            }else
+            {
+                clickedUser.setIsAdmin(true);
+            }
+            modelfacade.updateUser(unchangeUser, clickedUser);
+            refreshTableview();
+        }
     }
 
     @FXML
@@ -233,7 +255,7 @@ public class AdminUserViewController implements Initializable
         stage.show();
         adminClientsAndProjectsView.close();
     }
-    
+
     public void refreshTableview() throws SQLException
     {
         UserTableView.setItems(modelfacade.getAllUsers());
@@ -242,39 +264,49 @@ public class AdminUserViewController implements Initializable
     @FXML
     private void handleOpenUserView(MouseEvent event) throws IOException
     {
-        if(event.getClickCount() == 2)
+        final JDialog dialog = new JDialog();
+        dialog.setAlwaysOnTop(true);
+        
+        if (event.getClickCount() == 2)
         {
-            if(UserTableView.getSelectionModel().getSelectedItem() != null)
+            if (UserTableView.getSelectionModel().getSelectedItem() != null)
             {
+                if(UserTableView.getSelectionModel().getSelectedItem().getEmail()
+                        .equals(modelfacade.getCurrentuser().getEmail()))
+                {
+                    JOptionPane.showMessageDialog(dialog, "You can not select yourself!\nselect another user that is not you!", "ERROR", JOptionPane.ERROR_MESSAGE);
+                } else{
+
                 User clickedUser = UserTableView.getSelectionModel().getSelectedItem();
                 modelfacade.setCurrentuser(clickedUser);
-                
-                FXMLLoader loader = new FXMLLoader(getClass().
-                getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/TaskView.fxml"));
-        Parent root = loader.load();
-        TaskViewController controller = loader.getController();
-       
-       controller.getCreateTaskButton().setVisible(false);
-       controller.getCreateTaskButton().setDisable(true);
-       
-       controller.getDeleteTask().setVisible(false);
-       controller.getDeleteTask().setDisable(true);
-       
-       controller.getEditTaskBtn().setVisible(false);
-       controller.getEditTaskBtn().setDisable(true);
-       
-       controller.getTimerButton().setVisible(false);
-       controller.getTimerButton().setDisable(true);
 
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.setMinHeight(523);
-        stage.setMinWidth(721);
-        stage.setTitle("Main Menu");
-        stage.show();
-                
+                FXMLLoader loader = new FXMLLoader(getClass().
+                        getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/TaskView.fxml"));
+                Parent root = loader.load();
+                TaskViewController controller = loader.getController();
+
+                controller.getCreateTaskButton().setVisible(false);
+                controller.getCreateTaskButton().setDisable(true);
+
+                controller.getDeleteTask().setVisible(false);
+                controller.getDeleteTask().setDisable(true);
+
+                controller.getEditTaskBtn().setVisible(false);
+                controller.getEditTaskBtn().setDisable(true);
+
+                controller.getTimerButton().setVisible(false);
+                controller.getTimerButton().setDisable(true);
+
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.setMinHeight(523);
+                stage.setMinWidth(721);
+                stage.setTitle("Main Menu");
+                stage.show();
+                }
+
             }
         }
     }
-    
+
 }
