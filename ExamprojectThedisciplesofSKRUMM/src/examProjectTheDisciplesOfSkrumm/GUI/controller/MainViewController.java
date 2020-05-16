@@ -420,12 +420,6 @@ public class MainViewController implements Initializable
                                 stage.setAlwaysOnTop(true);
                                 stage.showAndWait();
                                 
-                                
-                                comboBox.getItems().setAll(intervals);
-//                                
-//                                comboBox.getSelectionModel().clearSelection();
-//                                comboBox.setValue(null);
-                                
                                 try
                                 {
                                     updateMainView();
@@ -482,7 +476,14 @@ public class MainViewController implements Initializable
 
             if (label.getText().equals("TotalTime"))
             {
-                label.setText(modelfacade.convertSecToTimeString(task.getDuration()));
+                if(task.getDuration() <= 0)
+                {
+                    label.setText("00:00:00");
+                }
+                else
+                {
+                    label.setText(modelfacade.convertSecToTimeString(task.getDuration()));
+                }
             }
         }
     }
@@ -522,7 +523,14 @@ public class MainViewController implements Initializable
             }
         }
 
-        handleStart(intervalLabel, totaltimelabel, button, tasks.get(index).getDuration(), tasks.get(index));
+        if(tasks.get(index).getDuration() <= 0)
+        {
+            handleStart(intervalLabel, totaltimelabel, button, 0, tasks.get(index));
+        }
+        else 
+        {
+            handleStart(intervalLabel, totaltimelabel, button, tasks.get(index).getDuration(), tasks.get(index));
+        }
 
         if (!modelfacade.getisTimerRunning())
         {
@@ -837,6 +845,14 @@ public class MainViewController implements Initializable
                     
                     mainViewLabels.add(label);
                 } 
+                
+                if(child instanceof JFXComboBox)
+                {
+                    JFXComboBox box = (JFXComboBox) child;
+                    box.getSelectionModel().clearSelection();
+                    box.setValue(null);
+                    box.getItems().removeAll();
+                }
             }
         }
         

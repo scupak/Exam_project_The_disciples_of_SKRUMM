@@ -144,11 +144,11 @@ public class Interval
     {
         if(isPaid == 0)
         {
-            return "unpaid";
+            return "Not Paid";
         }
         else 
         {
-            return "paid";
+            return "Paid";
         }
     }
     
