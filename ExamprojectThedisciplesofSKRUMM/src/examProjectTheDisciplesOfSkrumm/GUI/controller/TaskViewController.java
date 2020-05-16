@@ -332,6 +332,17 @@ public class TaskViewController implements Initializable
         Stage taskView = (Stage) ((Node) event.getSource()).getScene().getWindow();
         if(modelfacade.getCurrentUserMode().equals(UserMode.ADMIN))
         {
+            modelfacade.setCurrentuser(modelfacade.getCurrentAdmin());
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/AdminUserView.fxml"));
+        Parent root = loader.load();
+        AdminUserViewController Controller = loader.getController();
+
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.setTitle("Main menu");
+        stage.show();
+        stage.setMinHeight(523);
+        stage.setMinWidth(721);
             taskView.close();
         }else
         {

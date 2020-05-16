@@ -27,7 +27,9 @@ public class UserModel implements UserModelInterface
      private final BLLFacadeInterface bllFacade;
      private ObservableList<User> users;
      private User currentuser;
+     private User currentAdmin;
      private UserMode userMode; 
+     
      
      public UserModel() throws IOException, SQLException, Exception
      {
@@ -124,4 +126,16 @@ public class UserModel implements UserModelInterface
     {
         return userMode;
     }
+
+    public User getCurrentAdmin()
+    {
+        return currentAdmin;
+    }
+
+    public void setCurrentAdmin(User currentAdmin)
+    {
+        this.currentAdmin = currentAdmin;
+    }
+    
+    
 }
