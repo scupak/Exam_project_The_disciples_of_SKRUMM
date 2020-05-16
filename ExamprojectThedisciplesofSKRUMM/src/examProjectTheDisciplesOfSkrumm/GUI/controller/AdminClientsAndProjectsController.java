@@ -335,9 +335,6 @@ public class AdminClientsAndProjectsController implements Initializable
     {
         if(clientTableView.getSelectionModel().getSelectedItem() != null)
         {
-            projectTableView.setItems(modelfacade.getProjectsForClient(
-                    clientTableView.getSelectionModel().getSelectedItem()));
-            
             ExecutorService executor = Executors.newSingleThreadExecutor();
             executor.submit(() -> 
             {
