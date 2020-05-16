@@ -8,13 +8,18 @@ package examProjectTheDisciplesOfSkrumm.GUI.controller;
 import com.jfoenix.controls.JFXButton;
 import examProjectTheDisciplesOfSkrumm.BE.Client;
 import examProjectTheDisciplesOfSkrumm.BE.Project;
+import examProjectTheDisciplesOfSkrumm.BE.Task;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.ModelFacadeInterface;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.ModelFacade;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -26,6 +31,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TreeItem;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
@@ -72,8 +78,8 @@ public class ClientsAndProjectsController implements Initializable {
         getData.add(project2);
         getData.add(project3);
         */
-        
-       ClientList.setItems(modelfacade.getProjects());
+        refreshTableview();
+       
     }   
     
    @FXML
@@ -92,6 +98,24 @@ public class ClientsAndProjectsController implements Initializable {
         stage.setTitle("Main menu");
         stage.show();
         clientsAndProjects.close();
+    }
+    
+    private void refreshTableview()
+    {
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        executor.submit(() -> 
+        {
+            ObservableList<Project> projects = FXCollections.observableArrayList();
+            projects.addAll(modelfacade.getProjects());
+            
+            Platform.runLater( () -> 
+            {
+                ClientList.setItems(projects);
+            });
+        });
+        
+        executor.shutdown();
+       
     }
 
     

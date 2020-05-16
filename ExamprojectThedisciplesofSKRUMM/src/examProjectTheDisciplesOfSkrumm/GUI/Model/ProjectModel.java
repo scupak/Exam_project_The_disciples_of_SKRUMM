@@ -38,7 +38,7 @@ public class ProjectModel implements ProjectModelInterface
     }
 
     @Override
-    public ObservableList<Project> getProjects() 
+    public synchronized ObservableList<Project> getProjects() 
     {
         projects.clear();
         try {
