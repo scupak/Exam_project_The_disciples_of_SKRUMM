@@ -30,6 +30,7 @@ import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
@@ -557,15 +558,43 @@ public class TaskViewController implements Initializable
      */
     public void RefreshTreeView()
     {
-        //Creating the rootNodeTask
-        TreeItem<Task> rootNodeTask = modelfacade.getModel(modelfacade.getCurrentuser(), datePickerFrom.getValue(), datePickerTo.getValue());
-        rootNodeTask.setExpanded(true);
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        executor.submit(() -> 
+        {
+            //Creating the rootNodeTask
+            TreeItem<Task> rootNodeTask = modelfacade.getModel(modelfacade.getCurrentuser(), datePickerFrom.getValue(), datePickerTo.getValue());
+        
+            Platform.runLater( () -> 
+            {
+                rootNodeTask.setExpanded(true);
 
-        //Set the model for the TreeTableView
-        TaskTable.setRoot(rootNodeTask);
+                //Set the model for the TreeTableView
+                TaskTable.setRoot(rootNodeTask);
 
-        // Make the root node invisible
-        TaskTable.setShowRoot(false);
+                // Make the root node invisible
+                 TaskTable.setShowRoot(false);
+            });
+        });
+        
+        try 
+        {
+            System.out.println("attempt to shutdown executor");
+            executor.shutdown();
+            executor.awaitTermination(5, TimeUnit.SECONDS);
+        }
+        catch (InterruptedException e) 
+        {
+            System.err.println("tasks interrupted");
+        }
+        finally 
+        {
+            if (!executor.isTerminated()) 
+            {
+                System.err.println("cancel non-finished tasks");
+            }
+            executor.shutdownNow();
+            System.out.println("shutdown finished");
+        }
     }
     
     @FXML
@@ -661,6 +690,7 @@ public class TaskViewController implements Initializable
     
     public void refreshEverything() throws SQLException
     {
+        
         RefreshTreeView();
         refreshtotal();
         checkForCurrentday();
