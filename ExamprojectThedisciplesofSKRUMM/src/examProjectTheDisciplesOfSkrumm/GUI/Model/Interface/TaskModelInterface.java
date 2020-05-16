@@ -20,6 +20,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
+import javafx.scene.chart.XYChart;
 
 /**
  *
@@ -75,6 +76,12 @@ public interface TaskModelInterface
     public List<Task> getAllTasks4Project(Project project) throws SQLServerException, SQLException;
 
     public List<Task> getTasksForUserbetween2Dates(User user, LocalDate fromdate, LocalDate todate) throws SQLException;
+    
+    public int getDurationFromIntervalsbetween2Dates(String userID, int projectID, LocalDate fromdate, LocalDate todate) throws SQLServerException, SQLException;
+    
+   
+    
+    
    
     
 }

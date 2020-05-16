@@ -23,11 +23,11 @@ import javax.swing.JOptionPane;
  */
 public class ClientDBDAO implements ClientDBDAOInterface
 {
-    private final DatabaseConnector dbCon;
+    private final ConnectionPool conPool;
 
-    public ClientDBDAO() throws IOException
+    public ClientDBDAO() throws IOException, Exception
     {
-        dbCon = new DatabaseConnector();
+       this.conPool = ConnectionPool.getInstance();
     }
     
     @Override
@@ -39,7 +39,8 @@ public class ClientDBDAO implements ClientDBDAOInterface
         }
 
         Client returnClient;
-        try (Connection con = dbCon.getConnection())
+        Connection con = conPool.checkOut();
+        try
         {
             PreparedStatement ps = con.prepareStatement("SELECT * FROM [client] WHERE id = ?");
 
@@ -58,6 +59,10 @@ public class ClientDBDAO implements ClientDBDAOInterface
             }
             return returnClient;
         }
+        finally
+        {
+            conPool.checkIn(con);
+        }
 
     }
 
@@ -66,7 +71,8 @@ public class ClientDBDAO implements ClientDBDAOInterface
     {
         ArrayList<Client> clients = new ArrayList<>();
 
-        try (Connection con = dbCon.getConnection())
+        Connection con = conPool.checkOut();
+        try
         {
             PreparedStatement ps = con.prepareStatement("SELECT * FROM [client]");
             ResultSet rs = ps.executeQuery();
@@ -81,12 +87,17 @@ public class ClientDBDAO implements ClientDBDAOInterface
             }
             return clients;
         }
+        finally
+        {
+            conPool.checkIn(con);
+        }
     }
 
     @Override
     public boolean clientExist(Client client) throws SQLException
     {
-        try (Connection con = dbCon.getConnection())
+        Connection con = conPool.checkOut();
+        try
         {
             PreparedStatement ps = con.prepareStatement("SELECT * FROM [client] WHERE id = ?");
             ps.setInt(1, client.getId());
@@ -100,6 +111,10 @@ public class ClientDBDAO implements ClientDBDAOInterface
 
             return false;
         }
+        finally
+        {
+            conPool.checkIn(con);
+        }
     }
 
     @Override
@@ -107,7 +122,8 @@ public class ClientDBDAO implements ClientDBDAOInterface
     {
         
 
-        try (Connection con = dbCon.getConnection())
+        Connection con = conPool.checkOut();
+        try
         {
             PreparedStatement ps = con.prepareStatement("INSERT INTO [client]"
                                                         + "(name, rate, isPaid) "
@@ -129,10 +145,14 @@ public class ClientDBDAO implements ClientDBDAOInterface
             JOptionPane.showMessageDialog(null, client.getClientName() + " has been created!");
             return client;
         }
+        finally
+        {
+            conPool.checkIn(con);
+        }
 
     }
     
-    public static void main(String[] args) throws IOException, SQLException
+    public static void main(String[] args) throws IOException, SQLException, Exception
     {
         ClientDBDAO clientDb = new ClientDBDAO();
         ArrayList<Client> clients = new ArrayList<>();
@@ -159,7 +179,8 @@ public class ClientDBDAO implements ClientDBDAOInterface
 
     @Override
     public boolean deleteClient(Client client) throws SQLException {
-        try(Connection con = dbCon.getConnection())
+        Connection con = conPool.checkOut();
+        try
         {
             if(clearClient(client))
             {
@@ -173,13 +194,18 @@ public class ClientDBDAO implements ClientDBDAOInterface
             }
             
         }
+        finally
+        {
+            conPool.checkIn(con);
+        }
         
         return false;
     }
     
         public boolean clearClient(Client client) throws SQLException
     {
-        try(Connection con = dbCon.getConnection())
+        Connection con = conPool.checkOut();
+        try
         {
             PreparedStatement ps = con.prepareStatement("DELETE FROM [project] WHERE clientID = ?");
             ps.setInt(1, client.getId());
@@ -196,6 +222,10 @@ public class ClientDBDAO implements ClientDBDAOInterface
             
             return true;
         }
+        finally
+        {
+            conPool.checkIn(con);
+        }
     }
 
     @Override
@@ -207,7 +237,8 @@ public class ClientDBDAO implements ClientDBDAOInterface
 
         System.err.println(client);
 
-        try (Connection con = dbCon.getConnection())
+        Connection con = conPool.checkOut();
+        try
         {
             PreparedStatement ps = con.prepareStatement("UPDATE [client] "
                     + "SET name = ?,"
@@ -222,6 +253,10 @@ public class ClientDBDAO implements ClientDBDAOInterface
 
             return updatedRows > 0;
 
+        }
+        finally
+        {
+            conPool.checkIn(con);
         }
     }
     

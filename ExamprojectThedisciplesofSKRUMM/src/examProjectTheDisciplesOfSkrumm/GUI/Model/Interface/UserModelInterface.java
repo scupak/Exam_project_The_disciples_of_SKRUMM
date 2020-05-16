@@ -8,6 +8,7 @@ package examProjectTheDisciplesOfSkrumm.GUI.Model.Interface;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import examProjectTheDisciplesOfSkrumm.BE.Project;
 import examProjectTheDisciplesOfSkrumm.BE.User;
+import examProjectTheDisciplesOfSkrumm.enums.UserMode;
 import java.sql.SQLException;
 import java.util.List;
 import javafx.collections.ObservableList;
@@ -42,5 +43,9 @@ public interface UserModelInterface
     
     public boolean addUserToProject(User user, Project project) throws SQLServerException, SQLException;
     
-     public boolean deleteProjectFromUser(User user, Project project) throws SQLServerException, SQLException;
+    public boolean deleteProjectFromUser(User user, Project project) throws SQLServerException, SQLException;
+     
+    public void setCurrentUserMode(UserMode userMode);
+    
+    public UserMode getCurrentUserMode();
 }

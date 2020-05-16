@@ -19,6 +19,7 @@ import examProjectTheDisciplesOfSkrumm.BLL.Util.TimerUtil;
 import examProjectTheDisciplesOfSkrumm.BLL.Util.TreeTableUtil;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.ModelFacadeInterface;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.ModelFacade;
+import examProjectTheDisciplesOfSkrumm.enums.UserMode;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -115,6 +116,8 @@ public class TaskViewController implements Initializable
     private TreeTableColumn CreationDateColumn;
     @FXML
     private TreeTableColumn LastUsedColumn;
+    @FXML
+    private JFXButton editTaskBtn;
     
     
     /**
@@ -325,8 +328,12 @@ public class TaskViewController implements Initializable
     @FXML
     private void handleHome(ActionEvent event) throws IOException
     {
-        Stage chartView = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
+        Stage taskView = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        if(modelfacade.getCurrentUserMode().equals(UserMode.ADMIN))
+        {
+            taskView.close();
+        }else
+        {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/MainView.fxml"));
         Parent root = loader.load();
         MainViewController Controller = loader.getController();
@@ -337,7 +344,8 @@ public class TaskViewController implements Initializable
         stage.show();
         stage.setMinHeight(523);
         stage.setMinWidth(721);
-        chartView.close();
+        taskView.close();
+        }
     }
 
     @FXML
@@ -681,6 +689,29 @@ public class TaskViewController implements Initializable
     {
         refreshEverything();
     }
+
+    public JFXButton getCreateTaskButton()
+    {
+        return createTaskButton;
+    }
+
+    public JFXButton getTimerButton()
+    {
+        return timerButton;
+    }
+
+    public JFXButton getDeleteTask()
+    {
+        return deleteTask;
+    }
+
+    public JFXButton getEditTaskBtn()
+    {
+        return editTaskBtn;
+    }
+    
+    
+    
 }
 
 

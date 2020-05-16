@@ -137,11 +137,11 @@ public class AdminTasksViewController implements Initializable
         
         if(taskTableView.getSelectionModel().getSelectedItem() == null)
         {
-            JOptionPane.showMessageDialog(dialog, "Nothing seems to be selected!\nSelect a project to delete before pressing delete!", "ERROR", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(dialog, "Nothing seems to be selected!\nSelect a task to delete before pressing delete!", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
         
         Task task = taskTableView.getSelectionModel().getSelectedItem();
-        int input = JOptionPane.showConfirmDialog(null, "delete project: " + task.getTitle()+ "?", "Select an Option...",
+        int input = JOptionPane.showConfirmDialog(null, "delete task: " + task.getTitle()+ "?", "Select an Option...",
                         JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
         if(input == JOptionPane.YES_OPTION)
         {

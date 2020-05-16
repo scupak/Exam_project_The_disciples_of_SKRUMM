@@ -5,6 +5,8 @@
  */
 package examProjectTheDisciplesOfSkrumm.BE;
 
+import examProjectTheDisciplesOfSkrumm.BLL.TaskManager;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Objects;
 import javafx.beans.property.IntegerProperty;
@@ -17,6 +19,8 @@ import javafx.beans.property.SimpleStringProperty;
  */
 public class Project 
 {
+    private int timeSec;
+    private String formatedTime;
     private SimpleIntegerProperty id;
     private SimpleStringProperty projectName;
     private Client client;
@@ -25,7 +29,7 @@ public class Project
     private SimpleIntegerProperty isPaid;
     private LocalDate creationDate;
 
-    public Project(int id, String projectName, Client client, int projectrate) 
+    public Project(int id, String projectName, Client client, int projectrate)
     {
         this.id = new SimpleIntegerProperty(id);
         this.projectName = new SimpleStringProperty(projectName);
@@ -33,6 +37,8 @@ public class Project
         this.clientName = new SimpleStringProperty(client.getClientName());
         this.ProjectRate = new SimpleIntegerProperty(projectrate);
         this.isPaid = new SimpleIntegerProperty(client.getIsPaid());
+        this.timeSec = 0;
+        this.formatedTime = null;
         
     }
 
@@ -82,6 +88,46 @@ public class Project
         return isPaid.get();
     }
 
+    public int getTimeSec() {
+        return timeSec;
+    }
+
+    public void setTimeSec(int timeSec) {
+        this.timeSec = timeSec;
+    }
+
+    public String getFormatedTime() {
+         int totalSec = timeSec;
+        int hour = 0;
+        int min = 0; 
+        int sec = 0;
+        
+    
+         while(totalSec >= 3600){
+        totalSec  = totalSec - 3600;
+        hour++;
+        System.out.println("added one to hours...");
+        }
+        
+        while(totalSec >= 60){
+        totalSec = totalSec - 60;
+        min++;
+        System.out.println("added one to min...");
+        }
+        
+        sec = totalSec;
+        System.out.println("added rest of seconds to sec...");
+        
+        return(String.format("%02d", hour) + ":" + String.format("%02d", min) + ":" + String.format("%02d", sec));
+      
+    }
+
+    public void setFormatedTime(String formatedTime) {
+        this.formatedTime = formatedTime;
+    }
+    
+    
+
     @Override
     public String toString() {
         return  id.get() + "  " + projectName.get() + "  " + clientName.get() + "  " + ProjectRate.get() + "  " + isPaid.get();
@@ -109,23 +155,4 @@ public class Project
         }
         return true;
     }
-    
-    
-    
-
-   
-    
-    
-    
-    
-
-    
-    
-    
-    
-    
-            
-            
-            
-    
 }

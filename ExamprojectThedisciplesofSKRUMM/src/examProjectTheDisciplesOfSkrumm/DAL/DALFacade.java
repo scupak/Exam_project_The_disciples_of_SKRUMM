@@ -33,7 +33,7 @@ public class DALFacade implements DALFacadeInterface
     private TaskDBDAOInterface taskDBDAO;
 
 
-    public DALFacade() throws IOException
+    public DALFacade() throws IOException, Exception
     {
         userDBDAO = new UserDBDAO();
         clientDBDAO = new ClientDBDAO();
@@ -255,6 +255,11 @@ public class DALFacade implements DALFacadeInterface
     @Override
     public int getDurationFromTasks(Project project) throws SQLServerException, SQLException {
         return taskDBDAO.getDurationFromTasks(project);
+    }
+
+    @Override
+    public int getDurationFromIntervalsbetween2Dates(String userID, int projectID, LocalDate fromdate, LocalDate todate) throws SQLServerException, SQLException {
+       return taskDBDAO.getDurationFromIntervalsbetween2Dates(userID, projectID, fromdate, todate);
     }
     
 }

@@ -11,6 +11,7 @@ import com.jfoenix.controls.JFXTextField;
 import examProjectTheDisciplesOfSkrumm.BE.User;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.ModelFacadeInterface;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.ModelFacade;
+import examProjectTheDisciplesOfSkrumm.enums.UserMode;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -75,24 +76,20 @@ public class LoginViewController implements Initializable {
                 if(model.checkUser(user) == true)
                 {
                     model.setCurrentuser(model.getUser(user));
+                    model.setCurrentUserMode(UserMode.STANDARD);
                     Stage mainView = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/MainView.fxml"));
                     Parent root = loader.load();
                     MainViewController controller = loader.getController();
 
-                    if(user.getIsAdmin() == true)
-                    {
-                        controller.setAdminCheck(true);
-                    }
-
-                Stage stage = new Stage();
-                stage.setScene(new Scene(root));
-                stage.setMinHeight(525);
-                stage.setMinWidth(726);
-                stage.setTitle("Main Menu");
-                stage.show();
-                mainView.close();
+                    Stage stage = new Stage();
+                    stage.setScene(new Scene(root));
+                    stage.setMinHeight(525);
+                    stage.setMinWidth(726);
+                    stage.setTitle("Main Menu");
+                    stage.show();
+                    mainView.close();
                 }
                 else
                 {

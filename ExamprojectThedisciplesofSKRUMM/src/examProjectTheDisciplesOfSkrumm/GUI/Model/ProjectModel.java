@@ -13,11 +13,13 @@ import examProjectTheDisciplesOfSkrumm.BLL.Interface.BLLFacadeInterface;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.ProjectModelInterface;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.chart.XYChart;
 
 /**
  *
@@ -28,7 +30,7 @@ public class ProjectModel implements ProjectModelInterface
     ObservableList<Project> projects;
     private final BLLFacadeInterface bllfacade;
 
-    public ProjectModel() throws IOException
+    public ProjectModel() throws IOException, Exception
     {
         bllfacade = new BLLFacade();
         this.projects = FXCollections.observableArrayList();
@@ -84,6 +86,11 @@ public class ProjectModel implements ProjectModelInterface
         ObservableList<Project> clientProjects =  FXCollections.observableArrayList();
         clientProjects.addAll(bllfacade.getProjectsForClient(client));
         return clientProjects;
+    }
+
+    @Override
+    public XYChart.Series handleProjectBarChartData(String userID, LocalDate fromdate, LocalDate todate) throws SQLException {
+      return  bllfacade.handleProjectBarChartData(userID, fromdate, todate);
     }
     
     

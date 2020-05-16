@@ -27,7 +27,7 @@ public class ClientModel implements ClientModelInterface
     private final BLLFacadeInterface bllfacade;
     ObservableList<Client> clients;
 
-    public ClientModel() throws IOException 
+    public ClientModel() throws IOException, Exception 
     {
         bllfacade = new BLLFacade();
         this.clients = FXCollections.observableArrayList();

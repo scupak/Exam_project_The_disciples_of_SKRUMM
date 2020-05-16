@@ -14,6 +14,7 @@ import examProjectTheDisciplesOfSkrumm.BE.Task;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.ModelFacadeInterface;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.ModelFacade;
 import examProjectTheDisciplesOfSkrumm.BLL.Util.TimerUtil;
+import examProjectTheDisciplesOfSkrumm.enums.UserMode;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -127,11 +128,18 @@ public class MainViewController implements Initializable
     private LocalTime startTime;
     private LocalTime stopTime;
     
-    private boolean adminCheck;
     private boolean running;
     
     private ModelFacadeInterface modelfacade;
     private DateTimeFormatter formatter;
+    @FXML
+    private JFXButton taskBtn;
+    @FXML
+    private JFXButton clientsProjectBtn;
+    @FXML
+    private JFXButton AdminBtn;
+    @FXML
+    private ImageView logoImgView;
 
     /**
      * Initializes the controller class.
@@ -192,18 +200,11 @@ public class MainViewController implements Initializable
         }
 
         formatter = DateTimeFormatter.ofPattern("dd/MM/YYYY");
+        
+        
 
     }
 
-    public MainViewController()
-    {
-        adminCheck = false;
-    }
-
-    public void setAdminCheck(boolean adminCheck)
-    {
-        this.adminCheck = adminCheck;
-    }
 
     @FXML
     private void handleChartView(ActionEvent event) throws IOException
@@ -229,6 +230,8 @@ public class MainViewController implements Initializable
     {
         if (modelfacade.getCurrentuser().getIsAdmin() == true)
         {
+            modelfacade.setCurrentUserMode(UserMode.ADMIN);
+            
             Stage mainView = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/AdminMainView.fxml"));
@@ -237,8 +240,8 @@ public class MainViewController implements Initializable
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
-            stage.setMinHeight(492);
-            stage.setMinWidth(804);
+            stage.setMinHeight(525);
+            stage.setMinWidth(726);
             stage.setTitle("Admin");
             stage.show();
             mainView.close();
@@ -673,8 +676,12 @@ public class MainViewController implements Initializable
     @FXML
     private void handleLogOut(ActionEvent event) throws IOException
     {
-        Stage mainView = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
+         Stage mainView = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        
+        if(modelfacade.getCurrentUserMode() == UserMode.ADMIN)
+        {
+         mainView.close();
+        } else{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/LoginView.fxml"));
         Parent root = loader.load();
         LoginViewController controller = loader.getController();
@@ -686,6 +693,7 @@ public class MainViewController implements Initializable
         stage.setTitle("Login");
         stage.show();
         mainView.close();
+        }
     }
 
     private synchronized void handleStart(Label intervalLabel, Label totaltimelabel, JFXButton button, int totalsecfortask, Task currenttask)

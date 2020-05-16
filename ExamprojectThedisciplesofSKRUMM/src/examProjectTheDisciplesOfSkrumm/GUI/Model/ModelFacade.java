@@ -17,6 +17,7 @@ import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.ModelFacadeInterface;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.ProjectModelInterface;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.TaskModelInterface;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.UserModelInterface;
+import examProjectTheDisciplesOfSkrumm.enums.UserMode;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
@@ -26,6 +27,7 @@ import java.time.LocalTime;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import javafx.collections.ObservableList;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.TreeItem;
 
 /**
@@ -40,7 +42,7 @@ public class ModelFacade implements ModelFacadeInterface
     private ClientModelInterface clientmodel;
     private UserModelInterface userModel;
     
-    public ModelFacade() throws IOException, SQLException 
+    public ModelFacade() throws IOException, SQLException, Exception 
     {
         taskmodel = new TaskModel();
         projectmodel = new ProjectModel();
@@ -251,6 +253,7 @@ public class ModelFacade implements ModelFacadeInterface
         return taskmodel.clearTask(task);
     }
     
+    @Override
     public boolean getisTimerRunning() {
        return taskmodel.getisTimerRunning();
     }
@@ -286,6 +289,7 @@ public class ModelFacade implements ModelFacadeInterface
            taskmodel.setExecutorService(executorService);
     }
     
+    @Override
     public boolean deleteClient(Client client) throws SQLException {
         return clientmodel.deleteClient(client);
     }
@@ -301,6 +305,7 @@ public class ModelFacade implements ModelFacadeInterface
         return projectmodel.getAllProjects();
     }
     
+    @Override
     public boolean deleteInterval(Interval interval) throws SQLException {
         return taskmodel.deleteInterval(interval);
     }
@@ -351,6 +356,28 @@ public class ModelFacade implements ModelFacadeInterface
     @Override
     public List<Task> getTasksForUserbetween2Dates(User user, LocalDate fromdate, LocalDate todate) throws SQLException {
         return taskmodel.getTasksForUserbetween2Dates(user, fromdate, todate);
+    }
+
+    @Override
+    public void setCurrentUserMode(UserMode userMode)
+    {
+       userModel.setCurrentUserMode(userMode);
+    }
+
+    @Override
+    public UserMode getCurrentUserMode()
+    {
+        return userModel.getCurrentUserMode();
+    }
+
+    @Override
+    public int getDurationFromIntervalsbetween2Dates(String userID, int projectID, LocalDate fromdate, LocalDate todate) throws SQLServerException, SQLException {
+       return  taskmodel.getDurationFromIntervalsbetween2Dates(userID, projectID, fromdate, todate);
+    }
+
+    @Override
+    public XYChart.Series handleProjectBarChartData(String userID, LocalDate fromdate, LocalDate todate) throws SQLException {
+        return projectmodel.handleProjectBarChartData(userID, fromdate, todate);
     }
     
 }

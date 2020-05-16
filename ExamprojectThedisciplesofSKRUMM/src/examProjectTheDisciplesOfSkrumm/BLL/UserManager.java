@@ -24,7 +24,7 @@ public class UserManager implements UserManagerInterface
     private final DALFacade dal;
     private final SecurityManagerInterface sm;
     
-    public UserManager() throws IOException
+    public UserManager() throws IOException, Exception
     {
         dal = new DALFacade();
         sm = new examProjectTheDisciplesOfSkrumm.BLL.Security.SecurityManager();
@@ -75,7 +75,7 @@ public class UserManager implements UserManagerInterface
         dal.updateUserPassword(hashedUser);
     }
     
-    public static void main(String[] args) throws SQLException, IOException
+    public static void main(String[] args) throws SQLException, IOException, Exception
     {
         UserManager um = new UserManager();
         User test = new User("standard@user.now", "Mads", "Jensesn", "nemt", false);
