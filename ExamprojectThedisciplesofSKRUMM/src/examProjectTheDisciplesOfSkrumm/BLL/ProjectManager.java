@@ -9,7 +9,6 @@ import com.microsoft.sqlserver.jdbc.SQLServerException;
 import examProjectTheDisciplesOfSkrumm.BE.Client;
 import examProjectTheDisciplesOfSkrumm.BE.Project;
 import examProjectTheDisciplesOfSkrumm.BLL.Interface.ProjectManagerInterface;
-import examProjectTheDisciplesOfSkrumm.DAL.DALFacade;
 import examProjectTheDisciplesOfSkrumm.DAL.Interface.DALFacadeInterface;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -30,6 +29,12 @@ public class ProjectManager implements ProjectManagerInterface
     }
     
 
+    /**
+     * Gets a list of all projects
+     * @return ArrayList list
+     * @throws SQLServerException
+     * @throws SQLException 
+     */
     @Override
     public List<Project> getAllProjects() throws SQLServerException, SQLException {
         ArrayList<Project> list = new ArrayList();
@@ -41,16 +46,34 @@ public class ProjectManager implements ProjectManagerInterface
         return list;
     }
 
+    /**
+     * Checks if a project exists
+     * @param project
+     * @return boolean
+     * @throws SQLException 
+     */
     @Override
     public boolean projectExist(Project project) throws SQLException {
         return dalfacade.projectExist(project);
     }
 
+    /**
+     * creates a new project
+     * @param project
+     * @return project
+     * @throws SQLException 
+     */
     @Override
     public Project createProject(Project project) throws SQLException {
         return dalfacade.createProject(project);
     }
 
+    /**
+     * gets a spedcific project
+     * @param project
+     * @return retrunProject
+     * @throws SQLException 
+     */
     @Override
     public Project getProject(Project project) throws SQLException {
         Project returnProject = dalfacade.getProject(project);
@@ -59,16 +82,34 @@ public class ProjectManager implements ProjectManagerInterface
         return returnProject;
     }
 
+    /**
+     * Deletes a project
+     * @param project
+     * @return boolean
+     * @throws SQLException 
+     */
     @Override
     public boolean deleteProject(Project project) throws SQLException {
          return dalfacade.deleteProject(project);
     }
 
+    /**
+     * updates an existing project
+     * @param project
+     * @return boolean
+     * @throws SQLException 
+     */
     @Override
     public boolean updateProject(Project project) throws SQLException {
         return dalfacade.updateProject(project);
     }
     
+    /**
+     * Gets a list of project for a client
+     * @param client
+     * @return ArrayList list
+     * @throws SQLException 
+     */
     @Override
     public List<Project> getProjectsForClient(Client client) throws SQLException
     {
