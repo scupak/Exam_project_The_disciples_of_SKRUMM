@@ -269,5 +269,10 @@ public class DALFacade implements DALFacadeInterface
     public List<String> getAllLogs() throws SQLServerException, SQLException {
        return logDBDAO.getAllLogs();
     }
+
+    @Override
+    public String createLog(String userName, String action, String projectName, String taskName) throws SQLException {
+        return logDBDAO.createLog(userName, action, projectName, taskName);
+    }
     
 }

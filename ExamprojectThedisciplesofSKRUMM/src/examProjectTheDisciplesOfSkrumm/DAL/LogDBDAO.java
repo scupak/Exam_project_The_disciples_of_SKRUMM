@@ -68,7 +68,7 @@ public class LogDBDAO implements LogDBDAOInterface{
                     + "(timesStamp, userName, action, projectName, taskName) "
                     + "VALUES (?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             
-            ps.setTimestamp(3, java.sql.Timestamp.valueOf(LocalDateTime.now()));
+            ps.setTimestamp(1, java.sql.Timestamp.valueOf(LocalDateTime.now()));
             ps.setString(2, userName);
             ps.setString(3, action);
             ps.setString(4, projectName);
@@ -100,11 +100,7 @@ public class LogDBDAO implements LogDBDAOInterface{
         
          LogDBDAO ld = new LogDBDAO();
          
-         for (String allLog : ld.getAllLogs()) {
-             
-             System.out.println(allLog);
-             
-         }
+         ld.createLog("test", "test", "test", "test");
     }
     
 }

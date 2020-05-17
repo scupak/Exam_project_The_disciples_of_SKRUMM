@@ -11,6 +11,7 @@ import examProjectTheDisciplesOfSkrumm.BE.Interval;
 import examProjectTheDisciplesOfSkrumm.BE.Project;
 import examProjectTheDisciplesOfSkrumm.BE.Task;
 import examProjectTheDisciplesOfSkrumm.BE.User;
+import examProjectTheDisciplesOfSkrumm.DAL.Interface.LogDBDAOInterface;
 import examProjectTheDisciplesOfSkrumm.DAL.Interface.TaskDBDAOInterface;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -36,12 +37,14 @@ public class TaskDBDAO implements TaskDBDAOInterface
     private final ConnectionPool conPool;
     private UserDBDAO userDBDAO;
     private ProjectDBDAO projectDBDAO;
+    private LogDBDAOInterface  logDBDAO;
 
     public TaskDBDAO() throws IOException, Exception
     {
         this.conPool = ConnectionPool.getInstance();
         userDBDAO = new UserDBDAO();
         projectDBDAO = new ProjectDBDAO();
+        logDBDAO = new LogDBDAO();
     }
 
     @Override
@@ -136,6 +139,7 @@ public class TaskDBDAO implements TaskDBDAOInterface
             if (rs.next())
             {
                 task.setId((int) rs.getLong(1));
+                
             } else
             {
                 return null;

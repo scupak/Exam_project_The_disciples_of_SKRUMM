@@ -17,5 +17,7 @@ public interface LogDBDAOInterface {
     
     
      public List<String> getAllLogs() throws SQLServerException, SQLException;
+     
+     public String createLog(String userName,String action ,String projectName , String taskName) throws SQLException;
     
 }
