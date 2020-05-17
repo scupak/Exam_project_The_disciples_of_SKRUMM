@@ -34,7 +34,7 @@ public class ClientModel implements ClientModelInterface
     }
 
     @Override
-    public ObservableList<Client> getClients() 
+    public synchronized ObservableList<Client> getClients() 
     {   
         clients.clear();
        

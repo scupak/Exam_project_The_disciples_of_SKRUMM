@@ -59,7 +59,7 @@ public class TaskModel implements TaskModelInterface
     
     
     @Override
-    public TreeItem<Task> getModel(User user, LocalDate fromdate, LocalDate todate) 
+    public synchronized TreeItem<Task> getModel(User user, LocalDate fromdate, LocalDate todate) 
     {
         try {
             tasks.clear();

@@ -16,9 +16,14 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalTime;
 import java.util.ResourceBundle;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.beans.property.ReadOnlyStringWrapper;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,6 +31,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TreeTableColumn;
@@ -119,7 +125,7 @@ public class AdminClientsAndProjectsController implements Initializable
         });
         clientRateColumn.setCellValueFactory(new PropertyValueFactory<>("ClientRate"));
 
-        clientTableView.setItems(modelfacade.getClients());
+        
 
         //set projectTable
         projectNameColumn.setCellValueFactory(new PropertyValueFactory<>("projectName"));
@@ -174,7 +180,7 @@ public class AdminClientsAndProjectsController implements Initializable
         });
         projectRateColumn.setCellValueFactory(new PropertyValueFactory<>("ProjectRate"));
 
-        projectTableView.setItems(modelfacade.getProjects());
+        RefreshTableView();
         
     }
 
@@ -305,9 +311,26 @@ public class AdminClientsAndProjectsController implements Initializable
 
     public void RefreshTableView()
     {
+        
         clientTableView.setItems(modelfacade.getClients());
        
-        projectTableView.setItems(modelfacade.getProjects());
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        executor.submit(() -> 
+        {
+            ObservableList<Project> projects = FXCollections.observableArrayList();
+            projects.addAll(modelfacade.getProjects());
+            
+            ObservableList<Client> clients = FXCollections.observableArrayList();
+            clients.addAll(modelfacade.getClients());
+            
+            Platform.runLater( () -> 
+            {
+                projectTableView.setItems(projects);
+                clientTableView.setItems(clients);
+            });
+        });
+        
+        executor.shutdown();
 
     }
 
@@ -316,8 +339,32 @@ public class AdminClientsAndProjectsController implements Initializable
     {
         if(clientTableView.getSelectionModel().getSelectedItem() != null)
         {
-            projectTableView.setItems(modelfacade.getProjectsForClient(
-                    clientTableView.getSelectionModel().getSelectedItem()));
+            ExecutorService executor = Executors.newSingleThreadExecutor();
+            executor.submit(() -> 
+            {
+                try 
+                {
+                    ObservableList<Project> projects = FXCollections.observableArrayList();
+                    projects.addAll(modelfacade.getProjectsForClient(clientTableView.getSelectionModel().getSelectedItem()));
+                    
+                    Platform.runLater( () ->
+                    {
+                        projectTableView.setItems(projects);
+                    });
+                } catch (SQLException ex) 
+                {
+                    Platform.runLater( () ->
+                    {
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Error");
+                        alert.setHeaderText("Cant refresh" + ex);
+                        alert.setContentText("Please try again");
+                        alert.showAndWait();
+                    });
+                }
+            });
+        
+            executor.shutdown();
         }
     }
 
