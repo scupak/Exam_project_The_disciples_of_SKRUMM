@@ -55,6 +55,41 @@ and open the template in the editor.
 
 }   
 
+#timerButton
+{
+    -fx-background-color: #7C98E5;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5 5 5 5;
+}
+
+#timerLabel
+{
+    -fx-background-color: #7C98E5;
+}
+
+#currentTaskLabel
+{
+    -fx-background-color: #7C98E5;
+}
+
+#currentlySelectedLabel
+{
+    -fx-background-color: #7C98E5;
+    -fx-font-weight: bold;
+}
+
+#timer
+{
+    -fx-background-color: #7C98E5;
+    -fx-font-weight: bold;
+}
+
+#counter
+{
+    -fx-background-color: #7C98E5;
+}
+
+
 
 .chart-bar {
     -fx-bar-fill: #435a9a;
