@@ -112,11 +112,11 @@ public class Task
     {
         if (isPaid.get() == 0)
         {
-            return "unpaid";
+            return "Not Paid";
         }
         else if(isPaid.get() == 1)
         {
-            return "paid";
+            return "Paid";
         }
         else
         {

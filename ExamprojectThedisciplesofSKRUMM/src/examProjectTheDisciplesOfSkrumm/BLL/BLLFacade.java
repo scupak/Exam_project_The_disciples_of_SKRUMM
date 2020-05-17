@@ -20,6 +20,7 @@ import examProjectTheDisciplesOfSkrumm.BLL.Interface.TaskManagerInterface;
 import examProjectTheDisciplesOfSkrumm.BLL.Interface.TreeTableUtilInterface;
 import examProjectTheDisciplesOfSkrumm.BLL.Interface.UserManagerInterface;
 import examProjectTheDisciplesOfSkrumm.BLL.Util.TreeTableUtil;
+import examProjectTheDisciplesOfSkrumm.DAL.DALFacadeFactory;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -44,12 +45,12 @@ public class BLLFacade implements BLLFacadeInterface
 
     public BLLFacade() throws IOException, Exception 
     {
-        projectmanager = new ProjectManager();
+        projectmanager = new ProjectManager(DALFacadeFactory.CreateDALFacade(DALFacadeFactory.DALFacadeTypes.PRODUCTION));
         treeTableUtil = new TreeTableUtil();
-        taskmanager = new TaskManager();
+        taskmanager = new TaskManager(DALFacadeFactory.CreateDALFacade(DALFacadeFactory.DALFacadeTypes.PRODUCTION));
         securityManager = new examProjectTheDisciplesOfSkrumm.BLL.Security.SecurityManager();
-        userManager = new UserManager();
-        clientmanager = new ClientManager();
+        userManager = new UserManager(DALFacadeFactory.CreateDALFacade(DALFacadeFactory.DALFacadeTypes.PRODUCTION));
+        clientmanager = new ClientManager(DALFacadeFactory.CreateDALFacade(DALFacadeFactory.DALFacadeTypes.PRODUCTION));
     }
     
 
