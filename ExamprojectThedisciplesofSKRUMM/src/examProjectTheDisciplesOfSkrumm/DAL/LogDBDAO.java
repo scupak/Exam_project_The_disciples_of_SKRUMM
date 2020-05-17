@@ -29,7 +29,12 @@ public class LogDBDAO implements LogDBDAOInterface{
     {
         this.conPool = ConnectionPool.getInstance();
     }
-    
+    /**
+     * 
+     * @return list of the top 100 logs.
+     * @throws SQLServerException
+     * @throws SQLException 
+     */
     @Override
      public List<String> getAllLogs() throws SQLServerException, SQLException
     {
@@ -38,12 +43,14 @@ public class LogDBDAO implements LogDBDAOInterface{
 
         try
         {
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM [Log]");
+            PreparedStatement ps = con.prepareStatement("SELECT TOP (100) * FROM [Log]");
             ResultSet rs = ps.executeQuery();
 
             while (rs.next())
             {
-                logs.add(rs.getTimestamp("timesStamp").toLocalDateTime().toString().trim() +"-"+ rs.getString("userName").trim() +"-"+ rs.getString("action").trim() +"-"+ rs.getString("projectName").trim() +"-"+ rs.getString("taskName").trim()+"-"+ rs.getInt("id"));
+                
+                    //logs.add(rs.getTimestamp("timesStamp").toLocalDateTime().toString().trim() +"-"+ rs.getString("userName").trim() +"-"+ rs.getString("action").trim() +"-"+ rs.getString("projectName").trim() +"-"+ rs.getString("taskName").trim()+"-"+ rs.getInt("id"));
+                      logs.add(rs.getTimestamp("timesStamp").toLocalDateTime().toString().trim() +"-"+ rs.getString("description").trim());
             }
             
             return logs;
@@ -55,7 +62,8 @@ public class LogDBDAO implements LogDBDAOInterface{
     }
      
    
-    public String createLog(String userName,String action ,String projectName , String taskName) throws SQLException
+    @Override
+    public String createLog(String description) throws SQLException
     {
         String returnlog;
        
@@ -65,14 +73,12 @@ public class LogDBDAO implements LogDBDAOInterface{
         try
         {
             PreparedStatement ps = con.prepareStatement("INSERT INTO dbo.Log"
-                    + "(timesStamp, userName, action, projectName, taskName) "
-                    + "VALUES (?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+                    + "(timesStamp, description) "
+                    + "VALUES (?,?)", Statement.RETURN_GENERATED_KEYS);
             
             ps.setTimestamp(1, java.sql.Timestamp.valueOf(LocalDateTime.now()));
-            ps.setString(2, userName);
-            ps.setString(3, action);
-            ps.setString(4, projectName);
-            ps.setString(5, taskName);
+            ps.setString(2, description);
+         
 
             
             ps.executeUpdate();
@@ -84,7 +90,7 @@ public class LogDBDAO implements LogDBDAOInterface{
             } else {
                 return null;
             }
-             returnlog = returnlog +"-"+ userName +"-"+ action +"-"+ projectName +"-"+ taskName;
+             returnlog = returnlog +"-"+ description;
              
             return returnlog;
         }
@@ -100,7 +106,7 @@ public class LogDBDAO implements LogDBDAOInterface{
         
          LogDBDAO ld = new LogDBDAO();
          
-         ld.createLog("test", "test", "test", "test");
+         ld.createLog("create task");
     }
     
 }

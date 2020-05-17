@@ -113,6 +113,7 @@ public class TaskDBDAO implements TaskDBDAOInterface
         }
     }
 
+    @Override
     public Task createTask(Task task) throws SQLException
     {
         
@@ -139,14 +140,19 @@ public class TaskDBDAO implements TaskDBDAOInterface
             if (rs.next())
             {
                 task.setId((int) rs.getLong(1));
+                //logDBDAO.createLog(task.getUserEmail(), "create task", task.getProjectName(), task.getTitle());
+                logDBDAO.createLog(task.getUserEmail() +"-"+ "create task" +"-"+ task.getProjectName() +"-"+ task.getTitle());
                 
             } else
             {
+               // logDBDAO.createLog(task.getUserEmail(), "create task not successful", task.getProjectName(), task.getTitle());
+                 logDBDAO.createLog(task.getUserEmail() +"-"+ "create task not successful" +"-"+ task.getProjectName() +"-"+ task.getTitle());
                 return null;
             }
 
             return task;
         }
+        
         finally
         {
             conPool.checkIn(con);
@@ -154,6 +160,7 @@ public class TaskDBDAO implements TaskDBDAOInterface
 
     }
     
+    @Override
     public boolean deleteTask(Task task) throws SQLException
     {
         Connection con = conPool.checkOut();
@@ -166,6 +173,10 @@ public class TaskDBDAO implements TaskDBDAOInterface
             
             int updatedRows = ps.executeUpdate();
             
+            if(updatedRows > 0){
+               logDBDAO.createLog(task.getUserEmail() +"-"+ "delete task successful" +"-"+ task.getProjectName() +"-"+ task.getTitle());
+            }
+            
             return updatedRows > 0;
             }
             
@@ -175,9 +186,11 @@ public class TaskDBDAO implements TaskDBDAOInterface
             conPool.checkIn(con);
         }
         
+        logDBDAO.createLog(task.getUserEmail() +"-"+ "delete task not successful" +"-"+ task.getProjectName() +"-"+ task.getTitle());
         return false;
     }
     
+    @Override
     public boolean clearTask(Task task) throws SQLException
     {
         Connection con = conPool.checkOut();
@@ -209,6 +222,7 @@ public class TaskDBDAO implements TaskDBDAOInterface
     {
         if (!taskExist(task))
         {
+            logDBDAO.createLog(task.getUserEmail() +"-"+ "update task failed cause the task did not exist" +"-"+ task.getProjectName() +"-"+ task.getTitle());
             return null;
         }
 
@@ -232,6 +246,13 @@ public class TaskDBDAO implements TaskDBDAOInterface
             ps.setInt(9, task.getId());
 
             int updatedRows = ps.executeUpdate();
+            
+            if( updatedRows > 0){
+                
+                logDBDAO.createLog(task.getUserEmail() +"-"+ "update task successful" +"-"+ task.getProjectName() +"-"+ task.getTitle());
+            
+            
+            }
 
             return updatedRows > 0;
 
@@ -403,6 +424,7 @@ public class TaskDBDAO implements TaskDBDAOInterface
         Connection con = conPool.checkOut();
         try
         {
+            
             PreparedStatement ps = con.prepareStatement("INSERT INTO [interval] VALUES (?,?,?,?,?,?)");
 
             ps.setDate(1, java.sql.Date.valueOf(interval.getCreationDate()));
@@ -423,6 +445,17 @@ public class TaskDBDAO implements TaskDBDAOInterface
             ps2.setInt(3, interval.getTask().getId());
 
             ps2.executeUpdate();
+            
+        }
+        catch(SQLServerException e)
+        {
+            throw new SQLException();
+            
+        }
+        catch(SQLException e)
+        {
+            
+            throw  new SQLException();
             
         }
         finally

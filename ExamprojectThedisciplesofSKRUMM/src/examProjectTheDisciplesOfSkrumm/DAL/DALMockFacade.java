@@ -239,7 +239,7 @@ public class DALMockFacade implements DALFacadeInterface {
     }
 
     @Override
-    public String createLog(String userName, String action, String projectName, String taskName) throws SQLException {
+    public String createLog(String description) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
