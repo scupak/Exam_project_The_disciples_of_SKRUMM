@@ -52,4 +52,6 @@ public interface UserModelInterface
     public void setCurrentAdmin(User currentAdmin);
     
     public User getCurrentAdmin();
+    
+    public ObservableList<String> getAllLogs() throws SQLServerException, SQLException;
 }

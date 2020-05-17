@@ -303,4 +303,9 @@ public class BLLFacade implements BLLFacadeInterface
         return taskmanager.handleProjectBarChartDataForAdmin(projectID, fromdate, todate);
     }
 
+    @Override
+    public List<String> getAllLogs() throws SQLServerException, SQLException {
+       return userManager.getAllLogs();
+    }
+
 }

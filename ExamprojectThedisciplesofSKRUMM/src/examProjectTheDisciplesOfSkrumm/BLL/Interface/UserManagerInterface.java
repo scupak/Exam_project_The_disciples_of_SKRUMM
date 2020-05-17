@@ -39,4 +39,8 @@ public interface UserManagerInterface
     
     public boolean deleteProjectFromUser(User user, Project project) throws SQLServerException, SQLException;
     
+    public List<String> getAllLogs() throws SQLServerException, SQLException;
+    
+    
+    
 }

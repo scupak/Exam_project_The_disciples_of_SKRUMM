@@ -205,7 +205,7 @@ public class TaskManager implements TaskManagerInterface
             
             System.out.println(user.getEmail() + getDurationFromIntervalsbetween2Dates(user.getEmail(), projectID, fromdate, todate) );
             /* the group divedes the output of getDurationFromIntervalsbetween2Dates by 3600 to go from seconds to hours */
-             data.getData().add(new XYChart.Data(user.getEmail(),(getDurationFromIntervalsbetween2Dates(user.getEmail(), projectID, fromdate, todate) / 3600.0) ));
+             data.getData().add(new XYChart.Data(user.getFirstName() +" "+ user.getLastName(),(getDurationFromIntervalsbetween2Dates(user.getEmail(), projectID, fromdate, todate) / 3600.0) ));
             
             
         }
