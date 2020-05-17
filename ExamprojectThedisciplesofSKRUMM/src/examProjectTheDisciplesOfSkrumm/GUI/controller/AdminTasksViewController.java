@@ -98,7 +98,22 @@ public class AdminTasksViewController implements Initializable
 
         });
         taskDurationColumn.setCellValueFactory(new PropertyValueFactory<>("formatedDuration"));
-        taskIsPaidColumn.setCellValueFactory(new PropertyValueFactory<>("isPaid"));
+        taskIsPaidColumn.setCellValueFactory(new Callback()
+        {
+            @Override
+            public Object call(Object obj)
+            {
+                final Object dataObj = ((TableColumn.CellDataFeatures) obj).getValue();
+                if (dataObj instanceof Task)
+                {
+                    return new ReadOnlyStringWrapper(((Task) dataObj).getIsPaidBoolean());
+                } else
+                {
+                    return null;
+                }
+            }
+
+        });
         
         try
         {

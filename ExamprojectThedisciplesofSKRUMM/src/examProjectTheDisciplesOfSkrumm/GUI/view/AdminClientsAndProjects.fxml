@@ -8,17 +8,17 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="576.0" prefWidth="941.0" style="-fx-border-color: #435a9a; -fx-border-width: 90 3 3 3;" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="examProjectTheDisciplesOfSkrumm.GUI.controller.AdminClientsAndProjectsController">
+<AnchorPane id="AnchorPane" prefHeight="576.0" prefWidth="1026.0" style="-fx-border-color: #435a9a; -fx-border-width: 90 3 3 3;" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="examProjectTheDisciplesOfSkrumm.GUI.controller.AdminClientsAndProjectsController">
     <stylesheets>
         <URL value="@/examProjectTheDisciplesOfSkrumm/GUI/css/Graphics.css" />
     </stylesheets>
    <children>
-      <Label layoutX="349.0" layoutY="14.0" prefHeight="46.0" prefWidth="249.0" text="Clients &amp; Projects" textFill="WHITE" AnchorPane.leftAnchor="349.0" AnchorPane.rightAnchor="349.0">
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="332.0" layoutY="14.0" prefHeight="46.0" prefWidth="249.0" text="Clients &amp; Projects" textFill="WHITE" AnchorPane.leftAnchor="332.0" AnchorPane.rightAnchor="372.0">
          <font>
             <Font size="30.0" />
          </font>
       </Label>
-      <JFXButton fx:id="backBtn" layoutX="413.0" layoutY="60.0" onAction="#handleBack" text="Back to main" textFill="WHITE" />
+      <JFXButton fx:id="backBtn" layoutX="450.0" layoutY="60.0" onAction="#handleBack" text="Back to main" textFill="WHITE" />
       <TableView fx:id="clientTableView" layoutX="34.0" layoutY="99.0" onMouseClicked="#handleSelectedClient" prefHeight="358.0" prefWidth="278.0" stylesheets="@../css/Graphics.css" AnchorPane.leftAnchor="34.0">
         <columns>
           <TableColumn fx:id="clientNameColumn" prefWidth="106.39999008178711" text="Client" />
@@ -26,13 +26,14 @@
             <TableColumn fx:id="clientRateColumn" prefWidth="75.0" text="Rate" />
         </columns>
       </TableView>
-      <TableView fx:id="projectTableView" layoutX="363.0" layoutY="99.0" onMouseClicked="#handleProjectChartPerUser" prefHeight="358.0" prefWidth="542.0" stylesheets="@../css/Graphics.css" AnchorPane.rightAnchor="34.0">
+      <TableView fx:id="projectTableView" layoutX="364.0" layoutY="99.0" onMouseClicked="#handleProjectChartPerUser" prefHeight="358.0" prefWidth="620.0" stylesheets="@../css/Graphics.css" AnchorPane.rightAnchor="34.0">
         <columns>
           <TableColumn fx:id="projectNameColumn" prefWidth="191.99993288516998" text="Project" />
           <TableColumn fx:id="projectClientColumn" prefWidth="78.4000244140625" text="Client" />
             <TableColumn fx:id="projectHoursColumn" prefWidth="98.39996337890625" text="Hours" />
             <TableColumn fx:id="projectCreationColumn" prefWidth="98.4000244140625" text="Creation" />
             <TableColumn fx:id="projectIsPaidColumn" prefWidth="76.00009155273438" text="Is Paid" />
+            <TableColumn fx:id="projectRateColumn" prefWidth="75.0" text="Rate" />
         </columns>
       </TableView>
       <JFXButton fx:id="createClientBtn" layoutX="34.0" layoutY="457.0" onAction="#handleCreateClient" stylesheets="@../css/Graphics.css" text="Create Client" />

@@ -63,6 +63,8 @@ public class AdminClientsAndProjectsController implements Initializable
     @FXML
     private TableColumn<Project, Integer> projectIsPaidColumn;
     @FXML
+    private TableColumn<Project, Integer> projectRateColumn;
+    @FXML
     private TableColumn<Project, String> projectCreationColumn;
     @FXML
     private JFXButton createClientBtn;
@@ -80,6 +82,7 @@ public class AdminClientsAndProjectsController implements Initializable
     private JFXButton backBtn;
 
     private ModelFacadeInterface modelfacade;
+    
     
    
 
@@ -169,6 +172,7 @@ public class AdminClientsAndProjectsController implements Initializable
             }
 
         });
+        projectRateColumn.setCellValueFactory(new PropertyValueFactory<>("ProjectRate"));
 
         projectTableView.setItems(modelfacade.getProjects());
         
