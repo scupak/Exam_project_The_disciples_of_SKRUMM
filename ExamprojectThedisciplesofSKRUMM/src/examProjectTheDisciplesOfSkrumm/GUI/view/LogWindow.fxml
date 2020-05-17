@@ -7,10 +7,10 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="318.0" prefWidth="351.0" style="-fx-border-color: #435a9a; -fx-border-width: 40 3 3 3;" stylesheets="@../css/Graphics.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="examProjectTheDisciplesOfSkrumm.GUI.controller.LogWindowController">
+<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="600.0" style="-fx-border-color: #435a9a; -fx-border-width: 40 3 3 3;" stylesheets="@../css/Graphics.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="examProjectTheDisciplesOfSkrumm.GUI.controller.LogWindowController">
    <children>
-      <JFXButton fx:id="RefreshAdminLogBtn" alignment="BOTTOM_CENTER" layoutX="25.0" layoutY="419.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#HandleLogRefresh" prefHeight="25.0" prefWidth="100.0" text="Refresh log" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="250.0" />
-      <ListView fx:id="AdminLog" layoutX="27.0" layoutY="51.0" prefHeight="244.0" prefWidth="303.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="11.0" />
+      <JFXButton fx:id="RefreshAdminLogBtn" alignment="BOTTOM_CENTER" layoutX="36.0" layoutY="517.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#HandleLogRefresh" prefHeight="25.0" prefWidth="100.0" text="Refresh log" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="35.0" />
+      <ListView fx:id="AdminLog" layoutX="36.0" layoutY="48.0" prefHeight="450.0" prefWidth="334.0" AnchorPane.bottomAnchor="81.0" AnchorPane.leftAnchor="33.0" AnchorPane.rightAnchor="33.0" AnchorPane.topAnchor="8.0" />
       <Label alignment="CENTER" layoutX="109.0" layoutY="14.0" text="Admin's Log Window" textFill="WHITE" AnchorPane.leftAnchor="90.0" AnchorPane.rightAnchor="90.0">
          <font>
             <Font size="14.0" />
