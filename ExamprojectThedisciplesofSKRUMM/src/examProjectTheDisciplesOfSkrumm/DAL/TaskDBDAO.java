@@ -424,6 +424,8 @@ public class TaskDBDAO implements TaskDBDAOInterface
         Connection con = conPool.checkOut();
         try
         {
+            //Tell SQL Server not to auto-commit all SQL statements - we have to do this manually
+            con.setAutoCommit(false); 
             
             PreparedStatement ps = con.prepareStatement("INSERT INTO [interval] VALUES (?,?,?,?,?,?)");
 
@@ -446,20 +448,36 @@ public class TaskDBDAO implements TaskDBDAOInterface
 
             ps2.executeUpdate();
             
+            con.commit();
+            logDBDAO.createLog(interval.getTask().getUserEmail() +"-"+ "create new interval was successful" +"-"+ interval.getTask().getProjectName() +"-"+ interval.getTask().getTitle());
+            
         }
         catch(SQLServerException e)
         {
+            if (con != null) {
+                con.rollback(); //an exception happened in executing the statements
+                System.out.println("Rolling back changes...");                
+            }
+             logDBDAO.createLog(interval.getTask().getUserEmail() +"-"+ "create new interval was not successful" +"-"+ interval.getTask().getProjectName() +"-"+ interval.getTask().getTitle());
             throw new SQLException();
             
         }
         catch(SQLException e)
         {
-            
+            if (con != null) {
+                con.rollback(); //an exception happened in executing the statements
+                System.out.println("Rolling back changes...");                
+            }
+             logDBDAO.createLog(interval.getTask().getUserEmail() +"-"+ "create new interval was not successful" +"-"+ interval.getTask().getProjectName() +"-"+ interval.getTask().getTitle());
             throw  new SQLException();
             
         }
         finally
         {
+            if (con != null) {
+                con.setAutoCommit(true); //set default again 
+               
+            }
             conPool.checkIn(con);
         }
     }
