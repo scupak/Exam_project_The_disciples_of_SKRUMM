@@ -147,7 +147,22 @@ public class AdminMainViewController implements Initializable
     }
 
     @FXML
-    private void handleLog(ActionEvent event) {
+    private void handleLog(ActionEvent event) throws IOException {
+        
+        Stage adminmainView = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        FXMLLoader loader = new FXMLLoader(getClass().
+                getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/LogWindow.fxml"));
+        Parent root = loader.load();
+        LogWindowController controller = loader.getController();
+
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.setMinHeight(523);
+        stage.setMinWidth(721);
+        stage.setTitle("Log");
+        stage.show();
+        adminmainView.close();
     }
     
 }
