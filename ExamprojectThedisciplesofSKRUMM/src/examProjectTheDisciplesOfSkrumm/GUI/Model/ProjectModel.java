@@ -38,7 +38,7 @@ public class ProjectModel implements ProjectModelInterface
     }
 
     @Override
-    public ObservableList<Project> getProjects() 
+    public synchronized ObservableList<Project> getProjects() 
     {
         projects.clear();
         try {
@@ -81,7 +81,7 @@ public class ProjectModel implements ProjectModelInterface
         return bllfacade.getAllProjects();
     }
     
-    public ObservableList<Project> getProjectsForClient(Client client) throws SQLException
+    public synchronized ObservableList<Project> getProjectsForClient(Client client) throws SQLException
     {
         ObservableList<Project> clientProjects =  FXCollections.observableArrayList();
         clientProjects.addAll(bllfacade.getProjectsForClient(client));

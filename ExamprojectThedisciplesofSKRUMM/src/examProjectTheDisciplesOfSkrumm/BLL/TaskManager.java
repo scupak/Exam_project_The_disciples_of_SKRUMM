@@ -13,6 +13,8 @@ import examProjectTheDisciplesOfSkrumm.BE.User;
 import examProjectTheDisciplesOfSkrumm.BE.Task;
 import examProjectTheDisciplesOfSkrumm.BLL.Interface.TaskManagerInterface;
 import examProjectTheDisciplesOfSkrumm.DAL.DALFacade;
+import examProjectTheDisciplesOfSkrumm.DAL.DALFacadeFactory;
+import examProjectTheDisciplesOfSkrumm.DAL.Interface.DALFacadeInterface;
 import examProjectTheDisciplesOfSkrumm.DAL.TaskDBDAO;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -31,11 +33,11 @@ import javafx.scene.chart.XYChart;
  */
 public class TaskManager implements TaskManagerInterface
 {
-    private DALFacade dal;
+    private DALFacadeInterface dal;
     
-    public TaskManager() throws IOException, Exception
+    public TaskManager(DALFacadeInterface dal) throws IOException, Exception
     {
-        dal = new DALFacade();
+        this.dal = dal;
     }
     
     @Override
@@ -215,7 +217,7 @@ public class TaskManager implements TaskManagerInterface
     
      public static void main(String[] args) throws Exception
     {
-       TaskManager tm = new TaskManager();
+       TaskManager tm = new TaskManager(DALFacadeFactory.CreateDALFacade(DALFacadeFactory.DALFacadeTypes.PRODUCTION));
        
        
         System.out.println(tm.handleProjectBarChartDataForAdmin(1, LocalDate.of(2020, Month.MAY, 1), LocalDate.of(2020, Month.MAY, 15)).getData());
