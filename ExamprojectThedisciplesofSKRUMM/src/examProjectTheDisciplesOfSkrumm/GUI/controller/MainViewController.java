@@ -204,7 +204,7 @@ public class MainViewController implements Initializable
         Parent root = loader.load();
         ChartViewController controller = loader.getController();
 
-        controller.getNameLabel().setText(modelfacade.getCurrentuser().getEmail() + " " + "Hours");
+       // controller.getNameLabel().setText(modelfacade.getCurrentuser().getEmail() + " " + "Hours");
 
         Stage stage = new Stage();
         stage.setScene(new Scene(root));

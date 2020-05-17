@@ -410,6 +410,7 @@ public class AdminClientsAndProjectsController implements Initializable
                    controller.getBackBtn().setVisible(false);
                    controller.getBackBtn().setDisable(false);
                    controller.getNameLabel().setText(clickedProject.getProjectName());
+                   controller.getxAxisInBarChart().setLabel("Users");
 
                    Stage stage = new Stage();
                    stage.setScene(new Scene(root));

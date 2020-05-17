@@ -18,7 +18,7 @@
          <children>
             <VBox alignment="CENTER" prefHeight="70.0" prefWidth="202.0" styleClass="chart-bar">
                <children>
-                  <Label fx:id="nameLabel" alignment="CENTER" prefHeight="35.0" prefWidth="721.0" text="Username's Hours" textFill="WHITE">
+                  <Label fx:id="nameLabel" alignment="CENTER" prefHeight="35.0" prefWidth="721.0" text="Hours spent on projects" textFill="WHITE">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -38,7 +38,7 @@
       </StackPane>
       <BarChart fx:id="hoursChart" layoutX="20.0" layoutY="74.0" stylesheets="@../css/Graphics.css" AnchorPane.bottomAnchor="51.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="73.0">
         <xAxis>
-          <CategoryAxis label="Day" side="BOTTOM" />
+          <CategoryAxis label="Projects" side="BOTTOM" fx:id="xAxisInBarChart" />
         </xAxis>
         <yAxis>
           <NumberAxis label="Hours" side="LEFT" />
