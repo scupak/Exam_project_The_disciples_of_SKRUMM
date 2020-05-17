@@ -14,7 +14,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="525.0" prefWidth="943.0" styleClass="AnchorPane" stylesheets="@../css/Graphics.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="examProjectTheDisciplesOfSkrumm.GUI.controller.TaskViewController">
    <children>
-      <TreeTableView fx:id="TaskTable" layoutX="23.0" layoutY="198.0" prefHeight="274.0" prefWidth="682.0" styleClass="table-view" AnchorPane.bottomAnchor="54.0" AnchorPane.leftAnchor="22.0" AnchorPane.rightAnchor="22.0" AnchorPane.topAnchor="197.0">
+      <TreeTableView fx:id="TaskTable" layoutX="23.0" layoutY="198.0" prefHeight="274.0" prefWidth="682.0" styleClass="table-view" AnchorPane.bottomAnchor="65.0" AnchorPane.leftAnchor="22.0" AnchorPane.rightAnchor="22.0" AnchorPane.topAnchor="197.0">
         <columns>
           <TreeTableColumn fx:id="TaskColumn" prefWidth="182.0" text="Task" />
           <TreeTableColumn fx:id="ProjectColumn" prefWidth="115.0" text="Project" />
@@ -111,7 +111,7 @@
          <children>
             <VBox prefHeight="41.0" prefWidth="145.0" spacing="5.0">
                <children>
-                  <Label alignment="CENTER" prefHeight="20.0" prefWidth="77.0" styleClass="Label" text="From date">
+                  <Label alignment="CENTER" prefHeight="20.0" prefWidth="152.0" styleClass="Label" text="From date">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -121,7 +121,7 @@
             </VBox>
             <VBox prefHeight="41.0" prefWidth="145.0" spacing="5.0">
                <children>
-                  <Label alignment="CENTER" prefHeight="20.0" prefWidth="77.0" styleClass="Label" text="To date">
+                  <Label alignment="CENTER" prefHeight="20.0" prefWidth="147.0" styleClass="Label" text="To date">
                      <font>
                         <Font size="14.0" />
                      </font>

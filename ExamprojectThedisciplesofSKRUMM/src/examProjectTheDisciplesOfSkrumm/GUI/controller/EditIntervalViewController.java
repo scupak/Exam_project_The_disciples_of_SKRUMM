@@ -33,6 +33,8 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 
 /**
  * FXML Controller class
@@ -118,46 +120,59 @@ public class EditIntervalViewController implements Initializable
     private void handleSave(ActionEvent event) throws SQLException, SQLServerException
     {
         long intervalTime = Duration.between(startTime.getValue(), stopTime.getValue()).getSeconds();
-
-        int paidOrNot = 0;
-
-        if (paid.isSelected())
+        if (intervalTime < 0)
         {
-            paidOrNot = 1;
-        } else if (notPaid.isSelected())
+            JOptionPane optionPane = new JOptionPane();
+            JDialog dialog = optionPane.createDialog(null, "ERROR");
+            optionPane.setMessage("Stop Time cannot be before" + "\n" + "    or equal to Start Time!");
+            optionPane.setMessageType(JOptionPane.ERROR_MESSAGE);
+            dialog.setAlwaysOnTop(true);
+            dialog.setVisible(true);
+           
+            //JOptionPane.showM
+            
+            //JOptionPane.showMessageDialog(null, "Stop Time cannot be before or equal to Start Time!", "ERROR", JOptionPane.ERROR_MESSAGE);
+        } else
         {
-            paidOrNot = 0;
-        }
+            int paidOrNot = 0;
 
-        Interval newInterval = new Interval(currentInterval.getId(), startTime.getValue(), stopTime.getValue(),
-                creationDate.getValue(), (int) intervalTime, currentTask, paidOrNot);
-
-        if (currentInterval.getId() == newInterval.getId() && startTime.getValue() == currentInterval.getStartTime()
-                && stopTime.getValue() == currentInterval.getStopTime() && creationDate.getValue() == currentInterval.getCreationDate()
-                && (int) intervalTime == currentInterval.getIntervalTime() && paidOrNot == currentInterval.getIsPaid())
-        {
-            Stage stage = (Stage) saveButton.getScene().getWindow();
-            stage.close();
-        } 
-        else
-        {
-            modelfacade.updateInterval(currentInterval, newInterval);
-
-            List<Interval> taskIntervals = currentTask.getIntervals();
-            for (Interval taskInterval : taskIntervals)
+            if (paid.isSelected())
             {
-                if (taskInterval.getId() == newInterval.getId())
-                {
-                    taskInterval.setCreationDate(creationDate.getValue());
-                    taskInterval.setStartTime(startTime.getValue());
-                    taskInterval.setStopTime(stopTime.getValue());
-                    taskInterval.setIntervalTime((int) intervalTime);
-                    taskInterval.setIsPaid(paidOrNot);
-                }
+                paidOrNot = 1;
+            } else if (notPaid.isSelected())
+            {
+                paidOrNot = 0;
             }
 
-            Stage stage = (Stage) saveButton.getScene().getWindow();
-            stage.close();
+            Interval newInterval = new Interval(currentInterval.getId(), startTime.getValue(), stopTime.getValue(),
+                    creationDate.getValue(), (int) intervalTime, currentTask, paidOrNot);
+
+            if (currentInterval.getId() == newInterval.getId() && startTime.getValue() == currentInterval.getStartTime()
+                    && stopTime.getValue() == currentInterval.getStopTime() && creationDate.getValue() == currentInterval.getCreationDate()
+                    && (int) intervalTime == currentInterval.getIntervalTime() && paidOrNot == currentInterval.getIsPaid())
+            {
+                Stage stage = (Stage) saveButton.getScene().getWindow();
+                stage.close();
+            } else
+            {
+                modelfacade.updateInterval(currentInterval, newInterval);
+
+                List<Interval> taskIntervals = currentTask.getIntervals();
+                for (Interval taskInterval : taskIntervals)
+                {
+                    if (taskInterval.getId() == newInterval.getId())
+                    {
+                        taskInterval.setCreationDate(creationDate.getValue());
+                        taskInterval.setStartTime(startTime.getValue());
+                        taskInterval.setStopTime(stopTime.getValue());
+                        taskInterval.setIntervalTime((int) intervalTime);
+                        taskInterval.setIsPaid(paidOrNot);
+                    }
+                }
+
+                Stage stage = (Stage) saveButton.getScene().getWindow();
+                stage.close();
+            }
         }
 
     }

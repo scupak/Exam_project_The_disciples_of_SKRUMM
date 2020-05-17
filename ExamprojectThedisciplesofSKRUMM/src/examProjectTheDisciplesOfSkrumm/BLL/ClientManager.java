@@ -23,9 +23,9 @@ public class ClientManager implements ClientManagerInterface
 {
     DALFacadeInterface dalfacade;
 
-    public ClientManager() throws IOException, Exception 
+    public ClientManager(DALFacadeInterface dalfacade) throws IOException, Exception 
     {
-        dalfacade = new DALFacade();
+        this.dalfacade = dalfacade;
     }
     
 
