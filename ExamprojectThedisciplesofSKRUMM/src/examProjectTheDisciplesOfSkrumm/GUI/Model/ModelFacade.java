@@ -394,5 +394,12 @@ public class ModelFacade implements ModelFacadeInterface
     {
        return userModel.getCurrentAdmin();
     }
+
+    @Override
+    public ObservableList<String> getAllLogs() throws SQLServerException, SQLException {
+        
+        
+        return userModel.getAllLogs();
+    }
     
 }

@@ -186,5 +186,10 @@ public class UserManager implements UserManagerInterface
     public boolean deleteProjectFromUser(User user, Project project) throws SQLServerException, SQLException {
          return dal.deleteProjectFromUser(user, project);
     }
+
+    @Override
+    public List<String> getAllLogs() throws SQLServerException, SQLException {
+       return dal.getAllLogs();
+    }
     
 }
