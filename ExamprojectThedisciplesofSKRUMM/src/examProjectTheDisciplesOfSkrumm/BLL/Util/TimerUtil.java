@@ -5,11 +5,8 @@
  */
 package examProjectTheDisciplesOfSkrumm.BLL.Util;
 
-import com.sun.javafx.tools.packager.Main;
 import examProjectTheDisciplesOfSkrumm.BE.Task;
 import java.time.LocalTime;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import javafx.application.Platform;
 import javafx.scene.control.Label;
 

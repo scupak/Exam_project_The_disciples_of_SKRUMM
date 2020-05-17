@@ -405,5 +405,10 @@ public class ModelFacade implements ModelFacadeInterface
     }
 
     
+    public ObservableList<String> getAllLogs() throws SQLServerException, SQLException {
+        
+        
+        return userModel.getAllLogs();
+    }
     
 }

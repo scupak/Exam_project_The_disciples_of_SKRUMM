@@ -6,13 +6,18 @@
 package examProjectTheDisciplesOfSkrumm.DAL.Interface;
 
 import com.microsoft.sqlserver.jdbc.SQLServerException;
-import examProjectTheDisciplesOfSkrumm.BE.Interval;
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  *
- * @author lumby
+ * @author anton
  */
-public interface DALFacadeInterface extends UserDBDAOInterface, ClientDBDAOInterface, ProjectDBDAOInterface, TaskDBDAOInterface ,LogDBDAOInterface
-{
+public interface LogDBDAOInterface {
+    
+    
+     public List<String> getAllLogs() throws SQLServerException, SQLException;
+     
+     public String createLog(String description) throws SQLException;
+    
 }

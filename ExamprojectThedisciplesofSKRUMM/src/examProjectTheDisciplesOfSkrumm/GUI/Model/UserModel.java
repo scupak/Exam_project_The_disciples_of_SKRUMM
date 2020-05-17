@@ -136,6 +136,16 @@ public class UserModel implements UserModelInterface
     {
         this.currentAdmin = currentAdmin;
     }
+
+    @Override
+    public ObservableList<String> getAllLogs() throws SQLServerException, SQLException {
+        
+        ObservableList<String>  allLogs =  FXCollections.observableArrayList();
+        allLogs.addAll(bllFacade.getAllLogs());
+       
+        
+        return  allLogs;
+    }
     
     
 }

@@ -13,6 +13,7 @@ import examProjectTheDisciplesOfSkrumm.BE.Task;
 import examProjectTheDisciplesOfSkrumm.BE.User;
 import examProjectTheDisciplesOfSkrumm.DAL.Interface.ClientDBDAOInterface;
 import examProjectTheDisciplesOfSkrumm.DAL.Interface.DALFacadeInterface;
+import examProjectTheDisciplesOfSkrumm.DAL.Interface.LogDBDAOInterface;
 import examProjectTheDisciplesOfSkrumm.DAL.Interface.ProjectDBDAOInterface;
 import examProjectTheDisciplesOfSkrumm.DAL.Interface.TaskDBDAOInterface;
 import examProjectTheDisciplesOfSkrumm.DAL.Interface.UserDBDAOInterface;
@@ -31,6 +32,7 @@ public class DALFacade implements DALFacadeInterface
     private ClientDBDAOInterface clientDBDAO;
     private ProjectDBDAOInterface projecDBDAO;
     private TaskDBDAOInterface taskDBDAO;
+    private LogDBDAOInterface  logDBDAO;
 
 
     public DALFacade() throws IOException, Exception
@@ -39,6 +41,7 @@ public class DALFacade implements DALFacadeInterface
         clientDBDAO = new ClientDBDAO();
         projecDBDAO = new ProjectDBDAO();
         taskDBDAO = new TaskDBDAO();
+        logDBDAO = new LogDBDAO();
     }
     
     @Override
@@ -260,6 +263,16 @@ public class DALFacade implements DALFacadeInterface
     @Override
     public int getDurationFromIntervalsbetween2Dates(String userID, int projectID, LocalDate fromdate, LocalDate todate) throws SQLServerException, SQLException {
        return taskDBDAO.getDurationFromIntervalsbetween2Dates(userID, projectID, fromdate, todate);
+    }
+
+    @Override
+    public List<String> getAllLogs() throws SQLServerException, SQLException {
+       return logDBDAO.getAllLogs();
+    }
+
+    @Override
+    public String createLog(String description) throws SQLException {
+        return logDBDAO.createLog(description);
     }
     
 }

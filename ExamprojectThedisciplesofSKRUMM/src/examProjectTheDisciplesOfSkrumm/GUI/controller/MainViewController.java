@@ -132,14 +132,6 @@ public class MainViewController implements Initializable
 
     private ModelFacadeInterface modelfacade;
     private DateTimeFormatter formatter;
-    @FXML
-    private JFXButton taskBtn;
-    @FXML
-    private JFXButton clientsProjectBtn;
-    @FXML
-    private JFXButton AdminBtn;
-    @FXML
-    private ImageView logoImgView;
 
     /**
      * Initializes the controller class.
@@ -158,6 +150,8 @@ public class MainViewController implements Initializable
         try
         {
             welcomeLabel.setText("Welcome" + " " + modelfacade.getCurrentuser().getFirstName());
+            welcomeLabel.setMaxWidth(Double.MAX_VALUE);
+            welcomeLabel.setAlignment(Pos.CENTER);
 
             //Adding the anchorpanes to the panes list
             panes.add(taskOne);
@@ -210,7 +204,7 @@ public class MainViewController implements Initializable
         Parent root = loader.load();
         ChartViewController controller = loader.getController();
 
-        controller.getNameLabel().setText(modelfacade.getCurrentuser().getEmail() + " " + "Hours");
+       // controller.getNameLabel().setText(modelfacade.getCurrentuser().getEmail() + " " + "Hours");
 
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
@@ -458,7 +452,7 @@ public class MainViewController implements Initializable
 
             if (label.getText().equals("Client"))
             {
-                label.setText(task.getClientName());
+                label.setText(task.getProjectName() + "  |  " + task.getClientName());
                 label.setMaxWidth(Double.MAX_VALUE);
                 pane.setLeftAnchor(label, 0.0);
                 pane.setRightAnchor(label, 0.0);

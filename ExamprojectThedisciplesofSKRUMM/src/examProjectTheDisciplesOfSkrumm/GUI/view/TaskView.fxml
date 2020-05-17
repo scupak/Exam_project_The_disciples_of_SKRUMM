@@ -62,39 +62,39 @@
          </children>
       </StackPane>
       <HBox layoutX="22.0" layoutY="118.0" prefHeight="47.0" prefWidth="61.0" spacing="5.0" AnchorPane.leftAnchor="22.0" AnchorPane.topAnchor="119.0" />
-      <VBox layoutX="769.0" layoutY="88.0" prefHeight="92.0" prefWidth="151.0" spacing="5.0" AnchorPane.leftAnchor="769.0" AnchorPane.topAnchor="88.0">
+      <VBox layoutX="756.0" layoutY="89.0" prefHeight="92.0" prefWidth="151.0" spacing="5.0" AnchorPane.leftAnchor="756.0" AnchorPane.topAnchor="89.0">
          <children>
             <VBox prefHeight="41.0" prefWidth="146.0" spacing="1.0">
                <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="178.0" styleClass="Label" text="Currently selected task:">
+                  <Label id="currentlySelectedLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="178.0" styleClass="Label" text="Currently selected task:">
                      <font>
-                        <Font size="14.0" />
+                        <Font size="13.0" />
                      </font>
                   </Label>
-                  <Label fx:id="CurrentTaskLabel" alignment="CENTER" prefHeight="20.0" prefWidth="170.0" styleClass="Label" text="current task">
+                  <Label id="currentTaskLabel" fx:id="CurrentTaskLabel" alignment="CENTER" prefHeight="20.0" prefWidth="170.0" styleClass="Label" text="current task">
                      <font>
-                        <Font size="14.0" />
+                        <Font size="13.0" />
                      </font>
                   </Label>
                </children>
             </VBox>
             <VBox prefHeight="48.0" prefWidth="96.0" spacing="1.0">
                <children>
-                  <HBox alignment="CENTER" prefHeight="26.0" prefWidth="119.0" spacing="5.0" styleClass="Label">
+                  <HBox id="timerLabel" alignment="CENTER" prefHeight="26.0" prefWidth="119.0" spacing="5.0" styleClass="Label">
                      <children>
-                        <Label prefHeight="27.0" prefWidth="40.0" styleClass="Label" text="Timer:">
+                        <Label id="timer" prefHeight="27.0" prefWidth="40.0" styleClass="Label" text="Timer:">
                            <font>
-                              <Font size="14.0" />
+                              <Font size="13.0" />
                            </font>
                         </Label>
-                        <Label fx:id="timeLabel" styleClass="Label" text="00:00:00">
+                        <Label id="counter" fx:id="timeLabel" styleClass="Label" text="00:00:00">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
                      </children>
                   </HBox>
-                  <JFXButton fx:id="timerButton" onAction="#handleStartTimer" prefHeight="25.0" prefWidth="217.0" text="Start timer" />
+                  <JFXButton id="timerButton" fx:id="timerButton" onAction="#handleStartTimer" prefHeight="25.0" prefWidth="217.0" text="Start timer" />
                </children>
             </VBox>
          </children>
