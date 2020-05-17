@@ -80,7 +80,8 @@ public class EditIntervalViewController implements Initializable
         } catch (SQLException ex)
         {
             Logger.getLogger(EditIntervalViewController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception ex) {
+        } catch (Exception ex)
+        {
             Logger.getLogger(EditIntervalViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
         paid.selectedColorProperty().set(Color.rgb(67, 90, 154));
@@ -105,7 +106,7 @@ public class EditIntervalViewController implements Initializable
         }
 
         currentInterval = interval;
-        
+
         creationDate.setValue(interval.getCreationDate());
         startTime.setValue(interval.getStartTime());
         stopTime.setValue(interval.getStopTime());
@@ -130,25 +131,35 @@ public class EditIntervalViewController implements Initializable
 
         Interval newInterval = new Interval(currentInterval.getId(), startTime.getValue(), stopTime.getValue(),
                 creationDate.getValue(), (int) intervalTime, currentTask, paidOrNot);
-        
-        modelfacade.updateInterval(currentInterval, newInterval);
-        
-        
-        List<Interval> taskIntervals = currentTask.getIntervals();
-        for (Interval taskInterval : taskIntervals)
+
+        if (currentInterval.getId() == newInterval.getId() && startTime.getValue() == currentInterval.getStartTime()
+                && stopTime.getValue() == currentInterval.getStopTime() && creationDate.getValue() == currentInterval.getCreationDate()
+                && (int) intervalTime == currentInterval.getIntervalTime() && paidOrNot == currentInterval.getIsPaid())
         {
-            if(taskInterval.getId() == newInterval.getId())
+            Stage stage = (Stage) saveButton.getScene().getWindow();
+            stage.close();
+        } 
+        else
+        {
+            modelfacade.updateInterval(currentInterval, newInterval);
+
+            List<Interval> taskIntervals = currentTask.getIntervals();
+            for (Interval taskInterval : taskIntervals)
             {
-                taskInterval.setCreationDate(creationDate.getValue());
-                taskInterval.setStartTime(startTime.getValue());
-                taskInterval.setStopTime(stopTime.getValue());
-                taskInterval.setIntervalTime((int) intervalTime);
-                taskInterval.setIsPaid(paidOrNot);
+                if (taskInterval.getId() == newInterval.getId())
+                {
+                    taskInterval.setCreationDate(creationDate.getValue());
+                    taskInterval.setStartTime(startTime.getValue());
+                    taskInterval.setStopTime(stopTime.getValue());
+                    taskInterval.setIntervalTime((int) intervalTime);
+                    taskInterval.setIsPaid(paidOrNot);
+                }
             }
+
+            Stage stage = (Stage) saveButton.getScene().getWindow();
+            stage.close();
         }
-        
-        Stage stage = (Stage) saveButton.getScene().getWindow();
-        stage.close();
+
     }
 
     @FXML
@@ -159,24 +170,23 @@ public class EditIntervalViewController implements Initializable
     }
 
     @FXML
-    private void handleDelete(ActionEvent event) 
+    private void handleDelete(ActionEvent event)
     {
         try
         {
             modelfacade.deleteInterval(currentInterval);
             Stage stage = (Stage) deleteButton.getScene().getWindow();
-            stage.close(); 
-        }
-        catch(SQLException e)
+            stage.close();
+        } catch (SQLException e)
         {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText("Could delete interval\n" + e);
             alert.setContentText("Please try again");
             alert.showAndWait();
-            
+
         }
-        
+
     }
 
 }
