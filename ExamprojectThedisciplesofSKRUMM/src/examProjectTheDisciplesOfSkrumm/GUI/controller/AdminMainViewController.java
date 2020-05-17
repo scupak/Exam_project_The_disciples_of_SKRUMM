@@ -44,6 +44,8 @@ public class AdminMainViewController implements Initializable
     private ModelFacadeInterface modelfacade;
     @FXML
     private Label titleLabel;
+    @FXML
+    private JFXButton logButton;
 
     /**
      * Initializes the controller class.
@@ -142,6 +144,10 @@ public class AdminMainViewController implements Initializable
         stage.setTitle("Main Menu");
         stage.show();
         adminmainView.close();
+    }
+
+    @FXML
+    private void handleLog(ActionEvent event) {
     }
     
 }
