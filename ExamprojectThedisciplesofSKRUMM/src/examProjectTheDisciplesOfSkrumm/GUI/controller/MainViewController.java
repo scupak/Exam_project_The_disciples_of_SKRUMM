@@ -132,14 +132,6 @@ public class MainViewController implements Initializable
 
     private ModelFacadeInterface modelfacade;
     private DateTimeFormatter formatter;
-    @FXML
-    private JFXButton taskBtn;
-    @FXML
-    private JFXButton clientsProjectBtn;
-    @FXML
-    private JFXButton AdminBtn;
-    @FXML
-    private ImageView logoImgView;
 
     /**
      * Initializes the controller class.
@@ -158,6 +150,8 @@ public class MainViewController implements Initializable
         try
         {
             welcomeLabel.setText("Welcome" + " " + modelfacade.getCurrentuser().getFirstName());
+            welcomeLabel.setMaxWidth(Double.MAX_VALUE);
+            welcomeLabel.setAlignment(Pos.CENTER);
 
             //Adding the anchorpanes to the panes list
             panes.add(taskOne);

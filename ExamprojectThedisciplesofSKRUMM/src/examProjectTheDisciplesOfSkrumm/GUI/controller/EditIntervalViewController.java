@@ -120,7 +120,7 @@ public class EditIntervalViewController implements Initializable
     private void handleSave(ActionEvent event) throws SQLException, SQLServerException
     {
         long intervalTime = Duration.between(startTime.getValue(), stopTime.getValue()).getSeconds();
-        if (intervalTime < 0)
+        if (intervalTime <= 0)
         {
             JOptionPane optionPane = new JOptionPane();
             JDialog dialog = optionPane.createDialog(null, "ERROR");
@@ -128,10 +128,6 @@ public class EditIntervalViewController implements Initializable
             optionPane.setMessageType(JOptionPane.ERROR_MESSAGE);
             dialog.setAlwaysOnTop(true);
             dialog.setVisible(true);
-           
-            //JOptionPane.showM
-            
-            //JOptionPane.showMessageDialog(null, "Stop Time cannot be before or equal to Start Time!", "ERROR", JOptionPane.ERROR_MESSAGE);
         } else
         {
             int paidOrNot = 0;

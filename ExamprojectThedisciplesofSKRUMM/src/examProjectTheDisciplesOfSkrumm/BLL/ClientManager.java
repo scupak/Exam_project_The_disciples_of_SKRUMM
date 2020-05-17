@@ -8,7 +8,6 @@ package examProjectTheDisciplesOfSkrumm.BLL;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import examProjectTheDisciplesOfSkrumm.BE.Client;
 import examProjectTheDisciplesOfSkrumm.BLL.Interface.ClientManagerInterface;
-import examProjectTheDisciplesOfSkrumm.DAL.DALFacade;
 import examProjectTheDisciplesOfSkrumm.DAL.Interface.DALFacadeInterface;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -29,6 +28,12 @@ public class ClientManager implements ClientManagerInterface
     }
     
 
+    /**
+     * gets a specific client
+     * @param client
+     * @return Client newClient
+     * @throws SQLException 
+     */
     @Override
     public Client getClient(Client client) throws SQLException 
     {
@@ -37,6 +42,12 @@ public class ClientManager implements ClientManagerInterface
        return newClient;
     }
 
+    /**
+     * Gets a list of clients 
+     * @return ArrayList clients
+     * @throws SQLServerException
+     * @throws SQLException 
+     */
     @Override
     public List<Client> getAllClients() throws SQLServerException, SQLException 
     {
@@ -55,23 +66,47 @@ public class ClientManager implements ClientManagerInterface
        return clients;
     }
 
+    /**
+     * checks if a client exists
+     * @param client
+     * @return boolean
+     * @throws SQLException 
+     */
     @Override
     public boolean clientExist(Client client) throws SQLException 
     {
         return dalfacade.clientExist(client);
     }
 
+    /**
+     * Creates a new client
+     * @param client
+     * @return client
+     * @throws SQLException 
+     */
     @Override
     public Client createClient(Client client) throws SQLException 
     {
         return dalfacade.createClient(client);
     }
 
+    /**
+     * Deletes a client
+     * @param client
+     * @return boolean
+     * @throws SQLException 
+     */
     @Override
     public boolean deleteClient(Client client) throws SQLException {
        return dalfacade.deleteClient(client);
     }
 
+    /**
+     * updates an existing client
+     * @param client
+     * @return boolean
+     * @throws SQLException 
+     */
     @Override
     public boolean updateClient(Client client) throws SQLException {
         return dalfacade.updateClient(client);
