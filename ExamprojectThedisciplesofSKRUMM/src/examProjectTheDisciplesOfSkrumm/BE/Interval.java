@@ -5,12 +5,9 @@
  */
 package examProjectTheDisciplesOfSkrumm.BE;
 
-import examProjectTheDisciplesOfSkrumm.BLL.TaskManager;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.concurrent.TimeUnit;
 
 /**
  *
@@ -18,6 +15,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class Interval
 {
+
     private LocalTime startTime;
     private LocalTime stopTime;
     private LocalDate creationDate;
@@ -26,7 +24,7 @@ public class Interval
     private Task task;
     private int isPaid;
     private final int id;
-    
+
     public Interval(int id, LocalTime startTime, LocalTime stopTime, LocalDate creationDate, int intervalTime, Task task, int isPaid)
     {
         this.id = id;
@@ -37,128 +35,207 @@ public class Interval
         this.task = task;
         this.isPaid = isPaid;
     }
-    
+
+    /**
+     * Sets the start time for an interval
+     *
+     * @param startTime
+     */
     public void setStartTime(LocalTime startTime)
     {
         this.startTime = startTime;
     }
 
+    /**
+     * Sets the stop time for an interval
+     *
+     * @param stopTime
+     */
     public void setStopTime(LocalTime stopTime)
     {
         this.stopTime = stopTime;
     }
 
+    /**
+     * Sets the creation date for an interval
+     *
+     * @param creationDate
+     */
     public void setCreationDate(LocalDate creationDate)
     {
         this.creationDate = creationDate;
     }
 
+    /**
+     * Sets the time for an interval
+     *
+     * @param intervalTime
+     */
     public void setIntervalTime(int intervalTime)
     {
         this.intervalTime = intervalTime;
     }
-    
+
+    /**
+     * Gets the id for an interval
+     *
+     * @return int id
+     */
     public int getId()
     {
         return id;
     }
-    
+
+    /**
+     * Gets the IsPaid varible
+     *
+     * @return int isPaid
+     */
     public int getIsPaid()
     {
         return isPaid;
     }
 
+    /**
+     * Sets the isPaid varible
+     *
+     * @param isPaid
+     */
     public void setIsPaid(int isPaid)
     {
         this.isPaid = isPaid;
     }
 
+    /**
+     * Gets the total time for an interval
+     *
+     * @return int totalTime
+     */
     public int getTotalTime()
     {
         return totalTime;
     }
 
+    /**
+     * Gets the intervals task
+     *
+     * @return task
+     */
     public Task getTask()
     {
         return task;
     }
 
+    /**
+     * Gets the start time for an interval
+     *
+     * @return LocalTime startTime
+     */
     public LocalTime getStartTime()
     {
         return startTime;
     }
 
+    /**
+     * Gets the stop time for an interval
+     *
+     * @return LocalTime stopTime
+     */
     public LocalTime getStopTime()
     {
         return stopTime;
     }
 
+    /**
+     * Gets the time for an interval
+     *
+     * @return int intervalTime
+     */
     public int getIntervalTime()
     {
         return intervalTime;
     }
 
+    /**
+     * Gets the creation date for the interval
+     *
+     * @return LocalDate creationDate
+     */
     public LocalDate getCreationDate()
     {
         return creationDate;
     }
-    
+
+    /**
+     * Gets a formatede creation date as a String
+     *
+     * @return String
+     */
     public String getFormatedCreationDate()
     {
-        
+
         return getCreationDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-    
-    }
-    
-    public String getFormatedIntervaltime() {
-        int totalSec = intervalTime;
-        int hour = 0;
-        int min = 0; 
-        int sec = 0;
-        
-    
-         while(totalSec >= 3600){
-        totalSec  = totalSec - 3600;
-        hour++;
-        System.out.println("added one to hours...");
-        }
-        
-        while(totalSec >= 60){
-        totalSec = totalSec - 60;
-        min++;
-        System.out.println("added one to min...");
-        }
-        
-        sec = totalSec;
-        System.out.println("added rest of seconds to sec...");
-        
-        return(String.format("%02d", hour) + ":" + String.format("%02d", min) + ":" + String.format("%02d", sec));
+
     }
 
-//    @Override
-//    public String toString() {
-//        return "Interval{" + "startTime=" + startTime + ", stopTime=" + stopTime + ", creationDate=" + creationDate + ", totalTime=" + totalTime + ", intervalTime=" + intervalTime + ", task=" + task + '}';
-//    }
-    
+    /**
+     * Gets the intervales time formated to hours and minutes
+     *
+     * @return String
+     */
+    public String getFormatedIntervaltime()
+    {
+        int totalSec = intervalTime;
+        int hour = 0;
+        int min = 0;
+        int sec = 0;
+
+        while (totalSec >= 3600)
+        {
+            totalSec = totalSec - 3600;
+            hour++;
+            System.out.println("added one to hours...");
+        }
+
+        while (totalSec >= 60)
+        {
+            totalSec = totalSec - 60;
+            min++;
+            System.out.println("added one to min...");
+        }
+
+        sec = totalSec;
+        System.out.println("added rest of seconds to sec...");
+
+        return (String.format("%02d", hour) + ":" + String.format("%02d", min) + ":" + String.format("%02d", sec));
+    }
+
+    /**
+     * Formates the isPaid varible into a String
+     *
+     * @return String
+     */
     public String paidOrNot()
     {
-        if(isPaid == 0)
+        if (isPaid == 0)
         {
             return "Not Paid";
-        }
-        else 
+        } else
         {
             return "Paid";
         }
     }
-    
-    
-    
+
     @Override
     public String toString()
     {
         return creationDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + "  |  " + startTime + " to " + stopTime + "  |  " + getFormatedIntervaltime() + "  |  " + paidOrNot();
     }
     
+//    @Override
+//    public String toString() {
+//        return "Interval{" + "startTime=" + startTime + ", stopTime=" + stopTime + ", creationDate=" + creationDate + ", totalTime=" + totalTime + ", intervalTime=" + intervalTime + ", task=" + task + '}';
+//    }
     
+
 }

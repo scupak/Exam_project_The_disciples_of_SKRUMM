@@ -14,8 +14,9 @@ import javafx.beans.property.SimpleStringProperty;
  *
  * @author kacpe
  */
-public class Client 
+public class Client
 {
+
     private SimpleIntegerProperty id;
     private SimpleStringProperty ClientName;
     private SimpleIntegerProperty ClientRate;
@@ -23,82 +24,130 @@ public class Client
     private ArrayList<Project> projects;
     private IntegerProperty numberOfProjects;
 
-    public Client(int id, String ClientName, int ClientRate, int isPaid) 
+    public Client(int id, String ClientName, int ClientRate, int isPaid)
     {
         this.id = new SimpleIntegerProperty(id);
         this.ClientName = new SimpleStringProperty(ClientName);
         this.ClientRate = new SimpleIntegerProperty(ClientRate);
-        this.isPaid =  new SimpleIntegerProperty(isPaid);
+        this.isPaid = new SimpleIntegerProperty(isPaid);
         this.projects = new ArrayList<>();
-        this.numberOfProjects = new SimpleIntegerProperty(projects.size());        
+        this.numberOfProjects = new SimpleIntegerProperty(projects.size());
     }
-   
 
-     public int getId()
+    /**
+     * Gets the id of the client
+     * @return int id
+     */
+    public int getId()
     {
         return id.get();
     }
 
+    /**
+     * Sets the id of the client
+     * @param id 
+     */
     public void setId(int id)
     {
         this.id.set(id);
     }
-    
-    public String getClientName() {
+
+    /**
+     * Gets the name of the client
+     * @return String clientName
+     */
+    public String getClientName()
+    {
         return ClientName.get();
     }
 
-    public void setClientName(String ClientName) {
+    /**
+     * Sets the name of the client
+     * @param ClientName 
+     */
+    public void setClientName(String ClientName)
+    {
         this.ClientName.set(ClientName);
     }
 
-    public int getClientRate() {
+    /**
+     * gets the clients rate
+     * @return int clientRate
+     */
+    public int getClientRate()
+    {
         return ClientRate.get();
     }
 
-    public void setClientRate(int ClientRate) {
+    /**
+     * Sets the clients rate
+     * @param ClientRate 
+     */
+    public void setClientRate(int ClientRate)
+    {
         this.ClientRate.set(ClientRate);
     }
-    
-    public int getIsPaid() {
+
+    /**
+     * Gets is paid for a client
+     * @return int isPaid
+     */
+    public int getIsPaid()
+    {
         return isPaid.get();
     }
 
-    public void setIsPaid(int isPaid) {
+    /**
+     * Sets the is paid varible
+     * @param isPaid 
+     */
+    public void setIsPaid(int isPaid)
+    {
         this.isPaid.set(isPaid);
     }
 
+    /**
+     * Gets a list of projects for a client
+     * @return ArrayList projects
+     */
     public ArrayList<Project> getProjects()
     {
-        
+
         return projects;
     }
 
+    /**
+     * Sets the projects ArrayList
+     * @param projects 
+     */
     public void setProjects(ArrayList<Project> projects)
     {
         this.projects = projects;
     }
 
+    /**
+     * Gets the number of projects for a client
+     * @return int numberOfProjects
+     */
     public int getnumberOfProjects()
     {
         numberOfProjects.set(projects.size());
         return numberOfProjects.get();
     }
 
+    /**
+     * Sets the number of projects for a client
+     * @param numberOfProject 
+     */
     public void setNumberOfProject(int numberOfProject)
     {
         this.numberOfProjects.set(numberOfProject);
     }
-    
-    
 
     @Override
-    public String toString() {
-        return  ""+ id.get() + "  " + "" + ClientName.get() + "   " + "" + ClientRate.get() + "   " + "" + isPaid.get() ;
+    public String toString()
+    {
+        return "" + id.get() + "  " + "" + ClientName.get() + "   " + "" + ClientRate.get() + "   " + "" + isPaid.get();
     }
-    
-    
-    
-    
-    
+
 }
