@@ -13,6 +13,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,6 +54,45 @@ public class LogDBDAO implements LogDBDAOInterface{
         }
     }
      
+   
+    public String createLog(String userName,String action ,String projectName , String taskName) throws SQLException
+    {
+        String returnlog;
+       
+        
+        Connection con = conPool.checkOut();
+
+        try
+        {
+            PreparedStatement ps = con.prepareStatement("INSERT INTO dbo.Log"
+                    + "(timesStamp, userName, action, projectName, taskName) "
+                    + "VALUES (?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+            
+            ps.setTimestamp(3, java.sql.Timestamp.valueOf(LocalDateTime.now()));
+            ps.setString(2, userName);
+            ps.setString(3, action);
+            ps.setString(4, projectName);
+            ps.setString(5, taskName);
+
+            
+            ps.executeUpdate();
+            
+            ResultSet rs = ps.getGeneratedKeys();
+
+            if (rs.next()) {
+                returnlog = rs.getLong(1) +"";
+            } else {
+                return null;
+            }
+             returnlog = returnlog +"-"+ userName +"-"+ action +"-"+ projectName +"-"+ taskName;
+             
+            return returnlog;
+        }
+        finally
+        {
+            conPool.checkIn(con);
+        }
+    }
      
      
      
