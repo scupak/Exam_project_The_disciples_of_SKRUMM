@@ -14,6 +14,7 @@ import examProjectTheDisciplesOfSkrumm.BE.User;
 import examProjectTheDisciplesOfSkrumm.DAL.Interface.DALFacadeInterface;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,7 +28,10 @@ public class DALMockFacade implements DALFacadeInterface {
 
     @Override
     public List<User> getAllUsers() throws SQLServerException, SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ArrayList<User> users = new ArrayList();
+        users.add(new User("TestEmail1", "TestName", "TestLastName", "TestPassword", true));
+        
+        return users;
     }
 
     @Override
@@ -107,7 +111,11 @@ public class DALMockFacade implements DALFacadeInterface {
 
     @Override
     public List<Project> getAllProjects() throws SQLServerException, SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ArrayList<Project> projects = new ArrayList();
+        Client client = new Client(0, "TestClient", 0, 0);
+        projects.add(new Project(1, "TestProject", client, 0));
+        
+        return projects;
     }
 
     @Override
@@ -222,7 +230,7 @@ public class DALMockFacade implements DALFacadeInterface {
 
     @Override
     public int getDurationFromIntervalsbetween2Dates(String userID, int projectID, LocalDate fromdate, LocalDate todate) throws SQLServerException, SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return 3600;
     }
     
 }
