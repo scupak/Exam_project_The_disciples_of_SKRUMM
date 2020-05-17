@@ -161,7 +161,24 @@ public class AdminClientsAndProjectsController implements Initializable
             }
 
         });
-        projectIsPaidColumn.setCellValueFactory(new PropertyValueFactory<>("isPaid"));
+        
+        projectIsPaidColumn.setCellValueFactory(new Callback()
+        {
+            @Override
+            public Object call(Object obj)
+            {
+                final Object dataObj = ((TableColumn.CellDataFeatures) obj).getValue();
+                if (dataObj instanceof Project)
+                {                 
+                    return new ReadOnlyStringWrapper(((Project) dataObj).getIsPaidBoolean());
+                } else
+                {
+                    return null;
+                }
+            }
+
+        });
+        
         projectCreationColumn.setCellValueFactory(new Callback()
         {
             @Override

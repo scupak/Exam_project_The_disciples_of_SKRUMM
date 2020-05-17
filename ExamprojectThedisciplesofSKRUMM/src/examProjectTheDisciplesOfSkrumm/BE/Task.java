@@ -11,19 +11,18 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Objects;
-import java.util.concurrent.TimeUnit;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.collections.ObservableList;
 
 /**
  *
  * @author kacpe
  */
-public class Task 
+public class Task
 {
+
     private IntegerProperty id;
     private StringProperty title;
     private Project project;
@@ -38,13 +37,10 @@ public class Task
     private LocalTime stopTime;
     private User user;
     private ArrayList<Interval> intervals;
-            
 
-   
-    
     public Task(int id, String title, Project project, int duration, LocalDateTime lastUsed,
             LocalDate creationDate, LocalTime startTime, LocalTime stopTime, User user,
-            ArrayList<Interval> intervals) 
+            ArrayList<Interval> intervals)
     {
         this.id = new SimpleIntegerProperty(id);
         this.title = new SimpleStringProperty(title);
@@ -52,7 +48,7 @@ public class Task
         this.duration = new SimpleIntegerProperty(duration);
         this.projectName = new SimpleStringProperty(project.getProjectName());
         this.clientName = new SimpleStringProperty(project.getClient().getClientName());
-        this.isPaid =  new SimpleIntegerProperty(project.getIsPaid());
+        this.isPaid = new SimpleIntegerProperty(project.getIsPaid());
         this.formatedDuration = new SimpleStringProperty("");
         this.lastUsed = lastUsed;
         this.creationDate = creationDate;
@@ -71,7 +67,7 @@ public class Task
         this.duration = new SimpleIntegerProperty(duration);
         this.projectName = new SimpleStringProperty(project.getProjectName());
         this.clientName = new SimpleStringProperty(project.getClient().getClientName());
-        this.isPaid =  new SimpleIntegerProperty(project.getIsPaid());
+        this.isPaid = new SimpleIntegerProperty(project.getIsPaid());
         this.formatedDuration = new SimpleStringProperty("");
         this.lastUsed = lastUsed;
         this.creationDate = creationDate;
@@ -80,106 +76,186 @@ public class Task
         this.user = user;
         this.intervals = new ArrayList<>();
     }
-    
-    
 
+    /**
+     * Gets the id for a task
+     *
+     * @return int id
+     */
     public int getId()
     {
         return id.get();
     }
 
+    /**
+     * Sets the id for a task
+     *
+     * @param id
+     */
     public void setId(int id)
     {
         this.id.set(id);
     }
-    
+
+    /**
+     * Gets the last used date from a task
+     *
+     * @return LocalDateTime lastUsed
+     */
     public LocalDateTime getLastUsed()
     {
         return lastUsed;
     }
 
+    /**
+     * Sets the lastUsed varible for a task
+     *
+     * @param lastUsed
+     */
     public void setLastUsed(LocalDateTime lastUsed)
     {
         this.lastUsed = lastUsed;
     }
 
+    /**
+     * Gets the isPaid for a task
+     *
+     * @return int isPaid
+     */
     public int getIsPaid()
     {
         return isPaid.get();
     }
-    
+
+    /**
+     * Formates the isPaid to a string
+     *
+     * @return String
+     */
     public String getIsPaidBoolean()
     {
         if (isPaid.get() == 0)
         {
             return "Not Paid";
-        }
-        else if(isPaid.get() == 1)
+        } else if (isPaid.get() == 1)
         {
             return "Paid";
-        }
-        else
+        } else
         {
             return "error";
         }
     }
 
-    public String getTitle() {
+    /**
+     * Gets the title for a task
+     *
+     * @return
+     */
+    public String getTitle()
+    {
         return title.get();
     }
 
-    public void setTitle(String title) {
+    /**
+     * Sets the title for a task
+     *
+     * @param title
+     */
+    public void setTitle(String title)
+    {
         this.title.set(title);
     }
 
-    public Project getProject() {
+    /**
+     * Gets the project for a task
+     *
+     * @return project
+     */
+    public Project getProject()
+    {
         return project;
     }
 
-    public void setProject(Project project) {
+    /**
+     * Sets the project for a task
+     *
+     * @param project
+     */
+    public void setProject(Project project)
+    {
         this.project = project;
         this.projectName = new SimpleStringProperty(project.getProjectName());
         this.clientName = new SimpleStringProperty(project.getClient().getClientName());
     }
 
-    public int getDuration() {
+    /**
+     * Gets the duration for a task
+     *
+     * @return int task
+     */
+    public int getDuration()
+    {
         return duration.get();
     }
 
-    public void setDuration(int time) {
+    /**
+     * Sets the duration for a task
+     *
+     * @param time
+     */
+    public void setDuration(int time)
+    {
         this.duration.set(time);
     }
 
-    public String getFormatedDuration() {
-      
+    /**
+     * Formates the duration to a string
+     *
+     * @return string
+     */
+    public String getFormatedDuration()
+    {
+
         int totalSec = duration.get();
         int hour = 0;
-        int min = 0; 
+        int min = 0;
         int sec = 0;
-        
-    
-         while(totalSec >= 3600){
-        totalSec  = totalSec - 3600;
-        hour++;
-        System.out.println("added one to hours...");
+
+        while (totalSec >= 3600)
+        {
+            totalSec = totalSec - 3600;
+            hour++;
+            System.out.println("added one to hours...");
         }
-        
-        while(totalSec >= 60){
-        totalSec = totalSec - 60;
-        min++;
-        System.out.println("added one to min...");
+
+        while (totalSec >= 60)
+        {
+            totalSec = totalSec - 60;
+            min++;
+            System.out.println("added one to min...");
         }
-        
+
         sec = totalSec;
         System.out.println("added rest of seconds to sec...");
-        
-        return(String.format("%02d", hour) + ":" + String.format("%02d", min) + ":" + String.format("%02d", sec));
+
+        return (String.format("%02d", hour) + ":" + String.format("%02d", min) + ":" + String.format("%02d", sec));
     }
 
-    public void setFormatedDuration(String formatedDuration) {
+    /**
+     * Sets the formated duration for a task
+     *
+     * @param formatedDuration
+     */
+    public void setFormatedDuration(String formatedDuration)
+    {
         this.formatedDuration.set(formatedDuration);
     }
-    
+
+    /**
+     * Gets the formated lastused
+     *
+     * @return string
+     */
     public String getFormatedLastUsed()
     {
         String date = lastUsed.toLocalDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
@@ -187,75 +263,152 @@ public class Task
         time = time.substring(0, 5);
         return String.format("%s  %s", date, time);
     }
-    
+
+    /**
+     * gets the formated creation date
+     *
+     * @return string
+     */
     public String getFormatedCreationDate()
     {
-        
-        return getCreationDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-    
-    }
-    
-    
 
-    public String getProjectName() {
+        return getCreationDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+
+    }
+
+    /**
+     * Gets a tasks project name
+     *
+     * @return String projectName
+     */
+    public String getProjectName()
+    {
         return projectName.get();
     }
 
-    public String getClientName() {
+    /**
+     * Gets a tasks client name
+     *
+     * @return clientName
+     */
+    public String getClientName()
+    {
         return clientName.get();
     }
 
-    public LocalDate getCreationDate() {
+    /**
+     * Gets the creation date for a task
+     *
+     * @return LocalDate creationDate
+     */
+    public LocalDate getCreationDate()
+    {
         return creationDate;
     }
 
-    public void setCreationDate(LocalDate creationDate) {
+    /**
+     * Sets the creation date for a task
+     *
+     * @param creationDate
+     */
+    public void setCreationDate(LocalDate creationDate)
+    {
         this.creationDate = creationDate;
     }
 
-    public LocalTime getStartTime() {
+    /**
+     * Gets the start time for a task
+     *
+     * @return LocalTime startTime
+     */
+    public LocalTime getStartTime()
+    {
         return startTime;
     }
 
-    public void setStartTime(LocalTime startTime) {
+    /**
+     * Sets the start time for a task
+     *
+     * @param startTime
+     */
+    public void setStartTime(LocalTime startTime)
+    {
         this.startTime = startTime;
     }
 
-    public LocalTime getStopTime() {
+    /**
+     * Gets the stop time for a task
+     *
+     * @return LocalTime stopTime
+     */
+    public LocalTime getStopTime()
+    {
         return stopTime;
     }
 
-    public void setStopTime(LocalTime stopTime) {
+    /**
+     * Sets the stop time for a task
+     *
+     * @param stopTime
+     */
+    public void setStopTime(LocalTime stopTime)
+    {
         this.stopTime = stopTime;
     }
 
+    /**
+     * Gets the email for a user associated with a task
+     *
+     * @return String
+     */
     public String getUserEmail()
     {
         return user.getEmail();
     }
 
+    /**
+     * Sets the email for a user associated with a task
+     *
+     * @param userEmail
+     */
     public void setUserEmail(String userEmail)
     {
         this.user.setEmail(userEmail);
     }
-   
-    public ArrayList<Interval> getIntervals() {
+
+    /**
+     * Gets a list of intervales for a task
+     *
+     * @return ArrayList intervales
+     */
+    public ArrayList<Interval> getIntervals()
+    {
         return intervals;
     }
 
-    public void setIntervals(ArrayList<Interval> intervals) {
+    /**
+     * Sets a list of intervales for a task
+     *
+     * @param intervals
+     */
+    public void setIntervals(ArrayList<Interval> intervals)
+    {
         this.intervals = intervals;
     }
-    
-     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (this == obj)
+        {
             return true;
         }
-        if (obj == null) {
+        if (obj == null)
+        {
             return false;
         }
-        if (getClass() != obj.getClass()) {
+        if (getClass() != obj.getClass())
+        {
             return false;
         }
         final Task other = (Task) obj;
@@ -263,49 +416,17 @@ public class Task
     }
 
     @Override
-    public int hashCode() {
+    public int hashCode()
+    {
         int hash = 5;
         hash = 71 * hash + Objects.hashCode(this.id);
         return hash;
     }
-    
-   
+
     @Override
     public String toString()
     {
         return "Task{" + "id=" + id + ", title=" + title + ", duration=" + duration + ", projectName=" + projectName + ", clientName=" + clientName + ", lastUsed=" + lastUsed + ", creationDate=" + creationDate + ", user=" + user + '}';
     }
 
-   
-
-   
-
-   
-    
-    
-    
-    
-    
-    
-    
-
-    
-    
-
-    
-    
-
-    
-    
-    
-    
-
-   
-
-  
-
-   
-    
-    
-    
 }
