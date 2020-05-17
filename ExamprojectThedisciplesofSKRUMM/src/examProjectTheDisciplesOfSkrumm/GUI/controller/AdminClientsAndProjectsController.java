@@ -11,6 +11,7 @@ import examProjectTheDisciplesOfSkrumm.BE.Project;
 import examProjectTheDisciplesOfSkrumm.BE.Task;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.ModelFacadeInterface;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.ModelFacade;
+import examProjectTheDisciplesOfSkrumm.enums.ViewTypes;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -101,9 +102,11 @@ public class AdminClientsAndProjectsController implements Initializable
         try
         {
             modelfacade = ModelFacade.getInstance();
-        } catch (Exception ex)
+        }
+        catch (Exception ex)
         {
-            Logger.getLogger(CreateTaskController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AdminClientsAndProjectsController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Couln't get the instance of modelfacade" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
         }
         //set up clientTable
         clientNameColumn.setCellValueFactory(new PropertyValueFactory<>("clientName"));
@@ -202,39 +205,63 @@ public class AdminClientsAndProjectsController implements Initializable
     }
 
     @FXML
-    private void handleCreateClient(ActionEvent event) throws IOException
+    private void handleCreateClient(ActionEvent event)
     {
-        FXMLLoader loader = new FXMLLoader(getClass().
-                getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/AddClient.fxml"));
-        Parent root = loader.load();
-        AddClientController controller = loader.getController();
-
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.setTitle("Create Client");
-        stage.showAndWait();
-        RefreshTableView();
+        try 
+        {
+            FXMLLoader loader = modelfacade.getLoader(ViewTypes.ADDCLIENT);
+            Parent root = loader.load();
+            AddClientController controller = loader.getController();
+            
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Create Client");
+            stage.showAndWait();
+            RefreshTableView();
+        } 
+        catch (IOException ex) 
+        {
+            Logger.getLogger(AdminClientsAndProjectsController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Couldn't load the addClient view" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
+        } 
+        catch (Exception ex)
+        {
+            Logger.getLogger(AdminClientsAndProjectsController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Couldn't load the addClient view" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE); 
+        }
     }
 
     @FXML
-    private void handleEditClient(ActionEvent event) throws IOException
+    private void handleEditClient(ActionEvent event)
     {
-         FXMLLoader loader = new FXMLLoader(getClass().
-                getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/EditClient.fxml"));
-        Parent root = loader.load();
-        EditClientController controller = loader.getController();
-        controller.setClient(clientTableView.getSelectionModel().getSelectedItem());
-
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.setTitle("Edit Client");
-        stage.showAndWait();
-        RefreshTableView();
+        try 
+        {
+            FXMLLoader loader = modelfacade.getLoader(ViewTypes.EDITCLIENT);
+            Parent root = loader.load();
+            EditClientController controller = loader.getController();
+            controller.setClient(clientTableView.getSelectionModel().getSelectedItem());
+            
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Edit Client");
+            stage.showAndWait();
+            RefreshTableView();
+        } 
+        catch (IOException ex) 
+        {
+            Logger.getLogger(AdminClientsAndProjectsController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Couldn't load the editClient view" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
+        } 
+        catch (Exception ex) 
+        {
+            Logger.getLogger(AdminClientsAndProjectsController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Couldn't load the addClient view" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
+        }
 
     }
 
     @FXML
-    private void handleDeleteClient(ActionEvent event) throws SQLException
+    private void handleDeleteClient(ActionEvent event)
     {
         final JDialog dialog = new JDialog();
         dialog.setAlwaysOnTop(true);
@@ -249,45 +276,76 @@ public class AdminClientsAndProjectsController implements Initializable
                         JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
         if(input == JOptionPane.YES_OPTION)
         {
-            modelfacade.deleteClient(client);
-            RefreshTableView();
+            try 
+            {
+                modelfacade.deleteClient(client);
+                RefreshTableView();
+            } 
+            catch (SQLException ex) 
+            {
+                Logger.getLogger(AdminClientsAndProjectsController.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "Couldn't delete the client from the databse" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
+            }
         }
         
     }
 
     @FXML
-    private void handleCreateProject(ActionEvent event) throws IOException
+    private void handleCreateProject(ActionEvent event)
     {
-        FXMLLoader loader = new FXMLLoader(getClass().
-                getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/AddProjectView.fxml"));
-        Parent root = loader.load();
-        AddProjectViewController controller = loader.getController();
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.setTitle("Create Client");
-        stage.showAndWait();
-        RefreshTableView();
-        
+        try 
+        {
+            FXMLLoader loader = modelfacade.getLoader(ViewTypes.ADDPROJECT);
+            Parent root = loader.load();
+            AddProjectViewController controller = loader.getController();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Create Client");
+            stage.showAndWait();
+            RefreshTableView();
+        }
+        catch (IOException ex) 
+        {
+            Logger.getLogger(AdminClientsAndProjectsController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Couldn't load the createClient view" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
+        } 
+        catch (Exception ex) 
+        {
+            Logger.getLogger(AdminClientsAndProjectsController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Couldn't load the createClient view" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     @FXML
-    private void handleEditProject(ActionEvent event) throws IOException
+    private void handleEditProject(ActionEvent event)
     {
-        FXMLLoader loader = new FXMLLoader(getClass().
-                getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/EditProjectView.fxml"));
-        Parent root = loader.load();
-        EditProjectViewController controller = loader.getController();
-        controller.setProject(projectTableView.getSelectionModel().getSelectedItem());
-
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.setTitle("Edit Project");
-        stage.showAndWait();
-        RefreshTableView();
+        try 
+        {
+            FXMLLoader loader = modelfacade.getLoader(ViewTypes.EDITPROJECT);
+            Parent root = loader.load();
+            EditProjectViewController controller = loader.getController();
+            controller.setProject(projectTableView.getSelectionModel().getSelectedItem());
+            
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Edit Project");
+            stage.showAndWait();
+            RefreshTableView();
+        } 
+        catch (IOException ex) 
+        {
+            Logger.getLogger(AdminClientsAndProjectsController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Couldn't load the editClient view" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
+        } 
+        catch (Exception ex) 
+        {
+            Logger.getLogger(AdminClientsAndProjectsController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Couldn't load the editClient view" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     @FXML
-    private void handleDeleteProject(ActionEvent event) throws SQLException
+    private void handleDeleteProject(ActionEvent event)
     {
         final JDialog dialog = new JDialog();
         dialog.setAlwaysOnTop(true);
@@ -302,28 +360,48 @@ public class AdminClientsAndProjectsController implements Initializable
                         JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
         if(input == JOptionPane.YES_OPTION)
         {
-            modelfacade.deleteProject(project);
-            RefreshTableView();
+            try 
+            {
+                modelfacade.deleteProject(project);
+                RefreshTableView();
+            } 
+            catch (SQLException ex) 
+            {
+                Logger.getLogger(AdminClientsAndProjectsController.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "Couldn't delete project from the database" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
 
     @FXML
-    private void handleBack(ActionEvent event) throws IOException
+    private void handleBack(ActionEvent event)
     {
-        Stage adminClientsAndProjectsView = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-        FXMLLoader loader = new FXMLLoader(getClass().
-                getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/AdminMainView.fxml"));
-        Parent root = loader.load();
-        AdminMainViewController controller = loader.getController();
-
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.setMinHeight(523);
-        stage.setMinWidth(721);
-        stage.setTitle("Main Menu");
-        stage.show();
-        adminClientsAndProjectsView.close();
+        try 
+        {
+            Stage adminClientsAndProjectsView = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            
+            FXMLLoader loader = modelfacade.getLoader(ViewTypes.ADMINMAIN);
+            Parent root = loader.load();
+            AdminMainViewController controller = loader.getController();
+            
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setMinHeight(523);
+            stage.setMinWidth(721);
+            stage.setTitle("Main Menu");
+            stage.show();
+            adminClientsAndProjectsView.close();
+        } 
+        catch (IOException ex) 
+        {
+            Logger.getLogger(AdminClientsAndProjectsController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Couldn't load the adminMain view view" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
+        } 
+        catch (Exception ex) 
+        {
+            Logger.getLogger(AdminClientsAndProjectsController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Couldn't load the adminMain view view" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     public void RefreshTableView()
@@ -348,11 +426,10 @@ public class AdminClientsAndProjectsController implements Initializable
         });
         
         executor.shutdown();
-
     }
 
     @FXML
-    private void handleSelectedClient(MouseEvent event) throws SQLException
+    private void handleSelectedClient(MouseEvent event)
     {
         if(clientTableView.getSelectionModel().getSelectedItem() != null)
         {
@@ -368,25 +445,23 @@ public class AdminClientsAndProjectsController implements Initializable
                     {
                         projectTableView.setItems(projects);
                     });
-                } catch (SQLException ex) 
+                } 
+                catch (SQLException ex) 
                 {
                     Platform.runLater( () ->
                     {
-                        Alert alert = new Alert(Alert.AlertType.ERROR);
-                        alert.setTitle("Error");
-                        alert.setHeaderText("Cant refresh" + ex);
-                        alert.setContentText("Please try again");
-                        alert.showAndWait();
+                        JOptionPane.showMessageDialog(null, "Couldn't get the projects for the client from the database" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
                     });
                 }
             });
-        
+            
             executor.shutdown();
         }
     }
 
     @FXML
-    private void handleProjectChartPerUser(MouseEvent event) {
+    private void handleProjectChartPerUser(MouseEvent event) 
+    {
         
          final JDialog dialog = new JDialog();
         dialog.setAlwaysOnTop(true);
@@ -396,13 +471,14 @@ public class AdminClientsAndProjectsController implements Initializable
             if (projectTableView.getSelectionModel().getSelectedItem() != null)
             {
                 
-                try {
-                    Project clickedProject = projectTableView.getSelectionModel().getSelectedItem();
+                try
+                {
+                   Project clickedProject = projectTableView.getSelectionModel().getSelectedItem();
                     
                     
                     //Stage currentview = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
-                   FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/ChartView.fxml"));
+                   FXMLLoader loader = modelfacade.getLoader(ViewTypes.CHART);
                    Parent root = loader.load();
                    ChartViewController controller = loader.getController();
                    
@@ -419,8 +495,16 @@ public class AdminClientsAndProjectsController implements Initializable
                    stage.show();
                    //currentview.close();
                    
-                } catch (IOException ex) {
+                } 
+                catch (IOException ex) 
+                {
                     Logger.getLogger(AdminClientsAndProjectsController.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(null, "Couldn't load the chart view" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
+                } 
+                catch (Exception ex)
+                {
+                    Logger.getLogger(AdminClientsAndProjectsController.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(null, "Couldn't load the chart view" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
                 }
                 
 

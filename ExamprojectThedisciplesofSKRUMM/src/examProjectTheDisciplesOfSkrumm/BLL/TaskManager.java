@@ -13,9 +13,10 @@ import examProjectTheDisciplesOfSkrumm.BE.User;
 import examProjectTheDisciplesOfSkrumm.BE.Task;
 import examProjectTheDisciplesOfSkrumm.BLL.Interface.TaskManagerInterface;
 import examProjectTheDisciplesOfSkrumm.DAL.DALFacade;
-import examProjectTheDisciplesOfSkrumm.DAL.DALFacadeFactory;
+import examProjectTheDisciplesOfSkrumm.BLL.Util.DALFacadeFactory;
 import examProjectTheDisciplesOfSkrumm.DAL.Interface.DALFacadeInterface;
 import examProjectTheDisciplesOfSkrumm.DAL.TaskDBDAO;
+import examProjectTheDisciplesOfSkrumm.enums.DALFacadeTypes;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.DayOfWeek;
@@ -217,7 +218,7 @@ public class TaskManager implements TaskManagerInterface
     
      public static void main(String[] args) throws Exception
     {
-       TaskManager tm = new TaskManager(DALFacadeFactory.CreateDALFacade(DALFacadeFactory.DALFacadeTypes.PRODUCTION));
+       TaskManager tm = new TaskManager(DALFacadeFactory.CreateDALFacade(DALFacadeTypes.PRODUCTION));
        
        
         System.out.println(tm.handleProjectBarChartDataForAdmin(1, LocalDate.of(2020, Month.MAY, 1), LocalDate.of(2020, Month.MAY, 15)).getData());

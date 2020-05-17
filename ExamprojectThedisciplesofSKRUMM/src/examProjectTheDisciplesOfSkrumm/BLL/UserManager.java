@@ -11,8 +11,9 @@ import examProjectTheDisciplesOfSkrumm.BE.User;
 import examProjectTheDisciplesOfSkrumm.BLL.Interface.SecurityManagerInterface;
 import examProjectTheDisciplesOfSkrumm.BLL.Interface.UserManagerInterface;
 import examProjectTheDisciplesOfSkrumm.DAL.DALFacade;
-import examProjectTheDisciplesOfSkrumm.DAL.DALFacadeFactory;
+import examProjectTheDisciplesOfSkrumm.BLL.Util.DALFacadeFactory;
 import examProjectTheDisciplesOfSkrumm.DAL.Interface.DALFacadeInterface;
+import examProjectTheDisciplesOfSkrumm.enums.DALFacadeTypes;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
@@ -79,7 +80,7 @@ public class UserManager implements UserManagerInterface
     
     public static void main(String[] args) throws SQLException, IOException, Exception
     {
-        UserManager um = new UserManager(DALFacadeFactory.CreateDALFacade(DALFacadeFactory.DALFacadeTypes.PRODUCTION));
+        UserManager um = new UserManager(DALFacadeFactory.CreateDALFacade(DALFacadeTypes.PRODUCTION));
         User test = new User("standard@user.now", "Mads", "Jensesn", "nemt", false);
         System.out.println(um.dal.getUser(test));
         

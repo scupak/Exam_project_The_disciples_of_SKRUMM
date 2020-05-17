@@ -3,9 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package examProjectTheDisciplesOfSkrumm.DAL;
+package examProjectTheDisciplesOfSkrumm.BLL.Util;
 
+import examProjectTheDisciplesOfSkrumm.DAL.DALFacade;
+import examProjectTheDisciplesOfSkrumm.DAL.DALMockFacade;
 import examProjectTheDisciplesOfSkrumm.DAL.Interface.DALFacadeInterface;
+import examProjectTheDisciplesOfSkrumm.enums.DALFacadeTypes;
 import java.io.IOException;
 
 /**
@@ -14,15 +17,6 @@ import java.io.IOException;
  */
 public class DALFacadeFactory
 {
-
-    /**
-     * Enum representing the two types of dalfacade the factory can make.
-     */
-    public enum DALFacadeTypes
-    {
-        PRODUCTION, MOCK
-    }
-
     /**
      * Creates DALFacades based on given type.
      *

@@ -19,14 +19,20 @@ import examProjectTheDisciplesOfSkrumm.BLL.Interface.SecurityManagerInterface;
 import examProjectTheDisciplesOfSkrumm.BLL.Interface.TaskManagerInterface;
 import examProjectTheDisciplesOfSkrumm.BLL.Interface.TreeTableUtilInterface;
 import examProjectTheDisciplesOfSkrumm.BLL.Interface.UserManagerInterface;
+import examProjectTheDisciplesOfSkrumm.BLL.Interface.ViewFactoryInterface;
 import examProjectTheDisciplesOfSkrumm.BLL.Util.TreeTableUtil;
-import examProjectTheDisciplesOfSkrumm.DAL.DALFacadeFactory;
+import examProjectTheDisciplesOfSkrumm.BLL.Util.DALFacadeFactory;
+import examProjectTheDisciplesOfSkrumm.BLL.Util.ViewFactory;
+import examProjectTheDisciplesOfSkrumm.enums.DALFacadeTypes;
+import examProjectTheDisciplesOfSkrumm.enums.ViewTypes;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.TreeItem;
 
@@ -42,15 +48,17 @@ public class BLLFacade implements BLLFacadeInterface
     private UserManagerInterface userManager;
     private ProjectManagerInterface projectmanager;
     private ClientManagerInterface clientmanager;
+    private ViewFactoryInterface viewfactory;
 
     public BLLFacade() throws IOException, Exception 
     {
-        projectmanager = new ProjectManager(DALFacadeFactory.CreateDALFacade(DALFacadeFactory.DALFacadeTypes.PRODUCTION));
+        projectmanager = new ProjectManager(DALFacadeFactory.CreateDALFacade(DALFacadeTypes.PRODUCTION));
         treeTableUtil = new TreeTableUtil();
-        taskmanager = new TaskManager(DALFacadeFactory.CreateDALFacade(DALFacadeFactory.DALFacadeTypes.PRODUCTION));
+        taskmanager = new TaskManager(DALFacadeFactory.CreateDALFacade(DALFacadeTypes.PRODUCTION));
         securityManager = new examProjectTheDisciplesOfSkrumm.BLL.Security.SecurityManager();
-        userManager = new UserManager(DALFacadeFactory.CreateDALFacade(DALFacadeFactory.DALFacadeTypes.PRODUCTION));
-        clientmanager = new ClientManager(DALFacadeFactory.CreateDALFacade(DALFacadeFactory.DALFacadeTypes.PRODUCTION));
+        userManager = new UserManager(DALFacadeFactory.CreateDALFacade(DALFacadeTypes.PRODUCTION));
+        clientmanager = new ClientManager(DALFacadeFactory.CreateDALFacade(DALFacadeTypes.PRODUCTION));
+        viewfactory = new ViewFactory();
     }
     
 
@@ -302,5 +310,13 @@ public class BLLFacade implements BLLFacadeInterface
     public XYChart.Series handleProjectBarChartDataForAdmin(int projectID, LocalDate fromdate, LocalDate todate) throws SQLException {
         return taskmanager.handleProjectBarChartDataForAdmin(projectID, fromdate, todate);
     }
+
+    @Override
+    public FXMLLoader getLoader(ViewTypes viewtype) throws Exception, IOException 
+    {
+        return viewfactory.getLoader(viewtype);
+    }
+
+   
 
 }
