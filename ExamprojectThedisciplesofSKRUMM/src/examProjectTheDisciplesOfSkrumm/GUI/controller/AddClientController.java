@@ -23,6 +23,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javax.swing.JOptionPane;
 
 /**
  * FXML Controller class
@@ -58,12 +59,17 @@ public class AddClientController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        try {
+       
+        try
+        {
             modelfacade = ModelFacade.getInstance();
-        } catch (Exception ex) {
-            Logger.getLogger(CreateTaskController.class.getName()).log(Level.SEVERE, null, ex);
+            isPaidNum = 1;
         }
-        isPaidNum = 1;
+        catch (Exception ex)
+        {
+            Logger.getLogger(AddClientController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Couldn't get the instance of modelfacade" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     @FXML
@@ -84,13 +90,11 @@ public class AddClientController implements Initializable
                
                 Stage addClientView = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 addClientView.close();
-            }catch (NumberFormatException ex)
+            }
+            catch (NumberFormatException ex)
             {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Oops");
-                alert.setHeaderText("Incorrect input");
-                alert.setContentText("You wrote a letter in client rate, it needs a number.");
-                alert.showAndWait();
+                Logger.getLogger(AddClientController.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "You wrote a letter in the rate textfield it needs to be a number" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
             }
             
         }
@@ -108,23 +112,17 @@ public class AddClientController implements Initializable
                
                 Stage addClientView = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 addClientView.close();
-            }catch (NumberFormatException ex)
+            }
+            catch (NumberFormatException ex)
             {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Oops");
-                alert.setHeaderText("Incorrect input");
-                alert.setContentText("You wrote a letter in client rate, it needs a number.");
-                alert.showAndWait();
+                Logger.getLogger(AddClientController.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "You wrote a letter in the rate textfield it needs to be a number" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
             }
             
         }
         else
         {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Oops");
-            alert.setHeaderText("Incorrect input");
-            alert.setContentText("You didnt write a correct client name or rate");
-            alert.showAndWait();
+            JOptionPane.showMessageDialog(null, "Missing input, you need to write something","ERROR!", JOptionPane.ERROR_MESSAGE);
         }
         
     }
@@ -141,7 +139,7 @@ public class AddClientController implements Initializable
     @FXML
     private void handleIsPaid(MouseEvent event) 
     {
-         Image Paid = new Image("/examProjectTheDisciplesOfSkrumm/GUI/Icons/Paid.png");
+        Image Paid = new Image("/examProjectTheDisciplesOfSkrumm/GUI/Icons/Paid.png");
         Image NotPaid = new Image("/examProjectTheDisciplesOfSkrumm/GUI/Icons/NotPaid.png");
         
         if(isPaidNum == 0)
@@ -158,9 +156,4 @@ public class AddClientController implements Initializable
             IspaidImageView.setImage(NotPaid);
         }
     }
-
-    
-    
-    
-
 }

@@ -10,6 +10,7 @@ import examProjectTheDisciplesOfSkrumm.BE.Task;
 import examProjectTheDisciplesOfSkrumm.BE.User;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.ModelFacadeInterface;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.ModelFacade;
+import examProjectTheDisciplesOfSkrumm.enums.ViewTypes;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -73,6 +74,7 @@ public class AdminTasksViewController implements Initializable
         } catch (Exception ex)
         {
             Logger.getLogger(AdminTasksViewController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Couln't get the instance of modelfacade" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
         }
         
         //set the table
@@ -121,31 +123,44 @@ public class AdminTasksViewController implements Initializable
         } catch (SQLException ex)
         {
             Logger.getLogger(AdminTasksViewController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Couln't get the tasks from the database" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
         }
         
     }    
 
     @FXML
-    private void handleBack(ActionEvent event) throws IOException
+    private void handleBack(ActionEvent event)
     {
-        Stage adminTasksView = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-        FXMLLoader loader = new FXMLLoader(getClass().
-                getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/AdminMainView.fxml"));
-        Parent root = loader.load();
-        AdminMainViewController controller = loader.getController();
-
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.setMinHeight(523);
-        stage.setMinWidth(721);
-        stage.setTitle("Main Menu");
-        stage.show();
-        adminTasksView.close();
+        try
+        {
+            Stage adminTasksView = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            
+            FXMLLoader loader = modelfacade.getLoader(ViewTypes.ADMINMAIN);
+            Parent root = loader.load();
+            AdminMainViewController controller = loader.getController();
+            
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setMinHeight(523);
+            stage.setMinWidth(721);
+            stage.setTitle("Main Menu");
+            stage.show();
+            adminTasksView.close();
+        } 
+        catch (IOException ex)
+        {
+            Logger.getLogger(AdminTasksViewController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Couln't load in the admin main view" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
+        } 
+        catch (Exception ex)
+        {
+            Logger.getLogger(AdminTasksViewController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Couln't load in the admin main view" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     @FXML
-    private void handleDeleteTask(ActionEvent event) throws SQLException
+    private void handleDeleteTask(ActionEvent event)
     {
         final JDialog dialog = new JDialog();
         dialog.setAlwaysOnTop(true);
@@ -160,8 +175,15 @@ public class AdminTasksViewController implements Initializable
                         JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
         if(input == JOptionPane.YES_OPTION)
         {
-            modelfacade.deleteTask(task);
-            refreshTableView();
+            try {
+                modelfacade.deleteTask(task);
+                refreshTableView();
+            } 
+            catch (SQLException ex) 
+            {
+                Logger.getLogger(AdminTasksViewController.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "Couln't delete the task from the database" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
     
@@ -170,9 +192,11 @@ public class AdminTasksViewController implements Initializable
       try
         {
             taskTableView.setItems(modelfacade.getAllTasks());
-        } catch (SQLException ex)
+        } 
+        catch (SQLException ex)
         {
             Logger.getLogger(AdminTasksViewController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Couln't get all the tasks from the database" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
         }   
     }
     

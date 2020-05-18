@@ -11,6 +11,7 @@ import examProjectTheDisciplesOfSkrumm.BE.User;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.ModelFacadeInterface;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.ModelFacade;
 import examProjectTheDisciplesOfSkrumm.enums.UserMode;
+import examProjectTheDisciplesOfSkrumm.enums.ViewTypes;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -71,14 +72,18 @@ public class AdminUserViewController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
+        
         try
         {
             //Getting the model
             modelfacade = ModelFacade.getInstance();
-        } catch (Exception ex)
+        } 
+        catch (Exception ex)
         {
-            Logger.getLogger(TaskViewController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AdminUserViewController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Could not get the instance of modelfacade" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
         }
+        
 
         firstNameColumn.setCellValueFactory(
                 new PropertyValueFactory<User, String>("firstName")
@@ -96,9 +101,11 @@ public class AdminUserViewController implements Initializable
         try
         {
             refreshTableview();
-        } catch (SQLException ex)
+        } 
+        catch (SQLException ex)
         {
             Logger.getLogger(AdminUserViewController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Could not refresh the tableview" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -107,7 +114,7 @@ public class AdminUserViewController implements Initializable
     {
         try
         {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/CreateUserView.fxml"));
+            FXMLLoader loader = modelfacade.getLoader(ViewTypes.CREATEUSER);
             Parent root;
             root = loader.load();
             CreateUserViewController controller = loader.getController();
@@ -118,21 +125,19 @@ public class AdminUserViewController implements Initializable
             stage.setMinWidth(346);
             stage.showAndWait();
             refreshTableview();
-        } catch (IOException ex)
+        }
+        catch (IOException ex)
         {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("Could not load \n" + ex);
-            alert.setContentText("Please try again");
-            alert.showAndWait();
+            JOptionPane.showMessageDialog(null, "Could not load the create user view" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
 
-        } catch (SQLException ex)
+        } 
+        catch (SQLException ex)
         {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("Could not load \n" + ex);
-            alert.setContentText("Please try again");
-            alert.showAndWait();
+            JOptionPane.showMessageDialog(null, "Something went wrong in the database" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
+        } 
+        catch (Exception ex)
+        {
+            JOptionPane.showMessageDialog(null, "Wrong view type used " + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
         }
     }
 

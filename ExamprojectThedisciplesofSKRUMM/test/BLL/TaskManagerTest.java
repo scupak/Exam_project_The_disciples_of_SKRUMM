@@ -8,7 +8,8 @@ package BLL;
 
 import examProjectTheDisciplesOfSkrumm.BLL.Interface.TaskManagerInterface;
 import examProjectTheDisciplesOfSkrumm.BLL.TaskManager;
-import examProjectTheDisciplesOfSkrumm.DAL.DALFacadeFactory;
+import examProjectTheDisciplesOfSkrumm.BLL.Util.DALFacadeFactory;
+import examProjectTheDisciplesOfSkrumm.enums.DALFacadeTypes;
 import java.time.LocalDate;
 import javafx.collections.ObservableList;
 import javafx.scene.chart.XYChart;
@@ -51,7 +52,7 @@ public class TaskManagerTest {
         //Arrange
         System.out.println("convertSecToTimeString");
         int totalSec = 3600;
-        TaskManagerInterface instance = new TaskManager(DALFacadeFactory.CreateDALFacade(DALFacadeFactory.DALFacadeTypes.MOCK));
+        TaskManagerInterface instance = new TaskManager(DALFacadeFactory.CreateDALFacade(DALFacadeTypes.MOCK));
         String expResult = "01:00:00";
         //Act
         String result = instance.convertSecToTimeString(totalSec);
@@ -71,7 +72,7 @@ public class TaskManagerTest {
         LocalDate fromdate = LocalDate.now();
         LocalDate todate = LocalDate.now();
         
-        TaskManagerInterface instance = new TaskManager(DALFacadeFactory.CreateDALFacade(DALFacadeFactory.DALFacadeTypes.MOCK));
+        TaskManagerInterface instance = new TaskManager(DALFacadeFactory.CreateDALFacade(DALFacadeTypes.MOCK));
         XYChart.Series dataIN = new XYChart.Series();
         dataIN.setName("Hours spent on projects");
         dataIN.getData().add(new XYChart.Data("TestProject", (3600/ 3600.0)));
@@ -95,7 +96,7 @@ public class TaskManagerTest {
         LocalDate fromdate = LocalDate.now();
         LocalDate todate = LocalDate.now();
         
-        TaskManagerInterface instance = new TaskManager(DALFacadeFactory.CreateDALFacade(DALFacadeFactory.DALFacadeTypes.MOCK));
+        TaskManagerInterface instance = new TaskManager(DALFacadeFactory.CreateDALFacade(DALFacadeTypes.MOCK));
         XYChart.Series dataIN = new XYChart.Series();
         dataIN.setName("Hours this user spent on the project");
         dataIN.getData().add(new XYChart.Data("TestEmail1", (3600/ 3600.0)));

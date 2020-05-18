@@ -12,6 +12,8 @@ import examProjectTheDisciplesOfSkrumm.BE.Project;
 import examProjectTheDisciplesOfSkrumm.BE.Task;
 import examProjectTheDisciplesOfSkrumm.BE.User;
 import examProjectTheDisciplesOfSkrumm.BLL.Util.TimerUtil;
+import examProjectTheDisciplesOfSkrumm.enums.ViewTypes;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDateTime;
 import javafx.collections.ObservableList;
@@ -20,6 +22,9 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.chart.XYChart;
 
 /**
@@ -78,6 +83,8 @@ public interface TaskModelInterface
     public List<Task> getTasksForUserbetween2Dates(User user, LocalDate fromdate, LocalDate todate) throws SQLException;
     
     public int getDurationFromIntervalsbetween2Dates(String userID, int projectID, LocalDate fromdate, LocalDate todate) throws SQLServerException, SQLException;
+    
+    public FXMLLoader getLoader(ViewTypes viewtype) throws Exception, IOException; 
     
     
     

@@ -11,6 +11,7 @@ import examProjectTheDisciplesOfSkrumm.BE.Client;
 import examProjectTheDisciplesOfSkrumm.BE.Project;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.ModelFacadeInterface;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.ModelFacade;
+import examProjectTheDisciplesOfSkrumm.enums.ViewTypes;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -26,6 +27,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.stage.Stage;
+import javax.swing.JOptionPane;
 
 /**
  * FXML Controller class
@@ -65,7 +67,8 @@ public class AddProjectViewController implements Initializable
             modelfacade = ModelFacade.getInstance();
         } catch (Exception ex)
         {
-            Logger.getLogger(CreateTaskController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AddProjectViewController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Couln't get the instance of modelfacade" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
         }
         clientComboBox.getItems().addAll(modelfacade.getClients());
     }
@@ -152,18 +155,27 @@ public class AddProjectViewController implements Initializable
     }
 
     @FXML
-    private void handleAddClient(ActionEvent event) throws IOException
+    private void handleAddClient(ActionEvent event)
     {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/AddClient.fxml"));
-        Parent root = loader.load();
-        AddClientController controller = loader.getController();
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.setMinHeight(200);
-        stage.setMinWidth(300);
-        stage.setTitle("TimeTracker");
-        stage.showAndWait();
-        refreshClientComboBox();
+        
+        try {
+            FXMLLoader loader = modelfacade.getLoader(ViewTypes.ADDCLIENT);
+            Parent root = loader.load();
+            AddClientController controller = loader.getController();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setMinHeight(200);
+            stage.setMinWidth(300);
+            stage.setTitle("TimeTracker");
+            stage.showAndWait();
+            refreshClientComboBox();
+        } catch (IOException ex) {
+            Logger.getLogger(AddProjectViewController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Couldn't load the addClient view" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception ex) {
+            Logger.getLogger(AddProjectViewController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Couldn't load the addClient view" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
+        }
         
     }
 

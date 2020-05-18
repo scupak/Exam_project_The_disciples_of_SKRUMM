@@ -18,6 +18,7 @@ import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.ProjectModelInterface
 import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.TaskModelInterface;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.UserModelInterface;
 import examProjectTheDisciplesOfSkrumm.enums.UserMode;
+import examProjectTheDisciplesOfSkrumm.enums.ViewTypes;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
@@ -27,6 +28,9 @@ import java.time.LocalTime;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.TreeItem;
 
@@ -396,6 +400,11 @@ public class ModelFacade implements ModelFacadeInterface
     }
 
     @Override
+    public FXMLLoader getLoader(ViewTypes viewtype) throws Exception, IOException {
+        return taskmodel.getLoader(viewtype);
+    }
+
+    
     public ObservableList<String> getAllLogs() throws SQLServerException, SQLException {
         
         

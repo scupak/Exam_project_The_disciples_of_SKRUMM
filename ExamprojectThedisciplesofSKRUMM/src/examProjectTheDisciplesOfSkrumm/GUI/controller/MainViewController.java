@@ -452,7 +452,7 @@ public class MainViewController implements Initializable
 
             if (label.getText().equals("Client"))
             {
-                label.setText(task.getClientName());
+                label.setText(task.getProjectName() + "  |  " + task.getClientName());
                 label.setMaxWidth(Double.MAX_VALUE);
                 pane.setLeftAnchor(label, 0.0);
                 pane.setRightAnchor(label, 0.0);

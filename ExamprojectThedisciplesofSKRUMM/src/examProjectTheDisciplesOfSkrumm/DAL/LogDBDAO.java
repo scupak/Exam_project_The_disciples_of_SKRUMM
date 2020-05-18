@@ -13,6 +13,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +29,12 @@ public class LogDBDAO implements LogDBDAOInterface{
     {
         this.conPool = ConnectionPool.getInstance();
     }
-    
+    /**
+     * 
+     * @return list of the top 100 logs.
+     * @throws SQLServerException
+     * @throws SQLException 
+     */
     @Override
      public List<String> getAllLogs() throws SQLServerException, SQLException
     {
@@ -36,12 +43,14 @@ public class LogDBDAO implements LogDBDAOInterface{
 
         try
         {
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM [Log]");
+            PreparedStatement ps = con.prepareStatement("SELECT TOP (100) * FROM [Log]");
             ResultSet rs = ps.executeQuery();
 
             while (rs.next())
             {
-                logs.add(rs.getTimestamp("timesStamp").toLocalDateTime().toString().trim() +"-"+ rs.getString("userName").trim() +"-"+ rs.getString("action").trim() +"-"+ rs.getString("projectName").trim() +"-"+ rs.getString("taskName").trim()+"-"+ rs.getInt("id"));
+                
+                    //logs.add(rs.getTimestamp("timesStamp").toLocalDateTime().toString().trim() +"-"+ rs.getString("userName").trim() +"-"+ rs.getString("action").trim() +"-"+ rs.getString("projectName").trim() +"-"+ rs.getString("taskName").trim()+"-"+ rs.getInt("id"));
+                      logs.add(rs.getTimestamp("timesStamp").toLocalDateTime().toString().trim() +"-"+ rs.getString("description").trim());
             }
             
             return logs;
@@ -52,6 +61,44 @@ public class LogDBDAO implements LogDBDAOInterface{
         }
     }
      
+   
+    @Override
+    public String createLog(String description) throws SQLException
+    {
+        String returnlog;
+       
+        
+        Connection con = conPool.checkOut();
+
+        try
+        {
+            PreparedStatement ps = con.prepareStatement("INSERT INTO dbo.Log"
+                    + "(timesStamp, description) "
+                    + "VALUES (?,?)", Statement.RETURN_GENERATED_KEYS);
+            
+            ps.setTimestamp(1, java.sql.Timestamp.valueOf(LocalDateTime.now()));
+            ps.setString(2, description);
+         
+
+            
+            ps.executeUpdate();
+            
+            ResultSet rs = ps.getGeneratedKeys();
+
+            if (rs.next()) {
+                returnlog = rs.getLong(1) +"";
+            } else {
+                return null;
+            }
+             returnlog = returnlog +"-"+ description;
+             
+            return returnlog;
+        }
+        finally
+        {
+            conPool.checkIn(con);
+        }
+    }
      
      
      
@@ -59,11 +106,7 @@ public class LogDBDAO implements LogDBDAOInterface{
         
          LogDBDAO ld = new LogDBDAO();
          
-         for (String allLog : ld.getAllLogs()) {
-             
-             System.out.println(allLog);
-             
-         }
+         ld.createLog("create task");
     }
     
 }

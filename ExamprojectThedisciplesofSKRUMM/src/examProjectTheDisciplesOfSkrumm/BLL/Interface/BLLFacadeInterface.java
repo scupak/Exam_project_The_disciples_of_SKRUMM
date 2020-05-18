@@ -14,7 +14,7 @@ import java.sql.SQLException;
  * @author kacpe
  */
 
-public interface BLLFacadeInterface extends TreeTableUtilInterface, TaskManagerInterface, SecurityManagerInterface, UserManagerInterface, ProjectManagerInterface, ClientManagerInterface
+public interface BLLFacadeInterface extends TreeTableUtilInterface, TaskManagerInterface, SecurityManagerInterface, UserManagerInterface, ProjectManagerInterface, ClientManagerInterface, ViewFactoryInterface
 {
     
 }

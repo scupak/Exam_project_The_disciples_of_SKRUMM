@@ -27,10 +27,12 @@ import java.sql.SQLException;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import examProjectTheDisciplesOfSkrumm.BE.User;
 import examProjectTheDisciplesOfSkrumm.BLL.Util.TimerUtil;
+import examProjectTheDisciplesOfSkrumm.enums.ViewTypes;
 import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
+import javafx.scene.Node;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
 
@@ -226,6 +228,13 @@ public class TaskModel implements TaskModelInterface
     public int getDurationFromIntervalsbetween2Dates(String userID, int projectID, LocalDate fromdate, LocalDate todate) throws SQLServerException, SQLException {
         return bllfacade.getDurationFromIntervalsbetween2Dates(userID, projectID, fromdate, todate);
     }
+
+    @Override
+    public FXMLLoader getLoader(ViewTypes viewtype) throws Exception, IOException {
+       return bllfacade.getLoader(viewtype);
+    }
+
+    
 
     
 
