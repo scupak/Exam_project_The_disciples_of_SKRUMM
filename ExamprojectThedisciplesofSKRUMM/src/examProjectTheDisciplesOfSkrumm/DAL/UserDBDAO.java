@@ -279,6 +279,14 @@ public class UserDBDAO implements UserDBDAOInterface
 
     }
 
+    /**
+     * This method updates the user.
+     * @param oldUser
+     * @param newUser
+     * @return boolean
+     * @throws SQLServerException
+     * @throws SQLException 
+     */
     @Override
     public boolean updateUser(User oldUser, User newUser) throws SQLServerException, SQLException {
         if (!userExist(oldUser))
@@ -322,6 +330,12 @@ public class UserDBDAO implements UserDBDAOInterface
         }
     }
 
+    /**
+     * This method deletes a given user from the database
+     * @param user
+     * @return
+     * @throws SQLException 
+     */
     @Override
     public boolean deleteUser(User user) throws SQLException {
         
@@ -343,6 +357,14 @@ public class UserDBDAO implements UserDBDAOInterface
         }
         
     }
+    
+    /**
+     * This method gets all the users for a project
+     * @param user
+     * @return a list of projects
+     * @throws SQLServerException
+     * @throws SQLException 
+     */
      @Override
     public List<Project> getAllUserProjects(User user) throws SQLServerException, SQLException {
         
@@ -382,6 +404,14 @@ public class UserDBDAO implements UserDBDAOInterface
         return projects;
     }
 
+    /**
+     * This method adds a user for a project
+     * @param user
+     * @param project
+     * @return boolean
+     * @throws SQLServerException
+     * @throws SQLException 
+     */
     @Override
     public boolean addUserToProject(User user, Project project) throws SQLServerException, SQLException {
         Connection con = conPool.checkOut();
@@ -412,6 +442,14 @@ public class UserDBDAO implements UserDBDAOInterface
         }
     }
 
+    /**
+     * This method deletes a project for a user. 
+     * @param user
+     * @param project
+     * @return boolean
+     * @throws SQLServerException
+     * @throws SQLException 
+     */
     @Override
     public boolean deleteProjectFromUser(User user, Project project) throws SQLServerException, SQLException {
         
