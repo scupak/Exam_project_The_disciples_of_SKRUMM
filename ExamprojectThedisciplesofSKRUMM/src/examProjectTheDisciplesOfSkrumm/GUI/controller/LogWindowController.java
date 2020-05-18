@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package examProjectTheDisciplesOfSkrumm.GUI.controller;
 
 import com.jfoenix.controls.JFXButton;
@@ -23,7 +19,7 @@ import javafx.scene.control.ListView;
 /**
  * FXML Controller class
  *
- * @author Zanaxdk <https://github.com/zanaxdk>
+ * @author Zanaxdk SKRUMM
  */
 public class LogWindowController implements Initializable
 {
@@ -60,17 +56,28 @@ public class LogWindowController implements Initializable
        
     }    
 
+    /**
+     * Refreshes the log when the button is pressed 
+     * @param event 
+     */
     @FXML
     private void HandleLogRefresh(ActionEvent event)
     {
         refreshAdminLog();
     }
 
+    /**
+     * Would export the log as a txt file if that feautre wasn't scrapped
+     * @param event 
+     */
     @FXML
     private void HandleLogExportTXT(ActionEvent event)
     {
     }
 
+    /**
+     * Refreshes the log 
+     */
     private void refreshAdminLog() {
            AdminLog.getItems().clear();
         try {

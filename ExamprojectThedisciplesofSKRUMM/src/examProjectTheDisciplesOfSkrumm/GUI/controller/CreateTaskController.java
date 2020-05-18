@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package examProjectTheDisciplesOfSkrumm.GUI.controller;
 
 import com.jfoenix.controls.JFXButton;
@@ -46,7 +42,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author anton
+ * @author SKRUMM
  */
 public class CreateTaskController implements Initializable 
 {
@@ -65,7 +61,11 @@ public class CreateTaskController implements Initializable
    
     
     
-    
+    /**
+     * Initialises the controller class
+     * @param url
+     * @param rb 
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) 
     {
@@ -87,6 +87,11 @@ public class CreateTaskController implements Initializable
       
     }    
 
+    /**
+     * Creates a new task instance and gives it to the createTask method.
+     * @param event
+     * @throws IOException 
+     */
     @FXML
     private void createTask(ActionEvent event) throws IOException
     {
@@ -124,6 +129,10 @@ public class CreateTaskController implements Initializable
        
     }
 
+    /**
+     * Closes the window
+     * @param event 
+     */
     @FXML
     private void cancel(ActionEvent event)
     {
@@ -131,6 +140,11 @@ public class CreateTaskController implements Initializable
         createTaskView.close();
     }
 
+    /**
+     * Sends the user to the add project view.
+     * @param event
+     * @throws IOException 
+     */
     private void handleCreateNewProject(ActionEvent event) throws IOException 
     {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/AddProjectView.fxml"));

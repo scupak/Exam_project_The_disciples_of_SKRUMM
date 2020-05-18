@@ -30,7 +30,7 @@ import javax.swing.JOptionPane;
 /**
  * FXML Controller class
  *
- * @author lumby
+ * @author SKRUMM
  */
 public class AdminMainViewController implements Initializable
 {
@@ -72,6 +72,10 @@ public class AdminMainViewController implements Initializable
         
     }    
 
+    /**
+     * Handles the button that takes the user to the admin clients and projects view.
+     * @param event 
+     */
     @FXML
     private void handleClientsAndProjects(ActionEvent event)
     {
@@ -105,6 +109,10 @@ public class AdminMainViewController implements Initializable
         
     }
 
+    /**
+     * Handles the button that takes the user to the admin tasks view.
+     * @param event 
+     */
     @FXML
     private void handleTaks(ActionEvent event)
     {
@@ -136,6 +144,10 @@ public class AdminMainViewController implements Initializable
         }
     }
 
+    /**
+     * Handles the button that takes the users to the admin users view
+     * @param event 
+     */
     @FXML
     private void handleUsers(ActionEvent event)
     {
@@ -167,6 +179,10 @@ public class AdminMainViewController implements Initializable
         }
     }
 
+    /**
+     * Handles the button that takes the users back to the main view. 
+     * @param event 
+     */
     @FXML
     private void handleBackToMain(ActionEvent event)
     {
@@ -200,6 +216,10 @@ public class AdminMainViewController implements Initializable
         }
     }
 
+    /**
+     * Handles the button that takes the user to the log view
+     * @param event 
+     */
     @FXML
     private void handleLog(ActionEvent event)
     {

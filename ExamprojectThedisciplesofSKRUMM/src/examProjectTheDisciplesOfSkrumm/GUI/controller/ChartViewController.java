@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package examProjectTheDisciplesOfSkrumm.GUI.controller;
 
 import com.jfoenix.controls.JFXButton;
@@ -35,8 +31,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- *
- * @author lumby
+ *FXML controller class
+ * @author SKRUMM
  */
 public class ChartViewController implements Initializable
 {
@@ -62,6 +58,11 @@ public class ChartViewController implements Initializable
     private CategoryAxis xAxisInBarChart;
     
   
+    /**
+     * Initialises the modelfacade and sets the default stardate and enddate.
+     * @param url
+     * @param rb 
+     */
    @Override 
     public void initialize(URL url, ResourceBundle rb) {
         try {
@@ -76,6 +77,11 @@ public class ChartViewController implements Initializable
         handleBarChart();
     }   
     
+    /**
+     * Sends the user back to the mainview.
+     * @param event
+     * @throws IOException 
+     */
     @FXML
     private void handleBack(ActionEvent event) throws IOException
     {
@@ -92,6 +98,9 @@ public class ChartViewController implements Initializable
         chartView.close();
     }
     
+    /**
+     * Adds the data to the barchart.
+     */
     public void handleBarChart()
     {
         if(currentProject != null){
@@ -143,30 +152,54 @@ public class ChartViewController implements Initializable
         
     }
 
+    /**
+     * Tells the program to refresh the barchart whenever the datepickers are used.
+     * @param event 
+     */
     @FXML
     private void handleDatepickerAction(ActionEvent event) 
     {
         handleBarChart();
     }
 
+    /**
+     * Getter for the current project variable
+     * @return 
+     */
     public Project getCurrentProject() {
         return currentProject;
     }
 
+    /**
+     * Setter for the current project variable
+     * @return 
+     */
     public void setCurrentProject(Project currentProject) {
         this.currentProject = currentProject;
         handleBarChart();
         
     }
 
+    /**
+     * Getter for the back button
+     * @return 
+     */
     public JFXButton getBackBtn() {
         return backBtn;
     }
 
+    /**
+     * Getter for the namelabel
+     * @return 
+     */
     public Label getNameLabel() {
         return nameLabel;
     }
 
+    /**
+     * Getter for the barchart
+     * @return 
+     */
     public CategoryAxis getxAxisInBarChart() {
         return xAxisInBarChart;
     }

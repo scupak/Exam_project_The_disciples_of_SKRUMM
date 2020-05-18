@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package examProjectTheDisciplesOfSkrumm.GUI.controller;
 
 import com.jfoenix.controls.JFXButton;
@@ -29,7 +25,7 @@ import javax.swing.JOptionPane;
 /**
  * FXML Controller class
  *
- * @author Zanaxdk <https://github.com/zanaxdk>
+ * @author SKRUMM
  */
 public class EditTaskController implements Initializable
 {
@@ -69,6 +65,10 @@ public class EditTaskController implements Initializable
     }    
 
 
+    /**
+     * Closes the view 
+     * @param event 
+     */
     @FXML
     private void cancel(ActionEvent event)
     {
@@ -76,6 +76,10 @@ public class EditTaskController implements Initializable
         createTaskView.close();
     }
 
+    /**
+     * Creates a new instance of task and then gives it to the update task method. 
+     * @param event 
+     */
     @FXML
     private void editTask(ActionEvent event)
     {
@@ -110,11 +114,19 @@ public class EditTaskController implements Initializable
         }
     }
     
+    /**
+     * Gets the edit task variable 
+     * @return 
+     */
     public Task getEditTask()
     {
         return editTask;
     }
 
+    /**
+     * Sets the combobox, datepicker and field to the information of the task being edited
+     * @param editTask 
+     */
     public void setEditTask(Task editTask)
     {
         this.editTask = editTask;
