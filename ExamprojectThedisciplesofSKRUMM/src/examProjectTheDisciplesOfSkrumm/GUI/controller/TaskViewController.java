@@ -123,6 +123,8 @@ public class TaskViewController implements Initializable
     
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb)
@@ -325,7 +327,12 @@ public class TaskViewController implements Initializable
         
 
     }
-
+    
+/**
+ * 
+ * @param event
+ * @throws IOException 
+ */
     @FXML
     private void handleHome(ActionEvent event) throws IOException
     {
