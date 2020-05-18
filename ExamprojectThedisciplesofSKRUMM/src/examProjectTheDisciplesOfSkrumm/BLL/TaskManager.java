@@ -251,6 +251,7 @@ public class TaskManager implements TaskManagerInterface
      * @return List tasks
      * @throws SQLException
      */
+    @Override
     public List<Task> getTasksForUserbetween2Dates(User user, LocalDate fromdate, LocalDate todate) throws SQLException
     {
         return dal.getTasksForUserbetween2Dates(user, fromdate, todate);

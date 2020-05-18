@@ -52,7 +52,7 @@ import javax.swing.JOptionPane;
 /**
  * FXML Controller class
  *
- * @author kacpe
+ * @author Skrumm
  */
 public class TaskViewController implements Initializable
 {
@@ -321,11 +321,11 @@ public class TaskViewController implements Initializable
 
     }
     
-/**
- * opens the main view
- * @param event
- * @throws IOException 
- */
+    /**
+     * opens the main view
+     * @param event
+     * @throws IOException 
+     */
     @FXML
     private void handleHome(ActionEvent event) throws IOException
     {
@@ -359,7 +359,11 @@ public class TaskViewController implements Initializable
         taskView.close();
         }
     }
-
+    /**
+     * The eventhandler responsible for opening the create task window. 
+     * @param event
+     * @throws IOException 
+     */
     @FXML
     private void createTask(ActionEvent event) throws IOException
     {
@@ -387,7 +391,11 @@ public class TaskViewController implements Initializable
         }
         
     }
-
+/**
+ * The eventhandler responsible for opening the edittaskwindow
+ * @param event
+ * @throws IOException 
+ */
     @FXML
     private void handleEditTaskAction(ActionEvent event) throws IOException
     {
@@ -465,6 +473,11 @@ public class TaskViewController implements Initializable
 
     }
 
+    /**
+     * The eventhandler responsible for starting and stoping the timer. 
+     * @param event
+     * @throws SQLException 
+     */
     @FXML
     private void handleStartTimer(ActionEvent event) throws SQLException
     {   final JDialog dialog = new JDialog();
@@ -566,6 +579,7 @@ public class TaskViewController implements Initializable
 
     /**
      * Refreshes the tableview
+     * 
      */
     public void RefreshTreeView()
     {
@@ -589,7 +603,11 @@ public class TaskViewController implements Initializable
         
         executor.shutdown();
     }
-    
+    /**
+     * The eventhandler responsible for setting the datepickers to the current day. 
+     * @param event
+     * @throws SQLException 
+     */
     @FXML
     private void handlecurrentday(ActionEvent event) throws SQLException
     {
@@ -598,7 +616,10 @@ public class TaskViewController implements Initializable
         refreshEverything();
         
     }
-
+    
+    /**
+     * checks if the day the user is currently looking at is the current date. 
+     */
     private void checkForCurrentday()
     {
         LocalDate date1 = datePickerFrom.getValue();
@@ -614,7 +635,11 @@ public class TaskViewController implements Initializable
         }
     }
 
-    
+    /**
+     * The eventhandler responsible for deleting the tasks and intervals. 
+     * @param event
+     * @throws SQLException 
+     */
     @FXML
     private void handleDeleteTaskAction(ActionEvent event) throws SQLException
     {
@@ -660,7 +685,10 @@ public class TaskViewController implements Initializable
             }
         }
     }
-    
+    /**
+     * recalculates the total time for the totalTimeLabel. 
+     * @throws SQLException 
+     */
     private void refreshtotal() throws SQLException
     {
         durationtotal = 0;
@@ -680,7 +708,10 @@ public class TaskViewController implements Initializable
     }
     
     
-    
+    /**
+     * calls the RefreshTreeView(), refreshtotal(). checkForCurrentday() methods. 
+     * @throws SQLException 
+     */
     public void refreshEverything() throws SQLException
     {
         
@@ -701,33 +732,58 @@ public class TaskViewController implements Initializable
     }
 
 
+    /**
+     * calls the  refreshEverything() method if the FromDatePicker gets used.
+     * @param event
+     * @throws SQLException 
+     */
     @FXML
     private void handleDatepickerFromAction(ActionEvent event) throws SQLException 
     {
         refreshEverything();
     }
 
+    /**
+     * calls the  refreshEverything() method if the ToDatePicker gets used.
+     * @param event
+     * @throws SQLException 
+     */
     @FXML
     private void handleDatepickerToAction(ActionEvent event) throws SQLException 
     {
         refreshEverything();
     }
 
+    /**
+     * getter method for the createTaskButton
+     * @return createTaskButton
+     */
     public JFXButton getCreateTaskButton()
     {
         return createTaskButton;
     }
-
+    /**
+     * getter method for the timerButton
+     * @return timerButton
+     */
     public JFXButton getTimerButton()
     {
         return timerButton;
     }
 
+    /**
+     * getter method for the deleteTaskButton
+     * @return deleteTask
+     */
     public JFXButton getDeleteTask()
     {
         return deleteTask;
     }
 
+    /**
+     * getter method for the editTaskBtn
+     * @return editTaskBtn
+     */
     public JFXButton getEditTaskBtn()
     {
         return editTaskBtn;
