@@ -29,7 +29,7 @@ import javax.swing.JOptionPane;
  * This class controls the addProject view
  * FXML Controller class
  *
- * @author Christina
+ * @author SKRUMM
  */
 public class AddProjectViewController implements Initializable
 {

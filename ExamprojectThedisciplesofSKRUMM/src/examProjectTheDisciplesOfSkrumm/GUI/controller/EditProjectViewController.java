@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package examProjectTheDisciplesOfSkrumm.GUI.controller;
 
 import com.jfoenix.controls.JFXButton;
@@ -31,7 +27,7 @@ import javafx.stage.Stage;
 /**
  * FXML Controller class
  *
- * @author lumby
+ * @author SKRUMM
  */
 public class EditProjectViewController implements Initializable
 {
@@ -69,6 +65,11 @@ public class EditProjectViewController implements Initializable
         clientComboBox.getItems().addAll(modelfacade.getClients());
     }    
 
+    /**
+     * Creates a new project instance and then gives it to the update project method. 
+     * @param event
+     * @throws SQLException 
+     */
     @FXML
     private void HandleEditProjectOkBtn(ActionEvent event) throws SQLException
     {
@@ -149,6 +150,10 @@ public class EditProjectViewController implements Initializable
         }   
     }
 
+    /**
+     * Closes the window 
+     * @param event 
+     */
     @FXML
     private void HandleAddProjectCancelBtn(ActionEvent event)
     {
@@ -156,6 +161,11 @@ public class EditProjectViewController implements Initializable
         addClientView.close();
     }
 
+    /**
+     * Opens the add client view
+     * @param event
+     * @throws IOException 
+     */
     @FXML
     private void handleAddClient(ActionEvent event) throws IOException
     {
@@ -171,6 +181,10 @@ public class EditProjectViewController implements Initializable
         refreshClientComboBox();
     }
 
+    /**
+     * Disables and enables the Project rate field based on the selected clients isPaid status
+     * @param event 
+     */
     @FXML
     private void handleCombobox(ActionEvent event)
     {
@@ -185,17 +199,28 @@ public class EditProjectViewController implements Initializable
 
     
 
+    /**
+     * Refreshes the client combobox
+     */
     public void refreshClientComboBox()
     {
         clientComboBox.getItems().clear();
         clientComboBox.getItems().addAll(modelfacade.getClients());
     }
 
+    /**
+     * Gets the project variable
+     * @return 
+     */
     public Project getProject()
     {
         return project;
     }
 
+    /**
+     * sets the fields and combobox to the information of the project being edited.
+     * @param project 
+     */
     public void setProject(Project project)
     {
         this.project = project;

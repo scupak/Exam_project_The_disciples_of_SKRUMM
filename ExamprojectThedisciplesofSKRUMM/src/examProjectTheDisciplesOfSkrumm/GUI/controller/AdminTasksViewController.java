@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package examProjectTheDisciplesOfSkrumm.GUI.controller;
 
 import com.jfoenix.controls.JFXButton;
@@ -36,7 +32,7 @@ import javax.swing.JOptionPane;
 /**
  * FXML Controller class
  *
- * @author lumby
+ * @author SKRUMM
  */
 public class AdminTasksViewController implements Initializable
 {
@@ -128,6 +124,10 @@ public class AdminTasksViewController implements Initializable
         
     }    
 
+    /**
+     * Handles the button that takes the user back to the admin main view
+     * @param event 
+     */
     @FXML
     private void handleBack(ActionEvent event)
     {
@@ -159,6 +159,10 @@ public class AdminTasksViewController implements Initializable
         }
     }
 
+    /**
+     * Handles the button that deletes a task.
+     * @param event 
+     */
     @FXML
     private void handleDeleteTask(ActionEvent event)
     {
@@ -186,7 +190,9 @@ public class AdminTasksViewController implements Initializable
             }
         }
     }
-    
+    /**
+     * Refreshes the tableview
+     */
     public void refreshTableView()
     {
       try

@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package examProjectTheDisciplesOfSkrumm.GUI.controller;
 
 import com.jfoenix.controls.JFXButton;
@@ -46,7 +42,7 @@ import javax.swing.JOptionPane;
 /**
  * FXML Controller class
  *
- * @author lumby
+ * @author SKRUMM
  */
 public class AdminClientsAndProjectsController implements Initializable
 {
@@ -204,6 +200,10 @@ public class AdminClientsAndProjectsController implements Initializable
         
     }
 
+    /**
+     * The eventhandler that activates the CreateClient window. 
+     * @param event 
+     */
     @FXML
     private void handleCreateClient(ActionEvent event)
     {
@@ -231,6 +231,10 @@ public class AdminClientsAndProjectsController implements Initializable
         }
     }
 
+    /**
+     *  The eventhandler that activates the EditClient window. 
+     * @param event 
+     */
     @FXML
     private void handleEditClient(ActionEvent event)
     {
@@ -260,6 +264,10 @@ public class AdminClientsAndProjectsController implements Initializable
 
     }
 
+    /**
+     *  The eventhandler that deletes the client
+     * @param event 
+     */
     @FXML
     private void handleDeleteClient(ActionEvent event)
     {
@@ -289,7 +297,11 @@ public class AdminClientsAndProjectsController implements Initializable
         }
         
     }
-
+    
+    /**
+     *  The eventhandler that activates the CreateProject window. 
+     * @param event 
+     */
     @FXML
     private void handleCreateProject(ActionEvent event)
     {
@@ -316,6 +328,10 @@ public class AdminClientsAndProjectsController implements Initializable
         }
     }
 
+    /**
+     *  The eventhandler that activates the EditProject window.
+     * @param event 
+     */
     @FXML
     private void handleEditProject(ActionEvent event)
     {
@@ -344,6 +360,10 @@ public class AdminClientsAndProjectsController implements Initializable
         }
     }
 
+    /**
+     * This handler deletes a selected project
+     * @param event 
+     */
     @FXML
     private void handleDeleteProject(ActionEvent event)
     {
@@ -373,6 +393,10 @@ public class AdminClientsAndProjectsController implements Initializable
         }
     }
 
+    /**
+     * This method handles the back button and sends the user back to the main view
+     * @param event 
+     */
     @FXML
     private void handleBack(ActionEvent event)
     {
@@ -404,6 +428,9 @@ public class AdminClientsAndProjectsController implements Initializable
         }
     }
 
+    /**
+     * This method refreshes the tableview. 
+     */
     public void RefreshTableView()
     {
         
@@ -428,6 +455,10 @@ public class AdminClientsAndProjectsController implements Initializable
         executor.shutdown();
     }
 
+    /**
+     * Displays the selected clients projects.
+     * @param event 
+     */
     @FXML
     private void handleSelectedClient(MouseEvent event)
     {
@@ -459,6 +490,10 @@ public class AdminClientsAndProjectsController implements Initializable
         }
     }
 
+    /**
+     * This method displays the chart for a project when a user double clicks on it. 
+     * @param event 
+     */
     @FXML
     private void handleProjectChartPerUser(MouseEvent event) 
     {

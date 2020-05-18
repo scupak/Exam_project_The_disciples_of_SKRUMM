@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package examProjectTheDisciplesOfSkrumm.GUI.controller;
 
 import com.jfoenix.controls.JFXButton;
@@ -38,7 +34,7 @@ import javax.swing.JOptionPane;
 /**
  * FXML Controller class
  *
- * @author lumby
+ * @author SKRUMM
  */
 public class AdminUserViewController implements Initializable
 {
@@ -109,6 +105,10 @@ public class AdminUserViewController implements Initializable
         }
     }
 
+    /**
+     * Handles the button that creates a new user.
+     * @param event 
+     */
     @FXML
     private void handleCreateUser(ActionEvent event)
     {
@@ -141,6 +141,11 @@ public class AdminUserViewController implements Initializable
         }
     }
 
+    /**
+     * Handles the button that that detect which user the user has selected and sends them to the edit user view.
+     * @param event
+     * @throws IOException 
+     */
     @FXML
     private void handleEditUser(ActionEvent event) throws IOException
     {
@@ -180,6 +185,10 @@ public class AdminUserViewController implements Initializable
         }
     }
 
+    /**
+     * Handles the button for deleteing users and calls the delete user method in modelfacade. 
+     * @param event 
+     */
     @FXML
     private void handleDeleteUser(ActionEvent event)
     {
@@ -213,6 +222,12 @@ public class AdminUserViewController implements Initializable
         }
     }
 
+    
+    /**
+     * Makes the selected user and admin or if it already is an admin revokes that privilige from it.
+     * @param event
+     * @throws SQLException 
+     */
     @FXML
     private void handleMakeAdmin(ActionEvent event) throws SQLException
     {
@@ -242,6 +257,11 @@ public class AdminUserViewController implements Initializable
         }
     }
 
+    /**
+     * Handles the button that sends the user back to the admin main view.
+     * @param event
+     * @throws IOException 
+     */
     @FXML
     private void handleBack(ActionEvent event) throws IOException
     {
@@ -261,11 +281,20 @@ public class AdminUserViewController implements Initializable
         adminClientsAndProjectsView.close();
     }
 
+    /**
+     * Refreshes the tableview
+     * @throws SQLException 
+     */
     public void refreshTableview() throws SQLException
     {
         UserTableView.setItems(modelfacade.getAllUsers());
     }
 
+    /**
+     * Sends the admin into the selected users task view. 
+     * @param event
+     * @throws IOException 
+     */
     @FXML
     private void handleOpenUserView(MouseEvent event) throws IOException
     {

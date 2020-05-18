@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package examProjectTheDisciplesOfSkrumm.GUI.controller;
 
 import com.jfoenix.controls.JFXButton;
@@ -39,7 +35,7 @@ import javax.swing.JOptionPane;
 /**
  * FXML Controller class
  *
- * @author Christina
+ * @author SKRUMM
  */
 public class EditIntervalViewController implements Initializable
 {
@@ -92,6 +88,10 @@ public class EditIntervalViewController implements Initializable
         notPaid.setUnSelectedColor(Color.rgb(67, 90, 154));
     }
 
+    /**
+     * Sets the information of the interval currently being edited
+     * @param interval 
+     */
     public void fillView(Interval interval)
     {
         final ToggleGroup group = new ToggleGroup();
@@ -116,6 +116,12 @@ public class EditIntervalViewController implements Initializable
         currentTask = interval.getTask();
     }
 
+    /**
+     * Creates a new instance of interval and sends it down to the updateinterval method.
+     * @param event
+     * @throws SQLException
+     * @throws SQLServerException 
+     */
     @FXML
     private void handleSave(ActionEvent event) throws SQLException, SQLServerException
     {
@@ -173,6 +179,10 @@ public class EditIntervalViewController implements Initializable
 
     }
 
+    /**
+     * Closes the window
+     * @param event 
+     */
     @FXML
     private void handleCancel(ActionEvent event)
     {
@@ -180,6 +190,10 @@ public class EditIntervalViewController implements Initializable
         stage.close();
     }
 
+    /**
+     * Sends the the interval being edited to the delete interval method to be deleted from the database.
+     * @param event 
+     */
     @FXML
     private void handleDelete(ActionEvent event)
     {

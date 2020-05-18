@@ -25,7 +25,7 @@ import javax.swing.JOptionPane;
  * This is the class that controls the addClient view. 
  * FXML Controller class
  *
- * @author Zanaxdk <https://github.com/zanaxdk>
+ * @author SKRUMM
  */
 public class AddClientController implements Initializable
 {

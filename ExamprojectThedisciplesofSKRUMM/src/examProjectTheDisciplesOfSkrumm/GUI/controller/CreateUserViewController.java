@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package examProjectTheDisciplesOfSkrumm.GUI.controller;
 
 import com.jfoenix.controls.JFXButton;
@@ -30,7 +26,7 @@ import javafx.stage.Stage;
 /**
  * FXML Controller class
  *
- * @author Christina
+ * @author SKRUMM
  */
 public class CreateUserViewController implements Initializable
 {
@@ -66,6 +62,11 @@ public class CreateUserViewController implements Initializable
         }
     }    
 
+    /**
+     * Create a new user instance and the gives it to the create user method
+     * @param event
+     * @throws SQLException 
+     */
     @FXML
     private void handleCreateUser(ActionEvent event) throws SQLException
     {
@@ -103,6 +104,10 @@ public class CreateUserViewController implements Initializable
         
     }
 
+    /**
+     * Closes the window 
+     * @param event 
+     */
     @FXML
     private void handleCancel(ActionEvent event)
     {
@@ -111,6 +116,11 @@ public class CreateUserViewController implements Initializable
     }
     
      
+    /**
+     * Validates the given input by checking if the input is an acceptable email
+     * @param input
+     * @return 
+     */
      public boolean validateInput(String input) {
         Pattern pattern = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(input);
