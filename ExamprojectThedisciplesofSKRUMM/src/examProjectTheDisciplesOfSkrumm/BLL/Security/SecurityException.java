@@ -7,11 +7,15 @@ package examProjectTheDisciplesOfSkrumm.BLL.Security;
 
 /**
  *
- * @author lumby
+ * @author SKRUMM
  */
 public class SecurityException extends RuntimeException
 {
 
+    /**
+     * exception that occurs when there are errors present in the security of the program
+     * @param message 
+     */
     public SecurityException(String message)
     {
         super(message);

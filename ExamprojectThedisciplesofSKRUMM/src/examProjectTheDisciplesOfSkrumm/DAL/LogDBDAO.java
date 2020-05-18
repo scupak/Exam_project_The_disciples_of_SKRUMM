@@ -6,7 +6,6 @@
 package examProjectTheDisciplesOfSkrumm.DAL;
 
 import com.microsoft.sqlserver.jdbc.SQLServerException;
-import examProjectTheDisciplesOfSkrumm.BE.User;
 import examProjectTheDisciplesOfSkrumm.DAL.Interface.LogDBDAOInterface;
 import java.io.IOException;
 import java.sql.Connection;
@@ -20,7 +19,7 @@ import java.util.List;
 
 /**
  *
- * @author anton
+ * @author SKRUMM
  */
 public class LogDBDAO implements LogDBDAOInterface{
     private final ConnectionPool conPool;
@@ -62,6 +61,12 @@ public class LogDBDAO implements LogDBDAOInterface{
     }
      
    
+     /**
+      * creates a log entry
+      * @param description
+      * @return the new log entry
+      * @throws SQLException 
+      */
     @Override
     public String createLog(String description) throws SQLException
     {

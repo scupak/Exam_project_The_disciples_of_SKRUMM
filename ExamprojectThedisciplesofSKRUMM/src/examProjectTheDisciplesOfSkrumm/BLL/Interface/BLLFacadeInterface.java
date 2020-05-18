@@ -5,15 +5,14 @@
  */
 package examProjectTheDisciplesOfSkrumm.BLL.Interface;
 
-import examProjectTheDisciplesOfSkrumm.BE.Interval;
-import java.time.LocalDateTime;
-import java.sql.SQLException;
-
 /**
  *
- * @author kacpe
+ * @author SKRUMM
  */
-
+/**
+ * The interface for the BLL facade
+ * @author SKRUMM
+ */
 public interface BLLFacadeInterface extends TreeTableUtilInterface, TaskManagerInterface, SecurityManagerInterface, UserManagerInterface, ProjectManagerInterface, ClientManagerInterface, ViewFactoryInterface
 {
     

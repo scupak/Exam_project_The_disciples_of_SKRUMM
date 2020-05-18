@@ -11,7 +11,7 @@ import java.time.format.DateTimeFormatter;
 
 /**
  *
- * @author Christina
+ * @author SKRUMM
  */
 public class Interval
 {
@@ -167,7 +167,7 @@ public class Interval
     }
 
     /**
-     * Gets a formatede creation date as a String
+     * Gets a formatted creation date as a String
      *
      * @return String
      */
@@ -179,7 +179,7 @@ public class Interval
     }
 
     /**
-     * Gets the intervales time formated to hours and minutes
+     * Gets the intervals time formatted to hours and minutes
      *
      * @return String
      */
@@ -211,7 +211,7 @@ public class Interval
     }
 
     /**
-     * Formates the isPaid varible into a String
+     * Formats the isPaid variable into a String
      *
      * @return String
      */
@@ -231,11 +231,5 @@ public class Interval
     {
         return creationDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + "  |  " + startTime + " to " + stopTime + "  |  " + getFormatedIntervaltime() + "  |  " + paidOrNot();
     }
-    
-//    @Override
-//    public String toString() {
-//        return "Interval{" + "startTime=" + startTime + ", stopTime=" + stopTime + ", creationDate=" + creationDate + ", totalTime=" + totalTime + ", intervalTime=" + intervalTime + ", task=" + task + '}';
-//    }
-    
 
 }

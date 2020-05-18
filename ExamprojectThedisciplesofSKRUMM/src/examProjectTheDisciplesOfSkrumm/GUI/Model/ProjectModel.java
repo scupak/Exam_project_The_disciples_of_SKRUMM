@@ -23,7 +23,7 @@ import javafx.scene.chart.XYChart;
 
 /**
  *
- * @author kacpe
+ * @author SKRUMM
  */
 public class ProjectModel implements ProjectModelInterface
 {
@@ -37,6 +37,10 @@ public class ProjectModel implements ProjectModelInterface
         
     }
 
+    /**
+     * gets a list of all projects
+     * @return a list of all projects
+     */
     @Override
     public synchronized ObservableList<Project> getProjects() 
     {
@@ -48,13 +52,21 @@ public class ProjectModel implements ProjectModelInterface
         }
         return projects;
     }
-
+    
+    /**
+     * sets projects to the given list
+     * @param projects 
+     */
     @Override
     public void setProjects(ObservableList<Project> projects) 
     {
         this.projects = projects;
     }
-
+    
+    /**
+     * creates a project
+     * @param project 
+     */
     @Override
     public void CreateProject(Project project) 
     {
@@ -65,22 +77,47 @@ public class ProjectModel implements ProjectModelInterface
         }
        getProjects();
     }
-
+    
+    /**
+     * deletes a project
+     * @param project
+     * @return true if successful, false otherwise
+     * @throws SQLException 
+     */
     @Override
     public boolean deleteProject(Project project) throws SQLException {
        return bllfacade.deleteProject(project);
     }
-
+    
+    /**
+     * updates a project
+     * @param project
+     * @return true if successful, false otherwise
+     * @throws SQLServerException
+     * @throws SQLException 
+     */
     @Override
     public boolean updateProject(Project project) throws SQLServerException, SQLException {
         return bllfacade.updateProject(project);
     }
     
+    /**
+     * gets a list of all projects
+     * @return a list of all projects
+     * @throws SQLServerException
+     * @throws SQLException 
+     */
     public List<Project> getAllProjects() throws SQLServerException, SQLException
     {
         return bllfacade.getAllProjects();
     }
     
+    /**
+     * gets all projects for the given client
+     * @param client
+     * @return a list of projects for the given client
+     * @throws SQLException 
+     */
     public synchronized ObservableList<Project> getProjectsForClient(Client client) throws SQLException
     {
         ObservableList<Project> clientProjects =  FXCollections.observableArrayList();
@@ -88,16 +125,29 @@ public class ProjectModel implements ProjectModelInterface
         return clientProjects;
     }
 
+    /**
+     * handles bar chart data
+     * @param userID
+     * @param fromdate
+     * @param todate
+     * @return bar chart data
+     * @throws SQLException 
+     */
     @Override
     public XYChart.Series handleProjectBarChartData(String userID, LocalDate fromdate, LocalDate todate) throws SQLException {
       return  bllfacade.handleProjectBarChartData(userID, fromdate, todate);
     }
 
+    /**
+     * handles bar chart data for the admin
+     * @param projectID
+     * @param fromdate
+     * @param todate
+     * @return bar chart data for the admin
+     * @throws SQLException 
+     */
     @Override
     public XYChart.Series handleProjectBarChartDataForAdmin(int projectID, LocalDate fromdate, LocalDate todate) throws SQLException {
        return bllfacade.handleProjectBarChartDataForAdmin(projectID, fromdate, todate);
-    }
-    
-    
-    
+    } 
 }

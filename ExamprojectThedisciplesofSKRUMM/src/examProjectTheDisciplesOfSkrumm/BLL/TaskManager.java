@@ -11,10 +11,8 @@ import examProjectTheDisciplesOfSkrumm.BE.Project;
 import examProjectTheDisciplesOfSkrumm.BE.User;
 import examProjectTheDisciplesOfSkrumm.BE.Task;
 import examProjectTheDisciplesOfSkrumm.BLL.Interface.TaskManagerInterface;
-import examProjectTheDisciplesOfSkrumm.DAL.DALFacade;
 import examProjectTheDisciplesOfSkrumm.BLL.Util.DALFacadeFactory;
 import examProjectTheDisciplesOfSkrumm.DAL.Interface.DALFacadeInterface;
-import examProjectTheDisciplesOfSkrumm.DAL.TaskDBDAO;
 import examProjectTheDisciplesOfSkrumm.enums.DALFacadeTypes;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -26,7 +24,7 @@ import javafx.scene.chart.XYChart;
 
 /**
  *
- * @author kacpe
+ * @author SKRUMM
  */
 public class TaskManager implements TaskManagerInterface
 {
@@ -203,7 +201,7 @@ public class TaskManager implements TaskManagerInterface
     }
 
     /**
-     * Clears a task for intervales
+     * Clears a task for intervals
      *
      * @param task
      * @return boolean
@@ -272,7 +270,7 @@ public class TaskManager implements TaskManagerInterface
     }
 
     /**
-     * Gets the duration from intervales between two dates
+     * Gets the duration from intervals between two dates
      *
      * @param userID
      * @param projectID
@@ -314,7 +312,7 @@ public class TaskManager implements TaskManagerInterface
         {
 
             System.out.println(project.getProjectName() + getDurationFromIntervalsbetween2Dates(userID, project.getId(), fromdate, todate));
-            /* the group divedes the output of getDurationFromIntervalsbetween2Dates by 3600 to go from seconds to hours */
+            /* the group divides the output of getDurationFromIntervalsbetween2Dates by 3600 to go from seconds to hours */
             data.getData().add(new XYChart.Data(project.getProjectName() +" "+ project.getId(), (getDurationFromIntervalsbetween2Dates(userID, project.getId(), fromdate, todate) / 3600.0)));
 
         }
@@ -348,10 +346,8 @@ public class TaskManager implements TaskManagerInterface
         {
 
             System.out.println(user.getEmail() + getDurationFromIntervalsbetween2Dates(user.getEmail(), projectID, fromdate, todate));
-            /* the group divedes the output of getDurationFromIntervalsbetween2Dates by 3600 to go from seconds to hours */
-            data.getData().add(new XYChart.Data(user.getFirstName() +" "+ user.getLastName(),(getDurationFromIntervalsbetween2Dates(user.getEmail(), projectID, fromdate, todate) / 3600.0) ));
-            
-            
+            /* the group divides the output of getDurationFromIntervalsbetween2Dates by 3600 to go from seconds to hours */
+            data.getData().add(new XYChart.Data(user.getFirstName() +" "+ user.getLastName(),(getDurationFromIntervalsbetween2Dates(user.getEmail(), projectID, fromdate, todate) / 3600.0) ));  
         }
 
         return data;

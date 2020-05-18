@@ -12,7 +12,7 @@ import javafx.beans.property.SimpleStringProperty;
 
 /**
  *
- * @author kacpe
+ * @author SKRUMM
  */
 public class Client
 {
@@ -144,6 +144,10 @@ public class Client
         this.numberOfProjects.set(numberOfProject);
     }
 
+    /**
+     * converts the info for the client to a string
+     * @return The string, that has been made
+     */
     @Override
     public String toString()
     {

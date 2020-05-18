@@ -11,13 +11,23 @@ import java.util.List;
 
 /**
  *
- * @author anton
+ * @author SKRUMM
  */
 public interface LogDBDAOInterface {
-    
-    
-     public List<String> getAllLogs() throws SQLServerException, SQLException;
+    /**
+     * gets the 100 most recent log entries
+     * @return the 100 most recent log entries as strings in the log window
+     * @throws SQLServerException
+     * @throws SQLException 
+     */ 
+    public List<String> getAllLogs() throws SQLServerException, SQLException;
      
+     /**
+      * creates a log in the DB
+      * @param description
+      * @return the new log entry
+      * @throws SQLException 
+      */
      public String createLog(String description) throws SQLException;
     
 }

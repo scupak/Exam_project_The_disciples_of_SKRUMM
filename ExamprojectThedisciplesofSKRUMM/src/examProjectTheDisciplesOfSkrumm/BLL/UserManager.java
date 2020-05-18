@@ -19,7 +19,7 @@ import java.util.List;
 
 /**
  *
- * @author lumby
+ * @author SKRUMM
  */
 public class UserManager implements UserManagerInterface
 {
@@ -33,7 +33,7 @@ public class UserManager implements UserManagerInterface
     }
     
     /**
-     * checcks the a given users email and password,
+     * checks the a given users email and password,
      * to see if they match with a user in the database
      * @param user
      * @return boolean
@@ -188,6 +188,12 @@ public class UserManager implements UserManagerInterface
          return dal.deleteProjectFromUser(user, project);
     }
 
+    /**
+     * gets the 100 most recent entries in the log
+     * @return the 100 most recent entries in the log as strings in the log window
+     * @throws SQLServerException
+     * @throws SQLException 
+     */
     @Override
     public List<String> getAllLogs() throws SQLServerException, SQLException {
        return dal.getAllLogs();

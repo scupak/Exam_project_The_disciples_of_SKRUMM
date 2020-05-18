@@ -5,13 +5,12 @@
  */
 package examProjectTheDisciplesOfSkrumm.DAL;
 
-import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
 /**
- *
- * @author kacpe
+ * This class manages and keeps track of all the various instances of the connections to the database, and makes sure these are reused accordingly
+ * @author SKRUMM
  */
 public abstract class ObjectPool<T>
 {
@@ -72,6 +71,10 @@ public abstract class ObjectPool<T>
         return (t);
     }
 
+    /**
+     * Checks if the connection is used or not, and moves it between used or unused accordingly
+     * @param t 
+     */
     public synchronized void checkIn(T t)
     {
         locked.remove(t);

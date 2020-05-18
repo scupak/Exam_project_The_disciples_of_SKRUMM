@@ -25,11 +25,10 @@ import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.Month;
 
 /**
  *
- * @author lumby
+ * @author SKRUMM
  */
 public class TaskDBDAO implements TaskDBDAOInterface
 {
@@ -47,6 +46,11 @@ public class TaskDBDAO implements TaskDBDAOInterface
         logDBDAO = new LogDBDAO();
     }
 
+    /**
+     * gets a list of all the tasks
+     * @return a list of all the tasks
+     * @throws SQLException 
+     */
     @Override
     public List<Task> getAllTasks() throws SQLException
     {
@@ -90,6 +94,13 @@ public class TaskDBDAO implements TaskDBDAOInterface
             conPool.checkIn(con);
         }
     }
+    
+    /**
+     * checks if the given task exists
+     * @param task
+     * @return true if it already exists, false otherwise
+     * @throws SQLException 
+     */
     public boolean taskExist(Task task) throws SQLException
     {
         Connection con = conPool.checkOut();
@@ -113,6 +124,12 @@ public class TaskDBDAO implements TaskDBDAOInterface
         }
     }
 
+    /**
+     * creates a task
+     * @param task
+     * @return the task
+     * @throws SQLException 
+     */
     @Override
     public Task createTask(Task task) throws SQLException
     {
@@ -141,12 +158,12 @@ public class TaskDBDAO implements TaskDBDAOInterface
             {
                 task.setId((int) rs.getLong(1));
                 //logDBDAO.createLog(task.getUserEmail(), "create task", task.getProjectName(), task.getTitle());
-                logDBDAO.createLog(task.getUserEmail() +"-"+ "create task" +"-"+ task.getProjectName() +"-"+ task.getTitle());
+                logDBDAO.createLog(task.getUserEmail() +"-"+ "create task" +"-"+ task.getProjectName() +"-"+ task.getTitle()+ "-" +  "SUCCESS");
                 
             } else
             {
                // logDBDAO.createLog(task.getUserEmail(), "create task not successful", task.getProjectName(), task.getTitle());
-                 logDBDAO.createLog(task.getUserEmail() +"-"+ "create task not successful" +"-"+ task.getProjectName() +"-"+ task.getTitle());
+                 logDBDAO.createLog(task.getUserEmail() +"-"+ "create task not successful" +"-"+ task.getProjectName() +"-"+ task.getTitle()+ "-" +  "ERROR");
                 return null;
             }
 
@@ -160,6 +177,12 @@ public class TaskDBDAO implements TaskDBDAOInterface
 
     }
     
+    /**
+     * deletes a task
+     * @param task
+     * @return true if the task was deleted, false otherwise
+     * @throws SQLException 
+     */
     @Override
     public boolean deleteTask(Task task) throws SQLException
     {
@@ -174,7 +197,7 @@ public class TaskDBDAO implements TaskDBDAOInterface
             int updatedRows = ps.executeUpdate();
             
             if(updatedRows > 0){
-               logDBDAO.createLog(task.getUserEmail() +"-"+ "delete task successful" +"-"+ task.getProjectName() +"-"+ task.getTitle());
+               logDBDAO.createLog(task.getUserEmail() +"-"+ "delete task successful" +"-"+ task.getProjectName() +"-"+ task.getTitle()+ "-" +  "SUCCESS");
             }
             
             return updatedRows > 0;
@@ -186,10 +209,16 @@ public class TaskDBDAO implements TaskDBDAOInterface
             conPool.checkIn(con);
         }
         
-        logDBDAO.createLog(task.getUserEmail() +"-"+ "delete task not successful" +"-"+ task.getProjectName() +"-"+ task.getTitle());
+        logDBDAO.createLog(task.getUserEmail() +"-"+ "delete task not successful" +"-"+ task.getProjectName() +"-"+ task.getTitle()+ "-" +  "ERROR");
         return false;
     }
     
+    /**
+     * clears a task
+     * @param task
+     * @return true if it was cleared, false otherwise
+     * @throws SQLException 
+     */
     @Override
     public boolean clearTask(Task task) throws SQLException
     {
@@ -217,12 +246,18 @@ public class TaskDBDAO implements TaskDBDAOInterface
         }
     }
 
+    /**
+     * updates the given task
+     * @param task
+     * @return true if it already exists, false otherwise
+     * @throws SQLException 
+     */
     @Override
     public Boolean updateTask(Task task) throws SQLException
     {
         if (!taskExist(task))
         {
-            logDBDAO.createLog(task.getUserEmail() +"-"+ "update task failed cause the task did not exist" +"-"+ task.getProjectName() +"-"+ task.getTitle());
+            logDBDAO.createLog(task.getUserEmail() +"-"+ "update task failed cause the task did not exist" +"-"+ task.getProjectName() +"-"+ task.getTitle() + "-" +  "ERROR");
             return null;
         }
 
@@ -249,7 +284,7 @@ public class TaskDBDAO implements TaskDBDAOInterface
             
             if( updatedRows > 0){
                 
-                logDBDAO.createLog(task.getUserEmail() +"-"+ "update task successful" +"-"+ task.getProjectName() +"-"+ task.getTitle());
+                logDBDAO.createLog(task.getUserEmail() +"-"+ "update task successful" +"-"+ task.getProjectName() +"-"+ task.getTitle() + "-" + "SUCCESS");
             
             
             }
@@ -264,6 +299,12 @@ public class TaskDBDAO implements TaskDBDAOInterface
 
     }
 
+    /**
+     * gets a task
+     * @param task
+     * @return a task
+     * @throws SQLException 
+     */
     @Override
     public Task getTask(Task task) throws SQLException
     {
@@ -310,6 +351,12 @@ public class TaskDBDAO implements TaskDBDAOInterface
         return returnTask;
     }
 
+    /**
+     * gets a list of the six most recent tasks for the user
+     * @param user
+     * @return a list of the six most recent tasks for the user
+     * @throws SQLException 
+     */
     @Override
     public List<Task> getSixTasks(User user) throws SQLException
     {
@@ -359,6 +406,13 @@ public class TaskDBDAO implements TaskDBDAOInterface
         }
     }
 
+    /**
+     * gets a list of the tasks for the user
+     * @param user
+     * @param date
+     * @return a list of the tasks for the user
+     * @throws SQLException 
+     */
     @Override
     public List<Task> getTasksForUser(User user, LocalDate date) throws SQLException
     {
@@ -415,7 +469,12 @@ public class TaskDBDAO implements TaskDBDAOInterface
         }
 
     }
-
+    /**
+     * makes a new interval
+     * @param interval
+     * @throws SQLServerException
+     * @throws SQLException 
+     */
     @Override
     public void newInterval(Interval interval) throws SQLServerException, SQLException
     {
@@ -449,7 +508,7 @@ public class TaskDBDAO implements TaskDBDAOInterface
             ps2.executeUpdate();
             
             con.commit();
-            logDBDAO.createLog(interval.getTask().getUserEmail() +"-"+ "create new interval was successful" +"-"+ interval.getTask().getProjectName() +"-"+ interval.getTask().getTitle());
+            logDBDAO.createLog(interval.getTask().getUserEmail() +"-"+ "create new interval was successful" +"-"+ interval.getTask().getProjectName() +"-"+ interval.getTask().getTitle() + "-" + "SUCCESS");
             
         }
         catch(SQLServerException e)
@@ -458,7 +517,7 @@ public class TaskDBDAO implements TaskDBDAOInterface
                 con.rollback(); //an exception happened in executing the statements
                 System.out.println("Rolling back changes...");                
             }
-             logDBDAO.createLog(interval.getTask().getUserEmail() +"-"+ "create new interval was not successful" +"-"+ interval.getTask().getProjectName() +"-"+ interval.getTask().getTitle());
+             logDBDAO.createLog(interval.getTask().getUserEmail() +"-"+ "create new interval was not successful" +"-"+ interval.getTask().getProjectName() +"-"+ interval.getTask().getTitle() + "-" +  "ERROR");
             throw new SQLException();
             
         }
@@ -468,7 +527,7 @@ public class TaskDBDAO implements TaskDBDAOInterface
                 con.rollback(); //an exception happened in executing the statements
                 System.out.println("Rolling back changes...");                
             }
-             logDBDAO.createLog(interval.getTask().getUserEmail() +"-"+ "create new interval was not successful" +"-"+ interval.getTask().getProjectName() +"-"+ interval.getTask().getTitle());
+             logDBDAO.createLog(interval.getTask().getUserEmail() +"-"+ "create new interval was not successful" +"-"+ interval.getTask().getProjectName() +"-"+ interval.getTask().getTitle() + "-" +  "ERROR");
             throw  new SQLException();
             
         }
@@ -481,12 +540,20 @@ public class TaskDBDAO implements TaskDBDAOInterface
             conPool.checkIn(con);
         }
     }
-    
+    /**
+     * updates the interval from old interval to new interval
+     * @param oldInterval
+     * @param newInterval
+     * @return true if it updated, false otherwise
+     * @throws SQLServerException
+     * @throws SQLException 
+     */
     @Override
     public boolean updateInterval( Interval oldInterval, Interval newInterval) throws SQLServerException, SQLException
     {
         if(!intervalExist(oldInterval))
         {
+            logDBDAO.createLog(oldInterval.getTask().getUserEmail() +"-"+ "Interval does not exist!" +"-"+ oldInterval.getTask().getProjectName() +"-"+ oldInterval.getTask().getTitle() + "-" + "ERROR");
             return false;
         }
         
@@ -520,14 +587,26 @@ public class TaskDBDAO implements TaskDBDAOInterface
 
             int updatedRows = ps2.executeUpdate();
 
-            return updatedRows > 0;
+            if(updatedRows > 0){
+                logDBDAO.createLog(oldInterval.getTask().getUserEmail() +"-"+ "Task has been updated successfully!" +"-"+ oldInterval.getTask().getProjectName() +"-"+ oldInterval.getTask().getTitle() + "-" + "SUCCESS");
+               return true; 
+            }
+            
         }
         finally
         {
             conPool.checkIn(con);
         }
+        logDBDAO.createLog(oldInterval.getTask().getUserEmail() +"-"+ "Cannot update task!" +"-"+ oldInterval.getTask().getProjectName() +"-"+ oldInterval.getTask().getTitle() + "-" + "ERROR");
+        return false;
     }
 
+    /**
+     * gets a list of all the intervals for the task
+     * @param task
+     * @return a list of all the intervals for the task
+     * @throws SQLException 
+     */
     private ArrayList<Interval> getIntervals(Task task) throws SQLException
     {
         Connection con = conPool.checkOut();
@@ -554,7 +633,6 @@ public class TaskDBDAO implements TaskDBDAOInterface
 
                 intervals.add(interval);
             }
-
             return intervals;
         }
         finally
@@ -563,6 +641,12 @@ public class TaskDBDAO implements TaskDBDAOInterface
         }
     }
     
+    /**
+     * deletes the given interval
+     * @param interval
+     * @return true if it is deleted, false otherwise
+     * @throws SQLException 
+     */
     @Override
     public boolean deleteInterval(Interval interval) throws SQLException 
     {
@@ -588,14 +672,27 @@ public class TaskDBDAO implements TaskDBDAOInterface
 
             ps2.executeUpdate();
             
-            return updatedRows > 0;
+            if(updatedRows > 0){
+                logDBDAO.createLog(interval.getTask().getUserEmail() +"-"+ "Interval Deleted successfully!" +"-"+ interval.getTask().getProjectName() +"-"+ interval.getTask().getTitle() + "-" + "SUCCESS");
+                return true;
+            }
+            
         }
         finally
         {
             conPool.checkIn(con);
         }
+        
+        logDBDAO.createLog(interval.getTask().getUserEmail() +"-"+ "Cannot delete interval!" +"-"+ interval.getTask().getProjectName() +"-"+ interval.getTask().getTitle() + "-" + "ERROR");
+        return false;
     }
         
+    /**
+     * checks if the given interval exists
+     * @param interval
+     * @return true if the interval exists, false otherwise
+     * @throws SQLException 
+     */
     public boolean intervalExist(Interval interval) throws SQLException 
     {
         Connection con = conPool.checkOut();
@@ -619,6 +716,14 @@ public class TaskDBDAO implements TaskDBDAOInterface
         }
     }
     
+    /**
+     * gets a list of all the tasks for a user between two dates
+     * @param user
+     * @param fromdate
+     * @param todate
+     * @return a list of all the tasks for a user between two dates
+     * @throws SQLException 
+     */
     @Override
     public List<Task> getTasksForUserbetween2Dates(User user, LocalDate fromdate, LocalDate todate) throws SQLException
     {
@@ -684,6 +789,14 @@ public class TaskDBDAO implements TaskDBDAOInterface
         
         
         //make the from date to date dal method work for intervals
+    /**
+     * gets all intervals between two dates
+     * @param task
+     * @param fromdate
+     * @param todate
+     * @return a list of all the intervals between two dates
+     * @throws SQLException 
+     */
     private ArrayList<Interval> getIntervalsbetween2Dates(Task task, LocalDate fromdate, LocalDate todate) throws SQLException
     {
         Connection con = conPool.checkOut();
@@ -724,12 +837,6 @@ public class TaskDBDAO implements TaskDBDAOInterface
         }
     }
         
-        
-    
-    
-    
-    
-
     public static void main(String[] args) throws IOException, SQLException, Exception
     {
         TaskDBDAO taskDBDAO = new TaskDBDAO();
@@ -739,96 +846,15 @@ public class TaskDBDAO implements TaskDBDAOInterface
           Client client = new Client(1, "why", 0, 0);
           Project project = new Project(2, "reeeeeeee", client, 0);
           Task task = new Task(2, "rjo", project, 50, LocalDateTime.now(), LocalDate.now(), LocalTime.now(), LocalTime.now(), user, intervals);
-          
-          
-          //System.out.println(taskDBDAO.getDurationFromTasksbetween2Dates("standard@user.now", 4, LocalDate.of(2020, Month.MAY, 1), LocalDate.of(2020, Month.MAY, 14)));
-          
-         // Interval interval = new Interval(15, LocalTime.MIN, LocalTime.MIN, LocalDate.MIN, 0, task, 0);
-         // taskDBDAO.deleteInterval(interval);
-       /*  
-         for (Task tasksForUserbetween2Date : taskDBDAO.getTasksForUserbetween2Dates(user, LocalDate.of(2020, Month.MAY, 1), LocalDate.of(2020, Month.MAY, 14))) {
-            
-             int i = 1;
-             System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++" + " " + tasksForUserbetween2Date);
-             
-             for (Interval interval : tasksForUserbetween2Date.getIntervals()) {
-                 
-                 
-                 System.out.println( i + "  " + interval + "  " + interval.getTask() );
-                 
-                 
-                 i++;
-                 
-             }
-             
-        }
-         
-         */
-         
-         /*
-         int i = 1;
-         
-         
-         
-         
-         
-         
-         
-         for (Interval intervalsbetween2Date : taskDBDAO.getIntervalsbetween2Dates(task, LocalDate.of(2020, Month.MAY, 3), LocalDate.of(2020, Month.MAY, 6))) {
-            
-             
-             System.out.println(intervalsbetween2Date + " " + i);
-             
-             i++;
-        }
-         
-         
-         
-         
-         
-         
-         
-          */
-//        Client client = new Client(1, "why", 0, 0);
-//        Project project = new Project(1, "reeeeeeee", client, 0);
-//        User user = taskDBDAO.userDBDAO.getUser(new User("standard@user.now", "kof", "kof", "fok", true));
-//        ArrayList<Interval> intervals = new ArrayList<>();
-//        Task task = new Task(3, "rjo", project, 50, LocalDateTime.now(), LocalDate.now(), LocalTime.now(), LocalTime.now(), user, intervals);
-//        Task task2 = taskDBDAO.getTask(task);
-
-        //taskDBDAO.updateTask(task);
-//        ArrayList<Task> t = new ArrayList<>();
-//        t.addAll(taskDBDAO.getTasksForUser(user, LocalDate.of(2020, 05, 04)));
-//
-//        for (Task task1 : t)
-//        {
-//            System.out.println(task1);
-//        }
-//        Task task3 = taskDBDAO.getTask(task);
-//        task3.setDuration(666);
-//        taskDBDAO.updateTask(task3);
-        
-//        taskDBDAO.deleteTask(task);
-//        ArrayList<Task> six = new ArrayList<>();
-//        six.addAll(taskDBDAO.getSixTasks(user));
-//       
-//        for (Task task1 : six)
-//        {
-//            System.out.println(task1.toString());
-//        }
-
-        //ArrayList<Task> six = new ArrayList<>();
-        //six.addAll(taskDBDAO.getSixTasks(user));
-        //for (Task task1 : six)
-        //{
-        //System.out.println(task1.toString());
-        //}
-        //System.out.println(task2);
-        // System.out.println(task2);
-        //Interval interval = new Interval(LocalTime.now(),LocalTime.now(), 600, 50, task);
-        //taskDBDAO.newInterval(interval);
     }
 
+    /**
+     * gets a list of all the tasks for a project
+     * @param project
+     * @return a list of all the tasks for a project
+     * @throws SQLServerException
+     * @throws SQLException 
+     */
     @Override
     public List<Task> getAllTasks4Project(Project project) throws SQLServerException, SQLException {
                 ArrayList<Task> returntasks = new ArrayList<>();
@@ -872,6 +898,13 @@ public class TaskDBDAO implements TaskDBDAOInterface
         }
     }
 
+    /**
+     * gets the total duration from tasks
+     * @param project
+     * @return the total duration from tasks
+     * @throws SQLServerException
+     * @throws SQLException 
+     */
     @Override
     public int getDurationFromTasks(Project project) throws SQLServerException, SQLException {
         int time = 0;
@@ -896,7 +929,7 @@ public class TaskDBDAO implements TaskDBDAOInterface
         }
     }
     /**
-     * 
+     * gets duration from intervals between two dates
      * @param userID
      * @param projectID
      * @param fromdate
@@ -905,6 +938,7 @@ public class TaskDBDAO implements TaskDBDAOInterface
      * @throws SQLServerException
      * @throws SQLException 
      */
+    @Override
      public int getDurationFromIntervalsbetween2Dates(String userID, int projectID, LocalDate fromdate, LocalDate todate) throws SQLServerException, SQLException {
         int time = 0;
         Connection con = conPool.checkOut();
@@ -935,7 +969,4 @@ public class TaskDBDAO implements TaskDBDAOInterface
             conPool.checkIn(con);
         }
     }
-
-    
-
 }

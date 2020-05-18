@@ -11,7 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import examProjectTheDisciplesOfSkrumm.BE.Project;
-import examProjectTheDisciplesOfSkrumm.BE.User;
+import examProjectTheDisciplesOfSkrumm.DAL.Interface.LogDBDAOInterface;
 import examProjectTheDisciplesOfSkrumm.DAL.Interface.ProjectDBDAOInterface;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -23,21 +23,26 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author kacpe
+ * @author SKRUMM
  */
 public class ProjectDBDAO implements ProjectDBDAOInterface
 {
+    private LogDBDAOInterface  logDBDAO;
     private final ConnectionPool conPool;
     private ClientDBDAO clientdb;
 
     public ProjectDBDAO() throws IOException, Exception {
         this.conPool = ConnectionPool.getInstance();
         clientdb = new ClientDBDAO();
+        logDBDAO = new LogDBDAO();
     }
     
-    //select UserProjectTable.userId, UserProjectTable.projectId, project.id, project.projectName, project.clientID, project.projectrate from UserProjectTable inner join project on UserProjectTable.projectId = project.id where UserProjectTable.userId = 'standard@user.now'
-
-    
+    /**
+     * Gets a list of all projects
+     * @return a list of all projects
+     * @throws SQLServerException
+     * @throws SQLException 
+     */
     @Override
     public List<Project> getAllProjects() throws SQLServerException, SQLException
     {
@@ -72,6 +77,12 @@ public class ProjectDBDAO implements ProjectDBDAOInterface
         return projects;
     }
 
+    /**
+     * checks if a project already exists
+     * @param project
+     * @return true if the project already exists, false otherwise
+     * @throws SQLException 
+     */
     @Override
     public boolean projectExist(Project project) throws SQLException 
     {
@@ -97,6 +108,12 @@ public class ProjectDBDAO implements ProjectDBDAOInterface
        
     }
 
+    /**
+     * creates a new project
+     * @param project
+     * @return the new project that has been made
+     * @throws SQLException 
+     */    
     @Override
     public Project createProject(Project project) throws SQLException 
     {
@@ -125,11 +142,13 @@ public class ProjectDBDAO implements ProjectDBDAOInterface
                 project.setId((int) rs.getLong(1));
             }else
             {
+                logDBDAO.createLog("create project unsuccessful" + "-" + project.getProjectName() + "-" +  "ERROR");
                 return null;
             }
             System.out.println(project.getClientName() + " Assigned to " + project.getProjectName());
             JOptionPane.showMessageDialog(null, project.getProjectName() + " has been created!");
-            return project;
+            logDBDAO.createLog("create project successful" + "-" + project.getProjectName() + "-" +  "SUCCESS");
+            return project; 
         }
         finally
         {
@@ -138,6 +157,12 @@ public class ProjectDBDAO implements ProjectDBDAOInterface
         
     }
 
+    /**
+     * gets the given project
+     * @param project
+     * @return the given project as a project object
+     * @throws SQLException 
+     */
     @Override
     public Project getProject(Project project) throws SQLException 
     {
@@ -180,6 +205,12 @@ public class ProjectDBDAO implements ProjectDBDAOInterface
         
     }
     
+   /**
+     * gets a list of all the projects for a given client
+     * @param project
+     * @return a list of all the projects for a given client
+     * @throws SQLException 
+     */
     @Override
     public List<Project> getProjectsForClient(Client client) throws SQLException
     {
@@ -228,23 +259,14 @@ public class ProjectDBDAO implements ProjectDBDAOInterface
         {
             System.out.println(project);   
         }
-//         System.out.println("  ");
-//         System.out.println("  ");
-//         System.out.println("  ");  
-//         
-//           Client steve = new Client(1, "Steve", 0, 0);
-//           Client grumsen = clientdb.getClient(steve);
-//          Project projectx = new Project(0, "Victory",grumsen , 99);
-//          System.out.println(projectDb.createProject(projectx));
-//
-//        for (Project project : projects)
-//        {
-//            System.out.println(project);   
-//        }
-       
-
     }
 
+    /**
+     * deletes the given project
+     * @param project
+     * @return true if the project was deleted, false otherwise
+     * @throws SQLException 
+     */
     @Override
     public boolean deleteProject(Project project) throws SQLException 
     {
@@ -259,7 +281,11 @@ public class ProjectDBDAO implements ProjectDBDAOInterface
             
             int updatedRows = ps.executeUpdate();
             
-            return updatedRows > 0;
+            if(updatedRows > 0){
+               logDBDAO.createLog("delete project successful" + "-" + project.getProjectName() + "-" +  "SUCCESS");
+               return true;  
+            }
+
             }
             
         }
@@ -267,11 +293,18 @@ public class ProjectDBDAO implements ProjectDBDAOInterface
         {
             conPool.checkIn(con);
         }
-        
+        logDBDAO.createLog("delete project unsuccessful" + "-" + project.getProjectName() + "-" +  "ERROR");
         return false;
         
     }
 
+    /**
+     * clears the project 
+     * this removes all the information in the project, keeping the project still listed
+     * @param project
+     * @return true if the project was cleared, false otherwise
+     * @throws SQLException 
+     */
     @Override
     public boolean clearProject(Project project) throws SQLException 
     {
@@ -288,9 +321,10 @@ public class ProjectDBDAO implements ProjectDBDAOInterface
             
             while(rs.next())
             {
+                logDBDAO.createLog("clear project unsuccessful" + "-" + project.getProjectName() + "-" +  "ERROR");
                 return false;
             }
-            
+            logDBDAO.createLog("clear project successful" + "-" + project.getProjectName() + "-" +  "SUCCESS");
             return true;
         }
         finally
@@ -299,6 +333,13 @@ public class ProjectDBDAO implements ProjectDBDAOInterface
         }
     }
 
+    /**
+     * updates the information on the given project with the given information
+     * @param project
+     * @return true if the project was updated, false otherwise
+     * @throws SQLServerException
+     * @throws SQLException 
+     */
     @Override
     public boolean updateProject(Project project) throws SQLServerException, SQLException {
         if (!projectExist(project))
@@ -322,13 +363,19 @@ public class ProjectDBDAO implements ProjectDBDAOInterface
 
             int updatedRows = ps.executeUpdate();
 
-            return updatedRows > 0;
+            if(updatedRows > 0){
+                logDBDAO.createLog("update project successful" + "-" + project.getProjectName() + "-" +  "SUCCESS");
+                return true;
+            }
+            
 
         }
         finally
         {
             conPool.checkIn(con);
         }
+        logDBDAO.createLog("update project unsuccessful" + "-" + project.getProjectName() + "-" +  "ERROR");
+        return false;
     }
 
     

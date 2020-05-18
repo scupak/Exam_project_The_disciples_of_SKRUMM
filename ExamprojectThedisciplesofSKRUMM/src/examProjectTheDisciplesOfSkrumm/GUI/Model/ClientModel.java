@@ -7,7 +7,6 @@ package examProjectTheDisciplesOfSkrumm.GUI.Model;
 
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import examProjectTheDisciplesOfSkrumm.BE.Client;
-import examProjectTheDisciplesOfSkrumm.BE.Project;
 import examProjectTheDisciplesOfSkrumm.BLL.BLLFacade;
 import examProjectTheDisciplesOfSkrumm.BLL.Interface.BLLFacadeInterface;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.ClientModelInterface;
@@ -20,7 +19,7 @@ import javafx.collections.ObservableList;
 
 /**
  *
- * @author kacpe
+ * @author SKRUMM
  */
 public class ClientModel implements ClientModelInterface
 {
@@ -33,6 +32,10 @@ public class ClientModel implements ClientModelInterface
         this.clients = FXCollections.observableArrayList();
     }
 
+    /**
+     * gets clients
+     * @return list of clients
+     */
     @Override
     public synchronized ObservableList<Client> getClients() 
     {   
@@ -46,10 +49,18 @@ public class ClientModel implements ClientModelInterface
         return clients;
     }
 
+    /**
+     * sets clients to the given list
+     * @param clients 
+     */
     public void setClients(ObservableList<Client> clients) {
         this.clients = clients;
     }
     
+    /**
+     * creates a client
+     * @param client 
+     */
     @Override
     public void createClient(Client client)
     {
@@ -60,11 +71,24 @@ public class ClientModel implements ClientModelInterface
         }
     }
 
+    /**
+     * deletes a client
+     * @param client
+     * @return true if operation successful, false otherwise
+     * @throws SQLException 
+     */
     @Override
     public boolean deleteClient(Client client) throws SQLException {
         return bllfacade.deleteClient(client);
     }
 
+    /**
+     * updates a client
+     * @param client
+     * @return @return true if operation successful, false otherwise
+     * @throws SQLServerException
+     * @throws SQLException 
+     */
     @Override
     public boolean updateClient(Client client) throws SQLServerException, SQLException {
         return bllfacade.updateClient(client);

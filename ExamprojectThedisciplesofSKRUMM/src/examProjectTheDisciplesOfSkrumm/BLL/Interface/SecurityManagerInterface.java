@@ -7,7 +7,7 @@ package examProjectTheDisciplesOfSkrumm.BLL.Interface;
 
 /**
  *
- * @author anton
+ * @author SKRUMM
  */
 public interface SecurityManagerInterface {
     

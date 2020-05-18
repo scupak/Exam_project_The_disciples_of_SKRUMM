@@ -31,13 +31,12 @@ import java.time.LocalDate;
 import java.util.List;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.TreeItem;
 
 /**
  *
- * @author kacpe
+ * @author SKRUMM
  */
 public class BLLFacade implements BLLFacadeInterface
 {
@@ -61,7 +60,7 @@ public class BLLFacade implements BLLFacadeInterface
     }
 
     /**
-     * 
+     * gets the model as a treeItem
      * @param tasks
      * @return 
      */
@@ -69,8 +68,6 @@ public class BLLFacade implements BLLFacadeInterface
     public TreeItem<Task> getModel(ObservableList<Task> tasks) {
         return treeTableUtil.getModel(tasks);
     }
-
-   
 
     /**
      * hashes a users password
@@ -179,7 +176,7 @@ public class BLLFacade implements BLLFacadeInterface
      * gets all tasks for a user 
      * @param user
      * @param date
-     * @return List taks
+     * @return List tasks
      * @throws SQLException 
      */
     @Override
@@ -268,7 +265,7 @@ public class BLLFacade implements BLLFacadeInterface
     }
 
     /**
-     * updates an exsiting task
+     * updates an exiting task
      * @param task
      * @return task
      * @throws SQLException 
@@ -362,7 +359,7 @@ public class BLLFacade implements BLLFacadeInterface
     }
 
     /**
-     * removes all intervales for a given task
+     * removes all intervals for a given task
      * @param task
      * @return boolean
      * @throws SQLException 
@@ -396,7 +393,7 @@ public class BLLFacade implements BLLFacadeInterface
     }
 
     /**
-     * updates an exsisting user
+     * updates an existing user
      * @param oldUser
      * @param newUser
      * @return boolean
@@ -409,7 +406,7 @@ public class BLLFacade implements BLLFacadeInterface
     }
 
     /**
-     * updates an exisiting interval
+     * updates an existing interval
      * @param oldInterval
      * @param newInterval
      * @return boolean
@@ -557,7 +554,7 @@ public class BLLFacade implements BLLFacadeInterface
     }
 
     /**
-     * gets duration for intavles between to dates and addes them togehter
+     * gets duration for intervals between to dates and adds them together
      * @param userID
      * @param projectID
      * @param fromdate
@@ -597,12 +594,25 @@ public class BLLFacade implements BLLFacadeInterface
         return taskmanager.handleProjectBarChartDataForAdmin(projectID, fromdate, todate);
     }
 
+    /**
+     * gets the FXML loader
+     * @param viewtype
+     * @return the viewtype
+     * @throws Exception
+     * @throws IOException 
+     */
     @Override
     public FXMLLoader getLoader(ViewTypes viewtype) throws Exception, IOException 
     {
         return viewfactory.getLoader(viewtype);
     }
 
+    /**
+     * Gets the 100 most recent log entries
+     * @return the 100 most recent logs as strings in the log window
+     * @throws SQLServerException
+     * @throws SQLException 
+     */
     public List<String> getAllLogs() throws SQLServerException, SQLException {
        return userManager.getAllLogs();
     }

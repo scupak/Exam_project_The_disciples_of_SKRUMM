@@ -13,22 +13,64 @@ import java.util.List;
 
 /**
  *
- * @author kacpe
+ * @author SKRUMM
  */
 public interface ProjectManagerInterface 
 {
-     public List<Project> getAllProjects() throws SQLServerException, SQLException;
+    /**
+     * gets all projects
+     * @return all projects
+     * @throws SQLServerException
+     * @throws SQLException 
+     */
+    public List<Project> getAllProjects() throws SQLServerException, SQLException;
     
+    /**
+     *  gets if a project exists
+     * @param project
+     * @return true or false if a project either does or does not exist
+     * @throws SQLException 
+     */
     public boolean projectExist(Project project) throws SQLException;
     
+    /**
+     * creates a new project
+     * @param project
+     * @return a newly created project
+     * @throws SQLException 
+     */
     public Project createProject(Project project) throws SQLException;
     
+    /**
+     * gets a singular project
+     * @param project
+     * @return a project
+     * @throws SQLException 
+     */
     public Project getProject(Project project) throws SQLException;
     
+    /**
+     * deletes a project
+     * @param project
+     * @return true or false wether or not if the project was or was not deleted
+     * @throws SQLException 
+     */
     public boolean deleteProject(Project project) throws SQLException;
     
+    /**
+     * updates a project with given information
+     * @param project
+     * @return a newly updated project
+     * @throws SQLException 
+     */
     public boolean updateProject(Project project) throws SQLException;
     
+    /**
+     * gets a list of all projects a client is assigned to
+     * @param client
+     * @return all the projects that a client is assigned to
+     * @throws SQLException 
+     */
     public List<Project> getProjectsForClient(Client client) throws SQLException;
    
 }

@@ -12,7 +12,7 @@ import javafx.scene.control.Label;
 
 /**
  *
- * @author Zanaxdk <https://github.com/zanaxdk>
+ * @author SKRUMM
  */
 public class TimerUtil implements Runnable
 {
@@ -32,6 +32,14 @@ public class TimerUtil implements Runnable
     private Task currenttask;
     private LocalTime startTime;
 
+    /**
+     * converts the given seconds to actual time format, this is the class' constructor
+     * @param intervalLabel
+     * @param totaltimeLabel
+     * @param totalSec
+     * @param task
+     * @param startTime 
+     */
     public TimerUtil(Label intervalLabel,Label totaltimeLabel, int totalSec, Task task, LocalTime startTime) {
         this.totalSec = totalSec;
         while(totalSec >= 3600){
@@ -62,6 +70,9 @@ public class TimerUtil implements Runnable
     }
     
 
+    /**
+     * runs the timer utility as a separate thread
+     */
     @Override
     public void run()
     {
@@ -132,95 +143,138 @@ public class TimerUtil implements Runnable
         System.err.println("Interrupted" + Thread.currentThread().getName());
     }
     
+    /**
+     * gets the total time as a string
+     * @return  the total time as string
+     */
      public String getTotalTimestring(){
     return  totalTimeString;
     }
-     
+         
+     /**
+     * gets the interval time as a string
+     * @return the interval time as a string
+     */
      public String getintervalTimeString(){
      
          return intervalTimeString;
-     
-     
      }
-            
+    
+    /**
+     * gets the total amount of seconds from the timer thread
+     * @return the total amount of seconds from the timer thread
+     */
     public int getTotalSec(){
     return totalSec;
     }
 
+    /**
+     * sets the total amount of seconds to the given integer
+     * @param totalSec 
+     */
     public void setTotalSec(int totalSec) {
         this.totalSec = totalSec;
     }
 
+    /**
+     * gets the total amount of seconds from the interval
+     * @return the total amount of seconds from the interval
+     */
     public int getTotalIntervalSec() {
         return totalIntervalsec;
     }
 
+    /**
+     * sets the total amount of seconds to the given integer
+     * @param totalIntervalsec 
+     */
     public void setTotalIntervalSec(int totalIntervalsec) {
         this.totalIntervalsec = totalIntervalsec;
     }
-    
-    
-    
 
+    /**
+     * gets the total time label
+     * @return the total time label
+     */
     public Label getTotalTimeLabel() {
         return totaltimeLabel;
     }
 
+    /**
+     * sets the total time label to the given label
+     * @param timeLabel 
+     */
     public void setTotalTimeLabel(Label timeLabel) {
         this.totaltimeLabel = timeLabel;
     }
 
+    /**
+     * checks if the timer util is running
+     * @return if the timer util is running (true or false)
+     */
     public boolean isIsRunning() {
         return isRunning;
     }
 
+    /**
+     * sets isRunning to either true or false to tell the util that it is running.
+     * @param isRunning 
+     */
     public void setIsRunning(boolean isRunning) {
         this.isRunning = isRunning;
     }
 
+    /**
+     * gets the current task
+     * @return the current task
+     */
     public Task getCurrenttask() {
         return currenttask;
     }
 
+    /**
+     * sets the current task
+     * @param currenttask 
+     */
     public void setCurrenttask(Task currenttask) {
         this.currenttask = currenttask;
     }
 
+    /**
+     * gets the start time
+     * @return the start time
+     */
     public LocalTime getStartTime() {
         return startTime;
     }
 
+    /**
+     * sets the start time
+     * @param startTime 
+     */
     public void setStartTime(LocalTime startTime) {
         this.startTime = startTime;
     }
 
+    /**
+     * gets the interval label
+     * @return the interval label as the label type
+     */
     public Label getIntervalLabel() {
         return intervalLabel;
     }
 
+    /**
+     * sets the interval label to the given label
+     * @param intervalLabel 
+     */
     public void setIntervalLabel(Label intervalLabel) {
         this.intervalLabel = intervalLabel;
     }
+
     
-        
-    
-        
-    
-                
     public static void main(String[] args){
         int totSec = 123456;
-        
-        //giving label null, as it works with null
-       /* TimerUtil tu = new TimerUtil(null,null, totSec);
-        
-        ExecutorService executorService = 
-            Executors.newFixedThreadPool(1);
-        
-        executorService.submit(tu);
-        
-        */
-        
-        //executorService.shutdownNow();
     }
     
 }

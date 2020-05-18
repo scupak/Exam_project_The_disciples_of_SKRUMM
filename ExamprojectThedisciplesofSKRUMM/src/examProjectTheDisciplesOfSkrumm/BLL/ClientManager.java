@@ -16,7 +16,7 @@ import java.util.List;
 
 /**
  *
- * @author kacpe
+ * @author SKRUMM
  */
 public class ClientManager implements ClientManagerInterface
 {

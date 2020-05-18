@@ -12,7 +12,7 @@ import javafx.beans.property.SimpleStringProperty;
 
 /**
  *
- * @author kacpe
+ * @author SKRUMM
  */
 public class Project 
 {
@@ -188,7 +188,7 @@ public class Project
     }
 
     /**
-     * Sets the formated time for a project
+     * Sets the formatted time for a project
      * @param formatedTime 
      */
     public void setFormatedTime(String formatedTime) {
@@ -200,7 +200,11 @@ public class Project
         return  id.get() + "  " + projectName.get() + "  " + clientName.get() + "  " + ProjectRate.get() + "  " + isPaid.get();
     }
 
-    
+    /**
+     * checks wether or not an object is equal to another object
+     * @param obj
+     * @return true or false if it does or dosen't equal an other object
+     */
     @Override
     public boolean equals(Object obj)
     {
