@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package examProjectTheDisciplesOfSkrumm.GUI.controller;
 
 import com.jfoenix.controls.JFXButton;
@@ -30,6 +26,7 @@ import javafx.stage.Stage;
 import javax.swing.JOptionPane;
 
 /**
+ * This class controls the addProject view
  * FXML Controller class
  *
  * @author Christina
@@ -64,8 +61,9 @@ public class AddProjectViewController implements Initializable
     {
         try
         {
+            //The modelfacade gets instantieted here.
             modelfacade = ModelFacade.getInstance();
-        } catch (Exception ex)
+        } catch (Exception ex) //This exception happens if for some reason the program is unable to get the instance of modelfacade, this is probably unnecessary
         {
             Logger.getLogger(AddProjectViewController.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "Couln't get the instance of modelfacade" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
@@ -73,14 +71,20 @@ public class AddProjectViewController implements Initializable
         clientComboBox.getItems().addAll(modelfacade.getClients());
     }
 
+    /**
+     * This method detects when a user presses the ok button and then attempts to make a new projects based on given parameters.
+     * @param event 
+     */
     @FXML
     private void HandleAddProjectOkBtn(ActionEvent event)
     {
 
+        //First the method checks if all the input fields are filled in and that the choosen client is paid.
         if (!ProjectNameTextField.getText().isEmpty() && !ProjectRateTextField.getText().isEmpty() && !(clientComboBox.getValue() == null) && clientComboBox.getValue().getIsPaid() == 1)
         {
             try
             {
+                //Here the input is taken from the fields and put into a new projects instance whitch is then sent to the database 
                 int id = 1;
                 String projectName = ProjectNameTextField.getText();
                 Client client = clientComboBox.getValue();
@@ -89,7 +93,7 @@ public class AddProjectViewController implements Initializable
                 modelfacade.CreateProject(newproject);
                 Stage createUserView = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 createUserView.close();
-            } catch (NumberFormatException ex)
+            } catch (NumberFormatException ex) //This error is triggered by the user writing a letter in the rate field.
             {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Oops");
@@ -97,6 +101,7 @@ public class AddProjectViewController implements Initializable
                 alert.setContentText("You wrote a letter in project rate, it needs a number.");
                 alert.showAndWait();
             }
+            //Then if the user has not overwritten the rate then the project will simply inherit the clients rate. 
         } else if (!ProjectNameTextField.getText().isEmpty() && ProjectRateTextField.getText().isEmpty() && !(clientComboBox.getValue() == null) && clientComboBox.getValue().getIsPaid() == 1)
         {
             try
@@ -147,6 +152,10 @@ public class AddProjectViewController implements Initializable
         }
     }
 
+    /**
+     * Checks if the user doeast want to be here anymore, then helps them out.
+     * @param event 
+     */
     @FXML
     private void HandleAddProjectCancelBtn(ActionEvent event)
     {
@@ -154,6 +163,10 @@ public class AddProjectViewController implements Initializable
         createUserView.close();
     }
 
+    /**
+     * Checks if the user has clicked the addCLient button and then opens the addclient view if the have. 
+     * @param event 
+     */
     @FXML
     private void handleAddClient(ActionEvent event)
     {
@@ -181,12 +194,19 @@ public class AddProjectViewController implements Initializable
 
     
 
+    /**
+     * This method refreshes the client combobox.
+     */
     public void refreshClientComboBox()
     {
         clientComboBox.getItems().clear();
         clientComboBox.getItems().addAll(modelfacade.getClients());
     }
 
+    /**
+     * This method disables the project rate textfield if the client is not paid.
+     * @param event 
+     */
     @FXML
     private void handleCombobox(ActionEvent event)
     {
