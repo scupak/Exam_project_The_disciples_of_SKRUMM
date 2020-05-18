@@ -36,18 +36,18 @@
          </children>
       </HBox>
       <JFXTextField fx:id="editTitleTextField" layoutX="160.0" layoutY="69.0" minWidth="-Infinity" prefHeight="0.0" prefWidth="201.0" promptText="Enter name" />
-      <Label alignment="TOP_RIGHT" contentDisplay="RIGHT" layoutX="24.0" layoutY="137.0" prefHeight="27.0" prefWidth="117.0" styleClass="Label" text="Creation Date:" textAlignment="CENTER">
+      <Label alignment="CENTER" contentDisplay="RIGHT" layoutX="24.0" layoutY="137.0" prefHeight="27.0" prefWidth="117.0" styleClass="Label" text="Creation Date:" textAlignment="CENTER">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="82.0" layoutY="102.0" styleClass="Label" text="Project:">
+      <Label alignment="CENTER" layoutX="24.0" layoutY="102.0" prefHeight="27.0" prefWidth="117.0" styleClass="Label" text="Project:">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
       <JFXComboBox fx:id="editProjectCombobox" layoutX="160.0" layoutY="103.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="201.0" promptText="Select project" />
-      <Label alignment="TOP_RIGHT" contentDisplay="RIGHT" layoutX="82.0" layoutY="68.0" prefHeight="27.0" prefWidth="59.0" styleClass="Label" text="Name:" textAlignment="CENTER">
+      <Label alignment="CENTER" contentDisplay="RIGHT" layoutX="24.0" layoutY="68.0" prefHeight="27.0" prefWidth="117.0" styleClass="Label" text="Name:" textAlignment="CENTER">
          <font>
             <Font size="18.0" />
          </font>
