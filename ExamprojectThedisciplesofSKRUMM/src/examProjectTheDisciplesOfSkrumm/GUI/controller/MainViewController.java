@@ -52,7 +52,7 @@ import javax.swing.JOptionPane;
 /**
  * FXML Controller class
  *
- * @author Christina
+ * @author Skrumm
  */
 public class MainViewController implements Initializable
 {
