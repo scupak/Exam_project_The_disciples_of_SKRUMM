@@ -314,7 +314,7 @@ public class TaskManager implements TaskManagerInterface
 
             System.out.println(project.getProjectName() + getDurationFromIntervalsbetween2Dates(userID, project.getId(), fromdate, todate));
             /* the group divedes the output of getDurationFromIntervalsbetween2Dates by 3600 to go from seconds to hours */
-            data.getData().add(new XYChart.Data(project.getProjectName(), (getDurationFromIntervalsbetween2Dates(userID, project.getId(), fromdate, todate) / 3600.0)));
+            data.getData().add(new XYChart.Data(project.getProjectName() +" "+ project.getId(), (getDurationFromIntervalsbetween2Dates(userID, project.getId(), fromdate, todate) / 3600.0)));
 
         }
 
