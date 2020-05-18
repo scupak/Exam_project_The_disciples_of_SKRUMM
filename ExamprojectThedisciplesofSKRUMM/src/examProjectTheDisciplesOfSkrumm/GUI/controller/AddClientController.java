@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package examProjectTheDisciplesOfSkrumm.GUI.controller;
 
 import com.jfoenix.controls.JFXButton;
@@ -26,6 +22,7 @@ import javafx.stage.Stage;
 import javax.swing.JOptionPane;
 
 /**
+ * This is the class that controls the addClient view. 
  * FXML Controller class
  *
  * @author Zanaxdk <https://github.com/zanaxdk>
@@ -55,6 +52,7 @@ public class AddClientController implements Initializable
 
     /**
      * Initializes the controller class.
+     * 
      */
     @Override
     public void initialize(URL url, ResourceBundle rb)
@@ -62,16 +60,21 @@ public class AddClientController implements Initializable
        
         try
         {
+            //The modelfacade gets instantieted here.
             modelfacade = ModelFacade.getInstance();
             isPaidNum = 1;
         }
-        catch (Exception ex)
+        catch (Exception ex) //This exception happens if for some reason the program is unable to get the instance of modelfacade, this is probably unnecessary
         {
             Logger.getLogger(AddClientController.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "Couldn't get the instance of modelfacade" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
         }
     }
-
+    
+    /**
+     * This method detects when the user has pressed the ok button and then atempts to make a new client. 
+     * @param event 
+     */
     @FXML
     private void HandleAddClientOkBtn(ActionEvent event)
     {
@@ -79,29 +82,32 @@ public class AddClientController implements Initializable
         {
             try
             {
+                //The method gets all the input from the textfields and then makes a new instance of a client with this data.
                 int id = 1;
                 String ClientName = ClientNameTextField.getText();
                 int ClientRate = Integer.parseInt(ClientRateTextField.getText());
-                 int isPaid = isPaidNum;
+                int isPaid = isPaidNum;
         
                 Client client = new Client(id, ClientName, ClientRate, isPaid);
+                //This new client is then sent down to the database
                 modelfacade.createClient(client);
                 
-               
+                //The window is closed
                 Stage addClientView = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 addClientView.close();
             }
-            catch (NumberFormatException ex)
+            catch (NumberFormatException ex) //If the user enters a letter in the rate textfield, then this error is triggered and handled here.
             {
                 Logger.getLogger(AddClientController.class.getName()).log(Level.SEVERE, null, ex);
                 JOptionPane.showMessageDialog(null, "You wrote a letter in the rate textfield it needs to be a number" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
             }
             
         }
-        else if(!ClientNameTextField.getText().isEmpty() && isPaidNum == 0)
+        else if(!ClientNameTextField.getText().isEmpty() && isPaidNum == 0) //If the user wants to make a rateless client then the method needs to accept an empty rate textfield.
         {
             try
             {
+                //Same procedure as before. 
                 int id = 1;
                 String ClientName = ClientNameTextField.getText();
                 int ClientRate = 0;
@@ -113,7 +119,7 @@ public class AddClientController implements Initializable
                 Stage addClientView = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 addClientView.close();
             }
-            catch (NumberFormatException ex)
+            catch (NumberFormatException ex)// check for wierdness again. 
             {
                 Logger.getLogger(AddClientController.class.getName()).log(Level.SEVERE, null, ex);
                 JOptionPane.showMessageDialog(null, "You wrote a letter in the rate textfield it needs to be a number" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
@@ -122,11 +128,16 @@ public class AddClientController implements Initializable
         }
         else
         {
+            //This shows up if the user forgot some needed input.
             JOptionPane.showMessageDialog(null, "Missing input, you need to write something","ERROR!", JOptionPane.ERROR_MESSAGE);
         }
         
     }
 
+    /**
+     * This method closes the view if the user regrets coming here. 
+     * @param event 
+     */
     @FXML
     private void HandleAddClientCancelBtn(ActionEvent event)
     {
@@ -136,6 +147,10 @@ public class AddClientController implements Initializable
     
    
 
+    /**
+     * This method disables and enables the rate textfield based on if the client is paid or not. 
+     * @param event 
+     */
     @FXML
     private void handleIsPaid(MouseEvent event) 
     {

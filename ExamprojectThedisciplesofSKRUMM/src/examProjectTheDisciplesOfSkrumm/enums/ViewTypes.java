@@ -6,7 +6,7 @@
 package examProjectTheDisciplesOfSkrumm.enums;
 
 /**
- *
+ *An enum for determining what type of view you want to load. 
  * @author kacpe
  */
 public enum ViewTypes 

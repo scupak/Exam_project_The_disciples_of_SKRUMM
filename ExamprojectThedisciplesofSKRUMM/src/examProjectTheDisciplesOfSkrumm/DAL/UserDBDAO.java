@@ -269,10 +269,10 @@ public class UserDBDAO implements UserDBDAOInterface
     }
 
     /**
-     * updates a user
+     * This method updates the user.
      * @param oldUser
      * @param newUser
-     * @return the updated user
+     * @return boolean
      * @throws SQLServerException
      * @throws SQLException 
      */
