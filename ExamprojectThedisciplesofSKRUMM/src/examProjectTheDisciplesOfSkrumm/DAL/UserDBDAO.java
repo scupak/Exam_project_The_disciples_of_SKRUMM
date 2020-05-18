@@ -9,6 +9,7 @@ import com.microsoft.sqlserver.jdbc.SQLServerException;
 import examProjectTheDisciplesOfSkrumm.BE.Client;
 import examProjectTheDisciplesOfSkrumm.BE.Project;
 import examProjectTheDisciplesOfSkrumm.BE.User;
+import examProjectTheDisciplesOfSkrumm.DAL.Interface.LogDBDAOInterface;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,16 +24,17 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author lumby
+ * @author SKRUMM
  */
 public class UserDBDAO implements UserDBDAOInterface
 {
-
+    private LogDBDAOInterface  logDBDAO;
     private final ConnectionPool conPool;
 
     public UserDBDAO() throws IOException, Exception
     {
         this.conPool = ConnectionPool.getInstance();
+        logDBDAO = new LogDBDAO();
     }
 
     /**
@@ -79,7 +81,7 @@ public class UserDBDAO implements UserDBDAOInterface
     }
 
     /**
-     * checks if a user exist in the database
+     * checks if a user exists in the database
      *
      * @param user
      * @return boolean
@@ -111,7 +113,7 @@ public class UserDBDAO implements UserDBDAOInterface
     }
 
     /**
-     * creates a user in the dataabase
+     * creates a user in the database
      *
      * @param user
      * @return user
@@ -148,7 +150,7 @@ public class UserDBDAO implements UserDBDAOInterface
             ps.setByte(5, isAdmin);
             ps.executeUpdate();
             
-
+            logDBDAO.createLog("Create User successful" + "-" + user.getEmail()+ "-" +  "SUCCESSFUL");
             return user;
         }
         finally
@@ -210,7 +212,7 @@ public class UserDBDAO implements UserDBDAOInterface
     }
 
     /**
-     * updates a users password
+     * updates a users' password
      *
      * @param user
      * @return boolean
@@ -222,6 +224,7 @@ public class UserDBDAO implements UserDBDAOInterface
     {
         if (!userExist(user))
         {
+            logDBDAO.createLog("user does not exist!" + "-" +user.getEmail() + "-" +  "ERROR");
             return false;
         }
         
@@ -236,13 +239,19 @@ public class UserDBDAO implements UserDBDAOInterface
             ps.setString(2, user.getEmail());
             int updatedRows = ps.executeUpdate();
 
-            return updatedRows > 0;
+            if(updatedRows > 0){
+             logDBDAO.createLog("user password updated successfully!"+ "-" +user.getEmail() + "-" +  "SUCCESS");   
+             return true;   
+            }
+            
 
         }
         finally
         {
             conPool.checkIn(con);
         }
+        logDBDAO.createLog("user password update unsuccessful!" + "-" +user.getEmail() + "-" +  "ERROR");
+        return false;
     }
 
     public static void main(String[] args) throws IOException, SQLException
@@ -253,36 +262,25 @@ public class UserDBDAO implements UserDBDAOInterface
         } catch (Exception ex) {
             Logger.getLogger(UserDBDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-       // User test1 = new User("standard@user.now", "Mads", "Jensen", "nemt", false);
-        //User test2 = new User("admin@user.now", "Jakob", "Grumsen", "nemt", true);
         User test67 = new User("standard@user.now", "No", "Yes", "ok", true);
         Project p = new Project(3, "projectName", new Client(1, "ClientName", 0, 0), 0);
         
         userDb.deleteProjectFromUser(test67, p);
-        
-        //userDb.createUser(test1);
-        //userDb.createUser(test2);
-       /* userDb.createUser(test67);
-        System.out.println("User67 is " + userDb.userExist(test67));
-        System.out.println("User67 was " + userDb.getUser(test67));
-        //userDb.updateUserPassword(test);
-        userDb.updateUser(test67, new User("email@email.email", "firstName", "lastName", "pass", false));
-        System.out.println("User67 is now " + userDb.getUser(test67));*/
-       
-       /*
-        for (Project allUserProject : userDb.getAllUserProjects(test67)) {
-            
-            System.out.println(allUserProject);
-            
-        }
-       */
-
     }
 
+    /**
+     * updates a user
+     * @param oldUser
+     * @param newUser
+     * @return the updated user
+     * @throws SQLServerException
+     * @throws SQLException 
+     */
     @Override
     public boolean updateUser(User oldUser, User newUser) throws SQLServerException, SQLException {
         if (!userExist(oldUser))
         {
+            logDBDAO.createLog("user does not exist!"+ "-" + oldUser.getEmail() + "-" +  "ERROR");
             return false;
         }
         
@@ -313,15 +311,26 @@ public class UserDBDAO implements UserDBDAOInterface
             
             int updatedRows = ps.executeUpdate();
 
-            return updatedRows > 0;
-
+            if(updatedRows > 0){
+            logDBDAO.createLog("user updated successfully! " + "from: " + oldUser.getEmail() + " to: " + newUser.getEmail() + "-" +  "SUCCESS");    
+            return true;    
+            }
         }
+        
         finally
         {
             conPool.checkIn(con);
         }
+        logDBDAO.createLog("user update unsuccessful! "+ "-" +oldUser.getEmail() + "-" +  "ERROR");    
+        return false;
     }
 
+    /**
+     * deletes a user
+     * @param user
+     * @return true if it was deleted, false otherwise
+     * @throws SQLException 
+     */
     @Override
     public boolean deleteUser(User user) throws SQLException {
         
@@ -334,15 +343,26 @@ public class UserDBDAO implements UserDBDAOInterface
             
             int updatedRows = ps.executeUpdate();
             
-            return updatedRows > 0;
-            
+            if(updatedRows > 0){
+                logDBDAO.createLog("user Deletion successful!" + "-" + user.getEmail() + "-" +  "SUCCESS"); 
+                return true;    
+            }
         }
         finally
         {
             conPool.checkIn(con);
         }
+        logDBDAO.createLog("user Deletion unsuccessful!"+ "-" + user.getEmail() + "-" +  "ERROR"); 
+        return false;
         
     }
+    /**
+     * gets a list of all projects for the given user
+     * @param user
+     * @return a list of all projects for the given user
+     * @throws SQLServerException
+     * @throws SQLException 
+     */
      @Override
     public List<Project> getAllUserProjects(User user) throws SQLServerException, SQLException {
         
@@ -382,6 +402,14 @@ public class UserDBDAO implements UserDBDAOInterface
         return projects;
     }
 
+    /**
+     * adds a user to a project
+     * @param user
+     * @param project
+     * @return true if the operation was successful, false otherwise
+     * @throws SQLServerException
+     * @throws SQLException 
+     */
     @Override
     public boolean addUserToProject(User user, Project project) throws SQLServerException, SQLException {
         Connection con = conPool.checkOut();
@@ -392,26 +420,42 @@ public class UserDBDAO implements UserDBDAOInterface
             ps.setString(1, user.getEmail());
             ps.setInt(2, project.getId());
 
-            return ps.executeUpdate() > 0;
+            if(ps.executeUpdate() > 0){
+            logDBDAO.createLog("user addition successful! "+ "-" +user.getEmail()+ "-" +project.getProjectName() + "-" +  "SUCCESS"); 
+            return true;    
+            }
+            
 
         } 
         
         catch (SQLServerException ex) 
         {
+            logDBDAO.createLog("could not add to project!-Serverside Error" + "-" + project.getProjectName() + "-" +  "ERROR"); 
              throw new SQLServerException("could not add to project!", ex);
              
         }
         
         catch (SQLException ex) 
         {
+            logDBDAO.createLog("could not add to project!" + "-" + project.getProjectName() + "-" +  "ERROR"); 
              throw new SQLException("could not add to project!", ex);
         }
         finally
         {
             conPool.checkIn(con);
         }
+        logDBDAO.createLog("user addition unsuccessful!"+ "-" + user.getEmail()+ "-" +project.getProjectName() + "-" +  "ERROR"); 
+        return false;
     }
 
+    /**
+     * deletes a project from a user
+     * @param user
+     * @param project
+     * @return true if the operation was successful, false otherwise
+     * @throws SQLServerException
+     * @throws SQLException 
+     */
     @Override
     public boolean deleteProjectFromUser(User user, Project project) throws SQLServerException, SQLException {
         
@@ -427,20 +471,25 @@ public class UserDBDAO implements UserDBDAOInterface
             
             int updatedRows = ps.executeUpdate();
 
-            if (updatedRows > 0) return true;
+            if (updatedRows > 0){
+                logDBDAO.createLog("user Deleted from project successfully!"+ "-" + user.getEmail()+ "-" +project.getProjectName() + "-" +  "SUCCESS"); 
+                return true;
+            }
 
         } 
         catch (SQLServerException ex) {
+            logDBDAO.createLog("could not clear user from project!-Serverside Error!"+ "-" + user.getEmail()+ "-" +project.getProjectName() + "-" +  "ERROR"); 
             throw new SQLServerException("could not clear user from project", ex);
         } 
         catch (SQLException ex) {
+            logDBDAO.createLog("could not clear user from project!"+ "-" + user.getEmail()+ "-" +project.getProjectName() + "-" +  "ERROR"); 
             throw new SQLException("could not clear user from project", ex);
         }
         finally
         {
             conPool.checkIn(con);
         }
-
+        logDBDAO.createLog("user Deleted from project unsuccessfully!"+ "-" + user.getEmail()+ "-" +project.getProjectName() + "-" +  "ERROR"); 
         return false;
     }
 }

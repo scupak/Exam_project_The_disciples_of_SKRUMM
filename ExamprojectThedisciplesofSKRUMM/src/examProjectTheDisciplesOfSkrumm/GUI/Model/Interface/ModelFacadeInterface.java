@@ -5,12 +5,9 @@
  */
 package examProjectTheDisciplesOfSkrumm.GUI.Model.Interface;
 
-import examProjectTheDisciplesOfSkrumm.BE.Interval;
-import java.sql.SQLException;
-
 /**
  *
- * @author kacpe
+ * @author SKRUMM
  */
 public interface ModelFacadeInterface extends TaskModelInterface, ProjectModelInterface, ClientModelInterface, UserModelInterface
 {

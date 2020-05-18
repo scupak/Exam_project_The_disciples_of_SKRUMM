@@ -19,13 +19,19 @@ import java.util.List;
 
 /**
  *
- * @author kacpe
+ * @author SKRUMM
  */
 public class DALMockFacade implements DALFacadeInterface {
 
     public DALMockFacade() {
     }
 
+    /**
+     * gets all users as a list
+     * @return all users as a list
+     * @throws SQLServerException
+     * @throws SQLException 
+     */
     @Override
     public List<User> getAllUsers() throws SQLServerException, SQLException {
         ArrayList<User> users = new ArrayList();
@@ -109,6 +115,12 @@ public class DALMockFacade implements DALFacadeInterface {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * gets all projects
+     * @return all projects as a list
+     * @throws SQLServerException
+     * @throws SQLException 
+     */
     @Override
     public List<Project> getAllProjects() throws SQLServerException, SQLException {
         ArrayList<Project> projects = new ArrayList();
@@ -228,6 +240,16 @@ public class DALMockFacade implements DALFacadeInterface {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * gets duration from intervals between two dates
+     * @param userID
+     * @param projectID
+     * @param fromdate
+     * @param todate
+     * @return the total interval
+     * @throws SQLServerException
+     * @throws SQLException 
+     */
     @Override
     public int getDurationFromIntervalsbetween2Dates(String userID, int projectID, LocalDate fromdate, LocalDate todate) throws SQLServerException, SQLException {
         return 3600;

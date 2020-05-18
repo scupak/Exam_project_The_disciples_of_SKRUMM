@@ -11,7 +11,7 @@ import javafx.fxml.FXMLLoader;
 
 /**
  *
- * @author kacpe
+ * @author SKRUMM
  */
 public interface ViewFactoryInterface 
 {

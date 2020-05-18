@@ -8,6 +8,7 @@ package examProjectTheDisciplesOfSkrumm.DAL;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import examProjectTheDisciplesOfSkrumm.BE.Client;
 import examProjectTheDisciplesOfSkrumm.DAL.Interface.ClientDBDAOInterface;
+import examProjectTheDisciplesOfSkrumm.DAL.Interface.LogDBDAOInterface;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,17 +20,24 @@ import java.util.List;
 import javax.swing.JOptionPane;
 /**
  *
- * @author Zanaxdk <https://github.com/zanaxdk>
+ * @author SKRUMM
  */
 public class ClientDBDAO implements ClientDBDAOInterface
 {
+    private LogDBDAOInterface  logDBDAO;
     private final ConnectionPool conPool;
 
     public ClientDBDAO() throws IOException, Exception
     {
        this.conPool = ConnectionPool.getInstance();
+       logDBDAO = new LogDBDAO();
     }
-    
+    /**
+     * gets a client
+     * @param client
+     * @return a client
+     * @throws SQLException 
+     */
     @Override
     public Client getClient(Client client) throws SQLException
     {
@@ -66,6 +74,12 @@ public class ClientDBDAO implements ClientDBDAOInterface
 
     }
 
+    /**
+     * gets all clients as a list
+     * @return all clients as a list
+     * @throws SQLServerException
+     * @throws SQLException 
+     */
     @Override
     public List<Client> getAllClients() throws SQLServerException, SQLException
     {
@@ -93,6 +107,12 @@ public class ClientDBDAO implements ClientDBDAOInterface
         }
     }
 
+    /**
+     * checks if the given client exists
+     * @param client
+     * @return true if the client exists, false otherwise
+     * @throws SQLException 
+     */
     @Override
     public boolean clientExist(Client client) throws SQLException
     {
@@ -117,6 +137,12 @@ public class ClientDBDAO implements ClientDBDAOInterface
         }
     }
 
+    /**
+     * creates a client
+     * @param client
+     * @return the new client
+     * @throws SQLException 
+     */
     @Override
     public Client createClient(Client client) throws SQLException
     {
@@ -139,10 +165,12 @@ public class ClientDBDAO implements ClientDBDAOInterface
             if (rs.next()) {
                 client.setId((int) rs.getLong(1));
             } else {
+                logDBDAO.createLog("Client Creation unsuccsessfully" + "-" + client.getClientName() + "-" +  "ERROR");
                 return null;
             }
             System.out.println(client.getClientName() + " created " + clientExist(client));
             JOptionPane.showMessageDialog(null, client.getClientName() + " has been created!");
+            logDBDAO.createLog("create Client successful" + "-" + client.getClientName() + "-" +  "SUCCESS");
             return client;
         }
         finally
@@ -162,21 +190,14 @@ public class ClientDBDAO implements ClientDBDAOInterface
         {
           System.out.println(client);
         }
-        
-//        Client steve = new Client(3, "Test", 0, 0);
-//        clientDb.createClient(steve);
-//        System.out.println(clientDb.clientExist(steve));
-//       System.out.println(clientDb.getClient(steve));
-//        clientDb.createClient(steve);
-//        
-//        clients.addAll(clientDb.getAllClients());
-//        
-//        for (Client client : clients)
-//        {
-//          System.out.println(client);
-//        }
     }
 
+    /**
+     * deletes a client
+     * @param client
+     * @return true if the client was deleted, false otherwise
+     * @throws SQLException 
+     */
     @Override
     public boolean deleteClient(Client client) throws SQLException {
         Connection con = conPool.checkOut();
@@ -190,7 +211,10 @@ public class ClientDBDAO implements ClientDBDAOInterface
             
             int updatedRows = ps.executeUpdate();
             
-            return updatedRows > 0;
+            if(updatedRows > 0){
+               logDBDAO.createLog("Client Deletion successful" +"-"+ client.getClientName() + "-" +  "SUCCESS");
+               return true;  
+            }
             }
             
         }
@@ -198,10 +222,17 @@ public class ClientDBDAO implements ClientDBDAOInterface
         {
             conPool.checkIn(con);
         }
-        
+        logDBDAO.createLog("Client Deletion unsuccessful" +"-"+ client.getClientName() + "-" +  "ERROR");
         return false;
     }
     
+    /**
+     * clears a client
+     * @param client
+     * @return true if the client was cleared, false otherwise
+     * @throws SQLServerException
+     * @throws SQLException 
+     */
         public boolean clearClient(Client client) throws SQLException
     {
         Connection con = conPool.checkOut();
@@ -217,9 +248,10 @@ public class ClientDBDAO implements ClientDBDAOInterface
             
             while(rs.next())
             {
+                logDBDAO.createLog("Client Clearing unsuccessful" +"-"+ client.getClientName() + "-" +  "ERROR");
                 return false;
             }
-            
+            logDBDAO.createLog("Client Cleared" +"-"+ client.getClientName() + "-" +  "SUCCESS");
             return true;
         }
         finally
@@ -228,6 +260,13 @@ public class ClientDBDAO implements ClientDBDAOInterface
         }
     }
 
+    /**
+     * updates a client
+     * @param client
+     * @return true if the client was updated, false otherwise
+     * @throws SQLServerException
+     * @throws SQLException 
+     */
     @Override
     public boolean updateClient(Client client) throws SQLServerException, SQLException {
         if (!clientExist(client))
@@ -250,14 +289,21 @@ public class ClientDBDAO implements ClientDBDAOInterface
             ps.setInt(4, client.getId());
 
             int updatedRows = ps.executeUpdate();
-
-            return updatedRows > 0;
+            
+            if(updatedRows > 0){
+                logDBDAO.createLog("Client Updated successfully" +"-"+ client.getClientName() + "-" +  "SUCCESS");
+               return true; 
+            }
+            
 
         }
         finally
         {
             conPool.checkIn(con);
         }
+        
+        logDBDAO.createLog("Client Update unsuccessful" +"-"+ client.getClientName() + "-" +  "ERROR");
+        return false;
     }
     
 }

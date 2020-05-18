@@ -9,7 +9,7 @@ import javafx.scene.control.Alert;
 
 /**
  *The connectionPool stores instances of connection for later reuse. It also takes care of all the fuctionality needed for this purpose. 
- * @author kacpe
+ * @author SKRUMM
  */
 public class ConnectionPool extends ObjectPool<Connection>
 {
@@ -34,7 +34,7 @@ public class ConnectionPool extends ObjectPool<Connection>
     }
     
    /**
-    * The connectionPoll is a singleton. 
+    * The connectionPool is a singleton. 
     * @return
     * @throws IOException
     * @throws Exception 
@@ -50,7 +50,7 @@ public class ConnectionPool extends ObjectPool<Connection>
 
     /**
      * This method creates a new instance of connection.
-     * @return
+     * @return null
      * 
      */
     @Override
@@ -76,7 +76,7 @@ public class ConnectionPool extends ObjectPool<Connection>
     /**
      * This method checks the validity of an instance. 
      * @param o
-     * @return
+     * @return false
      * 
      */
     @Override

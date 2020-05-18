@@ -18,7 +18,7 @@ import javafx.beans.property.StringProperty;
 
 /**
  *
- * @author kacpe
+ * @author SKRUMM
  */
 public class Task
 {
@@ -108,7 +108,7 @@ public class Task
     }
 
     /**
-     * Sets the lastUsed varible for a task
+     * Sets the lastUsed variable for a task
      *
      * @param lastUsed
      */
@@ -128,7 +128,7 @@ public class Task
     }
 
     /**
-     * Formates the isPaid to a string
+     * Formats the isPaid to a string
      *
      * @return String
      */
@@ -209,7 +209,7 @@ public class Task
     }
 
     /**
-     * Formates the duration to a string
+     * Formats the duration to a string
      *
      * @return string
      */
@@ -242,7 +242,7 @@ public class Task
     }
 
     /**
-     * Sets the formated duration for a task
+     * Sets the formatted duration for a task
      *
      * @param formatedDuration
      */
@@ -252,7 +252,7 @@ public class Task
     }
 
     /**
-     * Gets the formated lastused
+     * Gets the formatted lastUsed
      *
      * @return string
      */
@@ -265,7 +265,7 @@ public class Task
     }
 
     /**
-     * gets the formated creation date
+     * gets the formatted creation date
      *
      * @return string
      */
@@ -377,9 +377,9 @@ public class Task
     }
 
     /**
-     * Gets a list of intervales for a task
+     * Gets a list of intervals for a task
      *
-     * @return ArrayList intervales
+     * @return ArrayList intervals
      */
     public ArrayList<Interval> getIntervals()
     {
@@ -387,7 +387,7 @@ public class Task
     }
 
     /**
-     * Sets a list of intervales for a task
+     * Sets a list of intervals for a task
      *
      * @param intervals
      */
@@ -395,7 +395,12 @@ public class Task
     {
         this.intervals = intervals;
     }
-
+    
+    /**
+     * checks wether or not an object is equal to another object
+     * @param obj
+     * @return true or false if it does or dosen't equal an other object
+     */
     @Override
     public boolean equals(Object obj)
     {
@@ -415,6 +420,10 @@ public class Task
         return Objects.equals(this.id.getValue(), other.id.getValue());
     }
 
+    /**
+     * generates hashCode
+     * @return hashCode
+     */
     @Override
     public int hashCode()
     {
@@ -422,7 +431,11 @@ public class Task
         hash = 71 * hash + Objects.hashCode(this.id);
         return hash;
     }
-
+    
+    /**
+     * converts the information of the task into an easily readable string
+     * @return a string 
+     */
     @Override
     public String toString()
     {

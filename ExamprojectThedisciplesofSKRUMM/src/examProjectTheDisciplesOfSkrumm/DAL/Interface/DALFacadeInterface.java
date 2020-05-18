@@ -5,13 +5,9 @@
  */
 package examProjectTheDisciplesOfSkrumm.DAL.Interface;
 
-import com.microsoft.sqlserver.jdbc.SQLServerException;
-import examProjectTheDisciplesOfSkrumm.BE.Interval;
-import java.sql.SQLException;
-
 /**
  *
- * @author lumby
+ * @author SKRUMM
  */
 public interface DALFacadeInterface extends UserDBDAOInterface, ClientDBDAOInterface, ProjectDBDAOInterface, TaskDBDAOInterface ,LogDBDAOInterface
 {

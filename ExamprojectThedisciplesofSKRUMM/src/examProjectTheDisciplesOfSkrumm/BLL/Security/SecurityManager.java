@@ -12,7 +12,7 @@ import java.security.NoSuchAlgorithmException;
 
 /**
  *
- * @author lumby
+ * @author SKRUMM
  */
 public class SecurityManager implements SecurityManagerInterface
 {

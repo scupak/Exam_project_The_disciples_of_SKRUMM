@@ -13,7 +13,7 @@ import javafx.fxml.FXMLLoader;
 /**
  * This class takes care of loading in all the views 
  * so that view creation can be handled in one place.
- * @author kacpe
+ * @author SKRUMM
  */
 public class ViewFactory implements ViewFactoryInterface
 {

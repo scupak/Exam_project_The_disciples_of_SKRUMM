@@ -9,7 +9,7 @@ import javafx.beans.property.SimpleStringProperty;
 
 /**
  *
- * @author lumby
+ * @author SKRUMM
  */
 public class User
 {
@@ -129,6 +129,10 @@ public class User
         this.password = new SimpleStringProperty(password);
     }
 
+     /**
+     * converts the information of the User into an easily readable string
+     * @return a string 
+     */
     @Override
     public String toString()
     {

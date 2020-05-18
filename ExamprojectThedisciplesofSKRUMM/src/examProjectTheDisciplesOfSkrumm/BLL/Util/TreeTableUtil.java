@@ -20,7 +20,7 @@ import javafx.scene.control.TreeItem;
 
 /**
  *This class enables the use of treetables in the program
- * @author kacpe
+ * @author SKRUMM
  */
 public class TreeTableUtil implements TreeTableUtilInterface
 {
@@ -30,7 +30,11 @@ public class TreeTableUtil implements TreeTableUtilInterface
     }
     
     
-    
+    /**
+     * gets the model as a treeItem
+     * @param tasks
+     * @return a root treeItem based upon the given list of tasks
+     */
     @SuppressWarnings("unchecked")
     @Override
     public TreeItem getModel(ObservableList<Task> tasks)

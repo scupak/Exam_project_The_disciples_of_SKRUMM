@@ -15,7 +15,7 @@ import java.util.Properties;
 
 /**
  *
- * @author lumby
+ * @author SKRUMM
  */
 public class DatabaseConnector
 {

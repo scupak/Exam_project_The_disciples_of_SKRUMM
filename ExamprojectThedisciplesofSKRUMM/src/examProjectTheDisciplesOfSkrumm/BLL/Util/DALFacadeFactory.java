@@ -13,7 +13,7 @@ import java.io.IOException;
 
 /**
  *
- * @author kacpe
+ * @author SKRUMM
  */
 public class DALFacadeFactory
 {

@@ -17,7 +17,7 @@ import java.util.List;
 
 /**
  *
- * @author kacpe
+ * @author SKRUMM
  */
 public class ProjectManager implements ProjectManagerInterface
 {
@@ -69,7 +69,7 @@ public class ProjectManager implements ProjectManagerInterface
     }
 
     /**
-     * gets a spedcific project
+     * gets a specific project
      * @param project
      * @return retrunProject
      * @throws SQLException 
@@ -105,7 +105,7 @@ public class ProjectManager implements ProjectManagerInterface
     }
     
     /**
-     * Gets a list of project for a client
+     * Gets a list of projects for a client
      * @param client
      * @return ArrayList list
      * @throws SQLException 
