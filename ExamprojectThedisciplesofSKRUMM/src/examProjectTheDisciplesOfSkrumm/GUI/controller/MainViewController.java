@@ -184,6 +184,11 @@ public class MainViewController implements Initializable
 
     }
 
+    /**
+     * The event handler that activates the ChartView.
+     * @param event
+     * @throws IOException 
+     */
     @FXML
     private void handleChartView(ActionEvent event) throws IOException
     {
@@ -205,6 +210,11 @@ public class MainViewController implements Initializable
 
     }
 
+    /**
+     * The event handler that activates the AdminView. 
+     * @param event
+     * @throws IOException 
+     */
     @FXML
     private void handleAdminView(ActionEvent event) throws IOException
     {
@@ -236,6 +246,11 @@ public class MainViewController implements Initializable
         }
     }
 
+    /**
+     * The event handler that activates the TaskView. 
+     * @param event
+     * @throws IOException 
+     */
     @FXML
     private void handletaskView(ActionEvent event) throws IOException
     {
@@ -254,7 +269,13 @@ public class MainViewController implements Initializable
         mainView.close();
 
     }
+    
 
+    /**
+     * The event handler that activates the ClientAndProjectView. 
+     * @param event
+     * @throws IOException 
+     */
     @FXML
     private void handleClientProject(ActionEvent event) throws IOException
     {
@@ -469,7 +490,12 @@ public class MainViewController implements Initializable
             }
         }
     }
-
+    
+    /**
+     * The eventhandler that that performs all the necessary preprocessing before calling the handleStart() method to start the timer. 
+     * @param event
+     * @throws SQLException 
+     */
     @FXML
     private void handlePlay(ActionEvent event) throws SQLException
     {
@@ -486,6 +512,7 @@ public class MainViewController implements Initializable
         JFXComboBox<Interval> combo = new JFXComboBox();
         JFXButton button = (JFXButton) event.getSource();
 
+        //find the correct AnchorPane to start the timer on
         for (AnchorPane pane : panes)
         {
             if (button.getParent().getId() == pane.getId())
@@ -494,6 +521,7 @@ public class MainViewController implements Initializable
                 intervalLabel = timeLabels.get(index);
                 totaltimelabel = totalTimeLabels.get(index);
 
+                //find the corret JFXComboBox
                 for (Node child : pane.getChildren())
                 {
                     if (child instanceof JFXComboBox)
@@ -504,6 +532,7 @@ public class MainViewController implements Initializable
             }
         }
 
+        //set the duration on a task to 0 if it is negative.
         if (tasks.get(index).getDuration() <= 0)
         {
             handleStart(intervalLabel, totaltimelabel, button, 0, tasks.get(index));
@@ -512,8 +541,10 @@ public class MainViewController implements Initializable
             handleStart(intervalLabel, totaltimelabel, button, tasks.get(index).getDuration(), tasks.get(index));
         }
 
+        
         if (!modelfacade.getisTimerRunning())
         {
+            //if the timer is running and the user presses the play button on a different task, set the other play buttons image to Playbutton.png
             if (modelfacade.getTimerutil().getCurrenttask() != null && !tasks.get(index).equals(modelfacade.getTimerutil().getCurrenttask()))
             {
                 System.out.println("different button");
@@ -562,6 +593,7 @@ public class MainViewController implements Initializable
 
                 currentTask.setDuration(modelfacade.getTimerutil().getTotalSec());
 
+                //if the currentTask has no intervals set its starttime to the first intervals starttime. 
                 if (currentTask.getIntervals().isEmpty())
                 {
                     currentTask.setStartTime(modelfacade.getTimerutil().getStartTime());
@@ -643,6 +675,11 @@ public class MainViewController implements Initializable
         previousbutton = button;
     }
 
+    /**
+     * The eventhandler that activates the login view. 
+     * @param event
+     * @throws IOException 
+     */
     @FXML
     private void handleLogOut(ActionEvent event) throws IOException
     {
@@ -667,6 +704,14 @@ public class MainViewController implements Initializable
         }
     }
 
+    /**
+     * the method that start the timer.
+     * @param intervalLabel
+     * @param totaltimelabel
+     * @param button
+     * @param totalsecfortask
+     * @param currenttask 
+     */
     private synchronized void handleStart(Label intervalLabel, Label totaltimelabel, JFXButton button, int totalsecfortask, Task currenttask)
     {
         if (modelfacade.getisTimerRunning())
@@ -688,6 +733,9 @@ public class MainViewController implements Initializable
         }
     }
 
+    /**
+     * the method that handles the situation when the timer is already running when this view gets activated. 
+     */
     private void handleTimerUtilIsRunning()
     {
         ImageView Pause = new ImageView("/examProjectTheDisciplesOfSkrumm/GUI/Icons/PauseBtn.png");
@@ -743,6 +791,12 @@ public class MainViewController implements Initializable
 
     }
 
+    /**
+     * The eventhandler that activates the EditTaskview.
+     * @param event
+     * @throws IOException
+     * @throws SQLException 
+     */
     @FXML
     private void handleEditTask(ActionEvent event) throws IOException, SQLException
     {
@@ -772,6 +826,11 @@ public class MainViewController implements Initializable
         updateMainView();
     }
 
+    /**
+     * The eventhandler that deletes a task.
+     * @param event
+     * @throws SQLException 
+     */
     @FXML
     private void handleDeleteTask(ActionEvent event) throws SQLException
     {

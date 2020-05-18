@@ -24,9 +24,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
-import javax.swing.event.HyperlinkEvent;
 
 /**
  * FXML Controller class
@@ -47,7 +45,10 @@ public class LoginViewController implements Initializable {
    
     
    
-    
+    /**
+     * 
+     * @throws Exception 
+     */
     public LoginViewController() throws Exception
     {
         model = ModelFacade.getInstance();
@@ -60,7 +61,10 @@ public class LoginViewController implements Initializable {
     {
        
     }    
-    
+    /**
+     * The event handler that tries to log the user in. 
+     * @param event 
+     */
     @FXML
     private void handelLogIn(ActionEvent event)
     {
