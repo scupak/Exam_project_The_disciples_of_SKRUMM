@@ -287,18 +287,6 @@ public class AdminUserViewController implements Initializable
                 Parent root = loader.load();
                 TaskViewController controller = loader.getController();
 
-                controller.getCreateTaskButton().setVisible(false);
-                controller.getCreateTaskButton().setDisable(true);
-
-                controller.getDeleteTask().setVisible(false);
-                controller.getDeleteTask().setDisable(true);
-
-                controller.getEditTaskBtn().setVisible(false);
-                controller.getEditTaskBtn().setDisable(true);
-
-                controller.getTimerButton().setVisible(false);
-                controller.getTimerButton().setDisable(true);
-
                 Stage stage = new Stage();
                 stage.setScene(new Scene(root));
                 stage.setMinHeight(523);
