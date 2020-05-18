@@ -5,10 +5,8 @@
  */
 package examProjectTheDisciplesOfSkrumm.enums;
 
-import com.sun.tools.doclets.standard.Standard;
-
 /**
- *
+ * An enum for determining what type of user is accessing the application.
  * @author lumby
  */
 public enum UserMode

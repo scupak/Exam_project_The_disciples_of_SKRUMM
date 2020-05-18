@@ -16,23 +16,18 @@ import com.jfoenix.controls.JFXDatePicker;
 import examProjectTheDisciplesOfSkrumm.BE.Interval;
 import examProjectTheDisciplesOfSkrumm.BE.Task;
 import examProjectTheDisciplesOfSkrumm.BLL.Util.TimerUtil;
-import examProjectTheDisciplesOfSkrumm.BLL.Util.TreeTableUtil;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.ModelFacadeInterface;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.ModelFacade;
 import examProjectTheDisciplesOfSkrumm.enums.UserMode;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.temporal.WeekFields;
 import java.util.ArrayList;
-import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
@@ -47,10 +42,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeTableCell;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.TreeTableView;
-import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import javax.swing.JDialog;
@@ -329,7 +322,7 @@ public class TaskViewController implements Initializable
     }
     
 /**
- * 
+ * opens the main view
  * @param event
  * @throws IOException 
  */
