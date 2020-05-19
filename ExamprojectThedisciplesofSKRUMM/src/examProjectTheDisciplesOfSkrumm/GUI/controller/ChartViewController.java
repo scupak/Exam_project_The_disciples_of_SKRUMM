@@ -14,6 +14,7 @@ import java.text.DecimalFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.Month;
+import java.time.Year;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -155,8 +156,12 @@ public class ChartViewController implements Initializable
                             for (final XYChart.Data<String, Number> data : series.getData())
                             {
                                 Tooltip tooltip = new Tooltip();
-                                tooltip.setText(String.valueOf((double) Math.round((data.getYValue().doubleValue() * 100.00) / 100.00)));
+                                tooltip.setText(modelfacade.convertSecToTimeString(((int) Math.round(data.getYValue().doubleValue() * 3600.0))));
                                 Tooltip.install(data.getNode(), tooltip);
+                                
+                                
+                                
+                                
                             }
                         }
                     });
@@ -197,7 +202,7 @@ public class ChartViewController implements Initializable
                             Tooltip tooltip = new Tooltip();
                             
                             DecimalFormat f = new DecimalFormat("##.00");
-                            tooltip.setText((f.format((data.getYValue().doubleValue()) )));
+                            tooltip.setText(modelfacade.convertSecToTimeString(((int) Math.round(data.getYValue().doubleValue() * 3600.0))));
                             Tooltip.install(data.getNode(), tooltip);
                         }
                             }
@@ -285,17 +290,25 @@ public class ChartViewController implements Initializable
     @FXML
     private void handleLastMonth(ActionEvent event)
     {
-        //startDate.setValue();
+        startDate.setValue(LocalDate.now().minusMonths(1).withDayOfMonth(1));
+        endDate.setValue(LocalDate.now().minusMonths(1).
+                withDayOfMonth(LocalDate.now().minusMonths(1).lengthOfMonth()));
+      
     }
 
     @FXML
     private void handleLastWeek(ActionEvent event)
     {
+        startDate.setValue(LocalDate.now().minusWeeks(1).with(DayOfWeek.MONDAY));
+        endDate.setValue(LocalDate.now().minusWeeks(1).with(DayOfWeek.SUNDAY));
     }
 
     @FXML
     private void handleCurrentWeek(ActionEvent event)
     {
+        startDate.setValue(LocalDate.now().with(DayOfWeek.MONDAY));
+        endDate.setValue(LocalDate.now().with(DayOfWeek.SUNDAY));
     }
+    
 
 }
