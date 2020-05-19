@@ -3,8 +3,10 @@ package examProjectTheDisciplesOfSkrumm.GUI.controller;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
 import examProjectTheDisciplesOfSkrumm.BE.Project;
+import examProjectTheDisciplesOfSkrumm.BE.User;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.ModelFacadeInterface;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.ModelFacade;
+import examProjectTheDisciplesOfSkrumm.enums.ViewTypes;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -13,8 +15,13 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.ResourceBundle;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -31,6 +38,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javax.swing.JOptionPane;
 
 /**
  * FXML controller class
@@ -72,12 +80,15 @@ public class ChartViewController implements Initializable
         try
         {
             modelfacade = ModelFacade.getInstance();
-
-        } catch (Exception ex)
+            
+        } catch (Exception ex) 
         {
             Logger.getLogger(ChartViewController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Failed to get the intance of modelfacade" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
         }
-
+        
+        
+        xAxisInBarChart.setAnimated(false);
         startDate.setValue(LocalDate.now());
         endDate.setValue(LocalDate.now());
         handleBarChart();
@@ -90,19 +101,32 @@ public class ChartViewController implements Initializable
      * @throws IOException
      */
     @FXML
-    private void handleBack(ActionEvent event) throws IOException
+    private void handleBack(ActionEvent event)
     {
-        Stage chartView = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/MainView.fxml"));
-        Parent root = loader.load();
-        MainViewController Controller = loader.getController();
-
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.setTitle("TimeTracker");
-        stage.show();
-        chartView.close();
+        try
+        {
+            Stage chartView = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            
+            FXMLLoader loader = modelfacade.getLoader(ViewTypes.MAIN);
+            Parent root = loader.load();
+            MainViewController Controller = loader.getController();
+            
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("TimeTracker");
+            stage.show();
+            chartView.close();
+        } 
+        catch (IOException ex)
+        {
+            Logger.getLogger(ChartViewController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Failed to load in the main view" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
+        } 
+        catch (Exception ex)
+        {
+            Logger.getLogger(ChartViewController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Given wrong view type" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     /**
@@ -110,75 +134,86 @@ public class ChartViewController implements Initializable
      */
     public void handleBarChart()
     {
-        if (currentProject != null)
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        executor.submit(() -> 
         {
-
-            try
+            if(currentProject != null)
             {
-                hoursChart.getData().clear();
-                hoursChart.getData().add(modelfacade.handleProjectBarChartDataForAdmin(currentProject.getId(), startDate.getValue(), endDate.getValue()));
-
-                for (final Series<String, Number> series : hoursChart.getData())
+                try 
                 {
-                    for (final XYChart.Data<String, Number> data : series.getData())
+                    XYChart.Series stuff = modelfacade.handleProjectBarChartDataForAdmin(currentProject.getId(),startDate.getValue(),endDate.getValue());
+                    
+                    Platform.runLater( () ->
                     {
-                        Tooltip tooltip = new Tooltip();
-                        tooltip.setText(String.valueOf((double) Math.round((data.getYValue().doubleValue() * 100.00) / 100.00)));
-                        Tooltip.install(data.getNode(), tooltip);
-                    }
+                       hoursChart.getData().clear();
+                       hoursChart.getData().add(stuff);
+
+                       for (final Series<String, Number> series : hoursChart.getData())
+                        {
+                            for (final XYChart.Data<String, Number> data : series.getData())
+                            {
+                                Tooltip tooltip = new Tooltip();
+                                tooltip.setText(String.valueOf((double) Math.round((data.getYValue().doubleValue() * 100.00) / 100.00)));
+                                Tooltip.install(data.getNode(), tooltip);
+                            }
+                        }
+                    });
                 }
-
-            } catch (SQLException ex)
+                catch (SQLException ex)
+                {
+                    Platform.runLater( () ->
+                    {
+                       Logger.getLogger(ChartViewController.class.getName()).log(Level.SEVERE, null, ex);
+                       JOptionPane.showMessageDialog(null, "Failed to get data from database" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
+                    });
+                }
+            }
+            else
             {
-                Logger.getLogger(ChartViewController.class.getName()).log(Level.SEVERE, null, ex);
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("SQLException");
-                alert.setHeaderText("SQLException");
-                alert.setContentText(ex.toString());
-                alert.showAndWait();
-            }
+                try 
+                {
+                    /*
+                    XYChart.Series data = new XYChart.Series();
+                    data.setName("Hours Spend");
 
-        } else
-        {
+                    //data
+                    data.getData().add(new XYChart.Data(DayOfWeek.MONDAY.toString(), 5));
+                    data.getData().add(new XYChart.Data(DayOfWeek.TUESDAY.toString(), 10));
+                    data.getData().add(new XYChart.Data(DayOfWeek.WEDNESDAY.toString(), 12));
+                    data.getData().add(new XYChart.Data(DayOfWeek.THURSDAY.toString(), 7));
+                    data.getData().add(new XYChart.Data(DayOfWeek.FRIDAY.toString(), 6));
+                    */
+                    
+                    XYChart.Series stuff = modelfacade.handleProjectBarChartData(modelfacade.getCurrentuser().getEmail(),startDate.getValue(),endDate.getValue());
+                    
+                    Platform.runLater( () ->
+                    {
+                       hoursChart.getData().clear();
+                       hoursChart.getData().add(stuff);
+                       for (final Series<String, Number> series : hoursChart.getData()) {
+                        for (final XYChart.Data<String, Number> data : series.getData()) {
+                            Tooltip tooltip = new Tooltip();
+                            
+                            DecimalFormat f = new DecimalFormat("##.00");
+                            tooltip.setText((f.format((data.getYValue().doubleValue()) )));
+                            Tooltip.install(data.getNode(), tooltip);
+                        }
+                            }
 
-            try
-            {
-                /*
-            XYChart.Series data = new XYChart.Series();
-            data.setName("Hours Spend");
-            
-            //data
-            data.getData().add(new XYChart.Data(DayOfWeek.MONDAY.toString(), 5));
-            data.getData().add(new XYChart.Data(DayOfWeek.TUESDAY.toString(), 10));
-            data.getData().add(new XYChart.Data(DayOfWeek.WEDNESDAY.toString(), 12));
-            data.getData().add(new XYChart.Data(DayOfWeek.THURSDAY.toString(), 7));
-            data.getData().add(new XYChart.Data(DayOfWeek.FRIDAY.toString(), 6));
-            */
-            hoursChart.getData().clear();
-            hoursChart.getData().add(modelfacade.handleProjectBarChartData(modelfacade.getCurrentuser().getEmail(),startDate.getValue(),endDate.getValue()));
-            
-            for (final Series<String, Number> series : hoursChart.getData()) {
-        for (final XYChart.Data<String, Number> data : series.getData()) {
-            Tooltip tooltip = new Tooltip();
-            
-            DecimalFormat f = new DecimalFormat("##.00");
-            tooltip.setText((f.format((data.getYValue().doubleValue()) )));
-            Tooltip.install(data.getNode(), tooltip);
-        }
-            }
-            
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(ChartViewController.class.getName()).log(Level.SEVERE, null, ex);
-            
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("SQLException");
-                alert.setHeaderText("SQLException");
-                alert.setContentText(ex.toString());
-                alert.showAndWait();
-            }
-        }
-
+                       
+                    });
+                }
+                catch (SQLException ex) 
+                {
+                    Platform.runLater( () ->
+                    {
+                       Logger.getLogger(ChartViewController.class.getName()).log(Level.SEVERE, null, ex);
+                       JOptionPane.showMessageDialog(null, "Failed to get data from database" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
+                    });
+                }
+            }       
+        });
+        executor.shutdown();
     }
 
     /**
