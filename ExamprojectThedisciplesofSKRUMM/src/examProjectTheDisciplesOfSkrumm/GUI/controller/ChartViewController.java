@@ -91,9 +91,7 @@ public class ChartViewController implements Initializable
         
         xAxisInBarChart.setAnimated(false);
         startDate.setValue(LocalDate.now());
-        startDate.showWeekNumbersProperty();
         endDate.setValue(LocalDate.now());
-        endDate.showWeekNumbersProperty();
         handleBarChart();
     }
 
