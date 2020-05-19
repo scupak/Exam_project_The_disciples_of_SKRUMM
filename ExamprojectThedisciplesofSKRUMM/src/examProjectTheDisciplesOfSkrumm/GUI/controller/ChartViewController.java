@@ -1,4 +1,3 @@
-
 package examProjectTheDisciplesOfSkrumm.GUI.controller;
 
 import com.jfoenix.controls.JFXButton;
@@ -11,6 +10,7 @@ import examProjectTheDisciplesOfSkrumm.enums.ViewTypes;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.Month;
@@ -32,14 +32,17 @@ import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.chart.XYChart.Series;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javax.swing.JOptionPane;
 
 /**
- *FXML controller class
+ * FXML controller class
+ *
  * @author SKRUMM
  */
 public class ChartViewController implements Initializable
@@ -48,32 +51,34 @@ public class ChartViewController implements Initializable
     @FXML
     private JFXDatePicker endDate;
     @FXML
-    private BarChart<?, ?> hoursChart;
+    private BarChart<String, Number> hoursChart;
     @FXML
     private Label nameLabel;
-  
+
     @FXML
     private JFXButton backBtn;
     @FXML
     private JFXDatePicker startDate;
     @FXML
     private AnchorPane anchorPane;
-    
+
     private ModelFacadeInterface modelfacade;
-    
+
     private Project currentProject;
     @FXML
     private CategoryAxis xAxisInBarChart;
-    
-  
+
     /**
      * Initialises the modelfacade and sets the default stardate and enddate.
+     *
      * @param url
-     * @param rb 
+     * @param rb
      */
-   @Override 
-    public void initialize(URL url, ResourceBundle rb) {
-        try {
+    @Override
+    public void initialize(URL url, ResourceBundle rb)
+    {
+        try
+        {
             modelfacade = ModelFacade.getInstance();
             
         } catch (Exception ex) 
@@ -87,12 +92,13 @@ public class ChartViewController implements Initializable
         startDate.setValue(LocalDate.now());
         endDate.setValue(LocalDate.now());
         handleBarChart();
-    }   
-    
+    }
+
     /**
      * Sends the user back to the mainview.
+     *
      * @param event
-     * @throws IOException 
+     * @throws IOException
      */
     @FXML
     private void handleBack(ActionEvent event)
@@ -122,7 +128,7 @@ public class ChartViewController implements Initializable
             JOptionPane.showMessageDialog(null, "Given wrong view type" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
+
     /**
      * Adds the data to the barchart.
      */
@@ -135,12 +141,22 @@ public class ChartViewController implements Initializable
             {
                 try 
                 {
-                    XYChart.Series data = modelfacade.handleProjectBarChartDataForAdmin(currentProject.getId(),startDate.getValue(),endDate.getValue());
+                    XYChart.Series stuff = modelfacade.handleProjectBarChartDataForAdmin(currentProject.getId(),startDate.getValue(),endDate.getValue());
                     
                     Platform.runLater( () ->
                     {
                        hoursChart.getData().clear();
-                       hoursChart.getData().add(data);
+                       hoursChart.getData().add(stuff);
+
+                       for (final Series<String, Number> series : hoursChart.getData())
+                        {
+                            for (final XYChart.Data<String, Number> data : series.getData())
+                            {
+                                Tooltip tooltip = new Tooltip();
+                                tooltip.setText(String.valueOf((double) Math.round((data.getYValue().doubleValue() * 100.00) / 100.00)));
+                                Tooltip.install(data.getNode(), tooltip);
+                            }
+                        }
                     });
                 }
                 catch (SQLException ex)
@@ -148,7 +164,7 @@ public class ChartViewController implements Initializable
                     Platform.runLater( () ->
                     {
                        Logger.getLogger(ChartViewController.class.getName()).log(Level.SEVERE, null, ex);
-                        JOptionPane.showMessageDialog(null, "Failed to get data from database" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
+                       JOptionPane.showMessageDialog(null, "Failed to get data from database" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
                     });
                 }
             }
@@ -168,12 +184,23 @@ public class ChartViewController implements Initializable
                     data.getData().add(new XYChart.Data(DayOfWeek.FRIDAY.toString(), 6));
                     */
                     
-                    XYChart.Series data = modelfacade.handleProjectBarChartData(modelfacade.getCurrentuser().getEmail(),startDate.getValue(),endDate.getValue());
+                    XYChart.Series stuff = modelfacade.handleProjectBarChartData(modelfacade.getCurrentuser().getEmail(),startDate.getValue(),endDate.getValue());
                     
                     Platform.runLater( () ->
                     {
                        hoursChart.getData().clear();
-                       hoursChart.getData().add(data);
+                       hoursChart.getData().add(stuff);
+                       for (final Series<String, Number> series : hoursChart.getData()) {
+                        for (final XYChart.Data<String, Number> data : series.getData()) {
+                            Tooltip tooltip = new Tooltip();
+                            
+                            DecimalFormat f = new DecimalFormat("##.00");
+                            tooltip.setText((f.format((data.getYValue().doubleValue()) )));
+                            Tooltip.install(data.getNode(), tooltip);
+                        }
+                            }
+
+                       
                     });
                 }
                 catch (SQLException ex) 
@@ -190,58 +217,67 @@ public class ChartViewController implements Initializable
     }
 
     /**
-     * Tells the program to refresh the barchart whenever the datepickers are used.
-     * @param event 
+     * Tells the program to refresh the barchart whenever the datepickers are
+     * used.
+     *
+     * @param event
      */
     @FXML
-    private void handleDatepickerAction(ActionEvent event) 
+    private void handleDatepickerAction(ActionEvent event)
     {
         handleBarChart();
     }
 
     /**
      * Getter for the current project variable
-     * @return 
+     *
+     * @return
      */
-    public Project getCurrentProject() {
+    public Project getCurrentProject()
+    {
         return currentProject;
     }
 
     /**
      * Setter for the current project variable
-     * @return 
+     *
+     * @return
      */
-    public void setCurrentProject(Project currentProject) {
+    public void setCurrentProject(Project currentProject)
+    {
         this.currentProject = currentProject;
         handleBarChart();
-        
+
     }
 
     /**
      * Getter for the back button
-     * @return 
+     *
+     * @return
      */
-    public JFXButton getBackBtn() {
+    public JFXButton getBackBtn()
+    {
         return backBtn;
     }
 
     /**
      * Getter for the namelabel
-     * @return 
+     *
+     * @return
      */
-    public Label getNameLabel() {
+    public Label getNameLabel()
+    {
         return nameLabel;
     }
 
     /**
      * Getter for the barchart
-     * @return 
+     *
+     * @return
      */
-    public CategoryAxis getxAxisInBarChart() {
+    public CategoryAxis getxAxisInBarChart()
+    {
         return xAxisInBarChart;
     }
-    
-    
-            
-    
+
 }
