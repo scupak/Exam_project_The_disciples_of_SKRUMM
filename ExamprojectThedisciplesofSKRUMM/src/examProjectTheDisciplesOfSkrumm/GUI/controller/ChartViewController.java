@@ -1,4 +1,3 @@
-
 package examProjectTheDisciplesOfSkrumm.GUI.controller;
 
 import com.jfoenix.controls.JFXButton;
@@ -33,7 +32,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- *FXML controller class
+ * FXML controller class
+ *
  * @author SKRUMM
  */
 public class ChartViewController implements Initializable
@@ -45,90 +45,104 @@ public class ChartViewController implements Initializable
     private BarChart<String, Number> hoursChart;
     @FXML
     private Label nameLabel;
-  
+
     @FXML
     private JFXButton backBtn;
     @FXML
     private JFXDatePicker startDate;
     @FXML
     private AnchorPane anchorPane;
-    
+
     private ModelFacadeInterface modelfacade;
-    
+
     private Project currentProject;
     @FXML
     private CategoryAxis xAxisInBarChart;
-    
-  
+
     /**
      * Initialises the modelfacade and sets the default stardate and enddate.
+     *
      * @param url
-     * @param rb 
+     * @param rb
      */
-   @Override 
-    public void initialize(URL url, ResourceBundle rb) {
-        try {
+    @Override
+    public void initialize(URL url, ResourceBundle rb)
+    {
+        try
+        {
             modelfacade = ModelFacade.getInstance();
-            
-        } catch (Exception ex) {
+
+        } catch (Exception ex)
+        {
             Logger.getLogger(ChartViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         startDate.setValue(LocalDate.now());
         endDate.setValue(LocalDate.now());
         handleBarChart();
-    }   
-    
+    }
+
     /**
      * Sends the user back to the mainview.
+     *
      * @param event
-     * @throws IOException 
+     * @throws IOException
      */
     @FXML
     private void handleBack(ActionEvent event) throws IOException
     {
         Stage chartView = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/MainView.fxml"));
         Parent root = loader.load();
         MainViewController Controller = loader.getController();
-        
+
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.setTitle("TimeTracker");
         stage.show();
         chartView.close();
     }
-    
+
     /**
      * Adds the data to the barchart.
      */
     public void handleBarChart()
     {
-        if(currentProject != null){
-            
-            try {
+        if (currentProject != null)
+        {
+
+            try
+            {
                 hoursChart.getData().clear();
-                hoursChart.getData().add(modelfacade.handleProjectBarChartDataForAdmin(currentProject.getId(),startDate.getValue(),endDate.getValue()));
-            } catch (SQLException ex) {
+                hoursChart.getData().add(modelfacade.handleProjectBarChartDataForAdmin(currentProject.getId(), startDate.getValue(), endDate.getValue()));
+
+                for (final Series<String, Number> series : hoursChart.getData())
+                {
+                    for (final XYChart.Data<String, Number> data : series.getData())
+                    {
+                        Tooltip tooltip = new Tooltip();
+                        tooltip.setText(String.valueOf((double) Math.round((data.getYValue().doubleValue() * 100.00) / 100.00)));
+                        Tooltip.install(data.getNode(), tooltip);
+                    }
+                }
+
+            } catch (SQLException ex)
+            {
                 Logger.getLogger(ChartViewController.class.getName()).log(Level.SEVERE, null, ex);
-                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("SQLException");
                 alert.setHeaderText("SQLException");
                 alert.setContentText(ex.toString());
                 alert.showAndWait();
-             }
-            
-        
-        
-        
-        
-        
-        }
-        else{
-        
-        try {
-            /*
+            }
+
+        } else
+        {
+
+            try
+            {
+                /*
             XYChart.Series data = new XYChart.Series();
             data.setName("Hours Spend");
             
@@ -138,85 +152,96 @@ public class ChartViewController implements Initializable
             data.getData().add(new XYChart.Data(DayOfWeek.WEDNESDAY.toString(), 12));
             data.getData().add(new XYChart.Data(DayOfWeek.THURSDAY.toString(), 7));
             data.getData().add(new XYChart.Data(DayOfWeek.FRIDAY.toString(), 6));
-            */
-            hoursChart.getData().clear();
-            hoursChart.getData().add(modelfacade.handleProjectBarChartData(modelfacade.getCurrentuser().getEmail(),startDate.getValue(),endDate.getValue()));
-            
-            for (final Series<String, Number> series : hoursChart.getData()) {
-        for (final XYChart.Data<String, Number> data : series.getData()) {
-            Tooltip tooltip = new Tooltip();
-            tooltip.setText(String.valueOf((double)Math.round((data.getYValue().doubleValue() * 100.0) / 100.0)));
-            Tooltip.install(data.getNode(), tooltip);
-        }
-            }
-            
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(ChartViewController.class.getName()).log(Level.SEVERE, null, ex);
-            
+                 */
+                hoursChart.getData().clear();
+                hoursChart.getData().add(modelfacade.handleProjectBarChartData(modelfacade.getCurrentuser().getEmail(), startDate.getValue(), endDate.getValue()));
+
+                for (final Series<String, Number> series : hoursChart.getData())
+                {
+                    for (final XYChart.Data<String, Number> data : series.getData())
+                    {
+                        Tooltip tooltip = new Tooltip();
+                        tooltip.setText(String.valueOf((double) Math.round((data.getYValue().doubleValue() * 100.0) / 100.0)));
+                        Tooltip.install(data.getNode(), tooltip);
+                    }
+                }
+
+            } catch (SQLException ex)
+            {
+                Logger.getLogger(ChartViewController.class.getName()).log(Level.SEVERE, null, ex);
+
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("SQLException");
                 alert.setHeaderText("SQLException");
                 alert.setContentText(ex.toString());
                 alert.showAndWait();
+            }
         }
-        }
-        
+
     }
 
     /**
-     * Tells the program to refresh the barchart whenever the datepickers are used.
-     * @param event 
+     * Tells the program to refresh the barchart whenever the datepickers are
+     * used.
+     *
+     * @param event
      */
     @FXML
-    private void handleDatepickerAction(ActionEvent event) 
+    private void handleDatepickerAction(ActionEvent event)
     {
         handleBarChart();
     }
 
     /**
      * Getter for the current project variable
-     * @return 
+     *
+     * @return
      */
-    public Project getCurrentProject() {
+    public Project getCurrentProject()
+    {
         return currentProject;
     }
 
     /**
      * Setter for the current project variable
-     * @return 
+     *
+     * @return
      */
-    public void setCurrentProject(Project currentProject) {
+    public void setCurrentProject(Project currentProject)
+    {
         this.currentProject = currentProject;
         handleBarChart();
-        
+
     }
 
     /**
      * Getter for the back button
-     * @return 
+     *
+     * @return
      */
-    public JFXButton getBackBtn() {
+    public JFXButton getBackBtn()
+    {
         return backBtn;
     }
 
     /**
      * Getter for the namelabel
-     * @return 
+     *
+     * @return
      */
-    public Label getNameLabel() {
+    public Label getNameLabel()
+    {
         return nameLabel;
     }
 
     /**
      * Getter for the barchart
-     * @return 
+     *
+     * @return
      */
-    public CategoryAxis getxAxisInBarChart() {
+    public CategoryAxis getxAxisInBarChart()
+    {
         return xAxisInBarChart;
     }
-    
-    
-            
-    
+
 }
