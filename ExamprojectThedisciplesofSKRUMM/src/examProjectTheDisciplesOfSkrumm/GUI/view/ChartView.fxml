@@ -46,8 +46,8 @@
       </BarChart>
       <JFXDatePicker fx:id="startDate" defaultColor="#435a9a" layoutX="538.0" layoutY="159.0" onAction="#handleDatepickerAction" promptText="Start" AnchorPane.rightAnchor="11.800000000000011" AnchorPane.topAnchor="159.0" />
       <JFXDatePicker fx:id="endDate" defaultColor="#435a9a" layoutX="538.0" layoutY="234.0" onAction="#handleDatepickerAction" promptText="End" AnchorPane.rightAnchor="12.800000000000011" AnchorPane.topAnchor="234.0" />
-      <JFXButton layoutX="536.0" layoutY="351.0" onAction="#handleLastMonth" prefHeight="26.0" prefWidth="86.0" text="Last month" />
-      <JFXButton layoutX="536.0" layoutY="316.0" onAction="#handleLastWeek" prefHeight="26.0" prefWidth="86.0" text="Last week" />
-      <JFXButton layoutX="536.0" layoutY="279.0" onAction="#handleCurrentWeek" text="Current week" />
+      <JFXButton layoutX="535.0" layoutY="352.0" onAction="#handleLastMonth" prefHeight="26.0" prefWidth="86.0" text="Last month" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="353.0" />
+      <JFXButton layoutX="535.0" layoutY="316.0" onAction="#handleLastWeek" prefHeight="26.0" prefWidth="86.0" text="Last week" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="316.0" />
+      <JFXButton layoutX="536.0" layoutY="279.0" onAction="#handleCurrentWeek" text="Current week" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="279.0" />
    </children>
 </AnchorPane>
