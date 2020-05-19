@@ -13,6 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
+import javax.swing.JOptionPane;
 
 /**
  * FXML Controller class
@@ -37,7 +38,8 @@ public class LogWindowController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        try {
+        try 
+        {
             modelfacade = ModelFacade.getInstance();
             refreshAdminLog();
             /*
@@ -48,8 +50,11 @@ public class LogWindowController implements Initializable
             logitems.add("Timestamp (DD-MM-YYYY - HH-MM-SS), Username, Action, Project, Task");
             */
            
-        } catch (Exception ex) {
+        }
+        catch (Exception ex) 
+        {
             Logger.getLogger(LogWindowController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Failed to get an intance of modelfacade" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE); 
         }
        
     }    
@@ -76,12 +81,17 @@ public class LogWindowController implements Initializable
     /**
      * Refreshes the log 
      */
-    private void refreshAdminLog() {
-           AdminLog.getItems().clear();
-        try {
+    private void refreshAdminLog() 
+    {
+        AdminLog.getItems().clear();
+        try 
+        {
             AdminLog.setItems(modelfacade.getAllLogs());
-        } catch (SQLException ex) {
+        } 
+        catch (SQLException ex) 
+        {
             Logger.getLogger(LogWindowController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Failed to contact the database" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE); 
         }
     }
     

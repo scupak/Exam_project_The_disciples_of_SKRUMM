@@ -22,6 +22,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.stage.Stage;
+import javax.swing.JOptionPane;
 
 /**
  * FXML Controller class
@@ -55,10 +56,14 @@ public class CreateUserViewController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-         try {
+        try 
+        {
             modelfacade = ModelFacade.getInstance();
-        } catch (Exception ex) {
+        } 
+        catch (Exception ex) 
+        {
             Logger.getLogger(CreateTaskController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Failed to get an intance of modelfacade" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
         }
     }    
 
@@ -68,38 +73,38 @@ public class CreateUserViewController implements Initializable
      * @throws SQLException 
      */
     @FXML
-    private void handleCreateUser(ActionEvent event) throws SQLException
+    private void handleCreateUser(ActionEvent event)
     {
         if(!emailTextField.getText().isEmpty() && !passwordTextField.getText().isEmpty() && !firstNameTextField.getText().isEmpty() && !lastNameTextField.getText().isEmpty())
         {
             if(validateInput(emailTextField.getText()) == true)
             {
-                String email = emailTextField.getText();
-                String firstName = firstNameTextField.getText();
-                String lastName = lastNameTextField.getText();
-                String password =  modelfacade.hashPassword(passwordTextField.getText());
-                boolean admin = adminRadioButton.isSelected();
-                User user = new User(email, firstName, lastName,password, admin);
-                modelfacade.createUser(user);
-                Stage createUserView = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                createUserView.close();
+                try 
+                {
+                    String email = emailTextField.getText();
+                    String firstName = firstNameTextField.getText();
+                    String lastName = lastNameTextField.getText();
+                    String password =  modelfacade.hashPassword(passwordTextField.getText());
+                    boolean admin = adminRadioButton.isSelected();
+                    User user = new User(email, firstName, lastName,password, admin);
+                    modelfacade.createUser(user);
+                    Stage createUserView = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    createUserView.close();
+                } 
+                catch (SQLException ex) 
+                {
+                    Logger.getLogger(CreateUserViewController.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(null, "Failed to create a user in the database" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
+                }
             }
             else 
             {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Oops");
-                alert.setHeaderText("Incorrect input");
-                alert.setContentText("You didnt write a correct email");
-                alert.showAndWait();
+                JOptionPane.showMessageDialog(null, "You need to write a valid email","ERROR!", JOptionPane.ERROR_MESSAGE);
             }    
         }
         else
         {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Oops");
-            alert.setHeaderText("Incorrect input");
-            alert.setContentText("You didnt write an email, first name or last name");
-            alert.showAndWait();
+            JOptionPane.showMessageDialog(null, "Missing input","ERROR!", JOptionPane.ERROR_MESSAGE);
         }
         
     }
@@ -112,7 +117,7 @@ public class CreateUserViewController implements Initializable
     private void handleCancel(ActionEvent event)
     {
         Stage createUserView = (Stage) ((Node) event.getSource()).getScene().getWindow();
-         createUserView.close();
+        createUserView.close();
     }
     
      
@@ -121,13 +126,15 @@ public class CreateUserViewController implements Initializable
      * @param input
      * @return 
      */
-     public boolean validateInput(String input) {
+     public boolean validateInput(String input) 
+     {
         Pattern pattern = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(input);
         if (matcher.find()) 
         {
             return true;
-        } else
+        } 
+        else
         {
             return false;
         }

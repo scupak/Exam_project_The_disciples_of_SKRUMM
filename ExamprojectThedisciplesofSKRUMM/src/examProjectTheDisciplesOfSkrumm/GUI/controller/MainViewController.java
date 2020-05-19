@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package examProjectTheDisciplesOfSkrumm.GUI.controller;
 
 import com.jfoenix.controls.JFXButton;
@@ -13,6 +9,7 @@ import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.ModelFacadeInterface;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.ModelFacade;
 import examProjectTheDisciplesOfSkrumm.BLL.Util.TimerUtil;
 import examProjectTheDisciplesOfSkrumm.enums.UserMode;
+import examProjectTheDisciplesOfSkrumm.enums.ViewTypes;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -135,50 +132,39 @@ public class MainViewController implements Initializable
         } catch (Exception ex)
         {
             Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Failed to get an intance of modelfacade" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE); 
         }
 
-        try
+        welcomeLabel.setText("Welcome" + " " + modelfacade.getCurrentuser().getFirstName());
+        welcomeLabel.setMaxWidth(Double.MAX_VALUE);
+        welcomeLabel.setAlignment(Pos.CENTER);
+        //Adding the anchorpanes to the panes list
+        panes.add(taskOne);
+        panes.add(taskTwo);
+        panes.add(taskThree);
+        panes.add(taskFour);
+        panes.add(taskFive);
+        panes.add(taskSix);
+        //Adding the interval time labels to the timeLabels list
+        timeLabels.add(timeLabelOne);
+        timeLabels.add(timeLabelTwo);
+        timeLabels.add(timeLabelThree);
+        timeLabels.add(timeLabelFour);
+        timeLabels.add(timeLabelFive);
+        timeLabels.add(timeLabelSix);
+        //Adding the total time labels to the totalTimeLabels list
+        totalTimeLabels.add(totalTimeOne);
+        totalTimeLabels.add(totalTimeTwo);
+        totalTimeLabels.add(totalTimeThree);
+        totalTimeLabels.add(totalTimeFour);
+        totalTimeLabels.add(totalTimeFive);
+        totalTimeLabels.add(totalTimeSix);
+        fillGrid();
+        if (modelfacade.getisTimerRunning())
         {
-            welcomeLabel.setText("Welcome" + " " + modelfacade.getCurrentuser().getFirstName());
-            welcomeLabel.setMaxWidth(Double.MAX_VALUE);
-            welcomeLabel.setAlignment(Pos.CENTER);
-
-            //Adding the anchorpanes to the panes list
-            panes.add(taskOne);
-            panes.add(taskTwo);
-            panes.add(taskThree);
-            panes.add(taskFour);
-            panes.add(taskFive);
-            panes.add(taskSix);
-
-            //Adding the interval time labels to the timeLabels list
-            timeLabels.add(timeLabelOne);
-            timeLabels.add(timeLabelTwo);
-            timeLabels.add(timeLabelThree);
-            timeLabels.add(timeLabelFour);
-            timeLabels.add(timeLabelFive);
-            timeLabels.add(timeLabelSix);
-
-            //Adding the total time labels to the totalTimeLabels list
-            totalTimeLabels.add(totalTimeOne);
-            totalTimeLabels.add(totalTimeTwo);
-            totalTimeLabels.add(totalTimeThree);
-            totalTimeLabels.add(totalTimeFour);
-            totalTimeLabels.add(totalTimeFive);
-            totalTimeLabels.add(totalTimeSix);
-
-            fillGrid();
-
-            if (modelfacade.getisTimerRunning())
-            {
-
-                handleTimerUtilIsRunning();
-
-            }
-
-        } catch (SQLException ex)
-        {
-            Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
+            
+            handleTimerUtilIsRunning();
+             
         }
 
         formatter = DateTimeFormatter.ofPattern("dd/MM/YYYY");
@@ -191,23 +177,34 @@ public class MainViewController implements Initializable
      * @throws IOException 
      */
     @FXML
-    private void handleChartView(ActionEvent event) throws IOException
+    private void handleChartView(ActionEvent event)
     {
-        Stage mainView = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/ChartView.fxml"));
-        Parent root = loader.load();
-        ChartViewController controller = loader.getController();
-
-       // controller.getNameLabel().setText(modelfacade.getCurrentuser().getEmail() + " " + "Hours");
-
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.setMinHeight(523);
-        stage.setMinWidth(721);
-        stage.setTitle("Statistics");
-        stage.show();
-        mainView.close();
+        try
+        {
+            Stage mainView = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            
+            FXMLLoader loader = modelfacade.getLoader(ViewTypes.CHART);
+            Parent root = loader.load();
+            ChartViewController controller = loader.getController();
+            
+            // controller.getNameLabel().setText(modelfacade.getCurrentuser().getEmail() + " " + "Hours");
+            
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setMinHeight(523);
+            stage.setMinWidth(721);
+            stage.setTitle("Statistics");
+            stage.show();
+            mainView.close();
+        } catch (IOException ex)
+        {
+            Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Wrong input" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE); 
+        } catch (Exception ex)
+        {
+            Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Wrong view type" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE); 
+        }
 
     }
 
@@ -217,33 +214,44 @@ public class MainViewController implements Initializable
      * @throws IOException 
      */
     @FXML
-    private void handleAdminView(ActionEvent event) throws IOException
+    private void handleAdminView(ActionEvent event) 
     {
         if (modelfacade.getCurrentuser().getIsAdmin() == true)
         {
-            modelfacade.setCurrentUserMode(UserMode.ADMIN);
-
-            Stage mainView = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/AdminMainView.fxml"));
-            Parent root = loader.load();
-            AdminMainViewController controller = loader.getController();
-
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.setMinHeight(525);
-            stage.setMinWidth(726);
-            stage.setTitle("Admin");
-            stage.show();
-            mainView.close();
+            
+            try 
+            {
+                modelfacade.setCurrentUserMode(UserMode.ADMIN);
+                
+                Stage mainView = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                
+                FXMLLoader loader = modelfacade.getLoader(ViewTypes.ADMINMAIN);
+                Parent root = loader.load();
+                AdminMainViewController controller = loader.getController();
+                
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.setMinHeight(525);
+                stage.setMinWidth(726);
+                stage.setTitle("Admin");
+                stage.show();
+                mainView.close();
+            } 
+            catch (IOException ex)
+            {
+                Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "Wrong input" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE); 
+            } 
+            catch (Exception ex)
+            {
+                Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "Given wrong view type" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE); 
+            }
+            
 
         } else
         {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Oops");
-            alert.setHeaderText("You do not have permission");
-            alert.setContentText("It looks like you are not an admin user");
-            alert.showAndWait();
+            JOptionPane.showMessageDialog(null, "Looks like you dont have admin priviliges","Acces denied!", JOptionPane.INFORMATION_MESSAGE); 
         }
     }
 
@@ -253,21 +261,32 @@ public class MainViewController implements Initializable
      * @throws IOException 
      */
     @FXML
-    private void handletaskView(ActionEvent event) throws IOException
+    private void handletaskView(ActionEvent event)
     {
-        Stage mainView = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/TaskView.fxml"));
-        Parent root = loader.load();
-        TaskViewController controller = loader.getController();
-
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.setMinHeight(525);
-        stage.setMinWidth(943);
-        stage.setTitle("Tasks");
-        stage.show();
-        mainView.close();
+        try
+        {
+            Stage mainView = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            
+            FXMLLoader loader = modelfacade.getLoader(ViewTypes.TASK);
+            Parent root = loader.load();
+            TaskViewController controller = loader.getController();
+            
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setMinHeight(525);
+            stage.setMinWidth(943);
+            stage.setTitle("Tasks");
+            stage.show();
+            mainView.close();
+        } catch (IOException ex)
+        {
+            Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Wrong input" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE); 
+        } catch (Exception ex)
+        {
+            Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Given wrong type of view" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE); 
+        }
 
     }
     
@@ -278,21 +297,32 @@ public class MainViewController implements Initializable
      * @throws IOException 
      */
     @FXML
-    private void handleClientProject(ActionEvent event) throws IOException
+    private void handleClientProject(ActionEvent event)
     {
-        Stage mainView = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/ClientsAndProjects.fxml"));
-        Parent root = loader.load();
-        ClientsAndProjectsController controller = loader.getController();
-
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.setMinHeight(355);
-        stage.setMinWidth(529);
-        stage.setTitle("Clients and Projects");
-        stage.show();
-        mainView.close();
+        try
+        {
+            Stage mainView = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            
+            FXMLLoader loader = modelfacade.getLoader(ViewTypes.CLIENTSANDPROJECTS);
+            Parent root = loader.load();
+            ClientsAndProjectsController controller = loader.getController();
+            
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setMinHeight(355);
+            stage.setMinWidth(529);
+            stage.setTitle("Clients and Projects");
+            stage.show();
+            mainView.close();
+        } catch (IOException ex)
+        {
+            Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Wrong input" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE); 
+        } catch (Exception ex)
+        {
+            Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Given wrong type of view" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE); 
+        }
     }
 
     /**
@@ -301,30 +331,37 @@ public class MainViewController implements Initializable
      *
      * @throws SQLException
      */
-    private void fillGrid() throws SQLException
+    private void fillGrid()
     {
-        int anchorPaneNumber = 0;
-        tasks = modelfacade.getSixTasks(modelfacade.getCurrentuser());
-        labelNames = new ArrayList<String>();
-
-        for (Task task : tasks)
+        try
         {
-            overwriteTasks(panes.get(anchorPaneNumber), task);
-            anchorPaneNumber++;
-        }
-
-        int i = 0;
-        int maxAmountOfTasks = 6;
-
-        //Letting the unused panes be cleared
-        for (int amountLeft = maxAmountOfTasks - tasks.size(); amountLeft > 0; amountLeft--)
+            int anchorPaneNumber = 0;
+            tasks = modelfacade.getSixTasks(modelfacade.getCurrentuser());
+            labelNames = new ArrayList<String>();
+            
+            for (Task task : tasks)
+            {
+                overwriteTasks(panes.get(anchorPaneNumber), task);
+                anchorPaneNumber++;
+            }
+            
+            int i = 0;
+            int maxAmountOfTasks = 6;
+            
+            //Letting the unused panes be cleared
+            for (int amountLeft = maxAmountOfTasks - tasks.size(); amountLeft > 0; amountLeft--)
+            {
+                panes.get(tasks.size() + i).getChildren().clear();
+                i++;
+            }
+            
+            i = 0;
+            anchorPaneNumber = 0;
+        } catch (SQLException ex)
         {
-            panes.get(tasks.size() + i).getChildren().clear();
-            i++;
+            Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Problem with the database" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE); 
         }
-
-        i = 0;
-        anchorPaneNumber = 0;
 
     }
 
@@ -413,7 +450,7 @@ public class MainViewController implements Initializable
 
                             if (interval != null)
                             {
-                                FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/EditIntervalView.fxml"));
+                                FXMLLoader loader = modelfacade.getLoader(ViewTypes.EDITINTERVAL);
                                 Parent root = loader.load();
                                 EditIntervalViewController controller = loader.getController();
                                 controller.fillView(interval);
@@ -426,19 +463,20 @@ public class MainViewController implements Initializable
                                 stage.setAlwaysOnTop(true);
                                 stage.showAndWait();
 
-                                try
-                                {
-                                    updateMainView();
-                                } catch (SQLException ex)
-                                {
-                                    Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
-                                }
+                                updateMainView();
                             }
                             //Stage mainView = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
-                        } catch (IOException ex)
+                        } 
+                        catch (IOException ex)
                         {
                             Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
+                            JOptionPane.showMessageDialog(null, "Wrong input" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE); 
+                        } 
+                        catch (Exception ex)
+                        {
+                            Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
+                            JOptionPane.showMessageDialog(null, "Given wrong type of view" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE); 
                         }
 
                     }
@@ -498,7 +536,7 @@ public class MainViewController implements Initializable
      * @throws SQLException 
      */
     @FXML
-    private void handlePlay(ActionEvent event) throws SQLException
+    private void handlePlay(ActionEvent event)
     {
         Task currentTask;
         int index = 0;
@@ -548,61 +586,77 @@ public class MainViewController implements Initializable
             //if the timer is running and the user presses the play button on a different task, set the other play buttons image to Playbutton.png
             if (modelfacade.getTimerutil().getCurrenttask() != null && !tasks.get(index).equals(modelfacade.getTimerutil().getCurrenttask()))
             {
-                System.out.println("different button");
-                ImageView view = ((ImageView) previousbutton.getChildrenUnmodifiable().get(1));
-                view.setImage(new Image("/examProjectTheDisciplesOfSkrumm/GUI/Icons/Playbutton.png"));
-
-                stopTime = LocalDateTime.now();
-                currentTask = modelfacade.getTimerutil().getCurrenttask();
-
-                Interval taskInterval = new Interval(0, modelfacade.getTimerutil().getStartTime().withNano(0), stopTime.withNano(0), LocalDate.now(), modelfacade.getTimerutil().getTotalIntervalSec(), currentTask, currentTask.getIsPaid());
-
-                combo.getItems().add(taskInterval);
-                combo.getItems().sort(Comparator
-                        .comparing(Interval::getCreationDate)
-                        .thenComparing(Interval::getStartTime).reversed());
-
-                System.out.println(taskInterval);
-
-                currentTask.setDuration(modelfacade.getTimerutil().getTotalSec());
-
-                //if the currentTask has no intervals set its starttime to the first intervals starttime. 
-                if (currentTask.getIntervals().isEmpty())
+                try 
                 {
-                    currentTask.setStartTime(modelfacade.getTimerutil().getStartTime());
+                    System.out.println("different button");
+                    ImageView view = ((ImageView) previousbutton.getChildrenUnmodifiable().get(1));
+                    view.setImage(new Image("/examProjectTheDisciplesOfSkrumm/GUI/Icons/Playbutton.png"));
+                    
+                    stopTime = LocalDateTime.now();
+                    currentTask = modelfacade.getTimerutil().getCurrenttask();
+                    
+                    Interval taskInterval = new Interval(0, modelfacade.getTimerutil().getStartTime().withNano(0), stopTime.withNano(0), LocalDate.now(), modelfacade.getTimerutil().getTotalIntervalSec(), currentTask, currentTask.getIsPaid());
+                    
+                    combo.getItems().add(taskInterval);
+                    combo.getItems().sort(Comparator
+                            .comparing(Interval::getCreationDate)
+                            .thenComparing(Interval::getStartTime).reversed());
+                    
+                    System.out.println(taskInterval);
+                    
+                    currentTask.setDuration(modelfacade.getTimerutil().getTotalSec());
+                    
+                    //if the currentTask has no intervals set its starttime to the first intervals starttime.
+                    if (currentTask.getIntervals().isEmpty())
+                    {
+                        currentTask.setStartTime(modelfacade.getTimerutil().getStartTime());
+                    }
+                    currentTask.setStopTime(stopTime);
+                    modelfacade.updateTask(currentTask);
+                    
+                    modelfacade.newInterval(taskInterval);
+                } 
+                catch (SQLException ex) 
+                {
+                    Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(null, "Problem with the database" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE); 
                 }
-                currentTask.setStopTime(stopTime);
-                modelfacade.updateTask(currentTask);
-
-                modelfacade.newInterval(taskInterval);
 
             } else
             {
-                button.setGraphic(Play);
-                button.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
-                button.setContentDisplay(ContentDisplay.CENTER);
-
-                stopTime = LocalDateTime.now();
-                currentTask = tasks.get(index);
-
-                Interval taskInterval = new Interval(0, modelfacade.getTimerutil().getStartTime().withNano(0), stopTime.withNano(0), LocalDate.now(), modelfacade.getTimerutil().getTotalIntervalSec(), currentTask, currentTask.getIsPaid());
-
-                //Sorting the combobox list after both creationfate and starttime
-                combo.getItems().add(taskInterval);
-                combo.getItems().sort(Comparator
-                        .comparing(Interval::getCreationDate)
-                        .thenComparing(Interval::getStartTime).reversed());
-
-                currentTask.setDuration(modelfacade.getTimerutil().getTotalSec());
-
-                if (currentTask.getIntervals().isEmpty())
+                try
                 {
-                    currentTask.setStartTime(modelfacade.getTimerutil().getStartTime());
+                    button.setGraphic(Play);
+                    button.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+                    button.setContentDisplay(ContentDisplay.CENTER);
+                    
+                    stopTime = LocalDateTime.now();
+                    currentTask = tasks.get(index);
+                    
+                    Interval taskInterval = new Interval(0, modelfacade.getTimerutil().getStartTime().withNano(0), stopTime.withNano(0), LocalDate.now(), modelfacade.getTimerutil().getTotalIntervalSec(), currentTask, currentTask.getIsPaid());
+                    
+                    //Sorting the combobox list after both creationfate and starttime
+                    combo.getItems().add(taskInterval);
+                    combo.getItems().sort(Comparator
+                            .comparing(Interval::getCreationDate)
+                            .thenComparing(Interval::getStartTime).reversed());
+                    
+                    currentTask.setDuration(modelfacade.getTimerutil().getTotalSec());
+                    
+                    if (currentTask.getIntervals().isEmpty())
+                    {
+                        currentTask.setStartTime(modelfacade.getTimerutil().getStartTime());
+                    }
+                    currentTask.setStopTime(stopTime);
+                    
+                    modelfacade.updateTask(currentTask);
+                    modelfacade.newInterval(taskInterval);
+                } 
+                catch (SQLException ex)
+                {
+                    Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(null, "Problem with the database" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE); 
                 }
-                currentTask.setStopTime(stopTime);
-
-                modelfacade.updateTask(currentTask);
-                modelfacade.newInterval(taskInterval);
             }
 
         } else
@@ -623,7 +677,7 @@ public class MainViewController implements Initializable
      * @throws IOException 
      */
     @FXML
-    private void handleLogOut(ActionEvent event) throws IOException
+    private void handleLogOut(ActionEvent event)
     {
         Stage mainView = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
@@ -632,17 +686,30 @@ public class MainViewController implements Initializable
             mainView.close();
         } else
         {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/LoginView.fxml"));
-            Parent root = loader.load();
-            LoginViewController controller = loader.getController();
-
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.setMinHeight(200);
-            stage.setMinWidth(300);
-            stage.setTitle("Login");
-            stage.show();
-            mainView.close();
+            try
+            {
+                FXMLLoader loader = modelfacade.getLoader(ViewTypes.LOGIN);
+                Parent root = loader.load();
+                LoginViewController controller = loader.getController();
+                
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.setMinHeight(200);
+                stage.setMinWidth(300);
+                stage.setTitle("Login");
+                stage.show();
+                mainView.close();
+            } 
+            catch (IOException ex)
+            {
+                Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "Wrong input" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE); 
+            } 
+            catch (Exception ex)
+            {
+                Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "Given wrong view type" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE); 
+            }
         }
     }
 
@@ -740,32 +807,45 @@ public class MainViewController implements Initializable
      * @throws SQLException 
      */
     @FXML
-    private void handleEditTask(ActionEvent event) throws IOException, SQLException
+    private void handleEditTask(ActionEvent event)
     {
-        JFXButton button = (JFXButton) event.getSource();
-        int index = 0;
-        Task thisTask;
-
-        for (AnchorPane pane : panes)
+        try
         {
-            if (button.getParent().getId() == pane.getId())
+            JFXButton button = (JFXButton) event.getSource();
+            int index = 0;
+            Task thisTask;
+            
+            for (AnchorPane pane : panes)
             {
-                index = panes.indexOf(pane);
+                if (button.getParent().getId() == pane.getId())
+                {
+                    index = panes.indexOf(pane);
+                }
             }
+            
+            thisTask = tasks.get(index);
+            
+            FXMLLoader loader = modelfacade.getLoader(ViewTypes.EDITTASK);
+            Parent root = loader.load();
+            EditTaskController controller = loader.getController();
+            controller.setEditTask(thisTask);
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Edit Task");
+            stage.showAndWait();
+            
+            updateMainView();
         }
-
-        thisTask = tasks.get(index);
-
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/EditTaskView.fxml"));
-        Parent root = loader.load();
-        EditTaskController controller = loader.getController();
-        controller.setEditTask(thisTask);
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.setTitle("Edit Task");
-        stage.showAndWait();
-
-        updateMainView();
+        catch (IOException ex)
+        {
+            Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Wrong input" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE); 
+        } 
+        catch (Exception ex)
+        {
+            Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Given wrong view type" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE); 
+        }
     }
 
     /**
@@ -774,7 +854,7 @@ public class MainViewController implements Initializable
      * @throws SQLException 
      */
     @FXML
-    private void handleDeleteTask(ActionEvent event) throws SQLException
+    private void handleDeleteTask(ActionEvent event)
     {
         JFXButton button = (JFXButton) event.getSource();
         int index = 0;
@@ -796,10 +876,18 @@ public class MainViewController implements Initializable
 
         if (input == JOptionPane.YES_OPTION)
         {
-            modelfacade.deleteTask(thisTask);
-            tasks.remove(thisTask);
-
-            updateMainView();
+            try 
+            {
+                modelfacade.deleteTask(thisTask);
+                tasks.remove(thisTask);
+                
+                updateMainView();
+            }
+            catch (SQLException ex) 
+            {
+                Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "Problem with the database" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE); 
+            }
         }
     }
 
@@ -809,7 +897,7 @@ public class MainViewController implements Initializable
      *
      * @throws SQLException
      */
-    private void updateMainView() throws SQLException
+    private void updateMainView()
     {
         List<Label> mainViewLabels = new ArrayList<>();
         ExecutorService executor = Executors.newSingleThreadExecutor();
@@ -850,13 +938,7 @@ public class MainViewController implements Initializable
                         mainViewLabel.setText(labelNames.get(index));
                     }
 
-                    try
-                    {
-                        fillGrid();
-                    } catch (SQLException ex)
-                    {
-                        Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+                    fillGrid();
                 }
             });
         });
@@ -869,7 +951,8 @@ public class MainViewController implements Initializable
         } 
         catch(InterruptedException ex)
         {
-            System.out.println("You done f'ed up");
+            System.out.println("Thread got interupted");
+            JOptionPane.showMessageDialog(null, "Thread got interupted" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE); 
         }
         finally
         {

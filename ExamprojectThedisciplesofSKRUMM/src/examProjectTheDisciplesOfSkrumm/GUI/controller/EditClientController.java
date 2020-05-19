@@ -17,6 +17,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
+import javax.swing.JOptionPane;
 
 /**
  * FXML Controller class
@@ -48,9 +49,11 @@ public class EditClientController implements Initializable
        try
         {
             modelfacade = ModelFacade.getInstance();
-        } catch (Exception ex)
+        } 
+        catch (Exception ex)
         {
             Logger.getLogger(CreateTaskController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Failed to get an intance of modelfacade" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -60,49 +63,45 @@ public class EditClientController implements Initializable
      * @throws SQLException 
      */
     @FXML
-    private void HandleEditOkButton(ActionEvent event) throws SQLException
+    private void HandleEditOkButton(ActionEvent event)
     {
         String clientName = EditClientNameTextField.getText();
         String clientRate = ClientEditRateTextField.getText();
         int intClientRate;
         
-        try{
+        try
+        {
             intClientRate = Integer.parseInt(clientRate);
-            }
-            catch(NumberFormatException e) {
+        }
+        catch(NumberFormatException ex)
+        {
             intClientRate = 0;
-             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("error");
-                alert.setHeaderText("error");
-                alert.setContentText(e.toString() + "rate has to be a number");
-
-                alert.showAndWait();
-            }
+            Logger.getLogger(CreateTaskController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Rate has to be a number" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
+        }
         
         Client client = new Client(this.client.getId(), clientName, intClientRate, this.client.getIsPaid());
         
-        try{
-        if(modelfacade.updateClient(client) == false)
+        try
         {
-            throw new NullPointerException();
+            if(modelfacade.updateClient(client) == false)
+            {
+                throw new NullPointerException();
+            }
+            
+            Stage editClientView = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            editClientView.close();
         }
-         
-         Stage editClientView = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        editClientView.close();
-        }catch(NullPointerException e)
+        catch (SQLException ex)
         {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("error");
-                alert.setHeaderText("error");
-                alert.setContentText(e.toString());
-
-                alert.showAndWait();
+            Logger.getLogger(EditClientController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Failed to contact the database" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
         }
-      
-        
-        
-        
-       
+        catch(NullPointerException ex)
+        {
+            Logger.getLogger(CreateTaskController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "The client you were editing does not exist anymore" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     /**
@@ -128,6 +127,4 @@ public class EditClientController implements Initializable
      EditClientNameTextField.setText(client.getClientName());
      ClientEditRateTextField.setText(client.getClientRate() + "");
     }
-
-    
 }

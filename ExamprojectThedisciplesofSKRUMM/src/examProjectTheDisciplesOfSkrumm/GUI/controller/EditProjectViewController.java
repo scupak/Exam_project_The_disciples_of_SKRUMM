@@ -7,6 +7,7 @@ import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.ModelFacadeInterface;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.ModelFacade;
 import examProjectTheDisciplesOfSkrumm.BE.Client;
 import examProjectTheDisciplesOfSkrumm.BE.Project;
+import examProjectTheDisciplesOfSkrumm.enums.ViewTypes;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -23,6 +24,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.stage.Stage;
+import javax.swing.JOptionPane;
 
 /**
  * FXML Controller class
@@ -61,6 +63,7 @@ public class EditProjectViewController implements Initializable
         } catch (Exception ex)
         {
             Logger.getLogger(EditProjectViewController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Failed to get an intance of modelfacade" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
         }
         clientComboBox.getItems().addAll(modelfacade.getClients());
     }    
@@ -71,7 +74,7 @@ public class EditProjectViewController implements Initializable
      * @throws SQLException 
      */
     @FXML
-    private void HandleEditProjectOkBtn(ActionEvent event) throws SQLException
+    private void HandleEditProjectOkBtn(ActionEvent event)
     {
         Project sameProject = new Project(project.getId(), project.getProjectName(), project.getClient(), project.getProjectRate());
         
@@ -94,11 +97,12 @@ public class EditProjectViewController implements Initializable
                 createUserView.close();
             } catch (NumberFormatException ex)
             {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Oops");
-                alert.setHeaderText("Incorrect input");
-                alert.setContentText("You wrote a letter in project rate, it needs a number.");
-                alert.showAndWait();
+                Logger.getLogger(EditProjectViewController.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "You wrote a letter in project rate it needs a number" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
+            } catch (SQLException ex)
+            {
+                Logger.getLogger(EditProjectViewController.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "Failed to contact the database" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
             }
         } else if (!ProjectNameTextField.getText().isEmpty() && ProjectRateTextField.getText().isEmpty() && !(clientComboBox.getValue() == null) && clientComboBox.getValue().getIsPaid() == 1)
         {
@@ -114,11 +118,12 @@ public class EditProjectViewController implements Initializable
                 createUserView.close();
             } catch (NumberFormatException ex)
             {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Oops");
-                alert.setHeaderText("Incorrect input");
-                alert.setContentText("You wrote a letter in project rate, it needs a number.");
-                alert.showAndWait();
+                Logger.getLogger(EditProjectViewController.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "You wrote a letter in project rate it needs a number" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
+            } catch (SQLException ex)
+            {
+                Logger.getLogger(EditProjectViewController.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "Failed to contact the database" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
             }
         } else if (!ProjectNameTextField.getText().isEmpty() && !(clientComboBox.getValue() == null) && clientComboBox.getValue().getIsPaid() == 0)
         {
@@ -134,19 +139,16 @@ public class EditProjectViewController implements Initializable
                 createUserView.close();
             } catch (NumberFormatException ex)
             {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Oops");
-                alert.setHeaderText("Incorrect input");
-                alert.setContentText("You wrote a letter in project rate, it needs a number.");
-                alert.showAndWait();
+                Logger.getLogger(EditProjectViewController.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "You wrote a letter in project rate it needs a number" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
+            } catch (SQLException ex)
+            {
+                Logger.getLogger(EditProjectViewController.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "Failed to contact the database" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
             }
         } else
         {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Oops");
-            alert.setHeaderText("Incorrect input");
-            alert.setContentText("You didnt write a correct project name or didnt select a client");
-            alert.showAndWait();
+            JOptionPane.showMessageDialog(null, "Missing input","ERROR!", JOptionPane.ERROR_MESSAGE);
         }   
     }
 
@@ -167,18 +169,31 @@ public class EditProjectViewController implements Initializable
      * @throws IOException 
      */
     @FXML
-    private void handleAddClient(ActionEvent event) throws IOException
+    private void handleAddClient(ActionEvent event)
     {
-           FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/AddClient.fxml"));
-        Parent root = loader.load();
-        AddClientController controller = loader.getController();
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.setMinHeight(200);
-        stage.setMinWidth(300);
-        stage.setTitle("TimeTracker");
-        stage.showAndWait();
-        refreshClientComboBox();
+        try
+        {
+            FXMLLoader loader = modelfacade.getLoader(ViewTypes.ADDCLIENT);
+            Parent root = loader.load();
+            AddClientController controller = loader.getController();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setMinHeight(200);
+            stage.setMinWidth(300);
+            stage.setTitle("TimeTracker");
+            stage.showAndWait();
+            refreshClientComboBox();
+        } 
+        catch (IOException ex)
+        {
+            Logger.getLogger(EditProjectViewController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Failed to load in the addclient view" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
+        } 
+        catch (Exception ex)
+        {
+            Logger.getLogger(EditProjectViewController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Method was given the wrong viewtype" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     /**

@@ -12,10 +12,13 @@ import examProjectTheDisciplesOfSkrumm.BE.User;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.ModelFacadeInterface;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.ModelFacade;
 import examProjectTheDisciplesOfSkrumm.enums.UserMode;
+import examProjectTheDisciplesOfSkrumm.enums.ViewTypes;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -25,11 +28,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
+import javax.swing.JOptionPane;
 
 /**
  * FXML Controller class
  *
- * @author kacpe
+ * @author SKRUMM
  */
 public class LoginViewController implements Initializable {
 
@@ -49,9 +53,17 @@ public class LoginViewController implements Initializable {
      * 
      * @throws Exception 
      */
-    public LoginViewController() throws Exception
+    public LoginViewController()
     {
-        model = ModelFacade.getInstance();
+        try
+        {
+            model = ModelFacade.getInstance();
+        } 
+        catch (Exception ex)
+        {
+            Logger.getLogger(LoginViewController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Failed to get an intance of modelfacade" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE); 
+        }
     }
     /**
      * Initializes the controller class.
@@ -83,7 +95,7 @@ public class LoginViewController implements Initializable {
                     model.setCurrentUserMode(UserMode.STANDARD);
                     Stage mainView = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/MainView.fxml"));
+                    FXMLLoader loader = model.getLoader(ViewTypes.MAIN);
                     Parent root = loader.load();
                     MainViewController controller = loader.getController();
 
@@ -97,45 +109,32 @@ public class LoginViewController implements Initializable {
                 }
                 else
                 {
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Error");
-                    alert.setHeaderText("your email or password may be incorect");
-                    alert.setContentText("Please try again");
-                    alert.showAndWait();
+                    JOptionPane.showMessageDialog(null, "Your email or password may be incorect","ERROR!", JOptionPane.ERROR_MESSAGE);
                 }   
             }
             else
             {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Error");
-                alert.setHeaderText("You didn't write anything");
-                alert.setContentText("Please try again");
-                alert.showAndWait();
+                JOptionPane.showMessageDialog(null, "Missing input","ERROR!", JOptionPane.ERROR_MESSAGE);
             }  
         } 
-        catch (SQLException e)
+        catch (SQLException ex)
         {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("Could connect to database\n" + e);
-            alert.setContentText("Please try again");
-            alert.showAndWait();    
+            Logger.getLogger(LoginViewController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Failed to connect to database" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);   
         }
-        catch (IOException e)
+        catch (IOException ex)
         {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("No such user\n" + e);
-            alert.setContentText("Please try again");
-            alert.showAndWait(); 
+            Logger.getLogger(LoginViewController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Wrong input" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
         }
-        catch (java.lang.NullPointerException e)
+        catch (java.lang.NullPointerException ex)
         {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("No such user\n" + e);
-            alert.setContentText("Please try again");
-            alert.showAndWait(); 
+            Logger.getLogger(LoginViewController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "This user does not exist" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception ex)
+        {
+            Logger.getLogger(LoginViewController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Given wrong view type" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
         } 
     }
     

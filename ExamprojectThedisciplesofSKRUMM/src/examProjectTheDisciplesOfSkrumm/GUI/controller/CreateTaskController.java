@@ -11,6 +11,7 @@ import examProjectTheDisciplesOfSkrumm.BE.Task;
 import examProjectTheDisciplesOfSkrumm.BE.User;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.ModelFacadeInterface;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.ModelFacade;
+import examProjectTheDisciplesOfSkrumm.enums.ViewTypes;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -71,15 +72,13 @@ public class CreateTaskController implements Initializable
     {
         
         
-        try {
+        try 
+        {
             modelfacade = ModelFacade.getInstance();
         } catch (Exception ex) 
         {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("Couldn't get model");
-            alert.setContentText("" + ex);
-            alert.showAndWait();   
+            Logger.getLogger(CreateTaskController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Failed to get an intance of modelfacade" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
         }
         projectCombobox.getItems().addAll(modelfacade.getProjects());
         
@@ -93,7 +92,7 @@ public class CreateTaskController implements Initializable
      * @throws IOException 
      */
     @FXML
-    private void createTask(ActionEvent event) throws IOException
+    private void createTask(ActionEvent event)
     {
         if(!titleTextField.getText().isEmpty() && !(projectCombobox.getValue() == null))
         {
@@ -120,11 +119,7 @@ public class CreateTaskController implements Initializable
         }
         else 
         {
-              Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Oops");
-                alert.setHeaderText("Incorrect input");
-                alert.setContentText("You forgot some input.");
-                alert.showAndWait();
+            JOptionPane.showMessageDialog(null, "Incorrect input","ERROR!", JOptionPane.ERROR_MESSAGE);
         }
        
     }
@@ -145,16 +140,29 @@ public class CreateTaskController implements Initializable
      * @param event
      * @throws IOException 
      */
-    private void handleCreateNewProject(ActionEvent event) throws IOException 
+    private void handleCreateNewProject(ActionEvent event) 
     {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/AddProjectView.fxml"));
-        Parent root = loader.load();
-        AddProjectViewController controller = loader.getController();
-        
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.setTitle("TimeTracker");
-        stage.showAndWait();
-        projectCombobox.getItems().addAll(modelfacade.getProjects());
+        try
+        {
+            FXMLLoader loader = modelfacade.getLoader(ViewTypes.ADDPROJECT);
+            Parent root = loader.load();
+            AddProjectViewController controller = loader.getController();
+            
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("TimeTracker");
+            stage.showAndWait();
+            projectCombobox.getItems().addAll(modelfacade.getProjects());
+        }
+        catch (IOException ex)
+        {
+            Logger.getLogger(CreateTaskController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Failed to load in the addproject view" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
+        } 
+        catch (Exception ex)
+        {
+            Logger.getLogger(CreateTaskController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Recived the wrong view type" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
+        }
     }  
 }

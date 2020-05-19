@@ -56,11 +56,8 @@ public class EditTaskController implements Initializable
         } 
         catch (Exception ex) 
         {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("Couldn't get model");
-            alert.setContentText("" + ex);
-            alert.showAndWait();   
+            Logger.getLogger(EditTaskController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Failed to get an intance of modelfacade" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE); 
         }
     }    
 
@@ -97,20 +94,13 @@ public class EditTaskController implements Initializable
             } 
             catch (SQLException ex) 
             {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText("Could contact the database");
-                alert.setContentText("Something went wrong with the databe" + ex);
-                alert.showAndWait();
+                Logger.getLogger(EditTaskController.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "Failed to contact the database" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
             }
         }
         else
         {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("Missing input");
-            alert.setContentText("The input fields can't be blank, provide input.");
-            alert.showAndWait();
+            JOptionPane.showMessageDialog(null, "Missing input","ERROR!", JOptionPane.ERROR_MESSAGE);
         }
     }
     

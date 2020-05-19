@@ -7,6 +7,7 @@ import examProjectTheDisciplesOfSkrumm.BE.Project;
 import examProjectTheDisciplesOfSkrumm.BE.Task;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.ModelFacadeInterface;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.ModelFacade;
+import examProjectTheDisciplesOfSkrumm.enums.ViewTypes;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -30,6 +31,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import javax.swing.JOptionPane;
 
 
 /**
@@ -39,7 +41,7 @@ import javafx.stage.Stage;
  */
 public class ClientsAndProjectsController implements Initializable {
 
-    ModelFacadeInterface modelfacade;
+    private ModelFacadeInterface modelfacade;
     @FXML
     private TableView<Project> ClientList;
     @FXML
@@ -57,6 +59,7 @@ public class ClientsAndProjectsController implements Initializable {
             modelfacade = ModelFacade.getInstance();
         } catch (Exception ex) {
             Logger.getLogger(CreateTaskController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Failed to get an intance of modelfacade" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
         }
         
         //set up the columns in the table
@@ -83,21 +86,32 @@ public class ClientsAndProjectsController implements Initializable {
      * @throws IOException 
      */
    @FXML
-    private void handleMain(ActionEvent event) throws IOException
+    private void handleMain(ActionEvent event)
     {
-        Stage clientsAndProjects = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/MainView.fxml"));
-        Parent root = loader.load();
-        MainViewController controller = loader.getController();
-
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.setMinHeight(525);
-        stage.setMinWidth(726);
-        stage.setTitle("Main menu");
-        stage.show();
-        clientsAndProjects.close();
+        try
+        {
+            Stage clientsAndProjects = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            
+            FXMLLoader loader = modelfacade.getLoader(ViewTypes.MAIN);
+            Parent root = loader.load();
+            MainViewController controller = loader.getController();
+            
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setMinHeight(525);
+            stage.setMinWidth(726);
+            stage.setTitle("Main menu");
+            stage.show();
+            clientsAndProjects.close();
+        } catch (IOException ex)
+        {
+            Logger.getLogger(ClientsAndProjectsController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Failed to load in the main view" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception ex)
+        {
+            Logger.getLogger(ClientsAndProjectsController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Given wrong view type" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
+        }
     }
     
     /**

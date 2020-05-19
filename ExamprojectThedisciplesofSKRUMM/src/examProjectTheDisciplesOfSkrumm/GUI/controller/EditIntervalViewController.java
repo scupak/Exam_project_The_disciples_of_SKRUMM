@@ -9,6 +9,7 @@ import com.jfoenix.controls.JFXTimePicker;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import examProjectTheDisciplesOfSkrumm.BE.Interval;
 import examProjectTheDisciplesOfSkrumm.BE.Task;
+import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.ModelFacadeInterface;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.ModelFacade;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.TaskModel;
 import java.io.IOException;
@@ -59,7 +60,7 @@ public class EditIntervalViewController implements Initializable
     @FXML
     private JFXButton cancelButton;
 
-    private ModelFacade modelfacade;
+    private ModelFacadeInterface modelfacade;
 
     private Task currentTask;
     private Interval currentInterval;
@@ -78,16 +79,19 @@ public class EditIntervalViewController implements Initializable
     {
         try
         {
-            modelfacade = new ModelFacade();
+            modelfacade = ModelFacade.getInstance();
         } catch (IOException ex)
         {
             Logger.getLogger(EditIntervalViewController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Failed to get an intance of modelfacade" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
         } catch (SQLException ex)
         {
             Logger.getLogger(EditIntervalViewController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Failed to get an intance of modelfacade" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
         } catch (Exception ex)
         {
             Logger.getLogger(EditIntervalViewController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Failed to get an intance of modelfacade" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
         }
         paid.selectedColorProperty().set(Color.rgb(67, 90, 154));
         paid.setUnSelectedColor(Color.rgb(67, 90, 154));
@@ -137,7 +141,7 @@ public class EditIntervalViewController implements Initializable
      * @throws SQLServerException 
      */
     @FXML
-    private void handleSave(ActionEvent event) throws SQLException, SQLServerException
+    private void handleSave(ActionEvent event)
     {
         long intervalTime = Duration.between(startTime.getValue(), stopTime.getValue()).getSeconds();
         if (intervalTime <= 0)
@@ -174,23 +178,30 @@ public class EditIntervalViewController implements Initializable
                 stage.close();
             } else
             {
-                modelfacade.updateInterval(currentInterval, newInterval);
-
-                List<Interval> taskIntervals = currentTask.getIntervals();
-                for (Interval taskInterval : taskIntervals)
+                try
                 {
-                    if (taskInterval.getId() == newInterval.getId())
+                    modelfacade.updateInterval(currentInterval, newInterval);
+                    
+                    List<Interval> taskIntervals = currentTask.getIntervals();
+                    for (Interval taskInterval : taskIntervals)
                     {
-                        taskInterval.setCreationDate(creationDate.getValue());
-                        taskInterval.setStartTime(start);
-                        taskInterval.setStopTime(stop);
-                        taskInterval.setIntervalTime((int) intervalTime);
-                        taskInterval.setIsPaid(paidOrNot);
+                        if (taskInterval.getId() == newInterval.getId())
+                        {
+                            taskInterval.setCreationDate(creationDate.getValue());
+                            taskInterval.setStartTime(start);
+                            taskInterval.setStopTime(stop);
+                            taskInterval.setIntervalTime((int) intervalTime);
+                            taskInterval.setIsPaid(paidOrNot);
+                        }
                     }
+                    
+                    Stage stage = (Stage) saveButton.getScene().getWindow();
+                    stage.close();
+                } catch (SQLException ex)
+                {
+                    Logger.getLogger(EditIntervalViewController.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(null, "Failed to contact the database" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
                 }
-
-                Stage stage = (Stage) saveButton.getScene().getWindow();
-                stage.close();
             }
         }
 
@@ -219,14 +230,10 @@ public class EditIntervalViewController implements Initializable
             modelfacade.deleteInterval(currentInterval);
             Stage stage = (Stage) deleteButton.getScene().getWindow();
             stage.close();
-        } catch (SQLException e)
+        } catch (SQLException ex)
         {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("Could delete interval\n" + e);
-            alert.setContentText("Please try again");
-            alert.showAndWait();
-
+            Logger.getLogger(EditIntervalViewController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Could not delete interval" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
         }
 
     }

@@ -19,6 +19,7 @@ import examProjectTheDisciplesOfSkrumm.BLL.Util.TimerUtil;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.ModelFacadeInterface;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.ModelFacade;
 import examProjectTheDisciplesOfSkrumm.enums.UserMode;
+import examProjectTheDisciplesOfSkrumm.enums.ViewTypes;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -127,9 +128,11 @@ public class TaskViewController implements Initializable
         {
             //Getting the model
             modelfacade = ModelFacade.getInstance();
-        } catch (Exception ex)
+        } 
+        catch (Exception ex)
         {
             Logger.getLogger(TaskViewController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Failed to get an intance of modelfacade" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
         }
         
         //Setting cellValue Factories for TreeTableView 
@@ -313,9 +316,11 @@ public class TaskViewController implements Initializable
                 handleTimerUtilIsRunning();
             }
             
-        } catch (SQLException ex) 
+        } 
+        catch (SQLException ex) 
         {
             Logger.getLogger(TaskViewController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Failed to contact the database" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
         }
 
         
@@ -328,36 +333,63 @@ public class TaskViewController implements Initializable
      * @throws IOException 
      */
     @FXML
-    private void handleHome(ActionEvent event) throws IOException
+    private void handleHome(ActionEvent event)
     {
         Stage taskView = (Stage) ((Node) event.getSource()).getScene().getWindow();
         if(modelfacade.getCurrentUserMode().equals(UserMode.ADMIN))
         {
-            modelfacade.setCurrentuser(modelfacade.getCurrentAdmin());
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/AdminUserView.fxml"));
-        Parent root = loader.load();
-        AdminUserViewController Controller = loader.getController();
-
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.setTitle("Main menu");
-        stage.show();
-        stage.setMinHeight(523);
-        stage.setMinWidth(721);
-            taskView.close();
-        }else
+            try 
+            {
+                modelfacade.setCurrentuser(modelfacade.getCurrentAdmin());
+                FXMLLoader loader = modelfacade.getLoader(ViewTypes.ADMINUSER);
+                Parent root = loader.load();
+                AdminUserViewController Controller = loader.getController();
+                
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.setTitle("Main menu");
+                stage.show();
+                stage.setMinHeight(523);
+                stage.setMinWidth(721);
+                taskView.close();
+            } 
+            catch (IOException ex)
+            {
+                Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "Wrong input" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE); 
+            } 
+            catch (Exception ex)
+            {
+                Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "Wrong view type" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE); 
+            }
+        }
+        else
         {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/MainView.fxml"));
-        Parent root = loader.load();
-        MainViewController Controller = loader.getController();
-
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.setTitle("Main menu");
-        stage.show();
-        stage.setMinHeight(523);
-        stage.setMinWidth(721);
-        taskView.close();
+            try
+            {
+                FXMLLoader loader = modelfacade.getLoader(ViewTypes.MAIN);
+                Parent root = loader.load();
+                MainViewController Controller = loader.getController();
+                
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.setTitle("Main menu");
+                stage.show();
+                stage.setMinHeight(523);
+                stage.setMinWidth(721);
+                taskView.close();
+            } 
+            catch (IOException ex)
+            {
+                Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "Wrong input" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE); 
+            } 
+            catch (Exception ex)
+            {
+                Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "Wrong view type" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE); 
+            }
         }
     }
     /**
@@ -366,29 +398,40 @@ public class TaskViewController implements Initializable
      * @throws IOException 
      */
     @FXML
-    private void createTask(ActionEvent event) throws IOException
+    private void createTask(ActionEvent event)
     {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/CreateTaskView.fxml"));
-        Parent root = loader.load();
-        CreateTaskController controller = loader.getController();
-
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.setTitle("Create Task");
-        stage.setMinHeight(200);
-        stage.setMinWidth(364);
-        stage.showAndWait();
         try 
         {
-            refreshEverything();
+            FXMLLoader loader = modelfacade.getLoader(ViewTypes.CREATETASK);
+            Parent root = loader.load();
+            CreateTaskController controller = loader.getController();
+            
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Create Task");
+            stage.setMinHeight(200);
+            stage.setMinWidth(364);
+            stage.showAndWait();
+            try
+            {
+                refreshEverything();
+            }
+            catch (SQLException ex)
+            {
+                Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "Failed to contact the database" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
+            }
+            
         } 
-        catch (SQLException ex)
+        catch (IOException ex)
         {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Error");
-        alert.setHeaderText("Cant refresh" + ex);
-        alert.setContentText("Please try again");
-        alert.showAndWait();
+            Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Wrong input" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE); 
+        } 
+        catch (Exception ex)
+        {
+            Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Wrong view type" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE); 
         }
         
     }
@@ -398,7 +441,7 @@ public class TaskViewController implements Initializable
  * @throws IOException 
  */
     @FXML
-    private void handleEditTaskAction(ActionEvent event) throws IOException
+    private void handleEditTaskAction(ActionEvent event)
     {
 
         final JDialog dialog = new JDialog();
@@ -407,61 +450,83 @@ public class TaskViewController implements Initializable
         if ((TaskTable.getSelectionModel().getSelectedItem() == null))
         {
             JOptionPane.showMessageDialog(dialog, "Nothing seems to be selected!\nSelect a task to edit before pressing edit!", "ERROR", JOptionPane.ERROR_MESSAGE);
-        } else
+        } 
+        else
         {
-
             TreeItem selectedItem = (TreeItem) (TaskTable.getSelectionModel().getSelectedItem());
 
             if (selectedItem.getValue() instanceof Task)
             {
 
-                System.err.println("its a task!!!!!!!!!!!!!!!!!!!!");
-                System.out.println(selectedItem.getValue());
-
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/EditTaskView.fxml"));
-                Parent root = loader.load();
-                EditTaskController controller = loader.getController();
-                controller.setEditTask((Task) selectedItem.getValue());
-                Stage stage = new Stage();
-                stage.setScene(new Scene(root));
-                stage.setMinHeight(230);
-                stage.setMinWidth(364);
-                stage.setTitle("Edit Task");
-                stage.showAndWait();
-                try {
-                    refreshEverything();
-                } catch (SQLException ex)
+                try 
                 {
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Error");
-                    alert.setHeaderText("Cant refresh" + ex);
-                    alert.setContentText("Please try again");
-                    alert.showAndWait();
-                }
 
+                    System.err.println("its a task!!!!!!!!!!!!!!!!!!!!");
+                    System.out.println(selectedItem.getValue());
+                    
+                    FXMLLoader loader = modelfacade.getLoader(ViewTypes.EDITTASK);
+                    Parent root = loader.load();
+                    EditTaskController controller = loader.getController();
+                    controller.setEditTask((Task) selectedItem.getValue());
+                    Stage stage = new Stage();
+                    stage.setScene(new Scene(root));
+                    stage.setMinHeight(230);
+                    stage.setMinWidth(364);
+                    stage.setTitle("Edit Task");
+                    stage.showAndWait();
+                    try
+                    {
+                        refreshEverything();
+                    }
+                    catch (SQLException ex)
+                    {
+                        Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
+                        JOptionPane.showMessageDialog(null, "Failed to contact the database" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
+                    }
+                } 
+                catch (IOException ex)
+                {
+                    Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(null, "Wrong input" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE); 
+                } 
+                catch (Exception ex)
+                {
+                    Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(null, "Wrong view type" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE); 
+                }
             } 
             else if(selectedItem.getValue() instanceof Interval)
             {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/EditIntervalView.fxml"));
-                Parent root = loader.load();
-                EditIntervalViewController controller = loader.getController();
-                controller.fillView((Interval) selectedItem.getValue());
-                Stage stage = new Stage();
-                stage.setScene(new Scene(root));
-                stage.setMinHeight(260);
-                stage.setMinWidth(318);
-                stage.setTitle("Edit Interval");
-                stage.setAlwaysOnTop(true);
-                stage.showAndWait();
-                try {
-                    refreshEverything();
-                } catch (SQLException ex)
+                try
                 {
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Error");
-                    alert.setHeaderText("Cant refresh" + ex);
-                    alert.setContentText("Please try again");
-                    alert.showAndWait();
+                    FXMLLoader loader = modelfacade.getLoader(ViewTypes.EDITINTERVAL);
+                    Parent root = loader.load();
+                    EditIntervalViewController controller = loader.getController();
+                    controller.fillView((Interval) selectedItem.getValue());
+                    Stage stage = new Stage();
+                    stage.setScene(new Scene(root));
+                    stage.setMinHeight(260);
+                    stage.setMinWidth(318);
+                    stage.setTitle("Edit Interval");
+                    stage.setAlwaysOnTop(true);
+                    stage.showAndWait();
+                    try {
+                        refreshEverything();
+                    } catch (SQLException ex)
+                    {
+                        Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
+                        JOptionPane.showMessageDialog(null, "Failed to contact the database" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
+                    }
+                } 
+                catch (IOException ex)
+                {
+                    Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(null, "Wrong input" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE); 
+                } 
+                catch (Exception ex)
+                {
+                    Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(null, "Wrong view type" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE); 
                 }
             }
             else
@@ -480,7 +545,7 @@ public class TaskViewController implements Initializable
      * @throws SQLException 
      */
     @FXML
-    private void handleStartTimer(ActionEvent event) throws SQLException
+    private void handleStartTimer(ActionEvent event)
     {   final JDialog dialog = new JDialog();
         dialog.setAlwaysOnTop(true);
         
@@ -580,11 +645,18 @@ public class TaskViewController implements Initializable
      * @throws SQLException 
      */
     @FXML
-    private void handlecurrentday(ActionEvent event) throws SQLException
+    private void handlecurrentday(ActionEvent event)
     {
-        datePickerTo.setValue(LocalDate.now());
-        datePickerFrom.setValue(LocalDate.now());
-        refreshEverything();
+        try
+        {
+            datePickerTo.setValue(LocalDate.now());
+            datePickerFrom.setValue(LocalDate.now());
+            refreshEverything();
+        } catch (SQLException ex)
+        {
+            Logger.getLogger(TaskViewController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Failed to contact the database" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
+        }
         
     }
     
@@ -612,7 +684,7 @@ public class TaskViewController implements Initializable
      * @throws SQLException 
      */
     @FXML
-    private void handleDeleteTaskAction(ActionEvent event) throws SQLException
+    private void handleDeleteTaskAction(ActionEvent event)
     {
         final JDialog dialog = new JDialog();
         dialog.setAlwaysOnTop(true);
@@ -635,8 +707,14 @@ public class TaskViewController implements Initializable
 
                 if (input == JOptionPane.YES_OPTION)
                 {
-                    modelfacade.deleteTask(task);
-                    RefreshTreeView();
+                    try {
+                        modelfacade.deleteTask(task);
+                        RefreshTreeView();
+                    } catch (SQLException ex) 
+                    {
+                        Logger.getLogger(TaskViewController.class.getName()).log(Level.SEVERE, null, ex);
+                        JOptionPane.showMessageDialog(null, "Failed to contact the database" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
+                    }
                 }
 
             }
@@ -650,8 +728,16 @@ public class TaskViewController implements Initializable
 
                 if (input == JOptionPane.YES_OPTION)
                 {
-                    modelfacade.deleteInterval(interval);
-                    RefreshTreeView(); 
+                    try 
+                    {
+                        modelfacade.deleteInterval(interval); 
+                        RefreshTreeView();
+                    } 
+                    catch (SQLException ex) 
+                    {
+                        Logger.getLogger(TaskViewController.class.getName()).log(Level.SEVERE, null, ex);
+                        JOptionPane.showMessageDialog(null, "Failed to contact the database" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
+                    }
                 }  
             }
         }

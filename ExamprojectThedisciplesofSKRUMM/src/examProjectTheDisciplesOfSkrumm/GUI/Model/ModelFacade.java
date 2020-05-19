@@ -41,13 +41,12 @@ public class ModelFacade implements ModelFacadeInterface
     private ClientModelInterface clientmodel;
     private UserModelInterface userModel;
     
-    public ModelFacade() throws IOException, SQLException, Exception 
+    private ModelFacade() throws IOException, SQLException, Exception 
     {
         taskmodel = new TaskModel();
         projectmodel = new ProjectModel();
         clientmodel = new ClientModel();
-        userModel = new UserModel();
-        
+        userModel = new UserModel(); 
     }
     
     /**
