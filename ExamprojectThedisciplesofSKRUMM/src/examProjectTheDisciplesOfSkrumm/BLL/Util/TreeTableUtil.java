@@ -42,18 +42,21 @@ public class TreeTableUtil implements TreeTableUtilInterface
     
     /* Create all task*/
     // Root node
+    //The root node is created. The data contained within is irelevant as this root task will be hidden in the treetable
     Task rootTask = new Task(1, "Root", new Project(1, "Root", new Client(1, "Root", 0, 0), 0), 0,
             LocalDateTime.MIN, LocalDate.MIN, LocalTime.MIN, LocalTime.MIN,
             new User("standard@user.now", "h", "l", "nemt", false), new ArrayList<>());
         ArrayList<TreeItem> treeItems = new ArrayList();
         
     
-
+    //Go though all the tasks in the list       
         for (Task task : tasks) 
         {  
+            //Make them all into treeitems
            TreeItem treeitem = new TreeItem(task);
            if(!task.getIntervals().isEmpty())
            {
+               //Get all the tasks interval put them in a list and sort them.
                ArrayList<Interval> intervals = new ArrayList();
                intervals.addAll(task.getIntervals());
                Comparator<Interval> byDate = Comparator
@@ -63,19 +66,22 @@ public class TreeTableUtil implements TreeTableUtilInterface
                
                ArrayList<TreeItem> treeintervals = new ArrayList();
                
+               //Then it makes each interval into a treeitem
                for (Interval interval : intervals) 
                {
                     treeintervals.add(new TreeItem(interval));
                }
-               
+               //And adds it to the coresponding task
                treeitem.getChildren().addAll(treeintervals);
            }
+           //The tasks get added to the list of treeitems
            treeItems.add(treeitem);
         }
         
-    //Create the root node and add children
+    //The root task is made a treeitem and all the treeitem tasks are added to it
     TreeItem rootTaskNode = new TreeItem(rootTask);
     rootTaskNode.getChildren().addAll(treeItems);
+    //The method returns the root treeitem task
     return rootTaskNode;
     }
 
