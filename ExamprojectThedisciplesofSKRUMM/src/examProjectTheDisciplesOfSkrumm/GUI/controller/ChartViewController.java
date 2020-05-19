@@ -9,6 +9,7 @@ import examProjectTheDisciplesOfSkrumm.GUI.Model.ModelFacade;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.Month;
@@ -145,7 +146,9 @@ public class ChartViewController implements Initializable
             for (final Series<String, Number> series : hoursChart.getData()) {
         for (final XYChart.Data<String, Number> data : series.getData()) {
             Tooltip tooltip = new Tooltip();
-            tooltip.setText(String.valueOf((double)Math.round((data.getYValue().doubleValue() * 100.0) / 100.0)));
+            
+            DecimalFormat f = new DecimalFormat("##.00");
+            tooltip.setText((f.format((data.getYValue().doubleValue()) )));
             Tooltip.install(data.getNode(), tooltip);
         }
             }
