@@ -6,6 +6,7 @@
 package examProjectTheDisciplesOfSkrumm.BE;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
@@ -16,8 +17,8 @@ import java.time.format.DateTimeFormatter;
 public class Interval
 {
 
-    private LocalTime startTime;
-    private LocalTime stopTime;
+    private LocalDateTime startTime;
+    private LocalDateTime stopTime;
     private LocalDate creationDate;
     private int totalTime;
     private int intervalTime;
@@ -25,7 +26,7 @@ public class Interval
     private int isPaid;
     private final int id;
 
-    public Interval(int id, LocalTime startTime, LocalTime stopTime, LocalDate creationDate, int intervalTime, Task task, int isPaid)
+    public Interval(int id, LocalDateTime startTime, LocalDateTime stopTime, LocalDate creationDate, int intervalTime, Task task, int isPaid)
     {
         this.id = id;
         this.startTime = startTime;
@@ -41,7 +42,7 @@ public class Interval
      *
      * @param startTime
      */
-    public void setStartTime(LocalTime startTime)
+    public void setStartTime(LocalDateTime startTime)
     {
         this.startTime = startTime;
     }
@@ -51,7 +52,7 @@ public class Interval
      *
      * @param stopTime
      */
-    public void setStopTime(LocalTime stopTime)
+    public void setStopTime(LocalDateTime stopTime)
     {
         this.stopTime = stopTime;
     }
@@ -131,7 +132,7 @@ public class Interval
      *
      * @return LocalTime startTime
      */
-    public LocalTime getStartTime()
+    public LocalDateTime getStartTime()
     {
         return startTime;
     }
@@ -141,7 +142,7 @@ public class Interval
      *
      * @return LocalTime stopTime
      */
-    public LocalTime getStopTime()
+    public LocalDateTime getStopTime()
     {
         return stopTime;
     }
@@ -229,7 +230,7 @@ public class Interval
     @Override
     public String toString()
     {
-        return creationDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + "  |  " + startTime + " to " + stopTime + "  |  " + getFormatedIntervaltime() + "  |  " + paidOrNot();
+        return creationDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + "  |  " + startTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + " to " + stopTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + "  |  " + getFormatedIntervaltime() + "  |  " + paidOrNot();
     }
 
 }

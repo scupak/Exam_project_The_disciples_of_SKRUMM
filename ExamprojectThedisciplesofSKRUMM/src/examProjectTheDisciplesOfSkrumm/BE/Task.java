@@ -33,13 +33,13 @@ public class Task
     private StringProperty formatedDuration;
     private LocalDateTime lastUsed;
     private LocalDate creationDate;
-    private LocalTime startTime;
-    private LocalTime stopTime;
+    private LocalDateTime startTime;
+    private LocalDateTime stopTime;
     private User user;
     private ArrayList<Interval> intervals;
 
     public Task(int id, String title, Project project, int duration, LocalDateTime lastUsed,
-            LocalDate creationDate, LocalTime startTime, LocalTime stopTime, User user,
+            LocalDate creationDate, LocalDateTime startTime, LocalDateTime stopTime, User user,
             ArrayList<Interval> intervals)
     {
         this.id = new SimpleIntegerProperty(id);
@@ -59,7 +59,7 @@ public class Task
     }
 
     public Task(int id, String title, Project project, int duration,
-            LocalDateTime lastUsed, LocalDate creationDate, LocalTime startTime, LocalTime stopTime, User user)
+            LocalDateTime lastUsed, LocalDate creationDate, LocalDateTime startTime, LocalDateTime stopTime, User user)
     {
         this.id = new SimpleIntegerProperty(id);
         this.title = new SimpleStringProperty(title);
@@ -321,7 +321,7 @@ public class Task
      *
      * @return LocalTime startTime
      */
-    public LocalTime getStartTime()
+    public LocalDateTime getStartTime()
     {
         return startTime;
     }
@@ -331,7 +331,7 @@ public class Task
      *
      * @param startTime
      */
-    public void setStartTime(LocalTime startTime)
+    public void setStartTime(LocalDateTime startTime)
     {
         this.startTime = startTime;
     }
@@ -341,7 +341,7 @@ public class Task
      *
      * @return LocalTime stopTime
      */
-    public LocalTime getStopTime()
+    public LocalDateTime getStopTime()
     {
         return stopTime;
     }
@@ -351,7 +351,7 @@ public class Task
      *
      * @param stopTime
      */
-    public void setStopTime(LocalTime stopTime)
+    public void setStopTime(LocalDateTime stopTime)
     {
         this.stopTime = stopTime;
     }

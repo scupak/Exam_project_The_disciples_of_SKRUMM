@@ -125,15 +125,17 @@ public class AdminUserViewController implements Initializable
         }
         catch (IOException ex)
         {
+            Logger.getLogger(AdminUserViewController.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "Could not load the create user view" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
-
         } 
         catch (SQLException ex)
         {
+            Logger.getLogger(AdminUserViewController.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "Something went wrong in the database" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
         } 
         catch (Exception ex)
         {
+            Logger.getLogger(AdminUserViewController.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "Wrong view type used " + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
         }
     }
@@ -181,7 +183,7 @@ public class AdminUserViewController implements Initializable
             catch (Exception ex)
             {
                 Logger.getLogger(AdminUserViewController.class.getName()).log(Level.SEVERE, null, ex);
-                JOptionPane.showMessageDialog(dialog, "Failed to contact the database" + ex, "ERROR", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(dialog, "Given wrong viewtype" + ex, "ERROR", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
@@ -293,12 +295,12 @@ public class AdminUserViewController implements Initializable
         catch (IOException ex)
         {
             Logger.getLogger(AdminUserViewController.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "Database connection error\n Error code; Karl\n" + ex, "Karl", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Couln't load the view" + ex, "Karl", JOptionPane.ERROR_MESSAGE);
         } 
         catch (Exception ex)
         {
             Logger.getLogger(AdminUserViewController.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "Database connection error\n Error code; Karl\n" + ex, "Karl", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Wrong viewtype given" + ex, "Karl", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -326,7 +328,7 @@ public class AdminUserViewController implements Initializable
                     Platform.runLater( () ->
                     {
                         Logger.getLogger(AdminUserViewController.class.getName()).log(Level.SEVERE, null, ex);
-                        JOptionPane.showMessageDialog(null, "Couln't get all the tasks from the database" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Couln't get all the users from the database" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
                     });
                 }
             });
@@ -377,12 +379,12 @@ public class AdminUserViewController implements Initializable
                     catch (IOException ex)
                     {
                         Logger.getLogger(AdminUserViewController.class.getName()).log(Level.SEVERE, null, ex);
-                        JOptionPane.showMessageDialog(dialog, "Couln't get all the tasks from the database" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(dialog, "Couln't load the view" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
                     }
                     catch (Exception ex)
                     {
                         Logger.getLogger(AdminUserViewController.class.getName()).log(Level.SEVERE, null, ex);
-                        JOptionPane.showMessageDialog(dialog, "Couln't get all the tasks from the database" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(dialog, "Wrong viewtype given" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
                     }
                 }
 

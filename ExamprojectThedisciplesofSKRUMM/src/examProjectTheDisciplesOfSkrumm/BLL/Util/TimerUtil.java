@@ -6,6 +6,7 @@
 package examProjectTheDisciplesOfSkrumm.BLL.Util;
 
 import examProjectTheDisciplesOfSkrumm.BE.Task;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import javafx.application.Platform;
 import javafx.scene.control.Label;
@@ -30,7 +31,7 @@ public class TimerUtil implements Runnable
     private int totalSec = 0;
     private int totalIntervalsec = 0;
     private Task currenttask;
-    private LocalTime startTime;
+    private LocalDateTime startTime;
 
     /**
      * converts the given seconds to actual time format, this is the class' constructor
@@ -40,7 +41,7 @@ public class TimerUtil implements Runnable
      * @param task
      * @param startTime 
      */
-    public TimerUtil(Label intervalLabel,Label totaltimeLabel, int totalSec, Task task, LocalTime startTime) {
+    public TimerUtil(Label intervalLabel,Label totaltimeLabel, int totalSec, Task task, LocalDateTime startTime) {
         this.totalSec = totalSec;
         while(totalSec >= 3600){
         totalSec  = totalSec - 3600;
@@ -244,7 +245,7 @@ public class TimerUtil implements Runnable
      * gets the start time
      * @return the start time
      */
-    public LocalTime getStartTime() {
+    public LocalDateTime getStartTime() {
         return startTime;
     }
 
@@ -252,7 +253,7 @@ public class TimerUtil implements Runnable
      * sets the start time
      * @param startTime 
      */
-    public void setStartTime(LocalTime startTime) {
+    public void setStartTime(LocalDateTime startTime) {
         this.startTime = startTime;
     }
 

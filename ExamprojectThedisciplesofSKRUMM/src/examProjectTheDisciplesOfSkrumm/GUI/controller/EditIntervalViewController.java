@@ -16,6 +16,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -62,6 +65,10 @@ public class EditIntervalViewController implements Initializable
     private Interval currentInterval;
     @FXML
     private JFXButton deleteButton;
+    @FXML
+    private JFXDatePicker stopTimeDate;
+    @FXML
+    private JFXDatePicker startTimeDate;
 
     /**
      * Initializes the controller class.
@@ -95,7 +102,12 @@ public class EditIntervalViewController implements Initializable
     public void fillView(Interval interval)
     {
         final ToggleGroup group = new ToggleGroup();
-
+        LocalDate startDate = interval.getStartTime().toLocalDate();
+        LocalTime start = interval.getStartTime().toLocalTime();
+        LocalDate stopDate = interval.getStopTime().toLocalDate();
+        LocalTime stop = interval.getStopTime().toLocalTime();
+        
+        
         paid.setToggleGroup(group);
         notPaid.setToggleGroup(group);
 
@@ -110,8 +122,10 @@ public class EditIntervalViewController implements Initializable
         currentInterval = interval;
 
         creationDate.setValue(interval.getCreationDate());
-        startTime.setValue(interval.getStartTime());
-        stopTime.setValue(interval.getStopTime());
+        startTime.setValue(start);
+        stopTime.setValue(stop);
+        startTimeDate.setValue(startDate);
+        stopTimeDate.setValue(stopDate);
 
         currentTask = interval.getTask();
     }
@@ -146,11 +160,14 @@ public class EditIntervalViewController implements Initializable
                 paidOrNot = 0;
             }
 
-            Interval newInterval = new Interval(currentInterval.getId(), startTime.getValue(), stopTime.getValue(),
+            LocalDateTime start = LocalDateTime.of(startTimeDate.getValue(), startTime.getValue());
+            LocalDateTime stop = LocalDateTime.of(stopTimeDate.getValue(), stopTime.getValue());
+            
+            Interval newInterval = new Interval(currentInterval.getId(), start, stop,
                     creationDate.getValue(), (int) intervalTime, currentTask, paidOrNot);
 
-            if (currentInterval.getId() == newInterval.getId() && startTime.getValue() == currentInterval.getStartTime()
-                    && stopTime.getValue() == currentInterval.getStopTime() && creationDate.getValue() == currentInterval.getCreationDate()
+            if (currentInterval.getId() == newInterval.getId() && start == currentInterval.getStartTime()
+                    && stop == currentInterval.getStopTime() && creationDate.getValue() == currentInterval.getCreationDate()
                     && (int) intervalTime == currentInterval.getIntervalTime() && paidOrNot == currentInterval.getIsPaid())
             {
                 Stage stage = (Stage) saveButton.getScene().getWindow();
@@ -165,8 +182,8 @@ public class EditIntervalViewController implements Initializable
                     if (taskInterval.getId() == newInterval.getId())
                     {
                         taskInterval.setCreationDate(creationDate.getValue());
-                        taskInterval.setStartTime(startTime.getValue());
-                        taskInterval.setStopTime(stopTime.getValue());
+                        taskInterval.setStartTime(start);
+                        taskInterval.setStopTime(stop);
                         taskInterval.setIntervalTime((int) intervalTime);
                         taskInterval.setIsPaid(paidOrNot);
                     }

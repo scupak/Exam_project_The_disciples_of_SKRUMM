@@ -44,7 +44,7 @@ public class TreeTableUtil implements TreeTableUtilInterface
     // Root node
     //The root node is created. The data contained within is irelevant as this root task will be hidden in the treetable
     Task rootTask = new Task(1, "Root", new Project(1, "Root", new Client(1, "Root", 0, 0), 0), 0,
-            LocalDateTime.MIN, LocalDate.MIN, LocalTime.MIN, LocalTime.MIN,
+            LocalDateTime.MIN, LocalDate.MIN, LocalDateTime.MIN, LocalDateTime.MIN,
             new User("standard@user.now", "h", "l", "nemt", false), new ArrayList<>());
         ArrayList<TreeItem> treeItems = new ArrayList();
         

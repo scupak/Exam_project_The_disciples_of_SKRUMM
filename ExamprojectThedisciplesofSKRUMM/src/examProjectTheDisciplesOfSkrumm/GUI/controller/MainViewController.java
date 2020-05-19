@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -114,8 +115,8 @@ public class MainViewController implements Initializable
     private Label totaltimelabel;
     private JFXButton previousbutton = null;
 
-    private LocalTime startTime;
-    private LocalTime stopTime;
+    private LocalDateTime startTime;
+    private LocalDateTime stopTime;
 
     private boolean running;
 
@@ -551,38 +552,10 @@ public class MainViewController implements Initializable
                 ImageView view = ((ImageView) previousbutton.getChildrenUnmodifiable().get(1));
                 view.setImage(new Image("/examProjectTheDisciplesOfSkrumm/GUI/Icons/Playbutton.png"));
 
-                stopTime = LocalTime.now();
+                stopTime = LocalDateTime.now();
                 currentTask = modelfacade.getTimerutil().getCurrenttask();
 
-                String paid = "";
-                String paid2 = "";
-                int isPaid = currentTask.getIsPaid();
-
-                if (isPaid == 0)
-                {
-                    paid = "not paid";
-                    paid2 = "paid";
-                } else if (isPaid == 1)
-                {
-                    paid = "paid";
-                    paid2 = "not paid";
-                }
-
-                int input = JOptionPane.showConfirmDialog(null, "This interval is set as " + paid + "," + "\n" + "would you like to change it to " + paid2 + "?", "New interval",
-                        JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
-
-                if (input == JOptionPane.YES_OPTION)
-                {
-                    if (isPaid == 0)
-                    {
-                        isPaid = 1;
-                    } else if (isPaid == 1)
-                    {
-                        isPaid = 0;
-                    }
-                }
-
-                Interval taskInterval = new Interval(0, modelfacade.getTimerutil().getStartTime().withNano(0), stopTime.withNano(0), LocalDate.now(), modelfacade.getTimerutil().getTotalIntervalSec(), currentTask, isPaid);
+                Interval taskInterval = new Interval(0, modelfacade.getTimerutil().getStartTime().withNano(0), stopTime.withNano(0), LocalDate.now(), modelfacade.getTimerutil().getTotalIntervalSec(), currentTask, currentTask.getIsPaid());
 
                 combo.getItems().add(taskInterval);
                 combo.getItems().sort(Comparator
@@ -609,41 +582,10 @@ public class MainViewController implements Initializable
                 button.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
                 button.setContentDisplay(ContentDisplay.CENTER);
 
-                stopTime = LocalTime.now();
+                stopTime = LocalDateTime.now();
                 currentTask = tasks.get(index);
 
-                //Making sure paid or unpaid is placed in the right spots in the popup
-                String paid = "";
-                String paid2 = "";
-
-                int isPaid = currentTask.getIsPaid();
-
-                if (isPaid == 0)
-                {
-                    paid = "not paid";
-                    paid2 = "paid";
-                } else if (isPaid == 1)
-                {
-                    paid = "paid";
-                    paid2 = "not paid";
-                }
-
-                //Popup to change interval paid/unpaid
-                int input = JOptionPane.showConfirmDialog(null, "This interval is set as " + paid + "," + "\n" + "would you like to change it to " + paid2 + "?", "New interval",
-                        JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
-
-                if (input == JOptionPane.YES_OPTION)
-                {
-                    if (isPaid == 0)
-                    {
-                        isPaid = 1;
-                    } else if (isPaid == 1)
-                    {
-                        isPaid = 0;
-                    }
-                }
-
-                Interval taskInterval = new Interval(0, modelfacade.getTimerutil().getStartTime().withNano(0), stopTime.withNano(0), LocalDate.now(), modelfacade.getTimerutil().getTotalIntervalSec(), currentTask, isPaid);
+                Interval taskInterval = new Interval(0, modelfacade.getTimerutil().getStartTime().withNano(0), stopTime.withNano(0), LocalDate.now(), modelfacade.getTimerutil().getTotalIntervalSec(), currentTask, currentTask.getIsPaid());
 
                 //Sorting the combobox list after both creationfate and starttime
                 combo.getItems().add(taskInterval);
@@ -668,7 +610,7 @@ public class MainViewController implements Initializable
             button.setGraphic(Pause);
             button.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
             button.setContentDisplay(ContentDisplay.CENTER);
-            startTime = LocalTime.now();
+            startTime = LocalDateTime.now();
             System.out.println(startTime);
         }
 
@@ -726,7 +668,7 @@ public class MainViewController implements Initializable
             System.out.println("not running");
             running = true;
             modelfacade.setIsTimerRunning(true);
-            modelfacade.setTimerutil(new TimerUtil(intervalLabel, totaltimelabel, totalsecfortask, currenttask, LocalTime.now()));
+            modelfacade.setTimerutil(new TimerUtil(intervalLabel, totaltimelabel, totalsecfortask, currenttask, LocalDateTime.now()));
             modelfacade.setExecutorService(Executors.newFixedThreadPool(1));
             modelfacade.getExecutorService().submit(modelfacade.getTimerutil());
 

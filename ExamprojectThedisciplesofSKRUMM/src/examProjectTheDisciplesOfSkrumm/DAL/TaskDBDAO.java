@@ -71,8 +71,8 @@ public class TaskDBDAO implements TaskDBDAOInterface
                 String clientName = project.getClientName();
                 LocalDateTime lastUsed = rs.getTimestamp("lastUsed").toLocalDateTime();
                 LocalDate creationDate = rs.getDate("creationDate").toLocalDate();
-                LocalTime startTime = rs.getTime("startTime").toLocalTime();
-                LocalTime stopTime = rs.getTime("stopTime").toLocalTime();
+                LocalDateTime startTime = rs.getTimestamp("startTime").toLocalDateTime();
+                LocalDateTime stopTime = rs.getTimestamp("stopTime").toLocalDateTime();
 
                 ArrayList<Interval> intervals = new ArrayList<Interval>();
 
@@ -146,8 +146,8 @@ public class TaskDBDAO implements TaskDBDAOInterface
             ps.setInt(2, task.getProject().getId());
             ps.setTimestamp(3, java.sql.Timestamp.valueOf(task.getLastUsed()));
             ps.setDate(4, java.sql.Date.valueOf(task.getCreationDate()));
-            ps.setTime(5, java.sql.Time.valueOf(task.getStartTime()));
-            ps.setTime(6, java.sql.Time.valueOf(task.getStopTime()));
+            ps.setTimestamp(5, java.sql.Timestamp.valueOf(task.getStartTime()));
+            ps.setTimestamp(6, java.sql.Timestamp.valueOf(task.getStopTime()));
             ps.setInt(7, task.getDuration());
             ps.setString(8, task.getUserEmail());
             ps.executeUpdate();
@@ -274,8 +274,8 @@ public class TaskDBDAO implements TaskDBDAOInterface
             ps.setInt(2, task.getProject().getId());
             ps.setTimestamp(3, java.sql.Timestamp.valueOf(task.getLastUsed()));
             ps.setDate(4, java.sql.Date.valueOf(task.getCreationDate()));
-            ps.setTime(5, java.sql.Time.valueOf(task.getStartTime()));
-            ps.setTime(6, java.sql.Time.valueOf(task.getStopTime()));
+            ps.setTimestamp(5, java.sql.Timestamp.valueOf(task.getStartTime()));
+            ps.setTimestamp(6, java.sql.Timestamp.valueOf(task.getStopTime()));
             ps.setInt(7, task.getDuration());
             ps.setString(8, task.getUserEmail());
             ps.setInt(9, task.getId());
@@ -332,8 +332,8 @@ public class TaskDBDAO implements TaskDBDAOInterface
                 String clientName = project.getClientName();
                 LocalDateTime lastUsed = rs.getTimestamp("lastUsed").toLocalDateTime();
                 LocalDate creationDate = rs.getDate("creationDate").toLocalDate();
-                LocalTime startTime = rs.getTime("startTime").toLocalTime();
-                LocalTime stopTime = rs.getTime("stopTime").toLocalTime();
+                LocalDateTime startTime = rs.getTimestamp("startTime").toLocalDateTime();
+                LocalDateTime stopTime = rs.getTimestamp("stopTime").toLocalDateTime();
                 String userEmail = rs.getString("userEmail");
                 intervals = getIntervals(task);
                 User user = userDBDAO.getUser(new User(userEmail, clientName, clientName, title, true));
@@ -378,8 +378,8 @@ public class TaskDBDAO implements TaskDBDAOInterface
                 int duration = rs.getInt("duration");
                 LocalDateTime lastUsed = rs.getTimestamp("lastUsed").toLocalDateTime();
                 LocalDate creationDate = rs.getDate("creationDate").toLocalDate();
-                LocalTime startTime = rs.getTime("startTime").toLocalTime();
-                LocalTime stopTime = rs.getTime("stopTime").toLocalTime();
+                LocalDateTime startTime = rs.getTimestamp("startTime").toLocalDateTime();
+                LocalDateTime stopTime = rs.getTimestamp("stopTime").toLocalDateTime();
                 String userEmail = rs.getString("userEmail");
                 User user1 = userDBDAO.getUser(new User(userEmail, "22", "22", title, false));
                 
@@ -450,8 +450,8 @@ public class TaskDBDAO implements TaskDBDAOInterface
                 int duration = rs.getInt("duration");
                 LocalDateTime lastUsed = rs.getTimestamp("lastUsed").toLocalDateTime();
                 LocalDate creationDate = rs.getDate("creationDate").toLocalDate();
-                LocalTime startTime = rs.getTime("startTime").toLocalTime();
-                LocalTime stopTime = rs.getTime("stopTime").toLocalTime();
+                LocalDateTime startTime = rs.getTimestamp("startTime").toLocalDateTime();
+                LocalDateTime stopTime = rs.getTimestamp("stopTime").toLocalDateTime();
                 ArrayList<Interval> intervals = getIntervals(new Task(id, title, project, duration, lastUsed, 
                         creationDate, startTime, stopTime, user));
                 String userEmail = rs.getString("userEmail");
@@ -489,8 +489,8 @@ public class TaskDBDAO implements TaskDBDAOInterface
             PreparedStatement ps = con.prepareStatement("INSERT INTO [interval] VALUES (?,?,?,?,?,?)");
 
             ps.setDate(1, java.sql.Date.valueOf(interval.getCreationDate()));
-            ps.setTime(2, java.sql.Time.valueOf(interval.getStartTime()));
-            ps.setTime(3, java.sql.Time.valueOf(interval.getStopTime()));
+            ps.setTimestamp(2, java.sql.Timestamp.valueOf(interval.getStartTime()));
+            ps.setTimestamp(3, java.sql.Timestamp.valueOf(interval.getStopTime()));
             ps.setInt(4, interval.getIntervalTime());
             ps.setInt(5, interval.getTask().getId());
             ps.setInt(6, interval.getIsPaid());
@@ -565,8 +565,8 @@ public class TaskDBDAO implements TaskDBDAOInterface
             PreparedStatement ps = con.prepareStatement(sql);
             
             ps.setDate(1, java.sql.Date.valueOf(newInterval.getCreationDate()));
-            ps.setTime(2, java.sql.Time.valueOf(newInterval.getStartTime()));
-            ps.setTime(3, java.sql.Time.valueOf(newInterval.getStopTime()));
+            ps.setTimestamp(2, java.sql.Timestamp.valueOf(newInterval.getStartTime()));
+            ps.setTimestamp(3, java.sql.Timestamp.valueOf(newInterval.getStopTime()));
             ps.setInt(4, newInterval.getIntervalTime());
             ps.setInt(5, newInterval.getIsPaid());
             ps.setInt(6, newInterval.getId());
@@ -622,13 +622,13 @@ public class TaskDBDAO implements TaskDBDAOInterface
             while (rs.next())
             {
                 Date date = rs.getDate("creationDate");
-                java.sql.Time intervalStartTime = rs.getTime("startTime");
-                java.sql.Time intervalStopTime = rs.getTime("stopTime");
+                java.sql.Timestamp intervalStartTime = rs.getTimestamp("startTime");
+                java.sql.Timestamp intervalStopTime = rs.getTimestamp("stopTime");
                 int intervalTime = rs.getInt("intervalTime");
                 int isPaid = rs.getInt("isPaid");
                 int id = rs.getInt("intervalId");
 
-                Interval interval = new Interval(id, intervalStartTime.toLocalTime(), intervalStopTime.toLocalTime(), date.toLocalDate(), intervalTime,
+                Interval interval = new Interval(id, intervalStartTime.toLocalDateTime(), intervalStopTime.toLocalDateTime(), date.toLocalDate(), intervalTime,
                         task, isPaid);
 
                 intervals.add(interval);
@@ -763,8 +763,8 @@ public class TaskDBDAO implements TaskDBDAOInterface
                 int duration = rs.getInt("duration");
                 LocalDateTime lastUsed = rs.getTimestamp("lastUsed").toLocalDateTime();
                 LocalDate creationDate = rs.getDate("creationDate").toLocalDate();
-                LocalTime startTime = rs.getTime("startTime").toLocalTime();
-                LocalTime stopTime = rs.getTime("stopTime").toLocalTime();
+                LocalDateTime startTime = rs.getTimestamp("startTime").toLocalDateTime();
+                LocalDateTime stopTime = rs.getTimestamp("stopTime").toLocalDateTime();
                 //make the from date to date dal method work for intervals
                 ArrayList<Interval> intervals = getIntervalsbetween2Dates(new Task(id, title, project, duration, lastUsed, 
                         creationDate, startTime, stopTime, user),fromdate,todate);
@@ -817,13 +817,13 @@ public class TaskDBDAO implements TaskDBDAOInterface
             while (rs.next())
             {
                 Date date = rs.getDate("creationDate");
-                java.sql.Time intervalStartTime = rs.getTime("startTime");
-                java.sql.Time intervalStopTime = rs.getTime("stopTime");
+                java.sql.Timestamp intervalStartTime = rs.getTimestamp("startTime");
+                java.sql.Timestamp intervalStopTime = rs.getTimestamp("stopTime");
                 int intervalTime = rs.getInt("intervalTime");
                 int isPaid = rs.getInt("isPaid");
                 int id = rs.getInt("intervalId");
 
-                Interval interval = new Interval(id, intervalStartTime.toLocalTime(), intervalStopTime.toLocalTime(), date.toLocalDate(), intervalTime,
+                Interval interval = new Interval(id, intervalStartTime.toLocalDateTime(), intervalStopTime.toLocalDateTime(), date.toLocalDate(), intervalTime,
                         task, isPaid);
 
                 intervals.add(interval);
@@ -845,7 +845,7 @@ public class TaskDBDAO implements TaskDBDAOInterface
           ArrayList<Interval> intervals = new ArrayList<>();
           Client client = new Client(1, "why", 0, 0);
           Project project = new Project(2, "reeeeeeee", client, 0);
-          Task task = new Task(2, "rjo", project, 50, LocalDateTime.now(), LocalDate.now(), LocalTime.now(), LocalTime.now(), user, intervals);
+          Task task = new Task(2, "rjo", project, 50, LocalDateTime.now(), LocalDate.now(), LocalDateTime.now(), LocalDateTime.now(), user, intervals);
     }
 
     /**
@@ -875,8 +875,8 @@ public class TaskDBDAO implements TaskDBDAOInterface
                 String clientName = project.getClientName();
                 LocalDateTime lastUsed = rs.getTimestamp("lastUsed").toLocalDateTime();
                 LocalDate creationDate = rs.getDate("creationDate").toLocalDate();
-                LocalTime startTime = rs.getTime("startTime").toLocalTime();
-                LocalTime stopTime = rs.getTime("stopTime").toLocalTime();
+                LocalDateTime startTime = rs.getTimestamp("startTime").toLocalDateTime();
+                LocalDateTime stopTime = rs.getTimestamp("stopTime").toLocalDateTime();
 
                 ArrayList<Interval> intervals = new ArrayList<Interval>();
 

@@ -12,23 +12,24 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="260.0" prefWidth="318.0" style="-fx-border-color: #435a9a; -fx-border-width: 50 3 3 3;" stylesheets="@../css/Graphics.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="examProjectTheDisciplesOfSkrumm.GUI.controller.EditIntervalViewController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="260.0" prefWidth="420.0" style="-fx-border-color: #435a9a; -fx-border-width: 50 3 3 3;" stylesheets="@../css/Graphics.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="examProjectTheDisciplesOfSkrumm.GUI.controller.EditIntervalViewController">
    <children>
-      <HBox layoutX="82.0" layoutY="179.0" prefHeight="22.0" prefWidth="152.0" spacing="20.0">
+      <HBox layoutX="135.0" layoutY="184.0" prefHeight="22.0" prefWidth="152.0" spacing="20.0">
          <children>
             <JFXRadioButton fx:id="paid" styleClass="xradioButton" text="Paid" />
             <JFXRadioButton fx:id="notPaid" styleClass="xradioButton" text="Not Paid" />
          </children>
       </HBox>
-      <Label layoutX="96.0" layoutY="14.0" text="Interval editor" textFill="WHITE">
+      <Label layoutX="149.0" layoutY="14.0" text="Interval editor" textFill="WHITE">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <GridPane alignment="CENTER" layoutX="33.0" layoutY="68.0" prefHeight="87.0" prefWidth="252.0">
+      <GridPane alignment="CENTER" layoutX="33.0" layoutY="68.0" prefHeight="87.0" prefWidth="356.0">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="129.199951171875" minWidth="10.0" prefWidth="107.5999755859375" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="160.40002441406253" minWidth="10.0" prefWidth="160.40002441406253" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="129.199951171875" minWidth="10.0" prefWidth="116.60003662109375" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="160.40002441406253" minWidth="10.0" prefWidth="126.19996337890626" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="160.40002441406253" minWidth="10.0" prefWidth="121.59998779296876" />
         </columnConstraints>
         <rowConstraints>
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -41,12 +42,14 @@
             <Label text="Stop Time" GridPane.rowIndex="2" />
             <Label text="Creation Date" />
             <JFXDatePicker fx:id="creationDate" defaultColor="#435a9a" GridPane.columnIndex="1" />
-            <JFXTimePicker fx:id="startTime" defaultColor="#435a9a" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <JFXTimePicker fx:id="stopTime" defaultColor="#435a9a" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <JFXTimePicker fx:id="startTime" defaultColor="#435a9a" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <JFXTimePicker fx:id="stopTime" defaultColor="#435a9a" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <JFXDatePicker fx:id="stopTimeDate" defaultColor="#435a9a" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <JFXDatePicker fx:id="startTimeDate" defaultColor="#435a9a" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
-      <JFXButton fx:id="saveButton" layoutX="117.0" layoutY="221.0" onAction="#handleSave" style="-fx-background-color: #435a9a;" text="Save" textFill="WHITE" />
-      <JFXButton fx:id="cancelButton" layoutX="159.0" layoutY="221.0" onAction="#handleCancel" style="-fx-background-color: #435a9a;" text="Cancel" textFill="WHITE" />
-      <JFXButton fx:id="deleteButton" layoutX="252.0" layoutY="221.0" onAction="#handleDelete" style="-fx-background-color: #435a9a;" text="Delete" textFill="WHITE" />
+      <JFXButton fx:id="saveButton" layoutX="159.0" layoutY="221.0" onAction="#handleSave" style="-fx-background-color: #435a9a;" text="Save" textFill="WHITE" />
+      <JFXButton fx:id="cancelButton" layoutX="211.0" layoutY="221.0" onAction="#handleCancel" style="-fx-background-color: #435a9a;" text="Cancel" textFill="WHITE" />
+      <JFXButton fx:id="deleteButton" layoutX="355.0" layoutY="221.0" onAction="#handleDelete" style="-fx-background-color: #435a9a;" text="Delete" textFill="WHITE" />
    </children>
 </AnchorPane>
