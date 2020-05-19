@@ -2,6 +2,7 @@
 package examProjectTheDisciplesOfSkrumm.GUI.controller;
 
 import com.jfoenix.controls.JFXButton;
+import examProjectTheDisciplesOfSkrumm.BE.Project;
 import examProjectTheDisciplesOfSkrumm.BE.Task;
 import examProjectTheDisciplesOfSkrumm.BE.User;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.ModelFacadeInterface;
@@ -11,9 +12,14 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.beans.property.ReadOnlyStringWrapper;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -113,14 +119,8 @@ public class AdminTasksViewController implements Initializable
 
         });
         
-        try
-        {
-            taskTableView.setItems(modelfacade.getAllTasks());
-        } catch (SQLException ex)
-        {
-            Logger.getLogger(AdminTasksViewController.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "Couln't get the tasks from the database" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
-        }
+            refreshTableView();
+        
         
     }    
 
@@ -195,15 +195,30 @@ public class AdminTasksViewController implements Initializable
      */
     public void refreshTableView()
     {
-      try
-        {
-            taskTableView.setItems(modelfacade.getAllTasks());
-        } 
-        catch (SQLException ex)
-        {
-            Logger.getLogger(AdminTasksViewController.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "Couln't get all the tasks from the database" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
-        }   
+       ExecutorService executor = Executors.newSingleThreadExecutor();
+            executor.submit(() -> 
+            {
+                try 
+                {
+                    ObservableList<Task> tasks = FXCollections.observableArrayList();
+                    tasks.addAll(modelfacade.getAllTasks());
+                    
+                    Platform.runLater( () ->
+                    {
+                        taskTableView.setItems(tasks);
+                    });
+                } 
+                catch (SQLException ex) 
+                {
+                    Platform.runLater( () ->
+                    {
+                        Logger.getLogger(AdminTasksViewController.class.getName()).log(Level.SEVERE, null, ex);
+                        JOptionPane.showMessageDialog(null, "Couln't get all the tasks from the database" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
+                    });
+                }
+            });
+            
+            executor.shutdown();
     }
     
 }
