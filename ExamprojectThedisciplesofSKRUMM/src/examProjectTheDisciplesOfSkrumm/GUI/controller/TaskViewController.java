@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -494,39 +495,9 @@ public class TaskViewController implements Initializable
                  
                 Task currentTask = modelfacade.getTimerutil().getCurrenttask();
                 currentTask.setDuration(modelfacade.getTimerutil().getTotalSec());
-                LocalTime  stopTime = LocalTime.now();
+                LocalDateTime  stopTime = LocalDateTime.now();
                 
-                String paid = "";
-                String paid2 = "";
-
-                int isPaid = currentTask.getIsPaid();
-
-                if (isPaid == 0)
-                {
-                    paid = "not paid";
-                    paid2 = "paid";
-                } else if (isPaid == 1)
-                {
-                    paid = "paid";
-                    paid2 = "not paid";
-                }
-
-                int input = JOptionPane.showConfirmDialog(null, "This interval is set as " + paid + "," + "\n" + "would you like to change it to " + paid2 + "?", "New interval",
-                        JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
-
-                if (input == JOptionPane.YES_OPTION)
-                {
-                    if (isPaid == 0)
-                    {
-                        isPaid = 1;
-                    } else if (isPaid == 1)
-                    {
-                        isPaid = 0;
-                    }
-                }
-                 
-                 
-                Interval taskInterval = new Interval(0, modelfacade.getTimerutil().getStartTime(), stopTime, LocalDate.now(), modelfacade.getTimerutil().getTotalIntervalSec(),currentTask, isPaid);
+                Interval taskInterval = new Interval(0, modelfacade.getTimerutil().getStartTime(), stopTime, LocalDate.now(), modelfacade.getTimerutil().getTotalIntervalSec(),currentTask, currentTask.getIsPaid());
                 
                 if(currentTask.getIntervals().isEmpty())
                 {
@@ -561,7 +532,7 @@ public class TaskViewController implements Initializable
                     System.out.println(selectedItem.getValue());
 
                     modelfacade.setIsTimerRunning(true);
-                    modelfacade.setTimerutil(new TimerUtil(null,timeLabel,selectedItem.getValue().getDuration(),selectedItem.getValue(),LocalTime.now() ));
+                    modelfacade.setTimerutil(new TimerUtil(null,timeLabel,selectedItem.getValue().getDuration(),selectedItem.getValue(),LocalDateTime.now() ));
                     modelfacade.setExecutorService(Executors.newFixedThreadPool(1));
                     modelfacade.getExecutorService().submit(modelfacade.getTimerutil());
                  
