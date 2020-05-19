@@ -322,16 +322,7 @@ public class TaskManager implements TaskManagerInterface
              
  
         }
-        
-        for (final XYChart.Data<String, Number> series : data.getData()) {
-        
-            Tooltip tooltip = new Tooltip();
-            tooltip.setText(series.getYValue().toString());
-            Tooltip.install(series.getNode(), tooltip);
-        
-        
-        }
-            
+         
         
   
 

@@ -8,6 +8,7 @@ import examProjectTheDisciplesOfSkrumm.GUI.Model.ModelFacade;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.Month;
@@ -152,24 +153,24 @@ public class ChartViewController implements Initializable
             data.getData().add(new XYChart.Data(DayOfWeek.WEDNESDAY.toString(), 12));
             data.getData().add(new XYChart.Data(DayOfWeek.THURSDAY.toString(), 7));
             data.getData().add(new XYChart.Data(DayOfWeek.FRIDAY.toString(), 6));
-                 */
-                hoursChart.getData().clear();
-                hoursChart.getData().add(modelfacade.handleProjectBarChartData(modelfacade.getCurrentuser().getEmail(), startDate.getValue(), endDate.getValue()));
-
-                for (final Series<String, Number> series : hoursChart.getData())
-                {
-                    for (final XYChart.Data<String, Number> data : series.getData())
-                    {
-                        Tooltip tooltip = new Tooltip();
-                        tooltip.setText(String.valueOf((double) Math.round((data.getYValue().doubleValue() * 100.0) / 100.0)));
-                        Tooltip.install(data.getNode(), tooltip);
-                    }
-                }
-
-            } catch (SQLException ex)
-            {
-                Logger.getLogger(ChartViewController.class.getName()).log(Level.SEVERE, null, ex);
-
+            */
+            hoursChart.getData().clear();
+            hoursChart.getData().add(modelfacade.handleProjectBarChartData(modelfacade.getCurrentuser().getEmail(),startDate.getValue(),endDate.getValue()));
+            
+            for (final Series<String, Number> series : hoursChart.getData()) {
+        for (final XYChart.Data<String, Number> data : series.getData()) {
+            Tooltip tooltip = new Tooltip();
+            
+            DecimalFormat f = new DecimalFormat("##.00");
+            tooltip.setText((f.format((data.getYValue().doubleValue()) )));
+            Tooltip.install(data.getNode(), tooltip);
+        }
+            }
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ChartViewController.class.getName()).log(Level.SEVERE, null, ex);
+            
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("SQLException");
                 alert.setHeaderText("SQLException");
