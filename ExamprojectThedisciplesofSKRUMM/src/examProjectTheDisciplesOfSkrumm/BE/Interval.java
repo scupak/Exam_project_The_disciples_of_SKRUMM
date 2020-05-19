@@ -230,7 +230,7 @@ public class Interval
     @Override
     public String toString()
     {
-        return creationDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + "  |  " + startTime + " to " + stopTime + "  |  " + getFormatedIntervaltime() + "  |  " + paidOrNot();
+        return creationDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + "  |  " + startTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + " to " + stopTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + "  |  " + getFormatedIntervaltime() + "  |  " + paidOrNot();
     }
 
 }
