@@ -296,7 +296,7 @@ public class TaskManager implements TaskManagerInterface
      * @throws SQLException
      */
     @Override
-    public XYChart.Series handleProjectBarChartData(String userID, LocalDate fromdate, LocalDate todate) throws SQLException
+    public synchronized XYChart.Series handleProjectBarChartData(String userID, LocalDate fromdate, LocalDate todate) throws SQLException
     {
         ArrayList<Project> allProject = new ArrayList<>();
 
@@ -330,7 +330,7 @@ public class TaskManager implements TaskManagerInterface
      * @throws SQLException
      */
     @Override
-    public XYChart.Series handleProjectBarChartDataForAdmin(int projectID, LocalDate fromdate, LocalDate todate) throws SQLException
+    public synchronized XYChart.Series handleProjectBarChartDataForAdmin(int projectID, LocalDate fromdate, LocalDate todate) throws SQLException
     {
         ArrayList<User> allUsers = new ArrayList<>();
 
