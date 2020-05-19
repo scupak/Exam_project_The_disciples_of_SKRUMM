@@ -173,7 +173,7 @@ public interface TaskManagerInterface
      * @return the bar chart data for the project(s)
      * @throws SQLException 
      */
-    public XYChart.Series handleProjectBarChartData(String userID,LocalDate fromdate, LocalDate todate) throws SQLException;
+    public XYChart.Series<String, Number> handleProjectBarChartData(String userID,LocalDate fromdate, LocalDate todate) throws SQLException;
     
     /**
      * handles the bar chart data for the administrator

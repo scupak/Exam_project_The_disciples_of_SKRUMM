@@ -25,8 +25,10 @@ import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.chart.XYChart.Series;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -40,7 +42,7 @@ public class ChartViewController implements Initializable
     @FXML
     private JFXDatePicker endDate;
     @FXML
-    private BarChart<?, ?> hoursChart;
+    private BarChart<String, Number> hoursChart;
     @FXML
     private Label nameLabel;
   
@@ -139,6 +141,16 @@ public class ChartViewController implements Initializable
             */
             hoursChart.getData().clear();
             hoursChart.getData().add(modelfacade.handleProjectBarChartData(modelfacade.getCurrentuser().getEmail(),startDate.getValue(),endDate.getValue()));
+            
+            for (final Series<String, Number> series : hoursChart.getData()) {
+        for (final XYChart.Data<String, Number> data : series.getData()) {
+            Tooltip tooltip = new Tooltip();
+            tooltip.setText(String.valueOf((double)Math.round((data.getYValue().doubleValue() * 100.0) / 100.0)));
+            Tooltip.install(data.getNode(), tooltip);
+        }
+            }
+            
+            
         } catch (SQLException ex) {
             Logger.getLogger(ChartViewController.class.getName()).log(Level.SEVERE, null, ex);
             

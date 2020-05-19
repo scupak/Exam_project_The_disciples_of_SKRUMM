@@ -21,6 +21,8 @@ import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.chart.XYChart;
+import javafx.scene.chart.XYChart.Series;
+import javafx.scene.control.Tooltip;
 
 /**
  *
@@ -296,7 +298,7 @@ public class TaskManager implements TaskManagerInterface
      * @throws SQLException
      */
     @Override
-    public XYChart.Series handleProjectBarChartData(String userID, LocalDate fromdate, LocalDate todate) throws SQLException
+    public XYChart.Series<String, Number> handleProjectBarChartData(String userID, LocalDate fromdate, LocalDate todate) throws SQLException
     {
         ArrayList<Project> allProject = new ArrayList<>();
 
@@ -305,8 +307,10 @@ public class TaskManager implements TaskManagerInterface
          */
         allProject.addAll(dal.getAllProjects());
 
-        XYChart.Series data = new XYChart.Series();
+        XYChart.Series<String, Number> data = new XYChart.Series();
         data.setName("Hours spent on projects");
+        
+        int i = 0;
 
         for (Project project : allProject)
         {
@@ -315,11 +319,25 @@ public class TaskManager implements TaskManagerInterface
             /* the group divides the output of getDurationFromIntervalsbetween2Dates by 3600 to go from seconds to hours */
             data.getData().add(new XYChart.Data(project.getProjectName() +" "+ project.getId(), (getDurationFromIntervalsbetween2Dates(userID, project.getId(), fromdate, todate) / 3600.0)));
 
+             
+ 
         }
+        
+        for (final XYChart.Data<String, Number> series : data.getData()) {
+        
+            Tooltip tooltip = new Tooltip();
+            tooltip.setText(series.getYValue().toString());
+            Tooltip.install(series.getNode(), tooltip);
+        
+        
+        }
+            
+        
+  
 
         return data;
+    
     }
-
     /**
      * handles the bar chart for admin
      *

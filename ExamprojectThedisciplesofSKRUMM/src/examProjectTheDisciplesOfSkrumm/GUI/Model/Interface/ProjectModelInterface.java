@@ -79,7 +79,7 @@ public interface ProjectModelInterface
      * @return bar chart data
      * @throws SQLException 
      */
-    public XYChart.Series handleProjectBarChartData(String userID,LocalDate fromdate, LocalDate todate) throws SQLException;
+    public XYChart.Series<String, Number> handleProjectBarChartData(String userID,LocalDate fromdate, LocalDate todate) throws SQLException;
      
     /**
      * handles bar chart data for the admin
