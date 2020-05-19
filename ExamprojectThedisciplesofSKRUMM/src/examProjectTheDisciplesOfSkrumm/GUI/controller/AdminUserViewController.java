@@ -12,8 +12,13 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -94,15 +99,7 @@ public class AdminUserViewController implements Initializable
         adminColumn.setCellValueFactory(
                 new PropertyValueFactory<User, String>("isAdmin"));
 
-        try
-        {
-            refreshTableview();
-        } 
-        catch (SQLException ex)
-        {
-            Logger.getLogger(AdminUserViewController.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "Could not refresh the tableview" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
-        }
+        refreshTableview();
     }
 
     /**
@@ -147,7 +144,7 @@ public class AdminUserViewController implements Initializable
      * @throws IOException 
      */
     @FXML
-    private void handleEditUser(ActionEvent event) throws IOException
+    private void handleEditUser(ActionEvent event)
     {
         final JDialog dialog = new JDialog();
         dialog.setAlwaysOnTop(true);
@@ -155,33 +152,37 @@ public class AdminUserViewController implements Initializable
         if ((UserTableView.getSelectionModel().getSelectedItem() == null))
         {
             JOptionPane.showMessageDialog(dialog, "Nothing seems to be selected!\nSelect a user to edit before pressing edit!", "ERROR", JOptionPane.ERROR_MESSAGE);
-        } else
+        } 
+        else
         {
 
-            User selectedUser = UserTableView.getSelectionModel().getSelectedItem();
-
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/EditUserView.fxml"));
-            Parent root = loader.load();
-            EditUserController controller = loader.getController();
-            controller.setEditUser(selectedUser);
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.setMinHeight(288);
-            stage.setMinWidth(346);
-            stage.setTitle("Edit User");
-            stage.showAndWait();
             try
             {
+                User selectedUser = UserTableView.getSelectionModel().getSelectedItem();
+                
+                FXMLLoader loader = modelfacade.getLoader(ViewTypes.EDITUSER);
+                Parent root = loader.load();
+                EditUserController controller = loader.getController();
+                controller.setEditUser(selectedUser);
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.setMinHeight(288);
+                stage.setMinWidth(346);
+                stage.setTitle("Edit User");
+                stage.showAndWait();
                 refreshTableview();
-            } catch (SQLException ex)
+                
+            } 
+            catch (SQLException ex)
             {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Error");
-                alert.setHeaderText("Cant refresh" + ex);
-                alert.setContentText("Please try again");
-                alert.showAndWait();
+                Logger.getLogger(AdminUserViewController.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(dialog, "Failed to contact the database" + ex, "ERROR", JOptionPane.ERROR_MESSAGE);
+            } 
+            catch (Exception ex)
+            {
+                Logger.getLogger(AdminUserViewController.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(dialog, "Failed to contact the database" + ex, "ERROR", JOptionPane.ERROR_MESSAGE);
             }
-
         }
     }
 
@@ -215,10 +216,10 @@ public class AdminUserViewController implements Initializable
                 modelfacade.deleteUser(user);
                 refreshTableview();
             }
-        } catch (SQLException karl)
+        } catch (SQLException ex)
         {
-            karl.printStackTrace();
-            JOptionPane.showMessageDialog(dialog, "Database connection error\n Error code; Karl\n" + karl, "Karl", JOptionPane.ERROR_MESSAGE);
+            Logger.getLogger(AdminUserViewController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(dialog, "Database connection error\n Error code; Karl\n" + ex, "Karl", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -229,9 +230,9 @@ public class AdminUserViewController implements Initializable
      * @throws SQLException 
      */
     @FXML
-    private void handleMakeAdmin(ActionEvent event) throws SQLException
+    private void handleMakeAdmin(ActionEvent event)
     {
-         final JDialog dialog = new JDialog();
+        final JDialog dialog = new JDialog();
         dialog.setAlwaysOnTop(true);
         
         User clickedUser = UserTableView.getSelectionModel().getSelectedItem();
@@ -239,21 +240,29 @@ public class AdminUserViewController implements Initializable
         
         if(clickedUser != null)
         {
-            if(clickedUser.getEmail().equals(modelfacade.getCurrentuser().getEmail()))
+            try 
             {
-                JOptionPane.showMessageDialog(dialog, "You can not change your own admin status!"
-                        + "\nselect another user that is not you!", 
-                        "ERROR", JOptionPane.ERROR_MESSAGE);
+                if(clickedUser.getEmail().equals(modelfacade.getCurrentuser().getEmail()))
+                {
+                    JOptionPane.showMessageDialog(dialog, "You can not change your own admin status!"
+                            + "\nselect another user that is not you!",
+                            "ERROR", JOptionPane.ERROR_MESSAGE);
+                }
+                else if(clickedUser.getIsAdmin().equals(true))
+                {
+                    clickedUser.setIsAdmin(false);
+                }else
+                {
+                    clickedUser.setIsAdmin(true);
+                }
+                modelfacade.updateUser(unchangeUser, clickedUser);
+                refreshTableview();
+            } 
+            catch (SQLException ex) 
+            {
+                Logger.getLogger(AdminUserViewController.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(dialog, "Database connection error\n Error code; Karl\n" + ex, "Karl", JOptionPane.ERROR_MESSAGE);
             }
-            else if(clickedUser.getIsAdmin().equals(true))
-            {
-                clickedUser.setIsAdmin(false);
-            }else
-            {
-                clickedUser.setIsAdmin(true);
-            }
-            modelfacade.updateUser(unchangeUser, clickedUser);
-            refreshTableview();
         }
     }
 
@@ -263,31 +272,66 @@ public class AdminUserViewController implements Initializable
      * @throws IOException 
      */
     @FXML
-    private void handleBack(ActionEvent event) throws IOException
+    private void handleBack(ActionEvent event)
     {
-        Stage adminClientsAndProjectsView = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-        FXMLLoader loader = new FXMLLoader(getClass().
-                getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/AdminMainView.fxml"));
-        Parent root = loader.load();
-        AdminMainViewController controller = loader.getController();
-
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.setMinHeight(523);
-        stage.setMinWidth(721);
-        stage.setTitle("Main Menu");
-        stage.show();
-        adminClientsAndProjectsView.close();
+        try
+        {
+            Stage adminClientsAndProjectsView = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            
+            FXMLLoader loader = modelfacade.getLoader(ViewTypes.ADMINMAIN);
+            Parent root = loader.load();
+            AdminMainViewController controller = loader.getController();
+            
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setMinHeight(523);
+            stage.setMinWidth(721);
+            stage.setTitle("Main Menu");
+            stage.show();
+            adminClientsAndProjectsView.close();
+        }
+        catch (IOException ex)
+        {
+            Logger.getLogger(AdminUserViewController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Database connection error\n Error code; Karl\n" + ex, "Karl", JOptionPane.ERROR_MESSAGE);
+        } 
+        catch (Exception ex)
+        {
+            Logger.getLogger(AdminUserViewController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Database connection error\n Error code; Karl\n" + ex, "Karl", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     /**
      * Refreshes the tableview
      * @throws SQLException 
      */
-    public void refreshTableview() throws SQLException
+    public void refreshTableview()
     {
-        UserTableView.setItems(modelfacade.getAllUsers());
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+            executor.submit(() -> 
+            {
+                try 
+                {
+                    ObservableList<User> users = FXCollections.observableArrayList();
+                    users.addAll(modelfacade.getAllUsers());
+                    
+                    Platform.runLater( () ->
+                    {
+                        UserTableView.setItems(users);
+                    });
+                } 
+                catch (SQLException ex) 
+                {
+                    Platform.runLater( () ->
+                    {
+                        Logger.getLogger(AdminUserViewController.class.getName()).log(Level.SEVERE, null, ex);
+                        JOptionPane.showMessageDialog(null, "Couln't get all the tasks from the database" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
+                    });
+                }
+            });
+            
+            executor.shutdown();
     }
 
     /**
@@ -296,7 +340,7 @@ public class AdminUserViewController implements Initializable
      * @throws IOException 
      */
     @FXML
-    private void handleOpenUserView(MouseEvent event) throws IOException
+    private void handleOpenUserView(MouseEvent event)
     {
         Stage adminView = (Stage) ((Node) event.getSource()).getScene().getWindow();
         final JDialog dialog = new JDialog();
@@ -312,22 +356,34 @@ public class AdminUserViewController implements Initializable
                     JOptionPane.showMessageDialog(dialog, "You can not select yourself!\nselect another user that is not you!", "ERROR", JOptionPane.ERROR_MESSAGE);
                 } else{
 
-                User clickedUser = UserTableView.getSelectionModel().getSelectedItem();
-                modelfacade.setCurrentAdmin(modelfacade.getCurrentuser());
-                modelfacade.setCurrentuser(clickedUser);
-
-                FXMLLoader loader = new FXMLLoader(getClass().
-                        getResource("/examProjectTheDisciplesOfSkrumm/GUI/view/TaskView.fxml"));
-                Parent root = loader.load();
-                TaskViewController controller = loader.getController();
-
-                Stage stage = new Stage();
-                stage.setScene(new Scene(root));
-                stage.setMinHeight(523);
-                stage.setMinWidth(721);
-                stage.setTitle("Main Menu");
-                stage.show();
-                adminView.close();
+                    try
+                    {
+                        User clickedUser = UserTableView.getSelectionModel().getSelectedItem();
+                        modelfacade.setCurrentAdmin(modelfacade.getCurrentuser());
+                        modelfacade.setCurrentuser(clickedUser);
+                        
+                        FXMLLoader loader = modelfacade.getLoader(ViewTypes.TASK);
+                        Parent root = loader.load();
+                        TaskViewController controller = loader.getController();
+                        
+                        Stage stage = new Stage();
+                        stage.setScene(new Scene(root));
+                        stage.setMinHeight(523);
+                        stage.setMinWidth(721);
+                        stage.setTitle("Task view");
+                        stage.show();
+                        adminView.close();
+                    } 
+                    catch (IOException ex)
+                    {
+                        Logger.getLogger(AdminUserViewController.class.getName()).log(Level.SEVERE, null, ex);
+                        JOptionPane.showMessageDialog(dialog, "Couln't get all the tasks from the database" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.getLogger(AdminUserViewController.class.getName()).log(Level.SEVERE, null, ex);
+                        JOptionPane.showMessageDialog(dialog, "Couln't get all the tasks from the database" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
+                    }
                 }
 
             }
