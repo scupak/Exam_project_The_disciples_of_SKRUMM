@@ -143,7 +143,10 @@ public class EditIntervalViewController implements Initializable
     @FXML
     private void handleSave(ActionEvent event)
     {
-        long intervalTime = Duration.between(startTime.getValue(), stopTime.getValue()).getSeconds();
+        LocalDateTime start = LocalDateTime.of(startTimeDate.getValue(), startTime.getValue());
+        LocalDateTime stop = LocalDateTime.of(stopTimeDate.getValue(), stopTime.getValue());
+        
+        long intervalTime = Duration.between(start, stop).getSeconds();
         if (intervalTime <= 0)
         {
             JOptionPane optionPane = new JOptionPane();
@@ -163,9 +166,6 @@ public class EditIntervalViewController implements Initializable
             {
                 paidOrNot = 0;
             }
-
-            LocalDateTime start = LocalDateTime.of(startTimeDate.getValue(), startTime.getValue());
-            LocalDateTime stop = LocalDateTime.of(stopTimeDate.getValue(), stopTime.getValue());
             
             Interval newInterval = new Interval(currentInterval.getId(), start, stop,
                     creationDate.getValue(), (int) intervalTime, currentTask, paidOrNot);
