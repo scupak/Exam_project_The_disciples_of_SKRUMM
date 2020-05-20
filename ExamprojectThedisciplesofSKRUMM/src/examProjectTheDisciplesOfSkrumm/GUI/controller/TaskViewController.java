@@ -23,6 +23,7 @@ import examProjectTheDisciplesOfSkrumm.enums.ViewTypes;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -799,7 +800,24 @@ public class TaskViewController implements Initializable
     @FXML
     private void handleDatepickerFromAction(ActionEvent event) throws SQLException 
     {
-        refreshEverything();
+        
+        
+        int result = datePickerFrom.getValue().compareTo(datePickerTo.getValue());
+        if (result > 0)
+        {
+            JOptionPane optionPane = new JOptionPane();
+            JDialog dialog = optionPane.createDialog(null, "ERROR");
+            optionPane.setMessage("Stop Time cannot be before" + "\n" + "    or equal to Start Time!");
+            optionPane.setMessageType(JOptionPane.ERROR_MESSAGE);
+            dialog.setAlwaysOnTop(true);
+            dialog.setVisible(true);
+            datePickerTo.setValue(LocalDate.now());
+            datePickerFrom.setValue(LocalDate.now());
+        }
+        else
+        {
+            refreshEverything();
+        }
     }
 
     /**
