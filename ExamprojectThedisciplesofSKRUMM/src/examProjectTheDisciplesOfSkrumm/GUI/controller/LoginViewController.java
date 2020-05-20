@@ -130,7 +130,7 @@ public class LoginViewController implements Initializable {
         catch (java.lang.NullPointerException ex)
         {
             Logger.getLogger(LoginViewController.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "This user does not exist" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "This user does not exist","ERROR!", JOptionPane.ERROR_MESSAGE);
         } catch (Exception ex)
         {
             Logger.getLogger(LoginViewController.class.getName()).log(Level.SEVERE, null, ex);

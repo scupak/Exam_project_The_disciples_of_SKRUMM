@@ -46,20 +46,20 @@ public class TimerUtil implements Runnable
         while(totalSec >= 3600){
         totalSec  = totalSec - 3600;
         hour++;
-        System.out.println("added one to hours...");
+        //System.out.println("added one to hours...");
         }
         
         while(totalSec >= 60){
         totalSec = totalSec - 60;
         min++;
-        System.out.println("added one to min...");
+        //System.out.println("added one to min...");
         }
         
         sec = totalSec;
-        System.out.println("added rest of seconds to sec...");
+        //System.out.println("added rest of seconds to sec...");
         
         totalTimeString = String.format("%02d", hour) + ":" + String.format("%02d", min) + ":" + String.format("%02d", sec);
-        System.out.println(totalTimeString);
+        //System.out.println(totalTimeString);
         
         //while totalSec is over 3600, totalSec minus 3600, and add 1 to hour until it isnt anymore
         //when done, while totalSec is over 60, totalSec minus 60 and add 1 to min until it isnt anymore
