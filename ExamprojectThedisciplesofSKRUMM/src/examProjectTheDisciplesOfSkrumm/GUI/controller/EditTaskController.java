@@ -50,15 +50,7 @@ public class EditTaskController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        try 
-        {
-            modelfacade = ModelFacade.getInstance();
-        } 
-        catch (Exception ex) 
-        {
-            Logger.getLogger(EditTaskController.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "Failed to get an intance of modelfacade" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE); 
-        }
+        
     }    
 
 
@@ -119,14 +111,30 @@ public class EditTaskController implements Initializable
      */
     public void setEditTask(Task editTask)
     {
+        try 
+        {
+            modelfacade = ModelFacade.getInstance();
+        } 
+        catch (Exception ex) 
+        {
+            Logger.getLogger(EditTaskController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Failed to get an intance of modelfacade" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE); 
+        }
+        
         this.editTask = editTask;
         
         editProjectCombobox.getItems().addAll(modelfacade.getProjects());
         editTitleTextField.setText(editTask.getTitle()); 
         creationDatePicker.setValue(editTask.getCreationDate());
-        editProjectCombobox.getSelectionModel().select(editTask.getProject());
-        editProjectCombobox.setValue(editTask.getProject());
+        
+        for (Project item : editProjectCombobox.getItems())
+        {
+            if(item.getId() == editTask.getProject().getId())
+            {
+                int index = editProjectCombobox.getItems().indexOf(item);
+                editProjectCombobox.getSelectionModel().select(index);
+                editProjectCombobox.setValue(editProjectCombobox.getItems().get(index));
+            }
+        }
     }
-    
-   
 }

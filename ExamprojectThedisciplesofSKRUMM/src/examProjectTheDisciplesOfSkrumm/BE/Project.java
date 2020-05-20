@@ -200,11 +200,35 @@ public class Project
         return  id.get() + "  " + projectName.get() + "  " + clientName.get() + "  " + ProjectRate.get() + "  " + isPaid.get();
     }
 
-    /**
-     * checks wether or not an object is equal to another object
-     * @param obj
-     * @return true or false if it does or dosen't equal an other object
-     */
+//    /**
+//     * checks wether or not an object is equal to another object
+//     * @param obj
+//     * @return true or false if it does or dosen't equal an other object
+//     */
+//    @Override
+//    public boolean equals(Object obj)
+//    {
+//        if (this == obj)
+//        {
+//            return true;
+//        }
+//        if (obj == null)
+//        {
+//            return false;
+//        }
+//        if (getClass() != obj.getClass())
+//        {
+//            return false;
+//        }
+//        final Project other = (Project) obj;
+//        if (!Objects.equals(this.id, other.id))
+//        {
+//            return false;
+//        }
+//        return true;
+//    }
+//    
+
     @Override
     public boolean equals(Object obj)
     {
@@ -227,6 +251,7 @@ public class Project
         }
         return true;
     }
+    
     
     /**
      * converts the isPaid to a String
