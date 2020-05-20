@@ -370,8 +370,8 @@ public class AdminUserViewController implements Initializable
                         
                         Stage stage = new Stage();
                         stage.setScene(new Scene(root));
-                        stage.setMinHeight(523);
-                        stage.setMinWidth(721);
+                        stage.setMinHeight(525);
+                        stage.setMinWidth(1100);
                         stage.setTitle("Task view");
                         stage.show();
                         adminView.close();

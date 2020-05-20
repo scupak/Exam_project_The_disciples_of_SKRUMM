@@ -252,10 +252,10 @@ public class TaskViewController implements Initializable
                 final Object dataObj = ((TreeTableColumn.CellDataFeatures) obj).getValue().getValue();
                 if (dataObj instanceof Interval)
                 {
-                    return new ReadOnlyStringWrapper(((Interval) dataObj).getStartTime().toString());
+                    return new ReadOnlyStringWrapper(((Interval) dataObj).getFormatedStartTime());
                 } else if (dataObj instanceof Task)
                 {
-                    return new ReadOnlyStringWrapper(((Task) dataObj).getStartTime().toString());
+                    return new ReadOnlyStringWrapper(((Task) dataObj).getFormatedStartTime());
                 } else
                 {
                     return null;
@@ -272,10 +272,10 @@ public class TaskViewController implements Initializable
                 final Object dataObj = ((TreeTableColumn.CellDataFeatures) obj).getValue().getValue();
                 if (dataObj instanceof Interval)
                 {
-                    return new ReadOnlyStringWrapper(((Interval) dataObj).getStopTime().toString());
+                    return new ReadOnlyStringWrapper(((Interval) dataObj).getFormatedStopTime());
                 } else if (dataObj instanceof Task)
                 {
-                    return new ReadOnlyStringWrapper(((Task) dataObj).getStopTime().toString());
+                    return new ReadOnlyStringWrapper(((Task) dataObj).getFormatedStopTime());
                 } else
                 {
                     return null;

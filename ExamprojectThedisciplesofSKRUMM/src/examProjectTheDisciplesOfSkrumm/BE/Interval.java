@@ -178,6 +178,16 @@ public class Interval
         return getCreationDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
 
     }
+    
+    public String getFormatedStartTime()
+    {
+        return startTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+    }
+    
+    public String getFormatedStopTime()
+    {
+        return stopTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+    }
 
     /**
      * Gets the intervals time formatted to hours and minutes
