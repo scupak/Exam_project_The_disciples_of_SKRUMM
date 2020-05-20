@@ -738,14 +738,14 @@ public class TaskDBDAO implements TaskDBDAOInterface
                 sqlString = "SELECT DISTINCT  interval.taskId, task.id , task.creationDate,task.duration, task.lastUsed , task.projectID , task.startTime, task.stopTime, task.title, task.userEmail "
                         + "FROM task "
                         + "LEFT OUTER JOIN interval on interval.taskId = task.id "
-                        + "WHERE  task.userEmail = ? AND interval.creationDate >= ? AND interval.creationDate <= ? OR task.userEmail = ? AND task.creationDate >= ? AND task.creationDate <= ? "
+                        + "WHERE  task.userEmail = ? AND CAST(interval.startTime AS date) <= ? AND ? <= CAST(interval.stopTime AS date)  OR task.userEmail = ? AND task.creationDate >= ? AND task.creationDate <= ? "
                         + "ORDER BY task.lastUsed DESC ";
                 
                 ps = con.prepareStatement(sqlString);
                 
                 ps.setString(1, user.getEmail());
-                ps.setDate(2, java.sql.Date.valueOf(fromdate));
-                ps.setDate(3, java.sql.Date.valueOf(todate));
+                ps.setDate(2, java.sql.Date.valueOf(todate));
+                ps.setDate(3, java.sql.Date.valueOf(fromdate));
                 ps.setString(4, user.getEmail());
                 ps.setDate(5, java.sql.Date.valueOf(fromdate));
                 ps.setDate(6, java.sql.Date.valueOf(todate));
@@ -806,11 +806,11 @@ public class TaskDBDAO implements TaskDBDAOInterface
             PreparedStatement ps = con.prepareStatement("SELECT interval.creationDate,interval.intervalId,interval.intervalTime,interval.isPaid, interval.startTime,interval.stopTime,interval.taskId,  task.id , task.userEmail ,task.title "
                                                       + "FROM interval "
                                                       + "INNER JOIN task on interval.taskId = task.id "
-                                                      + "WHERE  task.id = ? AND interval.creationDate >= ? AND interval.creationDate <= ? ");
+                                                      + "WHERE  task.id = ? AND CAST(interval.startTime AS date) <= ? AND ? <= CAST(interval.stopTime AS date)");
 
             ps.setInt(1, task.getId());
-            ps.setDate(2,  java.sql.Date.valueOf(fromdate));
-            ps.setDate(3, java.sql.Date.valueOf(todate));
+            ps.setDate(2,  java.sql.Date.valueOf(todate));
+            ps.setDate(3, java.sql.Date.valueOf(fromdate));
 
             ResultSet rs = ps.executeQuery();
             while (rs.next())
@@ -947,11 +947,11 @@ public class TaskDBDAO implements TaskDBDAOInterface
                                                        + "FROM interval "
                                                        + "INNER JOIN task on interval.taskId = task.id "
                                                        + "INNER JOIN project on project.id = task.projectID "
-                                                       + "WHERE task.userEmail = ? AND projectID = ? AND interval.creationDate >= ? AND interval.creationDate <= ? ");
+                                                       + "WHERE task.userEmail = ? AND projectID = ? AND CAST(interval.startTime AS date) <= ? AND ? <= CAST(interval.stopTime AS date) ");
             ps.setString(1, userID);
             ps.setInt(2, projectID);
-            ps.setDate(3,java.sql.Date.valueOf(fromdate));
-            ps.setDate(4,java.sql.Date.valueOf(todate));
+            ps.setDate(3,java.sql.Date.valueOf(todate));
+            ps.setDate(4,java.sql.Date.valueOf(fromdate));
             
             ResultSet rs = ps.executeQuery();
 
