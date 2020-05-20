@@ -6,6 +6,7 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" prefHeight="576.0" prefWidth="1026.0" style="-fx-border-color: #435a9a; -fx-border-width: 90 3 3 3;" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="examProjectTheDisciplesOfSkrumm.GUI.controller.AdminClientsAndProjectsController">
@@ -13,34 +14,44 @@
         <URL value="@/examProjectTheDisciplesOfSkrumm/GUI/css/Graphics.css" />
     </stylesheets>
    <children>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="332.0" layoutY="14.0" prefHeight="46.0" prefWidth="249.0" text="Clients &amp; Projects" textFill="WHITE" AnchorPane.leftAnchor="332.0" AnchorPane.rightAnchor="372.0">
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="332.0" layoutY="14.0" prefHeight="46.0" prefWidth="249.0" text="Clients &amp; Projects" textFill="WHITE" AnchorPane.leftAnchor="352.0" AnchorPane.rightAnchor="352.0">
          <font>
             <Font size="30.0" />
          </font>
       </Label>
-      <JFXButton fx:id="backBtn" layoutX="450.0" layoutY="60.0" onAction="#handleBack" text="Back to main" textFill="WHITE" />
-      <TableView fx:id="clientTableView" layoutX="34.0" layoutY="99.0" onMouseClicked="#handleSelectedClient" prefHeight="358.0" prefWidth="278.0" stylesheets="@../css/Graphics.css" AnchorPane.leftAnchor="34.0">
+      <HBox alignment="CENTER" layoutX="466.5" layoutY="60.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <children>
+            <JFXButton fx:id="backBtn" onAction="#handleBack" prefHeight="26.0" prefWidth="150.0" text="Back to admin menu" textFill="WHITE" />
+         </children>
+      </HBox>
+      <TableView fx:id="clientTableView" layoutX="34.0" layoutY="99.0" onMouseClicked="#handleSelectedClient" prefHeight="358.0" prefWidth="278.0" stylesheets="@../css/Graphics.css" AnchorPane.bottomAnchor="122.60000000000002" AnchorPane.leftAnchor="34.0" AnchorPane.topAnchor="5.0">
         <columns>
           <TableColumn fx:id="clientNameColumn" prefWidth="106.39999008178711" text="Client" />
           <TableColumn fx:id="clientProjectsColumn" prefWidth="96.0" text="Projects" />
             <TableColumn fx:id="clientRateColumn" prefWidth="75.0" text="Rate" />
         </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
       </TableView>
-      <TableView fx:id="projectTableView" layoutX="364.0" layoutY="99.0" onMouseClicked="#handleProjectChartPerUser" prefHeight="358.0" prefWidth="620.0" stylesheets="@../css/Graphics.css" AnchorPane.rightAnchor="34.0">
+      <TableView fx:id="projectTableView" layoutX="364.0" layoutY="99.0" onMouseClicked="#handleProjectChartPerUser" prefHeight="358.0" prefWidth="620.0" stylesheets="@../css/Graphics.css" AnchorPane.bottomAnchor="122.60000000000002" AnchorPane.leftAnchor="368.0" AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="5.0">
         <columns>
-          <TableColumn fx:id="projectNameColumn" prefWidth="191.99993288516998" text="Project" />
-          <TableColumn fx:id="projectClientColumn" prefWidth="78.4000244140625" text="Client" />
-            <TableColumn fx:id="projectHoursColumn" prefWidth="98.39996337890625" text="Hours" />
-            <TableColumn fx:id="projectCreationColumn" prefWidth="98.4000244140625" text="Creation" />
-            <TableColumn fx:id="projectIsPaidColumn" prefWidth="76.00009155273438" text="Is Paid" />
+          <TableColumn fx:id="projectNameColumn" prefWidth="191.0" text="Project" />
+          <TableColumn fx:id="projectClientColumn" prefWidth="78.0" text="Client" />
+            <TableColumn fx:id="projectHoursColumn" prefWidth="98.0" text="Hours" />
+            <TableColumn fx:id="projectCreationColumn" prefWidth="98.0" text="Creation" />
+            <TableColumn fx:id="projectIsPaidColumn" prefWidth="76.0" text="Is Paid" />
             <TableColumn fx:id="projectRateColumn" prefWidth="75.0" text="Rate" />
         </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
       </TableView>
-      <JFXButton fx:id="createClientBtn" layoutX="34.0" layoutY="457.0" onAction="#handleCreateClient" stylesheets="@../css/Graphics.css" text="Create Client" />
-      <JFXButton fx:id="editClientBtn" layoutX="120.0" layoutY="457.0" onAction="#handleEditClient" stylesheets="@../css/Graphics.css" text="Edit Client" />
-      <JFXButton fx:id="deleteClientBtn" layoutX="192.0" layoutY="457.0" onAction="#handleDeleteClient" stylesheets="@../css/Graphics.css" text="Delete Client" />
-      <JFXButton fx:id="createProjectBtn" layoutX="363.0" layoutY="457.0" onAction="#handleCreateProject" stylesheets="@../css/Graphics.css" text="Create Project" />
-      <JFXButton fx:id="editProjectBtn" layoutX="455.0" layoutY="457.0" onAction="#handleEditProject" stylesheets="@../css/Graphics.css" text="Edit Project" />
-      <JFXButton fx:id="deleteProjectBtn" layoutX="533.0" layoutY="457.0" onAction="#handleDeleteProject" stylesheets="@../css/Graphics.css" text="Delete Project" />
+      <JFXButton fx:id="createClientBtn" layoutX="40.0" layoutY="457.0" onAction="#handleCreateClient" prefHeight="26.0" prefWidth="90.0" stylesheets="@../css/Graphics.css" text="Create Client" AnchorPane.bottomAnchor="90.0" AnchorPane.leftAnchor="37.0" />
+      <JFXButton fx:id="editClientBtn" layoutX="130.0" layoutY="456.0" onAction="#handleEditClient" prefHeight="26.0" prefWidth="77.0" stylesheets="@../css/Graphics.css" text="Edit Client" AnchorPane.bottomAnchor="90.0" AnchorPane.leftAnchor="130.0" />
+      <JFXButton fx:id="deleteClientBtn" layoutX="211.0" layoutY="456.0" onAction="#handleDeleteClient" prefHeight="26.0" prefWidth="90.0" stylesheets="@../css/Graphics.css" text="Delete Client" AnchorPane.bottomAnchor="90.0" AnchorPane.leftAnchor="211.0" />
+      <JFXButton fx:id="createProjectBtn" layoutX="371.0" layoutY="457.0" onAction="#handleCreateProject" stylesheets="@../css/Graphics.css" text="Create Project" AnchorPane.bottomAnchor="90.0" AnchorPane.leftAnchor="371.0" />
+      <JFXButton fx:id="editProjectBtn" layoutX="464.0" layoutY="457.0" onAction="#handleEditProject" stylesheets="@../css/Graphics.css" text="Edit Project" AnchorPane.bottomAnchor="90.0" AnchorPane.leftAnchor="464.0" />
+      <JFXButton fx:id="deleteProjectBtn" layoutX="544.0" layoutY="457.0" onAction="#handleDeleteProject" stylesheets="@../css/Graphics.css" text="Delete Project" AnchorPane.bottomAnchor="90.0" AnchorPane.leftAnchor="544.0" />
    </children>
 </AnchorPane>

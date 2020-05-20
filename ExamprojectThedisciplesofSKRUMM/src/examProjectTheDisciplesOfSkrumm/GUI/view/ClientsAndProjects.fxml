@@ -6,20 +6,16 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="428.0" prefWidth="544.0" styleClass="mainFxmlClass" stylesheets="@../css/Graphics.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="examProjectTheDisciplesOfSkrumm.GUI.controller.ClientsAndProjectsController">
+<AnchorPane id="AnchorPane" prefHeight="428.0" prefWidth="544.0" style="-fx-border-color: #435a9a; -fx-border-width: 90 1 1 1;" styleClass="mainFxmlClass" stylesheets="@../css/Graphics.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="examProjectTheDisciplesOfSkrumm.GUI.controller.ClientsAndProjectsController">
    <children>
-      <Pane id="loginLabelbackground" layoutX="107.0" layoutY="48.0" prefHeight="87.0" prefWidth="493.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <Label alignment="CENTER" contentDisplay="TOP" layoutX="134.0" layoutY="14.0" prefHeight="45.0" prefWidth="276.0" styleClass="Label" text="Clients and projects">
-               <font>
-                  <Font size="30.0" />
-               </font>
-            </Label>
-         </children></Pane>
-      <HBox alignment="CENTER" layoutX="210.0" layoutY="57.0" prefHeight="30.0" prefWidth="332.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="57.0">
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="-2.0" layoutY="14.0" prefHeight="45.0" prefWidth="544.0" styleClass="Label" text="Clients and projects" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Label>
+      <HBox alignment="CENTER" layoutX="2.0" layoutY="52.0" prefHeight="30.0" prefWidth="332.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
             <JFXButton fx:id="mainBtn" onAction="#handleMain" text="back to main menu" textFill="WHITE">
                <font>
@@ -28,7 +24,7 @@
             </JFXButton>
          </children>
       </HBox>
-      <TableView fx:id="ClientList" accessibleRole="PARENT" layoutY="87.0" prefHeight="341.0" prefWidth="544.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="87.0">
+      <TableView fx:id="ClientList" accessibleRole="PARENT" layoutX="2.0" layoutY="89.0" prefHeight="428.0" prefWidth="542.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <columns>
             <TableColumn fx:id="projectNameColumn" prefWidth="279.0" text="Project Name" />
             <TableColumn fx:id="clientNameColumn" prefWidth="264.0" text="Client Name" />

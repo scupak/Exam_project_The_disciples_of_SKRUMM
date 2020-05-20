@@ -557,6 +557,8 @@ public class TaskViewController implements Initializable
                 modelfacade.getTimerutil().setIsRunning(false);
                 modelfacade.getExecutorService().shutdownNow();
                 timerButton.setText("start timer");
+                CurrentTaskLabel.setText("Please select a task");
+                timeLabel.setText("00:00:00");
                  
                 Task currentTask = modelfacade.getTimerutil().getCurrenttask();
                 currentTask.setDuration(modelfacade.getTimerutil().getTotalSec());

@@ -11,7 +11,7 @@
    <children>
       <JFXButton fx:id="RefreshAdminLogBtn" alignment="BOTTOM_CENTER" layoutX="36.0" layoutY="517.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#HandleLogRefresh" prefHeight="25.0" prefWidth="100.0" text="Refresh log" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="35.0" />
       <ListView fx:id="AdminLog" layoutX="36.0" layoutY="48.0" prefHeight="450.0" prefWidth="334.0" AnchorPane.bottomAnchor="81.0" AnchorPane.leftAnchor="33.0" AnchorPane.rightAnchor="33.0" AnchorPane.topAnchor="8.0" />
-      <Label alignment="CENTER" layoutX="109.0" layoutY="14.0" text="Admin's Log Window" textFill="WHITE" AnchorPane.leftAnchor="90.0" AnchorPane.rightAnchor="90.0">
+      <Label alignment="CENTER" layoutX="109.0" layoutY="14.0" text="Admin's Log Window" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <font>
             <Font size="14.0" />
          </font>

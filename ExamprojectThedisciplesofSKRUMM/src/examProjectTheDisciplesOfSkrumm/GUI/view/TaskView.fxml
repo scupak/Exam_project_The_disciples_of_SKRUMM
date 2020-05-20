@@ -62,7 +62,7 @@
          </children>
       </StackPane>
       <HBox layoutX="22.0" layoutY="118.0" prefHeight="47.0" prefWidth="61.0" spacing="5.0" AnchorPane.leftAnchor="22.0" AnchorPane.topAnchor="119.0" />
-      <VBox layoutX="756.0" layoutY="89.0" prefHeight="92.0" prefWidth="151.0" spacing="5.0" AnchorPane.leftAnchor="756.0" AnchorPane.topAnchor="89.0">
+      <VBox layoutX="756.0" layoutY="89.0" prefHeight="92.0" prefWidth="151.0" spacing="5.0" AnchorPane.rightAnchor="35.80000000000001" AnchorPane.topAnchor="89.0">
          <children>
             <VBox prefHeight="41.0" prefWidth="146.0" spacing="1.0">
                <children>
