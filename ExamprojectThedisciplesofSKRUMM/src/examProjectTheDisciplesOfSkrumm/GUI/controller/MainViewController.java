@@ -274,7 +274,7 @@ public class MainViewController implements Initializable
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.setMinHeight(525);
-            stage.setMinWidth(943);
+            stage.setMinWidth(1100);
             stage.setTitle("Tasks");
             stage.show();
             mainView.close();

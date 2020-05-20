@@ -258,10 +258,17 @@ public class Task
      */
     public String getFormatedLastUsed()
     {
-        String date = lastUsed.toLocalDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-        String time = lastUsed.toLocalTime().toString();
-        time = time.substring(0, 5);
-        return String.format("%s  %s", date, time);
+        return lastUsed.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+    }
+    
+    public String getFormatedStartTime()
+    {
+        return startTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+    }
+    
+    public String getFormatedStopTime()
+    {
+        return stopTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
     }
 
     /**
