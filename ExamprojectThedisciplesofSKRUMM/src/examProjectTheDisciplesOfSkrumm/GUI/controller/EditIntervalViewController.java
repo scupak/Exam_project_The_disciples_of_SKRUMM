@@ -20,10 +20,13 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.FormatStyle;
 import java.util.List;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.css.converter.StringConverter;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -33,9 +36,9 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.util.converter.LocalTimeStringConverter;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
-
 /**
  * FXML Controller class
  *
@@ -126,8 +129,13 @@ public class EditIntervalViewController implements Initializable
         currentInterval = interval;
 
         creationDate.setValue(interval.getCreationDate());
+        
+        startTime.set24HourView(true);
         startTime.setValue(start);
+        
+        stopTime.set24HourView(true);
         stopTime.setValue(stop);
+        
         startTimeDate.setValue(startDate);
         stopTimeDate.setValue(stopDate);
 
