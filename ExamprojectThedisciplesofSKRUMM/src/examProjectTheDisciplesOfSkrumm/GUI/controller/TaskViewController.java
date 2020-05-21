@@ -23,6 +23,7 @@ import examProjectTheDisciplesOfSkrumm.enums.ViewTypes;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.DayOfWeek;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -308,9 +309,9 @@ public class TaskViewController implements Initializable
         
         try 
         {
-            datePickerFrom.setValue(LocalDate.now());
-            datePickerTo.setValue(LocalDate.now());
-            refreshEverything();
+             datePickerFrom.setValue(LocalDate.now().with(DayOfWeek.MONDAY));
+             datePickerTo.setValue(LocalDate.now().with(DayOfWeek.SUNDAY));
+             refreshEverything();
             
             if(modelfacade.getisTimerRunning())
             {
@@ -652,8 +653,8 @@ public class TaskViewController implements Initializable
     {
         try
         {
-            datePickerTo.setValue(LocalDate.now());
-            datePickerFrom.setValue(LocalDate.now());
+             datePickerFrom.setValue(LocalDate.now().with(DayOfWeek.MONDAY));
+             datePickerTo.setValue(LocalDate.now().with(DayOfWeek.SUNDAY));
             refreshEverything();
         } catch (SQLException ex)
         {
@@ -670,11 +671,11 @@ public class TaskViewController implements Initializable
     {
         LocalDate date1 = datePickerFrom.getValue();
         LocalDate date2 = datePickerTo.getValue();
-        if (!(date1.isEqual(LocalDate.now())) || !(date2.isEqual(LocalDate.now())))
+        if (!(date1.isEqual(LocalDate.now().with(DayOfWeek.MONDAY))) || !(date2.isEqual(LocalDate.now().with(DayOfWeek.SUNDAY))))
         {
             returnToCurrentDayButton.setVisible(true);
             returnToCurrentDayButton.setDisable(false);
-        } else if (date1.isEqual(LocalDate.now()) || date2.isEqual(LocalDate.now()))
+        } else if (date1.isEqual(LocalDate.now().with(DayOfWeek.MONDAY)) || date2.isEqual(LocalDate.now().with(DayOfWeek.SUNDAY)))
         {
             returnToCurrentDayButton.setVisible(false);
             returnToCurrentDayButton.setDisable(true);
