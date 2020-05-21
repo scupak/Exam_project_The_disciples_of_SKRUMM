@@ -653,8 +653,10 @@ public class TaskViewController implements Initializable
     {
         try
         {
-             datePickerFrom.setValue(LocalDate.now().with(DayOfWeek.MONDAY));
+            
              datePickerTo.setValue(LocalDate.now().with(DayOfWeek.SUNDAY));
+             datePickerFrom.setValue(LocalDate.now().with(DayOfWeek.MONDAY));
+             
             refreshEverything();
         } catch (SQLException ex)
         {
@@ -808,7 +810,7 @@ public class TaskViewController implements Initializable
         {
             JOptionPane optionPane = new JOptionPane();
             JDialog dialog = optionPane.createDialog(null, "ERROR");
-            optionPane.setMessage("Stop Time cannot be before" + "\n" + "    or equal to Start Time!");
+            optionPane.setMessage("The end date cannot be before the from date!");
             optionPane.setMessageType(JOptionPane.ERROR_MESSAGE);
             dialog.setAlwaysOnTop(true);
             dialog.setVisible(true);
@@ -829,7 +831,22 @@ public class TaskViewController implements Initializable
     @FXML
     private void handleDatepickerToAction(ActionEvent event) throws SQLException 
     {
-        refreshEverything();
+        int result = datePickerFrom.getValue().compareTo(datePickerTo.getValue());
+        if (result > 0)
+        {
+            JOptionPane optionPane = new JOptionPane();
+            JDialog dialog = optionPane.createDialog(null, "ERROR");
+            optionPane.setMessage("The end date cannot be before the from date!");
+            optionPane.setMessageType(JOptionPane.ERROR_MESSAGE);
+            dialog.setAlwaysOnTop(true);
+            dialog.setVisible(true);
+            datePickerTo.setValue(LocalDate.now());
+            datePickerFrom.setValue(LocalDate.now());
+        }
+        else
+        {
+            refreshEverything();
+        }
     }
 
     /**

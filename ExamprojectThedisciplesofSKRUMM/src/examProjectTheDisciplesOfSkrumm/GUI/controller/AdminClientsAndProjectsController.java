@@ -186,7 +186,7 @@ public class AdminClientsAndProjectsController implements Initializable
                 final Object dataObj = ((TableColumn.CellDataFeatures) obj).getValue();
                 if (dataObj instanceof Project)
                 {                 
-                    return new ReadOnlyStringWrapper(((Project) dataObj).getCreationDate().toString());
+                    return new ReadOnlyStringWrapper(((Project) dataObj).getFormatedCreationDate());
                 } else
                 {
                     return null;

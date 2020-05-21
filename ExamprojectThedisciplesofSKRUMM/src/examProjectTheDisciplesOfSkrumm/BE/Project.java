@@ -6,6 +6,7 @@
 package examProjectTheDisciplesOfSkrumm.BE;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -193,6 +194,11 @@ public class Project
      */
     public void setFormatedTime(String formatedTime) {
         this.formatedTime = formatedTime;
+    }
+    
+    public String getFormatedCreationDate()
+    {
+        return getCreationDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
     }
     
     @Override
