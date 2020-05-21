@@ -197,7 +197,7 @@ public class Project
     
     @Override
     public String toString() {
-        return  id.get() + "  " + projectName.get() + "  " + clientName.get() + "  " + ProjectRate.get() + "  " + isPaid.get();
+        return  projectName.get() + "  |  " + clientName.get() + "  |  " + getIsPaidBoolean();
     }
 
     /**
@@ -228,6 +228,7 @@ public class Project
         return true;
     }
     
+
     /**
      * converts the isPaid to a String
      * @return String

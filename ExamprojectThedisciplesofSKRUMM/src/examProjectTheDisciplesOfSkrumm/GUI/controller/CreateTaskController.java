@@ -101,8 +101,8 @@ public class CreateTaskController implements Initializable
             int duration = 0;
             LocalDateTime lastUsed = LocalDateTime.now();
             LocalDate creationDate = LocalDate.now();
-            LocalDateTime startTime = LocalDateTime.MIN;
-            LocalDateTime stopTime = LocalDateTime.MIN;
+            LocalDateTime startTime = LocalDateTime.now();
+            LocalDateTime stopTime = LocalDateTime.now();
             ArrayList<Interval> intervals = new ArrayList<Interval>();
             User user = modelfacade.getCurrentuser();
        
