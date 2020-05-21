@@ -23,6 +23,7 @@ import examProjectTheDisciplesOfSkrumm.enums.ViewTypes;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.DayOfWeek;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -308,9 +309,9 @@ public class TaskViewController implements Initializable
         
         try 
         {
-            datePickerFrom.setValue(LocalDate.now());
-            datePickerTo.setValue(LocalDate.now());
-            refreshEverything();
+             datePickerFrom.setValue(LocalDate.now().with(DayOfWeek.MONDAY));
+             datePickerTo.setValue(LocalDate.now().with(DayOfWeek.SUNDAY));
+             refreshEverything();
             
             if(modelfacade.getisTimerRunning())
             {
@@ -652,8 +653,10 @@ public class TaskViewController implements Initializable
     {
         try
         {
-            datePickerTo.setValue(LocalDate.now());
-            datePickerFrom.setValue(LocalDate.now());
+            
+             datePickerTo.setValue(LocalDate.now().with(DayOfWeek.SUNDAY));
+             datePickerFrom.setValue(LocalDate.now().with(DayOfWeek.MONDAY));
+             
             refreshEverything();
         } catch (SQLException ex)
         {
@@ -670,11 +673,11 @@ public class TaskViewController implements Initializable
     {
         LocalDate date1 = datePickerFrom.getValue();
         LocalDate date2 = datePickerTo.getValue();
-        if (!(date1.isEqual(LocalDate.now())) || !(date2.isEqual(LocalDate.now())))
+        if (!(date1.isEqual(LocalDate.now().with(DayOfWeek.MONDAY))) || !(date2.isEqual(LocalDate.now().with(DayOfWeek.SUNDAY))))
         {
             returnToCurrentDayButton.setVisible(true);
             returnToCurrentDayButton.setDisable(false);
-        } else if (date1.isEqual(LocalDate.now()) || date2.isEqual(LocalDate.now()))
+        } else if (date1.isEqual(LocalDate.now().with(DayOfWeek.MONDAY)) || date2.isEqual(LocalDate.now().with(DayOfWeek.SUNDAY)))
         {
             returnToCurrentDayButton.setVisible(false);
             returnToCurrentDayButton.setDisable(true);
@@ -807,7 +810,7 @@ public class TaskViewController implements Initializable
         {
             JOptionPane optionPane = new JOptionPane();
             JDialog dialog = optionPane.createDialog(null, "ERROR");
-            optionPane.setMessage("Stop Time cannot be before" + "\n" + "    or equal to Start Time!");
+            optionPane.setMessage("The end date cannot be before the from date!");
             optionPane.setMessageType(JOptionPane.ERROR_MESSAGE);
             dialog.setAlwaysOnTop(true);
             dialog.setVisible(true);
@@ -828,7 +831,22 @@ public class TaskViewController implements Initializable
     @FXML
     private void handleDatepickerToAction(ActionEvent event) throws SQLException 
     {
-        refreshEverything();
+        int result = datePickerFrom.getValue().compareTo(datePickerTo.getValue());
+        if (result > 0)
+        {
+            JOptionPane optionPane = new JOptionPane();
+            JDialog dialog = optionPane.createDialog(null, "ERROR");
+            optionPane.setMessage("The end date cannot be before the from date!");
+            optionPane.setMessageType(JOptionPane.ERROR_MESSAGE);
+            dialog.setAlwaysOnTop(true);
+            dialog.setVisible(true);
+            datePickerTo.setValue(LocalDate.now());
+            datePickerFrom.setValue(LocalDate.now());
+        }
+        else
+        {
+            refreshEverything();
+        }
     }
 
     /**

@@ -17,7 +17,7 @@
       </Label>
       <HBox alignment="CENTER" layoutX="3.0" layoutY="61.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
-            <JFXButton fx:id="backBtn" onAction="#handleBackToMain" prefHeight="26.0" prefWidth="88.0" text="Back to main" />
+            <JFXButton fx:id="backBtn" onAction="#handleBackToMain" prefHeight="26.0" prefWidth="133.0" text="Back to main menu" />
          </children>
       </HBox>
       <VBox alignment="CENTER" layoutX="208.0" layoutY="126.0" prefHeight="330.0" prefWidth="310.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">

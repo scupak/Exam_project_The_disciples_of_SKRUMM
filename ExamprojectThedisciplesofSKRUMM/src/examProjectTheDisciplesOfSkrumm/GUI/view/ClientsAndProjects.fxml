@@ -17,7 +17,7 @@
       </Label>
       <HBox alignment="CENTER" layoutX="2.0" layoutY="52.0" prefHeight="30.0" prefWidth="332.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
-            <JFXButton fx:id="mainBtn" onAction="#handleMain" text="back to main menu" textFill="WHITE">
+            <JFXButton fx:id="mainBtn" onAction="#handleMain" text="Back to main menu" textFill="WHITE">
                <font>
                   <Font size="13.0" />
                </font>
