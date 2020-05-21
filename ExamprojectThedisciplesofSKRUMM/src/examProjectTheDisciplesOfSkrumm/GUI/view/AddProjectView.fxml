@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXRadioButton?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="223.0" prefWidth="300.0" styleClass="AnchorPane" stylesheets="@../css/Graphics.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="examProjectTheDisciplesOfSkrumm.GUI.controller.AddProjectViewController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="300.0" styleClass="AnchorPane" stylesheets="@../css/Graphics.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="examProjectTheDisciplesOfSkrumm.GUI.controller.AddProjectViewController">
    <children>
       <StackPane prefHeight="56.0" prefWidth="320.0" styleClass="chart-bar" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -19,34 +23,55 @@
             </Label>
          </children>
       </StackPane>
-      <JFXButton fx:id="AddProjectOkBtn" layoutX="132.0" layoutY="179.0" onAction="#HandleAddProjectOkBtn" text="Create" textFill="WHITE">
-         <font>
-            <Font size="13.0" />
-         </font>
-      </JFXButton>
-      <JFXButton fx:id="AddProjectCancelBtn" layoutX="192.0" layoutY="179.0" onAction="#HandleAddProjectCancelBtn" text="Cancel" textFill="WHITE">
-         <font>
-            <Font size="13.0" />
-         </font>
-      </JFXButton>
-      <Label alignment="CENTER" layoutX="14.0" layoutY="75.0" styleClass="Label" text="Project name:">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <Label alignment="CENTER" layoutX="15.0" layoutY="104.0" prefHeight="27.0" prefWidth="109.0" styleClass="Label" text="Project rate:">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <JFXTextField fx:id="ProjectNameTextField" layoutX="127.0" layoutY="76.0" promptText="Enter project name" />
-      <JFXTextField fx:id="ProjectRateTextField" layoutX="127.0" layoutY="105.0" promptText="Enter project rate" />
-      <Label alignment="CENTER" layoutX="15.0" layoutY="140.0" prefHeight="27.0" prefWidth="109.0" styleClass="Label" text="Client:">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <JFXButton fx:id="addClientButton" layoutX="52.0" layoutY="178.0" onAction="#handleAddClient" prefHeight="30.0" prefWidth="72.0" text="Add Client" />
-      <ComboBox fx:id="clientComboBox" layoutX="130.0" layoutY="141.0" onAction="#handleCombobox" prefWidth="150.0" styleClass="ComboBox" />
+      <VBox layoutX="19.0" layoutY="65.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="97.0" prefWidth="110.0" spacing="5.0" AnchorPane.bottomAnchor="87.0" AnchorPane.leftAnchor="19.0" AnchorPane.rightAnchor="170.0" AnchorPane.topAnchor="65.0">
+         <children>
+            <Label alignment="CENTER" styleClass="Label" text="Project name:">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" prefHeight="27.0" prefWidth="109.0" styleClass="Label" text="Project rate:">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" prefHeight="27.0" prefWidth="109.0" styleClass="Label" text="Client:">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <VBox layoutX="136.0" layoutY="65.0" prefHeight="87.0" prefWidth="150.0" spacing="7.0" AnchorPane.bottomAnchor="94.0" AnchorPane.leftAnchor="135.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="65.0">
+         <children>
+            <JFXTextField fx:id="ProjectNameTextField" promptText="Enter project name" />
+            <JFXTextField fx:id="ProjectRateTextField" promptText="Enter project rate" />
+            <ComboBox fx:id="clientComboBox" onAction="#handleCombobox" prefHeight="19.0" prefWidth="150.0" styleClass="ComboBox" />
+         </children>
+         <padding>
+            <Insets top="1.0" />
+         </padding>
+      </VBox>
+      <HBox layoutX="50.0" layoutY="198.0" prefHeight="29.0" prefWidth="201.0" spacing="5.0" AnchorPane.bottomAnchor="23.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="48.0" AnchorPane.topAnchor="197.0">
+         <children>
+            <JFXButton fx:id="AddProjectOkBtn" onAction="#HandleAddProjectOkBtn" text="Create" textFill="WHITE">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="AddProjectCancelBtn" onAction="#HandleAddProjectCancelBtn" text="Cancel" textFill="WHITE">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="addClientButton" onAction="#handleAddClient" prefHeight="30.0" prefWidth="72.0" text="Add Client" />
+         </children>
+      </HBox>
+      <HBox layoutX="74.0" layoutY="169.0" prefHeight="22.0" prefWidth="152.0" spacing="20.0">
+         <children>
+            <JFXRadioButton fx:id="paid" onAction="#handlePaidRadioButton" styleClass="xradioButton" text="Paid" />
+            <JFXRadioButton fx:id="notPaid" onAction="#handleNotPaidRadiobutton" styleClass="xradioButton" text="Not Paid" />
+         </children>
+      </HBox>
    </children>
 </AnchorPane>

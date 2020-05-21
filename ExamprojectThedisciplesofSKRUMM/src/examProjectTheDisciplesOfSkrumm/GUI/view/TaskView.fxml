@@ -16,15 +16,15 @@
    <children>
       <TreeTableView fx:id="TaskTable" layoutX="23.0" layoutY="198.0" prefHeight="274.0" prefWidth="682.0" styleClass="table-view" AnchorPane.bottomAnchor="65.0" AnchorPane.leftAnchor="22.0" AnchorPane.rightAnchor="22.0" AnchorPane.topAnchor="197.0">
         <columns>
-          <TreeTableColumn fx:id="TaskColumn" minWidth="30.0" prefWidth="5000.0" text="Task" />
-          <TreeTableColumn fx:id="ProjectColumn" minWidth="15.0" prefWidth="5000.0" text="Project" />
-            <TreeTableColumn fx:id="clientColumn" minWidth="15.0" prefWidth="5000.0" text="Client" />
-            <TreeTableColumn fx:id="LastUsedColumn" minWidth="50.0" prefWidth="5000.0" text="Last used" />
-            <TreeTableColumn fx:id="CreationDateColumn" minWidth="15.0" prefWidth="5000.0" text="Creation date" />
-            <TreeTableColumn fx:id="TimeColumn" prefWidth="5000.0" text="Duration" />
-            <TreeTableColumn fx:id="startTimeColumn" minWidth="50.0" prefWidth="5000.0" text="StartTime" />
-            <TreeTableColumn fx:id="stopTimeColumn" minWidth="50.0" prefWidth="5000.0" text="StopTime" />
-            <TreeTableColumn fx:id="IsPaidColumn" maxWidth="2500.0" minWidth="1.0" prefWidth="2500.0" text="IsPaid" />
+          <TreeTableColumn fx:id="TaskColumn" minWidth="50.0" prefWidth="5000.0" text="Task" />
+          <TreeTableColumn fx:id="ProjectColumn" minWidth="50.0" prefWidth="5000.0" text="Project" />
+            <TreeTableColumn fx:id="clientColumn" prefWidth="5000.0" text="Client" />
+            <TreeTableColumn fx:id="LastUsedColumn" minWidth="40.0" prefWidth="5000.0" text="Last used" />
+            <TreeTableColumn fx:id="CreationDateColumn" minWidth="1.0" prefWidth="5000.0" text="Creation date" />
+            <TreeTableColumn fx:id="TimeColumn" minWidth="1.0" prefWidth="5000.0" text="Duration" />
+            <TreeTableColumn fx:id="startTimeColumn" minWidth="40.0" prefWidth="5000.0" text="StartTime" />
+            <TreeTableColumn fx:id="stopTimeColumn" minWidth="40.0" prefWidth="5000.0" text="StopTime" />
+            <TreeTableColumn fx:id="IsPaidColumn" maxWidth="2500.0" prefWidth="2500.0" text="IsPaid" />
         </columns>
          <columnResizePolicy>
             <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -47,7 +47,7 @@
                   </Label>
                   <HBox alignment="TOP_CENTER" prefHeight="30.0" prefWidth="638.0" spacing="5.0" styleClass="chart-bar">
                      <children>
-                        <JFXButton fx:id="homeBtn" onAction="#handleHome" text="back main menu" textFill="WHITE" translateY="-1.0">
+                        <JFXButton fx:id="homeBtn" onAction="#handleHome" text="Back to main menu" textFill="WHITE" translateY="-1.0">
                            <font>
                               <Font size="13.0" />
                            </font>
@@ -62,7 +62,7 @@
          </children>
       </StackPane>
       <HBox layoutX="22.0" layoutY="118.0" prefHeight="47.0" prefWidth="61.0" spacing="5.0" AnchorPane.leftAnchor="22.0" AnchorPane.topAnchor="119.0" />
-      <VBox layoutX="756.0" layoutY="89.0" prefHeight="92.0" prefWidth="151.0" spacing="5.0" AnchorPane.rightAnchor="35.80000000000001" AnchorPane.topAnchor="89.0">
+      <VBox layoutX="756.0" layoutY="89.0" prefHeight="92.0" prefWidth="151.0" spacing="5.0" translateX="13.0" AnchorPane.rightAnchor="35.80000000000001" AnchorPane.topAnchor="89.0">
          <children>
             <VBox prefHeight="41.0" prefWidth="146.0" spacing="1.0">
                <children>

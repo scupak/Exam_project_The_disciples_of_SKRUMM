@@ -410,7 +410,7 @@ public class TaskViewController implements Initializable
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.setTitle("Create Task");
-            stage.setMinHeight(200);
+            stage.setMinHeight(210);
             stage.setMinWidth(364);
             stage.showAndWait();
             try
@@ -471,8 +471,8 @@ public class TaskViewController implements Initializable
                     controller.setEditTask((Task) selectedItem.getValue());
                     Stage stage = new Stage();
                     stage.setScene(new Scene(root));
-                    stage.setMinHeight(230);
-                    stage.setMinWidth(364);
+                    stage.setMinHeight(250);
+                    stage.setMinWidth(375);
                     stage.setTitle("Edit Task");
                     stage.showAndWait();
                     try

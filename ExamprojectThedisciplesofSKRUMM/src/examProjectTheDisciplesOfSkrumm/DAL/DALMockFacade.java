@@ -125,7 +125,7 @@ public class DALMockFacade implements DALFacadeInterface {
     public List<Project> getAllProjects() throws SQLServerException, SQLException {
         ArrayList<Project> projects = new ArrayList();
         Client client = new Client(0, "TestClient", 0, 0);
-        projects.add(new Project(1, "TestProject", client, 0));
+        projects.add(new Project(1, "TestProject", client, 0, 1));
         
         return projects;
     }

@@ -51,7 +51,7 @@ public class ProjectDBDAO implements ProjectDBDAOInterface
         Connection con = conPool.checkOut();
         try
         {
-            PreparedStatement ps = con.prepareStatement("SELECT e.id, e.projectName, e.clientID, e.projectrate, e.creationDate, d.id AS Cid, d.name, d.rate, d.isPaid \n" +
+            PreparedStatement ps = con.prepareStatement("SELECT e.id, e.projectName, e.clientID, e.projectrate, e.creationDate, e.isPaid, d.id AS Cid, d.name, d.rate, d.isPaid AS CisPaid \n" +
                     "FROM project e \n" +
                      "JOIN client d ON e.clientID = d.id");
             ResultSet rs = ps.executeQuery();
@@ -59,11 +59,12 @@ public class ProjectDBDAO implements ProjectDBDAOInterface
             while (rs.next())
             {
                 int id = rs.getInt("id");
+                int isPaid = rs.getInt("isPaid");
                 String projectName = rs.getString("projectName").trim();
-                Client client = new Client(rs.getInt("Cid"), rs.getString("name"), rs.getInt("rate"), rs.getInt("isPaid"));
+                Client client = new Client(rs.getInt("Cid"), rs.getString("name"), rs.getInt("rate"), rs.getInt("CisPaid"));
                 int projectrate = rs.getInt("projectrate");
                 LocalDate creationDate = rs.getDate("creationDate").toLocalDate();
-                Project p = new Project(id, projectName, client, projectrate);
+                Project p = new Project(id, projectName, client, projectrate, isPaid);
                 p.setCreationDate(creationDate);
                 projects.add(p);
                 
@@ -126,13 +127,14 @@ public class ProjectDBDAO implements ProjectDBDAOInterface
         try
         {
             PreparedStatement ps = con.prepareStatement("INSERT INTO [project]"
-                    + "(projectName, clientID, projectrate, creationDate )"
-                    + "VALUES (?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+                    + "(projectName, clientID, projectrate, creationDate, isPaid)"
+                    + "VALUES (?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             
             ps.setString(1, project.getProjectName());
             ps.setInt(2, project.getClient().getId());
             ps.setInt(3, project.getProjectRate());
             ps.setDate(4, java.sql.Date.valueOf(project.getCreationDate()));
+            ps.setInt(5, project.getIsPaid());
             ps.executeUpdate();
             
             ResultSet rs = ps.getGeneratedKeys();
@@ -178,7 +180,7 @@ public class ProjectDBDAO implements ProjectDBDAOInterface
         
         try    
         {
-            PreparedStatement ps = con.prepareStatement("SELECT e.id, e.projectName, e.clientID, e.projectrate, e.creationDate, d.id AS Cid, d.name, d.rate, d.isPaid  \n" +
+            PreparedStatement ps = con.prepareStatement("SELECT e.id, e.projectName, e.clientID, e.projectrate, e.creationDate, e.isPaid, d.id AS Cid, d.name, d.rate, d.isPaid AS CisPaid\n" +
         "FROM project e \n" +
         "JOIN client d ON e.clientID = d.id\n" +
         "WHERE e.id = ?"); 
@@ -189,10 +191,11 @@ public class ProjectDBDAO implements ProjectDBDAOInterface
             while (rs.next())
             {
                 int id = rs.getInt("id");
+                int isPaid = rs.getInt("isPaid");
                 String projectName = rs.getString("projectName").trim();
-                Client client = new Client(rs.getInt("Cid"), rs.getString("name"), rs.getInt("rate"), rs.getInt("isPaid"));
+                Client client = new Client(rs.getInt("Cid"), rs.getString("name"), rs.getInt("rate"), rs.getInt("CisPaid"));
                 int projectrate = rs.getInt("projectrate");
-                returnproject = new Project(id, projectName, client, projectrate);
+                returnproject = new Project(id, projectName, client, projectrate, isPaid);
                 returnproject.setCreationDate(rs.getDate("creationDate").toLocalDate());
                 
             }
@@ -229,9 +232,10 @@ public class ProjectDBDAO implements ProjectDBDAOInterface
             while(rs.next())
             {
                 int id = rs.getInt("id");
+                int isPaid = rs.getInt("isPaid");
                 String projectName = rs.getString("projectName").trim();
                 int projectrate = rs.getInt("projectrate");
-                Project p = new Project(id, projectName, client, projectrate);
+                Project p = new Project(id, projectName, client, projectrate, isPaid);
                 p.setCreationDate(rs.getDate("creationDate").toLocalDate());
                 projects.add(p);
             }
@@ -354,12 +358,14 @@ public class ProjectDBDAO implements ProjectDBDAOInterface
         {
             PreparedStatement ps = con.prepareStatement("UPDATE [project] "
                     + "SET projectName = ?,"
-                    + " projectrate = ?, clientID = ?"
+                    + " projectrate = ?, clientID = ?, isPaid = ?"
                     + " WHERE id = ?");
             ps.setString(1, project.getProjectName());
             ps.setInt(2, project.getProjectRate());
             ps.setInt(3, project.getClient().getId());
-            ps.setInt(4, project.getId());
+            ps.setInt(4, project.getIsPaid());
+            ps.setInt(5, project.getId());
+            
 
             int updatedRows = ps.executeUpdate();
 

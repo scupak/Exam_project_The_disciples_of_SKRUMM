@@ -263,7 +263,7 @@ public class UserDBDAO implements UserDBDAOInterface
             Logger.getLogger(UserDBDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         User test67 = new User("standard@user.now", "No", "Yes", "ok", true);
-        Project p = new Project(3, "projectName", new Client(1, "ClientName", 0, 0), 0);
+        Project p = new Project(3, "projectName", new Client(1, "ClientName", 0, 0), 0, 1);
         
         userDb.deleteProjectFromUser(test67, p);
     }
@@ -379,8 +379,8 @@ public class UserDBDAO implements UserDBDAOInterface
         try
         {
             PreparedStatement ps = con.prepareStatement("SELECT UserProjectTable.userId, UserProjectTable.projectId, " + 
-                    "client.id AS Cid, client.name, client.rate, client.isPaid, " + 
-                    "project.id, project.projectName, project.clientID, project.projectrate " + 
+                    "client.id AS Cid, client.name, client.rate, client.isPaid AS CisPaid, " + 
+                    "project.id, project.projectName, project.clientID, project.projectrate, project.isPaid " + 
                     "FROM UserProjectTable INNER JOIN project ON UserProjectTable.projectId = project.id INNER JOIN client ON project.clientID = client.id WHERE UserProjectTable.userId = ?");
             
             ps.setString(1, user.getEmail());
@@ -389,8 +389,8 @@ public class UserDBDAO implements UserDBDAOInterface
             while (rs.next())
             {
 
-                Client client = new Client(rs.getInt("Cid"), rs.getString("name"), rs.getInt("rate"), rs.getInt("isPaid"));
-                Project project = new Project(rs.getInt("id"), rs.getString("projectName"), client, rs.getInt("projectrate"));
+                Client client = new Client(rs.getInt("Cid"), rs.getString("name"), rs.getInt("rate"), rs.getInt("CisPaid"));
+                Project project = new Project(rs.getInt("id"), rs.getString("projectName"), client, rs.getInt("projectrate"), rs.getInt("isPaid"));
                 projects.add(project);
                 
             }

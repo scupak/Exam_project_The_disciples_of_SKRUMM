@@ -2,6 +2,7 @@
 package examProjectTheDisciplesOfSkrumm.GUI.controller;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXTextField;
 import examProjectTheDisciplesOfSkrumm.BE.Client;
 import examProjectTheDisciplesOfSkrumm.BE.Project;
@@ -22,6 +23,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ToggleGroup;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javax.swing.JOptionPane;
 
@@ -48,6 +51,10 @@ public class AddProjectViewController implements Initializable
     private JFXButton addClientButton;
     @FXML
     private ComboBox<Client> clientComboBox;
+    @FXML
+    private JFXRadioButton paid;
+    @FXML
+    private JFXRadioButton notPaid;
 
     
     
@@ -69,6 +76,14 @@ public class AddProjectViewController implements Initializable
             JOptionPane.showMessageDialog(null, "Couln't get the instance of modelfacade" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
         }
         clientComboBox.getItems().addAll(modelfacade.getClients());
+        final ToggleGroup group = new ToggleGroup();
+        paid.setToggleGroup(group);
+        notPaid.setToggleGroup(group);
+        paid.setSelected(true);
+        paid.selectedColorProperty().set(Color.rgb(67, 90, 154));
+        paid.setUnSelectedColor(Color.rgb(67, 90, 154));
+        notPaid.selectedColorProperty().set(Color.rgb(67, 90, 154));
+        notPaid.setUnSelectedColor(Color.rgb(67, 90, 154));
     }
 
     /**
@@ -80,7 +95,7 @@ public class AddProjectViewController implements Initializable
     {
 
         //First the method checks if all the input fields are filled in and that the choosen client is paid.
-        if (!ProjectNameTextField.getText().isEmpty() && !ProjectRateTextField.getText().isEmpty() && !(clientComboBox.getValue() == null) && clientComboBox.getValue().getIsPaid() == 1)
+        if (!ProjectNameTextField.getText().isEmpty() && !ProjectRateTextField.getText().isEmpty() && !(clientComboBox.getValue() == null) && getIsPaid() == 1)
         {
             try
             {
@@ -88,8 +103,9 @@ public class AddProjectViewController implements Initializable
                 int id = 1;
                 String projectName = ProjectNameTextField.getText();
                 Client client = clientComboBox.getValue();
+                int isPaid = getIsPaid();
                 int projectRate = Integer.parseInt(ProjectRateTextField.getText());
-                Project newproject = new Project(id, projectName, client, projectRate);
+                Project newproject = new Project(id, projectName, client, projectRate, isPaid);
                 modelfacade.CreateProject(newproject);
                 Stage createUserView = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 createUserView.close();
@@ -102,7 +118,7 @@ public class AddProjectViewController implements Initializable
                 alert.showAndWait();
             }
             //Then if the user has not overwritten the rate then the project will simply inherit the clients rate. 
-        } else if (!ProjectNameTextField.getText().isEmpty() && ProjectRateTextField.getText().isEmpty() && !(clientComboBox.getValue() == null) && clientComboBox.getValue().getIsPaid() == 1)
+        } else if (!ProjectNameTextField.getText().isEmpty() && ProjectRateTextField.getText().isEmpty() && !(clientComboBox.getValue() == null) && getIsPaid() == 1)
         {
             try
             {
@@ -110,7 +126,8 @@ public class AddProjectViewController implements Initializable
                 String projectName = ProjectNameTextField.getText();
                 Client client = clientComboBox.getValue();
                 int projectRate = clientComboBox.getValue().getClientRate();
-                Project newproject = new Project(id, projectName, client, projectRate);
+                int isPaid = getIsPaid();
+                Project newproject = new Project(id, projectName, client, projectRate, isPaid);
                 modelfacade.CreateProject(newproject);
                 Stage createUserView = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 createUserView.close();
@@ -122,7 +139,7 @@ public class AddProjectViewController implements Initializable
                 alert.setContentText("You wrote a letter in project rate, it needs a number.");
                 alert.showAndWait();
             }
-        } else if (!ProjectNameTextField.getText().isEmpty() && !(clientComboBox.getValue() == null) && clientComboBox.getValue().getIsPaid() == 0)
+        } else if (!ProjectNameTextField.getText().isEmpty() && !(clientComboBox.getValue() == null) && getIsPaid() == 0)
         {
             try
             {
@@ -130,7 +147,8 @@ public class AddProjectViewController implements Initializable
                 String projectName = ProjectNameTextField.getText();
                 Client client = clientComboBox.getValue();
                 int projectRate = 0;
-                Project newproject = new Project(id, projectName, client, projectRate);
+                int isPaid = getIsPaid();
+                Project newproject = new Project(id, projectName, client, projectRate, isPaid);
                 modelfacade.CreateProject(newproject);
                 Stage createUserView = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 createUserView.close();
@@ -212,8 +230,61 @@ public class AddProjectViewController implements Initializable
     {
         if (clientComboBox.getValue().getIsPaid() == 0)
         {
+            notPaid.setSelected(true);
+            ProjectRateTextField.clear();
             ProjectRateTextField.setDisable(true);
         } else if (clientComboBox.getValue().getIsPaid() == 1)
+        {
+            paid.setSelected(true);
+            ProjectRateTextField.setDisable(false);
+        }
+    }
+    
+    /**
+     * Gives the value of the radiobuttons
+     * @return int
+     */
+    private int getIsPaid()
+    {
+        try
+        {
+            if(paid.isSelected())
+            {
+                return 1;
+            }
+            else if(notPaid.isSelected())
+            {
+                return 0;
+            }
+            else
+            {
+                throw new Exception();
+            }
+        }
+        catch (Exception ex)
+        {
+            Logger.getLogger(AddProjectViewController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Something went wrong with the radiobuttons" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
+            return 0;
+        }
+        
+        
+    }
+
+    @FXML
+    private void handleNotPaidRadiobutton(ActionEvent event)
+    {
+        if(notPaid.isSelected())
+        {
+            ProjectRateTextField.clear();
+            ProjectRateTextField.setDisable(true);
+        }
+    }
+
+    @FXML
+    private void handlePaidRadioButton(ActionEvent event)
+    {
+        if(paid.isSelected())
         {
             ProjectRateTextField.setDisable(false);
         }

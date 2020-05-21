@@ -57,7 +57,6 @@ public class MainViewController implements Initializable
 
     @FXML
     private Label welcomeLabel;
-
     //AnchorPanes inside the GridPane
     @FXML
     private AnchorPane taskOne;

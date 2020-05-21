@@ -26,14 +26,14 @@ public class Project
     private SimpleIntegerProperty isPaid;
     private LocalDate creationDate;
 
-    public Project(int id, String projectName, Client client, int projectrate)
+    public Project(int id, String projectName, Client client, int projectrate, int isPaid)
     {
         this.id = new SimpleIntegerProperty(id);
         this.projectName = new SimpleStringProperty(projectName);
         this.client = client;
         this.clientName = new SimpleStringProperty(client.getClientName());
         this.ProjectRate = new SimpleIntegerProperty(projectrate);
-        this.isPaid = new SimpleIntegerProperty(client.getIsPaid());
+        this.isPaid = new SimpleIntegerProperty(isPaid);
         this.timeSec = 0;
         this.formatedTime = null;
         this.creationDate = null;
@@ -122,6 +122,13 @@ public class Project
     public int getIsPaid() {
         return isPaid.get();
     }
+
+    public void setIsPaid(int isPaid)
+    {
+         this.isPaid.set(isPaid);
+    }
+    
+    
 
     /**
      * Gets the time for a project in seconds

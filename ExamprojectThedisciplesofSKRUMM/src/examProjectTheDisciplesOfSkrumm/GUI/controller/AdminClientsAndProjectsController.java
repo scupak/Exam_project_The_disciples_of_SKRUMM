@@ -216,6 +216,8 @@ public class AdminClientsAndProjectsController implements Initializable
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.setTitle("Create Client");
+            stage.setMinWidth(300);
+            stage.setMinHeight(248);
             stage.showAndWait();
             RefreshTableView();
         } 
@@ -240,16 +242,27 @@ public class AdminClientsAndProjectsController implements Initializable
     {
         try 
         {
-            FXMLLoader loader = modelfacade.getLoader(ViewTypes.EDITCLIENT);
-            Parent root = loader.load();
-            EditClientController controller = loader.getController();
-            controller.setClient(clientTableView.getSelectionModel().getSelectedItem());
+            if ((clientTableView.getSelectionModel().getSelectedItem() == null))
+            {
+                JOptionPane.showMessageDialog(null, "Nothing seems to be selected!\nSelect a client to edit before pressing edit!", "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
+            else
+            {
+                FXMLLoader loader = modelfacade.getLoader(ViewTypes.EDITCLIENT);
+                Parent root = loader.load();
+                EditClientController controller = loader.getController();
+                controller.setClient(clientTableView.getSelectionModel().getSelectedItem());
+
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.setTitle("Edit Client");
+                stage.setMinWidth(300);
+                stage.setMinHeight(200);
+                stage.showAndWait();
+                RefreshTableView();
+            }
             
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.setTitle("Edit Client");
-            stage.showAndWait();
-            RefreshTableView();
+            
         } 
         catch (IOException ex) 
         {
@@ -278,23 +291,28 @@ public class AdminClientsAndProjectsController implements Initializable
         {
             JOptionPane.showMessageDialog(dialog, "Nothing seems to be selected!\nSelect a client to delete before pressing delete!", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
-        
-        Client client = clientTableView.getSelectionModel().getSelectedItem();
-        int input = JOptionPane.showConfirmDialog(null, "delete client: " + client.getClientName() + "?", "Select an Option...",
-                        JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
-        if(input == JOptionPane.YES_OPTION)
+        else
         {
-            try 
+            Client client = clientTableView.getSelectionModel().getSelectedItem();
+            int input = JOptionPane.showConfirmDialog(null, "delete client: " + client.getClientName() + "?", "Select an Option...",
+            JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+            if(input == JOptionPane.YES_OPTION)
             {
-                modelfacade.deleteClient(client);
-                RefreshTableView();
-            } 
-            catch (SQLException ex) 
-            {
-                Logger.getLogger(AdminClientsAndProjectsController.class.getName()).log(Level.SEVERE, null, ex);
-                JOptionPane.showMessageDialog(null, "Couldn't delete the client from the databse" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
+                try 
+                {
+                    modelfacade.deleteClient(client);
+                    RefreshTableView();
+                } 
+                catch (SQLException ex) 
+                {
+                    Logger.getLogger(AdminClientsAndProjectsController.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(null, "Couldn't delete the client from the databse" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
+                }
             }
+            
         }
+        
+        
         
     }
     
@@ -312,7 +330,9 @@ public class AdminClientsAndProjectsController implements Initializable
             AddProjectViewController controller = loader.getController();
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
-            stage.setTitle("Create Client");
+            stage.setTitle("Create Project");
+            stage.setMinWidth(300);
+            stage.setMinHeight(250);
             stage.showAndWait();
             RefreshTableView();
         }
@@ -337,16 +357,26 @@ public class AdminClientsAndProjectsController implements Initializable
     {
         try 
         {
-            FXMLLoader loader = modelfacade.getLoader(ViewTypes.EDITPROJECT);
-            Parent root = loader.load();
-            EditProjectViewController controller = loader.getController();
-            controller.setProject(projectTableView.getSelectionModel().getSelectedItem());
+            if ((projectTableView.getSelectionModel().getSelectedItem() == null))
+            {
+                JOptionPane.showMessageDialog(null, "Nothing seems to be selected!\nSelect a project to edit before pressing edit!", "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
+            else
+            {
+                FXMLLoader loader = modelfacade.getLoader(ViewTypes.EDITPROJECT);
+                Parent root = loader.load();
+                EditProjectViewController controller = loader.getController();
+                controller.setProject(projectTableView.getSelectionModel().getSelectedItem());
+
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.setTitle("Edit Project");
+                stage.setMinWidth(300);
+                stage.setMinHeight(250);
+                stage.showAndWait();
+                RefreshTableView();
+            }
             
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.setTitle("Edit Project");
-            stage.showAndWait();
-            RefreshTableView();
         } 
         catch (IOException ex) 
         {
@@ -374,23 +404,27 @@ public class AdminClientsAndProjectsController implements Initializable
         {
             JOptionPane.showMessageDialog(dialog, "Nothing seems to be selected!\nSelect a project to delete before pressing delete!", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
-        
-        Project project = projectTableView.getSelectionModel().getSelectedItem();
-        int input = JOptionPane.showConfirmDialog(null, "delete project: " + project.getProjectName() + "?", "Select an Option...",
-                        JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
-        if(input == JOptionPane.YES_OPTION)
+        else
         {
-            try 
+            Project project = projectTableView.getSelectionModel().getSelectedItem();
+            int input = JOptionPane.showConfirmDialog(null, "delete project: " + project.getProjectName() + "?", "Select an Option...",
+            JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+            if(input == JOptionPane.YES_OPTION)
             {
-                modelfacade.deleteProject(project);
-                RefreshTableView();
-            } 
-            catch (SQLException ex) 
-            {
-                Logger.getLogger(AdminClientsAndProjectsController.class.getName()).log(Level.SEVERE, null, ex);
-                JOptionPane.showMessageDialog(null, "Couldn't delete project from the database" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
-            }
+                try 
+                {
+                    modelfacade.deleteProject(project);
+                    RefreshTableView();
+                } 
+                catch (SQLException ex) 
+                {
+                    Logger.getLogger(AdminClientsAndProjectsController.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(null, "Couldn't delete project from the database" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
+                }
+            }  
         }
+        
+        
     }
 
     /**

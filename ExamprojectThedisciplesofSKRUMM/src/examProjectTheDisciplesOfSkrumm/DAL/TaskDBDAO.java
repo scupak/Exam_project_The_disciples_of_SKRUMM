@@ -65,8 +65,9 @@ public class TaskDBDAO implements TaskDBDAOInterface
             {
                 int id = rs.getInt("id");
                 String title = rs.getString("title");
-                Project project = projectDBDAO.getProject(new Project(rs.getInt("ProjectID"), title, new Client(id, title, id, id), id));
+                Project project = projectDBDAO.getProject(new Project(rs.getInt("ProjectID"), title, new Client(id, title, id, id), id, id));
                 int duration = rs.getInt("duration");
+                int isPaid = rs.getInt("isPaid");
                 String clientName = project.getClientName();
                 LocalDateTime lastUsed = rs.getTimestamp("lastUsed").toLocalDateTime();
                 LocalDate creationDate = rs.getDate("creationDate").toLocalDate();
@@ -79,9 +80,9 @@ public class TaskDBDAO implements TaskDBDAOInterface
 
                 User user = userDBDAO.getUser(new User(userEmail, clientName, clientName, title, false));
 
-                intervals.addAll(getIntervals(new Task(id, title, project, duration, lastUsed, creationDate, startTime, stopTime, user, intervals)));
+                intervals.addAll(getIntervals(new Task(id, title, project,isPaid, duration, lastUsed, creationDate, startTime, stopTime, user, intervals)));
 
-                returntasks.add(new Task(id, title, project, duration, lastUsed, creationDate, startTime, stopTime, user, intervals));
+                returntasks.add(new Task(id, title, project,isPaid, duration, lastUsed, creationDate, startTime, stopTime, user, intervals));
             }
             
 
@@ -100,6 +101,7 @@ public class TaskDBDAO implements TaskDBDAOInterface
      * @return true if it already exists, false otherwise
      * @throws SQLException 
      */
+    @Override
     public boolean taskExist(Task task) throws SQLException
     {
         Connection con = conPool.checkOut();
@@ -138,8 +140,8 @@ public class TaskDBDAO implements TaskDBDAOInterface
         try
         {
             PreparedStatement ps = con.prepareStatement("INSERT INTO [task]"
-                    + "(title, projectID, lastUsed, CreationDate, startTime, stopTime, duration, userEmail)"
-                    + "VALUES (?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+                    + "(title, projectID, lastUsed, CreationDate, startTime, stopTime, duration, userEmail, isPaid)"
+                    + "VALUES (?,?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
 
             ps.setString(1, task.getTitle());
             ps.setInt(2, task.getProject().getId());
@@ -149,6 +151,7 @@ public class TaskDBDAO implements TaskDBDAOInterface
             ps.setTimestamp(6, java.sql.Timestamp.valueOf(task.getStopTime()));
             ps.setInt(7, task.getDuration());
             ps.setString(8, task.getUserEmail());
+            ps.setInt(9, task.getIsPaid());
             ps.executeUpdate();
 
             ResultSet rs = ps.getGeneratedKeys();
@@ -267,7 +270,7 @@ public class TaskDBDAO implements TaskDBDAOInterface
         {
             PreparedStatement ps = con.prepareStatement("UPDATE [task] "
                     + "SET title = ?, projectID = ?, lastUsed = ?, creationDate = ?,"
-                    + " startTime = ?, stopTime = ?, duration = ?, userEmail = ?"
+                    + " startTime = ?, stopTime = ?, duration = ?, userEmail = ?, isPaid = ?"
                     + " WHERE id = ?");
             ps.setString(1, task.getTitle());
             ps.setInt(2, task.getProject().getId());
@@ -277,7 +280,8 @@ public class TaskDBDAO implements TaskDBDAOInterface
             ps.setTimestamp(6, java.sql.Timestamp.valueOf(task.getStopTime()));
             ps.setInt(7, task.getDuration());
             ps.setString(8, task.getUserEmail());
-            ps.setInt(9, task.getId());
+            ps.setInt(9, task.getIsPaid());
+            ps.setInt(10, task.getId());
 
             int updatedRows = ps.executeUpdate();
             
@@ -325,8 +329,9 @@ public class TaskDBDAO implements TaskDBDAOInterface
             if (rs.next())
             {
                 String title = rs.getString("title");
-                Project project = projectDBDAO.getProject(new Project(rs.getInt("projectID"), title, new Client(0, title, 0, 0), 0));
+                Project project = projectDBDAO.getProject(new Project(rs.getInt("projectID"), title, new Client(0, title, 0, 0), 0, 0));
                 int duration = rs.getInt("duration");
+                int isPaid = rs.getInt("isPaid");
                 String projectName = project.getProjectName();
                 String clientName = project.getClientName();
                 LocalDateTime lastUsed = rs.getTimestamp("lastUsed").toLocalDateTime();
@@ -337,7 +342,7 @@ public class TaskDBDAO implements TaskDBDAOInterface
                 intervals = getIntervals(task);
                 User user = userDBDAO.getUser(new User(userEmail, clientName, clientName, title, true));
 
-                returnTask = new Task(task.getId(), title, project, duration, lastUsed, creationDate, startTime, stopTime, user, intervals);
+                returnTask = new Task(task.getId(), title, project, isPaid, duration, lastUsed, creationDate, startTime, stopTime, user, intervals);
 
             }
 
@@ -373,8 +378,9 @@ public class TaskDBDAO implements TaskDBDAOInterface
             {
                 int id = rs.getInt("id");
                 String title = rs.getString("title");
-                Project project = projectDBDAO.getProject(new Project(rs.getInt("ProjectID"), title, new Client(id, title, id, id), id));
+                Project project = projectDBDAO.getProject(new Project(rs.getInt("ProjectID"), title, new Client(id, title, id, id), id, id));
                 int duration = rs.getInt("duration");
+                int isPaid = rs.getInt("isPaid");
                 LocalDateTime lastUsed = rs.getTimestamp("lastUsed").toLocalDateTime();
                 LocalDate creationDate = rs.getDate("creationDate").toLocalDate();
                 LocalDateTime startTime = rs.getTimestamp("startTime").toLocalDateTime();
@@ -384,9 +390,9 @@ public class TaskDBDAO implements TaskDBDAOInterface
                 
                 ArrayList<Interval> intervals = new ArrayList<>();
                 
-                intervals.addAll(getIntervals(new Task(id, title, project, duration, lastUsed, creationDate, startTime, stopTime, user, intervals)));
+                intervals.addAll(getIntervals(new Task(id, title, project, isPaid, duration, lastUsed, creationDate, startTime, stopTime, user, intervals)));
                 
-                tasks.add(new Task(id, title, project, duration, lastUsed, creationDate, startTime, stopTime, user1, intervals));
+                tasks.add(new Task(id, title, project, isPaid, duration, lastUsed, creationDate, startTime, stopTime, user1, intervals));
 
             }
             if (tasks.isEmpty())
@@ -445,17 +451,18 @@ public class TaskDBDAO implements TaskDBDAOInterface
                 int id = rs.getInt("id");
                 String title = rs.getString("title");
                 Project project = projectDBDAO.getProject(new Project(rs.getInt("ProjectID"), title, new Client(id, title, id,
-                        id), id));
+                        id), id, id));
                 int duration = rs.getInt("duration");
+                int isPaid = rs.getInt("isPaid");
                 LocalDateTime lastUsed = rs.getTimestamp("lastUsed").toLocalDateTime();
                 LocalDate creationDate = rs.getDate("creationDate").toLocalDate();
                 LocalDateTime startTime = rs.getTimestamp("startTime").toLocalDateTime();
                 LocalDateTime stopTime = rs.getTimestamp("stopTime").toLocalDateTime();
-                ArrayList<Interval> intervals = getIntervals(new Task(id, title, project, duration, lastUsed, 
+                ArrayList<Interval> intervals = getIntervals(new Task(id, title, project, isPaid, duration, lastUsed, 
                         creationDate, startTime, stopTime, user));
                 String userEmail = rs.getString("userEmail");
                 User user1 = userDBDAO.getUser(new User(userEmail, "22", "22", title, false));
-                tasks.add(new Task(id, title, project, duration, lastUsed, creationDate, startTime, 
+                tasks.add(new Task(id, title, project, isPaid, duration, lastUsed, creationDate, startTime, 
                         stopTime, user1, intervals));
 
             }
@@ -735,7 +742,7 @@ public class TaskDBDAO implements TaskDBDAOInterface
         {
 
             
-                sqlString = "SELECT DISTINCT  interval.taskId, task.id , task.creationDate,task.duration, task.lastUsed , task.projectID , task.startTime, task.stopTime, task.title, task.userEmail "
+                sqlString = "SELECT DISTINCT  interval.taskId, task.id , task.creationDate,task.duration, task.lastUsed , task.projectID , task.startTime, task.stopTime, task.title, task.userEmail, task.isPaid "
                         + "FROM task "
                         + "LEFT OUTER JOIN interval on interval.taskId = task.id "
                         + "WHERE  task.userEmail = ? AND CAST(interval.startTime AS date) <= ? AND ? <= CAST(interval.stopTime AS date)  OR task.userEmail = ? AND task.creationDate >= ? AND task.creationDate <= ? "
@@ -758,21 +765,22 @@ public class TaskDBDAO implements TaskDBDAOInterface
                 int id = rs.getInt("id");
                 String title = rs.getString("title");
                 Project project = projectDBDAO.getProject(new Project(rs.getInt("ProjectID"), title, new Client(id, title, id,
-                        id), id));
+                        id), id, id));
                 int duration = rs.getInt("duration");
+                int isPaid = rs.getInt("isPaid");
                 LocalDateTime lastUsed = rs.getTimestamp("lastUsed").toLocalDateTime();
                 LocalDate creationDate = rs.getDate("creationDate").toLocalDate();
                 LocalDateTime startTime = rs.getTimestamp("startTime").toLocalDateTime();
                 LocalDateTime stopTime = rs.getTimestamp("stopTime").toLocalDateTime();
                 //make the from date to date dal method work for intervals
-                ArrayList<Interval> intervals = getIntervalsbetween2Dates(new Task(id, title, project, duration, lastUsed, 
+                ArrayList<Interval> intervals = getIntervalsbetween2Dates(new Task(id, title, project, isPaid, duration, lastUsed, 
                         creationDate, startTime, stopTime, user),fromdate,todate);
                 
                 String userEmail = rs.getString("userEmail");
                 
                 User user1 = userDBDAO.getUser(new User(userEmail, "22", "22", title, false));
                 
-                tasks.add(new Task(id, title, project, duration, lastUsed, creationDate, startTime, 
+                tasks.add(new Task(id, title, project, isPaid, duration, lastUsed, creationDate, startTime, 
                         stopTime, user1, intervals));
 
             }
@@ -843,8 +851,14 @@ public class TaskDBDAO implements TaskDBDAOInterface
           User user = new User("standard@user.now", "kok", "kok", "kok", true);
           ArrayList<Interval> intervals = new ArrayList<>();
           Client client = new Client(1, "why", 0, 0);
-          Project project = new Project(2, "reeeeeeee", client, 0);
-          Task task = new Task(2, "rjo", project, 50, LocalDateTime.now(), LocalDate.now(), LocalDateTime.now(), LocalDateTime.now(), user, intervals);
+          Project project = new Project(2, "reeeeeeee", client, 0, 1);
+          Task task = new Task(2, "rjo", project, 1, 50, LocalDateTime.now(), LocalDate.now(), LocalDateTime.now(), LocalDateTime.now(), user, intervals);
+          for (Task t : taskDBDAO.getTasksForUserbetween2Dates(user, LocalDate.now(), LocalDate.now()))
+        {
+            System.out.println("Printing");
+            System.out.println(t);
+        }
+          
     }
 
     /**
@@ -869,8 +883,9 @@ public class TaskDBDAO implements TaskDBDAOInterface
             {
                 int id = rs.getInt("id");
                 String title = rs.getString("title");
-                Project projectoid = projectDBDAO.getProject(new Project(rs.getInt("ProjectID"), title, new Client(id, title, id, id), id));
+                Project projectoid = projectDBDAO.getProject(new Project(rs.getInt("ProjectID"), title, new Client(id, title, id, id), id, id));
                 int duration = rs.getInt("duration");
+                int isPaid = rs.getInt("isPaid");
                 String clientName = project.getClientName();
                 LocalDateTime lastUsed = rs.getTimestamp("lastUsed").toLocalDateTime();
                 LocalDate creationDate = rs.getDate("creationDate").toLocalDate();
@@ -883,9 +898,9 @@ public class TaskDBDAO implements TaskDBDAOInterface
 
                 User user = userDBDAO.getUser(new User(userEmail, clientName, clientName, title, false));
 
-                intervals.addAll(getIntervals(new Task(id, title, project, duration, lastUsed, creationDate, startTime, stopTime, user, intervals)));
+                intervals.addAll(getIntervals(new Task(id, title, project, isPaid, duration, lastUsed, creationDate, startTime, stopTime, user, intervals)));
 
-                returntasks.add(new Task(id, title, project, duration, lastUsed, creationDate, startTime, stopTime, user, intervals));
+                returntasks.add(new Task(id, title, project, isPaid, duration, lastUsed, creationDate, startTime, stopTime, user, intervals));
             }
 
             return returntasks;

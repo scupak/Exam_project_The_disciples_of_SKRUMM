@@ -4,6 +4,7 @@ package examProjectTheDisciplesOfSkrumm.GUI.controller;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
+import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXTextField;
 import examProjectTheDisciplesOfSkrumm.BE.Project;
 import examProjectTheDisciplesOfSkrumm.BE.Task;
@@ -19,6 +20,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ToggleGroup;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javax.swing.JOptionPane;
 
@@ -42,6 +45,10 @@ public class EditTaskController implements Initializable
     private JFXComboBox<Project> editProjectCombobox;
     @FXML
     private JFXDatePicker creationDatePicker;
+    @FXML
+    private JFXRadioButton paid;
+    @FXML
+    private JFXRadioButton notPaid;
     
 
     /**
@@ -79,6 +86,7 @@ public class EditTaskController implements Initializable
                 editTask.setTitle(editTitleTextField.getText());
                 editTask.setProject(editProjectCombobox.getValue());
                 editTask.setCreationDate(creationDatePicker.getValue());
+                editTask.setIsPaid(getIsPaid());
             
                 modelfacade.updateTask(editTask);
                 Stage stage = (Stage) editTaskBtn.getScene().getWindow();
@@ -124,6 +132,20 @@ public class EditTaskController implements Initializable
         this.editTask = editTask;
         
         editProjectCombobox.getItems().addAll(modelfacade.getProjects());
+        final ToggleGroup group = new ToggleGroup();
+        paid.setToggleGroup(group);
+        notPaid.setToggleGroup(group);
+         if (editTask.getIsPaid() == 0)
+        {
+            notPaid.setSelected(true);
+        } else if (editTask.getIsPaid() == 1)
+        {
+            paid.setSelected(true);
+        }
+        paid.selectedColorProperty().set(Color.rgb(67, 90, 154));
+        paid.setUnSelectedColor(Color.rgb(67, 90, 154));
+        notPaid.selectedColorProperty().set(Color.rgb(67, 90, 154));
+        notPaid.setUnSelectedColor(Color.rgb(67, 90, 154));
         editTitleTextField.setText(editTask.getTitle()); 
         creationDatePicker.setValue(editTask.getCreationDate());
         
@@ -136,5 +158,51 @@ public class EditTaskController implements Initializable
                 editProjectCombobox.setValue(editProjectCombobox.getItems().get(index));
             }
         }
+        
+        
+    }
+
+    @FXML
+    private void handleCombobox(ActionEvent event)
+    {
+        if (editProjectCombobox.getValue().getIsPaid() == 0)
+        {
+            notPaid.setSelected(true);
+            
+        } else if (editProjectCombobox.getValue().getIsPaid() == 1)
+        {
+            paid.setSelected(true);
+        }
+        
+    }
+    
+     /**
+     * Gives the value of the radiobuttons
+     * @return int
+     */
+    private int getIsPaid()
+    {
+        try
+        {
+            if(paid.isSelected())
+            {
+                return 1;
+            }
+            else if(notPaid.isSelected())
+            {
+                return 0;
+            }
+            else
+            {
+                throw new Exception();
+            }
+        }
+        catch (Exception ex)
+        {
+            Logger.getLogger(EditTaskController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Something went wrong with the radiobuttons" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
+            return 0;
+        }
+         
     }
 }

@@ -38,7 +38,7 @@ public class Task
     private User user;
     private ArrayList<Interval> intervals;
 
-    public Task(int id, String title, Project project, int duration, LocalDateTime lastUsed,
+    public Task(int id, String title, Project project, int isPaid, int duration, LocalDateTime lastUsed,
             LocalDate creationDate, LocalDateTime startTime, LocalDateTime stopTime, User user,
             ArrayList<Interval> intervals)
     {
@@ -48,7 +48,7 @@ public class Task
         this.duration = new SimpleIntegerProperty(duration);
         this.projectName = new SimpleStringProperty(project.getProjectName());
         this.clientName = new SimpleStringProperty(project.getClient().getClientName());
-        this.isPaid = new SimpleIntegerProperty(project.getIsPaid());
+        this.isPaid = new SimpleIntegerProperty(isPaid);
         this.formatedDuration = new SimpleStringProperty("");
         this.lastUsed = lastUsed;
         this.creationDate = creationDate;
@@ -58,7 +58,7 @@ public class Task
         this.intervals = intervals;
     }
 
-    public Task(int id, String title, Project project, int duration,
+    public Task(int id, String title, Project project, int isPaid, int duration,
             LocalDateTime lastUsed, LocalDate creationDate, LocalDateTime startTime, LocalDateTime stopTime, User user)
     {
         this.id = new SimpleIntegerProperty(id);
@@ -67,7 +67,7 @@ public class Task
         this.duration = new SimpleIntegerProperty(duration);
         this.projectName = new SimpleStringProperty(project.getProjectName());
         this.clientName = new SimpleStringProperty(project.getClient().getClientName());
-        this.isPaid = new SimpleIntegerProperty(project.getIsPaid());
+        this.isPaid = new SimpleIntegerProperty(isPaid);
         this.formatedDuration = new SimpleStringProperty("");
         this.lastUsed = lastUsed;
         this.creationDate = creationDate;
@@ -126,6 +126,13 @@ public class Task
     {
         return isPaid.get();
     }
+
+    public void setIsPaid(int isPaid)
+    {
+        this.isPaid.set(isPaid);
+    }
+    
+    
 
     /**
      * Formats the isPaid to a string

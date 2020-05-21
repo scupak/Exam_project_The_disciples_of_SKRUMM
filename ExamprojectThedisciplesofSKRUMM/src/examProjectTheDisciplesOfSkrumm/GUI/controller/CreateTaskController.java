@@ -3,6 +3,7 @@ package examProjectTheDisciplesOfSkrumm.GUI.controller;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXTextField;
 import examProjectTheDisciplesOfSkrumm.BE.Client;
 import examProjectTheDisciplesOfSkrumm.BE.Interval;
@@ -31,10 +32,12 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.TreeTableView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.converter.LocalDateTimeStringConverter;
 import javafx.util.converter.LocalTimeStringConverter;
@@ -57,6 +60,10 @@ public class CreateTaskController implements Initializable
     private JFXTextField titleTextField;
     @FXML
     private JFXComboBox<Project> projectCombobox;
+    @FXML
+    private JFXRadioButton paid;
+    @FXML
+    private JFXRadioButton notPaid;
     
 
    
@@ -81,6 +88,14 @@ public class CreateTaskController implements Initializable
             JOptionPane.showMessageDialog(null, "Failed to get an intance of modelfacade" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
         }
         projectCombobox.getItems().addAll(modelfacade.getProjects());
+        final ToggleGroup group = new ToggleGroup();
+        paid.setToggleGroup(group);
+        notPaid.setToggleGroup(group);
+        paid.setSelected(true);
+        paid.selectedColorProperty().set(Color.rgb(67, 90, 154));
+        paid.setUnSelectedColor(Color.rgb(67, 90, 154));
+        notPaid.selectedColorProperty().set(Color.rgb(67, 90, 154));
+        notPaid.setUnSelectedColor(Color.rgb(67, 90, 154));
         
         
       
@@ -99,6 +114,7 @@ public class CreateTaskController implements Initializable
             String title = titleTextField.getText();
             Project project = projectCombobox.getValue();
             int duration = 0;
+            int isPaid = getIsPaid();
             LocalDateTime lastUsed = LocalDateTime.now();
             LocalDate creationDate = LocalDate.now();
             LocalDateTime startTime = LocalDateTime.now();
@@ -107,7 +123,7 @@ public class CreateTaskController implements Initializable
             User user = modelfacade.getCurrentuser();
        
         
-            Task newtask = new Task(1, title, project, duration, lastUsed, creationDate, startTime, stopTime, user, intervals);
+            Task newtask = new Task(1, title, project, isPaid, duration, lastUsed, creationDate, startTime, stopTime, user, intervals);
                 
             //Create task should return the task it created
             modelfacade.createTask(newtask);
@@ -153,6 +169,10 @@ public class CreateTaskController implements Initializable
             stage.setTitle("TimeTracker");
             stage.showAndWait();
             projectCombobox.getItems().addAll(modelfacade.getProjects());
+            paid.selectedColorProperty().set(Color.rgb(67, 90, 154));
+        paid.setUnSelectedColor(Color.rgb(67, 90, 154));
+        notPaid.selectedColorProperty().set(Color.rgb(67, 90, 154));
+        notPaid.setUnSelectedColor(Color.rgb(67, 90, 154));
         }
         catch (IOException ex)
         {
@@ -164,5 +184,53 @@ public class CreateTaskController implements Initializable
             Logger.getLogger(CreateTaskController.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "Recived the wrong view type" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
         }
-    }  
+    }
+    
+     /**
+     * Gives the value of the radiobuttons
+     * @return int
+     */
+    private int getIsPaid()
+    {
+        try
+        {
+            if(paid.isSelected())
+            {
+                return 1;
+            }
+            else if(notPaid.isSelected())
+            {
+                return 0;
+            }
+            else
+            {
+                throw new Exception();
+            }
+        }
+        catch (Exception ex)
+        {
+            Logger.getLogger(CreateTaskController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Something went wrong with the radiobuttons" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
+            return 0;
+        }
+         
+    }
+
+    /**
+     * Makes sure the radiobuttons get set to the projets isPaid value
+     * @param event 
+     */
+    @FXML
+    private void handleCombobox(ActionEvent event)
+    {
+        if (projectCombobox.getValue().getIsPaid() == 0)
+        {
+            notPaid.setSelected(true);
+            
+        } else if (projectCombobox.getValue().getIsPaid() == 1)
+        {
+            paid.setSelected(true);
+        }
+        
+    }
 }
