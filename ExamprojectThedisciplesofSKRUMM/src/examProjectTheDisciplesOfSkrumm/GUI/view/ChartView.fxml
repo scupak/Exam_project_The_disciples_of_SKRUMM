@@ -25,7 +25,7 @@
                   </Label>
                   <HBox alignment="TOP_CENTER" prefHeight="30.0" prefWidth="638.0" spacing="5.0" styleClass="chart-bar">
                      <children>
-                        <JFXButton fx:id="backBtn" onAction="#handleBack" text="back main menu" textFill="WHITE" translateY="-1.0">
+                        <JFXButton fx:id="backBtn" onAction="#handleBack" text="Back to main menu" textFill="WHITE" translateY="-1.0">
                            <font>
                               <Font size="13.0" />
                            </font>
