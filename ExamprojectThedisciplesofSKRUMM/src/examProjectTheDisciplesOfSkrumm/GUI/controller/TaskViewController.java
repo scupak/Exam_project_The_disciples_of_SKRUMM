@@ -24,10 +24,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.DayOfWeek;
-import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutorService;
@@ -43,7 +41,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
@@ -810,7 +807,7 @@ public class TaskViewController implements Initializable
         {
             JOptionPane optionPane = new JOptionPane();
             JDialog dialog = optionPane.createDialog(null, "ERROR");
-            optionPane.setMessage("The end date cannot be before the from date!");
+            optionPane.setMessage("The end date cannot be \n before the from date!");
             optionPane.setMessageType(JOptionPane.ERROR_MESSAGE);
             dialog.setAlwaysOnTop(true);
             dialog.setVisible(true);
@@ -836,7 +833,7 @@ public class TaskViewController implements Initializable
         {
             JOptionPane optionPane = new JOptionPane();
             JDialog dialog = optionPane.createDialog(null, "ERROR");
-            optionPane.setMessage("The end date cannot be before the from date!");
+            optionPane.setMessage("The end date cannot be \n before the from date!");
             optionPane.setMessageType(JOptionPane.ERROR_MESSAGE);
             dialog.setAlwaysOnTop(true);
             dialog.setVisible(true);

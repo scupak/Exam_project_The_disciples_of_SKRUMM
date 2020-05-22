@@ -33,6 +33,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
 /**
@@ -62,6 +63,7 @@ public class ChartViewController implements Initializable
     private Project currentProject;
     @FXML
     private CategoryAxis xAxisInBarChart;
+    private boolean manualBolean = false;
 
     /**
      * Initialises the modelfacade and sets the default stardate and enddate.
@@ -224,7 +226,22 @@ public class ChartViewController implements Initializable
     @FXML
     private void handleDatepickerAction(ActionEvent event)
     {
+         int result = startDate.getValue().compareTo(endDate.getValue());
+        if (result > 0 && manualBolean == false)
+        {
+            JOptionPane optionPane = new JOptionPane();
+            JDialog dialog = optionPane.createDialog(null, "ERROR");
+            optionPane.setMessage("The end date cannot be \n before the from date!");
+            optionPane.setMessageType(JOptionPane.ERROR_MESSAGE);
+            dialog.setAlwaysOnTop(true);
+            dialog.setVisible(true);
+            endDate.setValue(LocalDate.now());
+            startDate.setValue(LocalDate.now());
+        }
+        else
+        {
         handleBarChart();
+        }
     }
 
     /**
@@ -282,24 +299,44 @@ public class ChartViewController implements Initializable
     @FXML
     private void handleLastMonth(ActionEvent event)
     {
-        startDate.setValue(LocalDate.now().minusMonths(1).withDayOfMonth(1));
-        endDate.setValue(LocalDate.now().minusMonths(1).
+        manualBolean = true;
+        
+        
+         startDate.setValue(LocalDate.now().minusMonths(1).withDayOfMonth(1));
+         endDate.setValue(LocalDate.now().minusMonths(1).
                 withDayOfMonth(LocalDate.now().minusMonths(1).lengthOfMonth()));
+         
+         
+        manualBolean = false;
+        
+       
+        
       
     }
 
     @FXML
     private void handleLastWeek(ActionEvent event)
     {
+         manualBolean = true;
+        
         startDate.setValue(LocalDate.now().minusWeeks(1).with(DayOfWeek.MONDAY));
         endDate.setValue(LocalDate.now().minusWeeks(1).with(DayOfWeek.SUNDAY));
+        
+         manualBolean = false;
     }
 
     @FXML
     private void handleCurrentWeek(ActionEvent event)
-    {
+    { 
+        
+        manualBolean = true;
+        
+        
         startDate.setValue(LocalDate.now().with(DayOfWeek.MONDAY));
         endDate.setValue(LocalDate.now().with(DayOfWeek.SUNDAY));
+        
+        
+        manualBolean = false;
     }
     
 
