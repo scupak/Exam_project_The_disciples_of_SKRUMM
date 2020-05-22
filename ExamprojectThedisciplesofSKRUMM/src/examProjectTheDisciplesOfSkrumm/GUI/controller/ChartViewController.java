@@ -134,6 +134,8 @@ public class ChartViewController implements Initializable
         ExecutorService executor = Executors.newSingleThreadExecutor();
         executor.submit(() -> 
         {
+            
+            
             if(currentProject != null)
             {
                 try 
@@ -212,8 +214,13 @@ public class ChartViewController implements Initializable
                        JOptionPane.showMessageDialog(null, "Failed to get data from database" + ex,"ERROR!", JOptionPane.ERROR_MESSAGE);
                     });
                 }
-            }       
+            }
+            
+            
+            Thread.currentThread().setDaemon(true);
+            System.err.println("is deamon" + Thread.currentThread().isDaemon());
         });
+        
         executor.shutdown();
     }
 

@@ -2,11 +2,9 @@
 package examProjectTheDisciplesOfSkrumm.GUI.controller;
 
 import com.jfoenix.controls.JFXButton;
-import examProjectTheDisciplesOfSkrumm.BE.Task;
 import examProjectTheDisciplesOfSkrumm.BE.User;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.ModelFacadeInterface;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.ModelFacade;
-import examProjectTheDisciplesOfSkrumm.enums.UserMode;
 import examProjectTheDisciplesOfSkrumm.enums.ViewTypes;
 import java.io.IOException;
 import java.net.URL;
@@ -26,10 +24,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TreeItem;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -367,6 +363,9 @@ public class AdminUserViewController implements Initializable
                         FXMLLoader loader = modelfacade.getLoader(ViewTypes.TASK);
                         Parent root = loader.load();
                         TaskViewController controller = loader.getController();
+                        
+                        //Set the HeaderLabel to the name of the selected user so it is clear which user's tasks the admin is currently looking at. 
+                        controller.getHeaderLabel().setText("Tasks for:" + " " + clickedUser.getFirstName() + " " + clickedUser.getLastName());
                         
                         Stage stage = new Stage();
                         stage.setScene(new Scene(root));

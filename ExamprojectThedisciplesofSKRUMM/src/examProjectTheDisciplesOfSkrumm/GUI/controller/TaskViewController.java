@@ -113,6 +113,8 @@ public class TaskViewController implements Initializable
     private TreeTableColumn LastUsedColumn;
     @FXML
     private JFXButton editTaskBtn;
+    @FXML
+    private Label HeaderLabel;
     
     
     /**
@@ -880,6 +882,16 @@ public class TaskViewController implements Initializable
     {
         return editTaskBtn;
     }
+
+    /**
+     * getter method for the HeaderLabel
+     * @return HeaderLabel
+     */
+    public Label getHeaderLabel() {
+        return HeaderLabel;
+    }
+    
+    
     
     
     
