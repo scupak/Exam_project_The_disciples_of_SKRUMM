@@ -92,7 +92,7 @@ public class ChartViewController implements Initializable
         endDate.setValue(LocalDate.now().with(DayOfWeek.SUNDAY));
         
          manualBolean = false;
-        handleBarChart();
+         handleBarChart();
     }
 
     /**
