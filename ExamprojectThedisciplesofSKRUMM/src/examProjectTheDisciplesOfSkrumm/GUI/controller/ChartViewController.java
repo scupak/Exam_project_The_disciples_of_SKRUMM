@@ -86,8 +86,12 @@ public class ChartViewController implements Initializable
         
         
         xAxisInBarChart.setAnimated(false);
-        startDate.setValue(LocalDate.now());
-        endDate.setValue(LocalDate.now());
+        manualBolean = true;
+        
+        startDate.setValue(LocalDate.now().with(DayOfWeek.MONDAY));
+        endDate.setValue(LocalDate.now().with(DayOfWeek.SUNDAY));
+        
+         manualBolean = false;
         handleBarChart();
     }
 
