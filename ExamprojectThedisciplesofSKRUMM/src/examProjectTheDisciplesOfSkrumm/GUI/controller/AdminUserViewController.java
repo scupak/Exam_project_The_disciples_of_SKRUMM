@@ -65,6 +65,8 @@ public class AdminUserViewController implements Initializable
 
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb)
@@ -217,7 +219,7 @@ public class AdminUserViewController implements Initializable
         } catch (SQLException ex)
         {
             Logger.getLogger(AdminUserViewController.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(dialog, "Database connection error\n Error code; Karl\n" + ex, "Karl", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(dialog, "Database connection error\n" + ex, "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -259,7 +261,7 @@ public class AdminUserViewController implements Initializable
             catch (SQLException ex) 
             {
                 Logger.getLogger(AdminUserViewController.class.getName()).log(Level.SEVERE, null, ex);
-                JOptionPane.showMessageDialog(dialog, "Database connection error\n Error code; Karl\n" + ex, "Karl", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(dialog, "Database connection error\n " + ex, "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
@@ -291,12 +293,12 @@ public class AdminUserViewController implements Initializable
         catch (IOException ex)
         {
             Logger.getLogger(AdminUserViewController.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "Couln't load the view" + ex, "Karl", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Couln't load the view" + ex, "Error", JOptionPane.ERROR_MESSAGE);
         } 
         catch (Exception ex)
         {
             Logger.getLogger(AdminUserViewController.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "Wrong viewtype given" + ex, "Karl", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Wrong viewtype given" + ex, "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
