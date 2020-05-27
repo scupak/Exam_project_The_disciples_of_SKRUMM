@@ -26,7 +26,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import javax.swing.JOptionPane;
 
@@ -51,7 +50,6 @@ public class LoginViewController implements Initializable {
    
     /**
      * 
-     * @throws Exception 
      */
     public LoginViewController()
     {
@@ -67,6 +65,8 @@ public class LoginViewController implements Initializable {
     }
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) 
