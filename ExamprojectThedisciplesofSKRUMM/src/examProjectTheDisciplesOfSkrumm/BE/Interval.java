@@ -181,12 +181,12 @@ public class Interval
     
     public String getFormatedStartTime()
     {
-        return startTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        return startTime.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss"));
     }
     
     public String getFormatedStopTime()
     {
-        return stopTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        return stopTime.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss"));
     }
 
     /**

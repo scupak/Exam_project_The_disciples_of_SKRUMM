@@ -79,9 +79,6 @@ public abstract class ObjectPool<T>
     {
         locked.remove(t);
         unlocked.put(t, System.currentTimeMillis());
-        System.out.println("###################################");
-        System.out.println("Size of locked" + locked.size());
-        System.out.println("Size of unlocked" + unlocked.size());
-        System.out.println("###################################");
+        
     }
 }

@@ -103,11 +103,11 @@ public class TimerUtil implements Runnable
 
                         totalTimeString = String.format("%02d", hour) + ":" + String.format("%02d", min) + ":" + String.format("%02d", sec);
                         intervalTimeString = String.format("%02d", intervalhour) + ":" + String.format("%02d", intervalmin) + ":" + String.format("%02d", intervalsec);
-                        System.out.println("totalTimeString" + "    " +totalTimeString);
-                        System.out.println("intervalTimeString" + "    " +intervalTimeString);
-                        System.out.println("totalSec" + "    " + totalSec);
-                        System.out.println("intervalsec" + "    " + intervalsec);
-                        System.out.println(currenttask);
+//                        System.out.println("totalTimeString" + "    " +totalTimeString);
+//                        System.out.println("intervalTimeString" + "    " +intervalTimeString);
+//                        System.out.println("totalSec" + "    " + totalSec);
+//                        System.out.println("intervalsec" + "    " + intervalsec);
+//                        System.out.println(currenttask);
                         
                             if(totaltimeLabel != null){
                             Platform.runLater (() -> 
@@ -127,7 +127,7 @@ public class TimerUtil implements Runnable
                             });
                         }
                             if( intervalLabel == null){
-                            System.out.println("Nonexistant intervalLabel is nonexistant, putting relevant data into time String. This is a Null Pointer");
+//                            System.out.println("Nonexistant intervalLabel is nonexistant, putting relevant data into time String. This is a Null Pointer");
                             } 
                     }
                     catch (InterruptedException e){
