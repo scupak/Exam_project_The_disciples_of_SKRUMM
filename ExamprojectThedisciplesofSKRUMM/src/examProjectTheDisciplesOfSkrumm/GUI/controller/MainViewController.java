@@ -15,7 +15,6 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -38,7 +37,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -594,7 +592,9 @@ public class MainViewController implements Initializable
                     stopTime = LocalDateTime.now();
                     currentTask = modelfacade.getTimerutil().getCurrenttask();
                     
-                    Interval taskInterval = new Interval(0, modelfacade.getTimerutil().getStartTime().withNano(0), stopTime.withNano(0), LocalDate.now(), modelfacade.getTimerutil().getTotalIntervalSec(), currentTask, currentTask.getIsPaid());
+                    Interval taskInterval = new Interval(0, modelfacade.getTimerutil().getStartTime().withNano(0), 
+                             stopTime.withNano(0), LocalDate.now(), modelfacade.getTimerutil().getTotalIntervalSec(), 
+                            currentTask, currentTask.getIsPaid());
                     
                     combo.getItems().add(taskInterval);
                     combo.getItems().sort(Comparator
