@@ -287,7 +287,8 @@ public class TaskDBDAO implements TaskDBDAOInterface
             
             if( updatedRows > 0){
                 
-                logDBDAO.createLog(task.getUserEmail() +"-"+ "update task successful" +"-"+ task.getProjectName() +"-"+ task.getTitle() + "-" + "SUCCESS");
+                logDBDAO.createLog(task.getUserEmail() 
+                +"-"+ "update task successful" +"-"+ task.getProjectName() +"-"+ task.getTitle() + "-" + "SUCCESS");
             
             
             }
