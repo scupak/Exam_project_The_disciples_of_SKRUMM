@@ -21,8 +21,6 @@ import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.chart.XYChart;
-import javafx.scene.chart.XYChart.Series;
-import javafx.scene.control.Tooltip;
 
 /**
  *
