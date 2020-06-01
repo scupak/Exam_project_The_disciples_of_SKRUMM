@@ -2,6 +2,7 @@
 package examProjectTheDisciplesOfSkrumm.GUI.controller;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXTextField;
 import examProjectTheDisciplesOfSkrumm.BE.Client;
@@ -22,7 +23,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -50,7 +50,7 @@ public class AddProjectViewController implements Initializable
     @FXML
     private JFXButton addClientButton;
     @FXML
-    private ComboBox<Client> clientComboBox;
+    private JFXComboBox<Client> clientComboBox;
     @FXML
     private JFXRadioButton paid;
     @FXML
@@ -228,6 +228,7 @@ public class AddProjectViewController implements Initializable
     @FXML
     private void handleCombobox(ActionEvent event)
     {
+        if(clientComboBox.getValue() != null){
         if (clientComboBox.getValue().getIsPaid() == 0)
         {
             notPaid.setSelected(true);
@@ -237,6 +238,7 @@ public class AddProjectViewController implements Initializable
         {
             paid.setSelected(true);
             ProjectRateTextField.setDisable(false);
+        }
         }
     }
     

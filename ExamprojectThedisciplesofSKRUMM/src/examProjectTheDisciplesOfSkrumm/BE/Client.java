@@ -151,7 +151,9 @@ public class Client
     @Override
     public String toString()
     {
-        return "" + id.get() + "  " + "" + ClientName.get() + "   " + "" + ClientRate.get() + "   " + "" + isPaid.get();
+        String ispaid;
+        ispaid =  isPaid.get() == 0 ? "Not Paid" : "Paid";
+        return   id.get() + "  |  " + ClientName.get() + "  |  " + ClientRate.get() + "  |  " + ispaid;
     }
 
 }

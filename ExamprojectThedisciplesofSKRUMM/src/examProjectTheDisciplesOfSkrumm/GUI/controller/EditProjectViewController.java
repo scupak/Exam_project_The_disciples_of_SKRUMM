@@ -2,6 +2,7 @@
 package examProjectTheDisciplesOfSkrumm.GUI.controller;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXTextField;
 import examProjectTheDisciplesOfSkrumm.GUI.Model.Interface.ModelFacadeInterface;
@@ -22,8 +23,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -48,7 +47,7 @@ public class EditProjectViewController implements Initializable
     @FXML
     private JFXButton addClientButton;
     @FXML
-    private ComboBox<Client> clientComboBox;
+    private JFXComboBox<Client> clientComboBox;
     
     private ModelFacadeInterface modelfacade;
      
@@ -217,6 +216,7 @@ public class EditProjectViewController implements Initializable
     @FXML
     private void handleCombobox(ActionEvent event)
     {
+        if(clientComboBox.getValue() != null){
         if (clientComboBox.getValue().getIsPaid() == 0)
         {
             notPaid.setSelected(true);
@@ -226,6 +226,7 @@ public class EditProjectViewController implements Initializable
         {
             paid.setSelected(true);
             ProjectRateTextField.setDisable(false);
+        }
         }
     }
 
@@ -270,6 +271,16 @@ public class EditProjectViewController implements Initializable
         } else if (project.getIsPaid() == 1)
         {
             paid.setSelected(true);
+        }
+        
+        for (Client item : clientComboBox.getItems())
+        {
+            if(item.getId() == project.getClient().getId())
+            {
+                int index = clientComboBox.getItems().indexOf(item);
+                clientComboBox.getSelectionModel().select(index);
+                clientComboBox.setValue(clientComboBox.getItems().get(index));
+            }
         }
     }
     /**

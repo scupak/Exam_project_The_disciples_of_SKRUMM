@@ -327,7 +327,7 @@ public class AdminClientsAndProjectsController implements Initializable
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.setTitle("Create Project");
-            stage.setMinWidth(300);
+            stage.setMinWidth(320);
             stage.setMinHeight(250);
             stage.showAndWait();
             RefreshTableView();
@@ -367,7 +367,7 @@ public class AdminClientsAndProjectsController implements Initializable
                 Stage stage = new Stage();
                 stage.setScene(new Scene(root));
                 stage.setTitle("Edit Project");
-                stage.setMinWidth(300);
+                stage.setMinWidth(350);
                 stage.setMinHeight(250);
                 stage.showAndWait();
                 RefreshTableView();
