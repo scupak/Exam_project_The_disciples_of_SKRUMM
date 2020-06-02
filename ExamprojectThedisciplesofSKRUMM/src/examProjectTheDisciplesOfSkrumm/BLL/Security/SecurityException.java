@@ -6,7 +6,8 @@
 package examProjectTheDisciplesOfSkrumm.BLL.Security;
 
 /**
- *
+ * this is class was provided from the groups teacher Peter Stegger
+ * github: https://github.com/Stegger/SteggersStudentRegistration/tree/master/src/steggersstudentregistration/bll/security
  * @author SKRUMM
  */
 public class SecurityException extends RuntimeException

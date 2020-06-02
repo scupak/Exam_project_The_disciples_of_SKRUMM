@@ -11,7 +11,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 /**
- *
+ * this is class was provided from the groups teacher Peter Stegger
+ * github: https://github.com/Stegger/SteggersStudentRegistration/tree/master/src/steggersstudentregistration/bll/security
  * @author SKRUMM
  */
 public class SecurityManager implements SecurityManagerInterface
