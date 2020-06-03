@@ -42,7 +42,8 @@ public class LogDBDAO implements LogDBDAOInterface{
 
         try
         {
-            PreparedStatement ps = con.prepareStatement("SELECT TOP (100) * FROM [Log]");
+            
+            PreparedStatement ps = con.prepareStatement("SELECT TOP (100) * FROM [Log] ORDER BY [Log].timesStamp DESC ");
             ResultSet rs = ps.executeQuery();
 
             while (rs.next())
